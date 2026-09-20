@@ -1,12 +1,26 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="zh-CN" data-theme="light">
   <head>
     <meta charset="UTF-8">
     <link rel="icon" href="/StarYunFanSite/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seiga 的主页</title>
-    <script type="module" crossorigin src="/StarYunFanSite/assets/index-B5LVIdR1.js"></script>
-    <link rel="stylesheet" crossorigin href="/StarYunFanSite/assets/index-BaDqUdlr.css">
+    <meta name="description" content="Seiga 的个人站：笔记归档、学习时间线与项目记录。">
+    <meta name="theme-color" content="#f6f7f9">
+    <title>Seiga</title>
+    <script>
+      // 在样式生效前定好主题，避免深色模式下闪一下白屏
+      (function () {
+        try {
+          var stored = localStorage.getItem('site.theme');
+          var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+          document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        } catch (error) {
+          document.documentElement.dataset.theme = 'light';
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/StarYunFanSite/assets/index-Bl9NApdi.js"></script>
+    <link rel="stylesheet" crossorigin href="/StarYunFanSite/assets/index-Bm3FK241.css">
   </head>
   <body>
     <div id="app"></div>

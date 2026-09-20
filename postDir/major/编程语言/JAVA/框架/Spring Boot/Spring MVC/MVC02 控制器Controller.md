@@ -1,3 +1,4 @@
+# MVC02 控制器Controller
 ### 控制器Controller
 
 - 控制器复杂提供访问应用程序的行为，通常通过接口定义或注解定义两种方法实现。
@@ -81,7 +82,7 @@ http://127.0.0.1/item 更新,PUT
 
 http://127.0.0.1/item/1 删除,DELETE
 
-### PathVariable 
+### PathVariable
 
 在Spring MVC中可以使用  @PathVariable 注解，让方法参数的值对应绑定到一个URI模板变量上。
 ```java

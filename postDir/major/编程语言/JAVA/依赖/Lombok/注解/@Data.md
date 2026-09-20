@@ -1,3 +1,4 @@
+# @Data
 由lombok提供的一个为类中字段生成`getters`、`setters`、`toString`、`hashCode`、`equals`、`constructor`方法的注解
 
 - 为类中所有字段自动生成get方法

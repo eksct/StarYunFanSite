@@ -1,3 +1,4 @@
+# Spring Boot集成Redis
 ## 一、添加依赖
 
  Maven：
@@ -55,4 +56,3 @@ public class RedisConfig {
     }
 }
 ```
-

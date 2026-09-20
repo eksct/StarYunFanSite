@@ -54,7 +54,7 @@ docker commit <容器ID> <镜像名:标签>
 
 ## 镜像的基本操作
 
-### 1. **查看镜像**
+### 1. 查看镜像
 
 ```bash
 # 查看本地镜像
@@ -68,7 +68,7 @@ docker inspect <镜像名:标签>
 docker history <镜像名:标签>
 ```
 
-### 2. **搜索镜像**
+### 2. 搜索镜像
 
 ```bash
 # 在 Docker Hub 搜索镜像
@@ -76,7 +76,7 @@ docker search nginx
 docker search python
 ```
 
-### 3. **删除镜像**
+### 3. 删除镜像
 
 ```bash
 # 删除单个镜像
@@ -90,7 +90,7 @@ docker rmi $(docker images -q)
 docker image prune
 ```
 
-### 4. **镜像标签管理**
+### 4. 镜像标签管理
 
 ```bash
 # 给镜像打标签
@@ -104,7 +104,7 @@ docker tag nginx:latest mynginx:v1.0
 
 ## 获取镜像的方式
 
-### 1. **从远程仓库下载**
+### 1. 从远程仓库下载
 
 #### Docker Hub（官方公共仓库）
 
@@ -129,7 +129,7 @@ docker pull registry.company.com/myapp:v1.0
 docker login registry.company.com
 ```
 
-### 2. **自己制作**
+### 2. 自己制作
 
 使用 `Dockerfile` 定义镜像的构建步骤：
 
@@ -141,7 +141,7 @@ docker build -t myapp:1.0 .
 docker build -f /path/to/Dockerfile -t myapp:1.0 .
 ```
 
-### 3. **镜像导入导出**
+### 3. 镜像导入导出
 
 #### 导出镜像
 
@@ -170,7 +170,7 @@ gunzip -c myapp.tar.gz | docker load
 
 ## 镜像推送与分发
 
-### 1. **推送到 Docker Hub**
+### 1. 推送到 Docker Hub
 
 #### 准备工作
 
@@ -197,7 +197,7 @@ docker push yourusername/myapp:latest
 docker push yourusername/myapp:1.0
 ```
 
-### 2. **推送到私有仓库**
+### 2. 推送到私有仓库
 
 #### 搭建私有仓库
 
@@ -232,7 +232,7 @@ docker push localhost:5000/myapp:1.0
 docker pull localhost:5000/myapp:1.0
 ```
 
-### 3. **企业级镜像仓库**
+### 3. 企业级镜像仓库
 
 #### Harbor（推荐）
 
@@ -258,7 +258,7 @@ docker push nexus.company.com:8081/myapp:1.0
 
 ## 镜像的版本管理
 
-### 1. **标签策略**
+### 1. 标签策略
 
 ```bash
 # 语义化版本
@@ -280,7 +280,7 @@ myapp:main
 myapp:feature-auth
 ```
 
-### 2. **多架构镜像**
+### 2. 多架构镜像
 
 ```bash
 # 构建多架构镜像
@@ -288,7 +288,7 @@ docker buildx create --use
 docker buildx build --platform linux/amd64,linux/arm64 -t myapp:1.0 --push .
 ```
 
-### 3. **镜像签名**
+### 3. 镜像签名
 
 ```bash
 # 使用 Docker Content Trust
@@ -300,7 +300,7 @@ docker push myapp:1.0
 
 ## 镜像优化策略
 
-### 1. **选择合适的基础镜像**
+### 1. 选择合适的基础镜像
 
 ```dockerfile
 # 推荐：使用 Alpine
@@ -310,7 +310,7 @@ FROM python:3.10-alpine
 FROM ubuntu:20.04
 ```
 
-### 2. **多阶段构建**
+### 2. 多阶段构建
 
 ```dockerfile
 # 构建阶段
@@ -327,7 +327,7 @@ COPY . .
 CMD ["npm", "start"]
 ```
 
-### 3. **清理缓存**
+### 3. 清理缓存
 
 ```dockerfile
 RUN apt-get update && \
@@ -335,7 +335,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 ```
 
-### 4. **使用 .dockerignore**
+### 4. 使用 .dockerignore
 
 ```dockerignore
 .git
@@ -350,7 +350,7 @@ coverage/
 
 ## 镜像安全最佳实践
 
-### 1. **基础镜像安全**
+### 1. 基础镜像安全
 
 ```bash
 # 扫描镜像漏洞
@@ -360,7 +360,7 @@ docker scan myapp:1.0
 FROM python:3.10-slim
 ```
 
-### 2. **最小权限原则**
+### 2. 最小权限原则
 
 ```dockerfile
 # 创建非 root 用户
@@ -369,7 +369,7 @@ RUN adduser -S nextjs -u 1001
 USER nextjs
 ```
 
-### 3. **镜像签名验证**
+### 3. 镜像签名验证
 
 ```bash
 # 验证镜像签名
@@ -380,27 +380,27 @@ docker trust inspect myapp:1.0
 
 ## 常见问题
 
-### 1. **如何减小镜像大小？**
+### 1. 如何减小镜像大小？
 
 - 使用 Alpine 基础镜像
 - 多阶段构建
 - 清理不必要的文件和缓存
 - 使用 .dockerignore
 
-### 2. **如何提高镜像构建速度？**
+### 2. 如何提高镜像构建速度？
 
 - 合理利用层缓存
 - 并行安装依赖
 - 使用构建缓存
 - 优化 Dockerfile 指令顺序
 
-### 3. **如何管理镜像版本？**
+### 3. 如何管理镜像版本？
 
 - 使用语义化版本号
 - 为不同环境打不同标签
 - 定期清理旧版本镜像
 
-### 4. **如何备份和恢复镜像？**
+### 4. 如何备份和恢复镜像？
 
 ```bash
 # 备份

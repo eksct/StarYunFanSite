@@ -1,6 +1,7 @@
+# redis发布订阅
 ## 📌 Redis 发布/订阅（Pub/Sub）机制
 
-### **1. 概念**
+### 1. 概念
 
 - **发布者（Publisher）**：往某个 channel 发送消息。
     
@@ -13,7 +14,7 @@
 
 ---
 
-### **2. Redis 原生命令**
+### 2. Redis 原生命令
 
 - 订阅频道：
     
@@ -38,7 +39,7 @@
 
 ## 📌 Spring Data Redis 实现 Pub/Sub
 
-### **1. 发布消息**
+### 1. 发布消息
 
 直接用 `RedisTemplate.convertAndSend()`：
 
@@ -53,7 +54,7 @@ public void publishMessage(String channel, String message) {
 
 ---
 
-### **2. 订阅消息**
+### 2. 订阅消息
 
 在 Spring 里有两种常见方式：
 
@@ -100,7 +101,7 @@ Spring Boot 2.2+ 可以用 `@EnableRedisRepositories` + `@RedisHash` 方式，�
 
 ---
 
-### **3. 使用示例**
+### 3. 使用示例
 
 - 发布：
     

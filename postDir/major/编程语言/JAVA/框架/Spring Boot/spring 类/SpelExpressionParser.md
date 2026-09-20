@@ -1,5 +1,6 @@
+# SpelExpressionParser
 `SpelExpressionParser` 是 Spring 框架中的一个类，用于解析和执行 **Spring Expression Language (SpEL)** 表达式。SpEL 是一种强大的表达式语言，支持在运行时查询和操作对象图。可以使用 SpEL 来访问 Java 对象的属性、方法和字段，进行条件判断，甚至进行集合操作。
-## **1. SpEL 简介**
+## 1. SpEL 简介
 
 Spring Expression Language (SpEL) 是一种类似于 OGNL 或 JSP EL 的表达式语言；将一个字符串格式的 SpEL 表达式解析成一个**抽象语法树（AST）**，然后根据该 AST 来执行表达式。支持以下功能：
 
@@ -14,7 +15,7 @@ Spring Expression Language (SpEL) 是一种类似于 OGNL 或 JSP EL 的表达�
 - 支持正则表达式匹配。
     
 - 支持条件表达式（三元运算符）。
-## **2.SpEL 表达式示例**
+## 2.SpEL 表达式示例
 
 **创建：**
 `SpelExpressionParser` 是一个解析器，你需要创建它的实例来解析和执行表达式。
@@ -74,7 +75,7 @@ Expression expression = parser.parseExpression("#root.![#this * 2]");
 List<Integer> doubledNumbers = (List<Integer>) expression.getValue(numbers);
 System.out.println(doubledNumbers); // 输出: [2, 4, 6, 8, 10]
 ```
-## **3.使用EvaluationContext上下文**
+## 3.使用EvaluationContext上下文
 EvaluationContext是 SpEL 的上下文对象，用于存储变量和根对象。
 可以使用`StandardEvaluationContext`实例将对象设置为根对象，直接访问其属性与方法。
 **设置根对象**
@@ -106,7 +107,7 @@ Expression expression = parser.parseExpression("#list.[#this.length() > 5]");
 List<String> result = (List<String>) expression.getValue(context);
 System.out.println(result);  // 输出：[banana, cherry]
 ```
-## **4. SpEL 的应用场景**
+## 4. SpEL 的应用场景
 
 1. **配置文件中的动态值**：
 	- 在 Spring 配置文件中使用 SpEL 表达式动态注入值。

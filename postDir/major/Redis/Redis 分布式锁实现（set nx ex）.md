@@ -52,7 +52,7 @@ DEL key
 
 这样可能误删别人的锁！
 
-### 正确方式：**先判断 value 是否匹配，再删除（Lua 原子操作）**
+### 正确方式：先判断 value 是否匹配，再删除（Lua 原子操作）
 
 ```lua
 if redis.call("get", KEYS[1]) == ARGV[1] then

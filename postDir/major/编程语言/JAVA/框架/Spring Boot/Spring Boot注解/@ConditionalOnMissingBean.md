@@ -1,3 +1,4 @@
+# @ConditionalOnMissingBean
  是 Spring Boot 提供的一个 **条件化配置注解**，用于在容器中 **不存在指定 Bean 时** 才注册当前 Bean。
 
  ### **核心属性**

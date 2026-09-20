@@ -1,4 +1,5 @@
-## **1. Maven**
+# Lombok安装
+## 1. Maven
 
 ```xml
 <dependencies>
@@ -10,7 +11,7 @@
 	</dependency>
 </dependencies>
 ```
-## **2.Gradle**
+## 2.Gradle
 
 build.gradle下:
 ```gradle

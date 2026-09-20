@@ -25,7 +25,7 @@ docker build -f <dockerfile文件路径> -t <镜像名:TAG> <构建上下文>
 
 ## Dockerfile 常用指令详解
 
-### 1. **FROM**
+### 1. FROM
 
 指定基础镜像（必须是 Dockerfile 的第一条指令）。
 
@@ -35,7 +35,7 @@ FROM node:18-alpine
 FROM python:3.10-slim
 ```
 
-### 2. **LABEL**
+### 2. LABEL
 
 为镜像添加元数据（作者、版本、描述等）。
 
@@ -45,7 +45,7 @@ LABEL version="1.0"
 LABEL description="这是一个示例镜像"
 ```
 
-### 3. **RUN**
+### 3. RUN
 
 执行命令并生成新的镜像层（通常用于安装依赖）。
 
@@ -55,7 +55,7 @@ RUN npm install
 RUN pip install -r requirements.txt
 ```
 
-### 4. **WORKDIR**
+### 4. WORKDIR
 
 设置容器内的工作目录（相当于 `cd`）。
 
@@ -64,7 +64,7 @@ WORKDIR /app
 WORKDIR /usr/src/app
 ```
 
-### 5. **COPY & ADD**
+### 5. COPY & ADD
 
 将文件复制到镜像中：
 
@@ -82,7 +82,7 @@ ADD https://example.com/file.tar.gz /app/
 - `COPY` 只能复制本地文件
 - `ADD` 支持 URL 下载和自动解压
 
-### 6. **ENV**
+### 6. ENV
 
 设置环境变量：
 
@@ -92,7 +92,7 @@ ENV PATH="/usr/local/bin:${PATH}"
 ENV NODE_ENV=production
 ```
 
-### 7. **EXPOSE**
+### 7. EXPOSE
 
 声明容器对外暴露的端口（仅声明，不自动映射）。
 
@@ -101,7 +101,7 @@ EXPOSE 8080
 EXPOSE 3000 5000
 ```
 
-### 8. **VOLUME**
+### 8. VOLUME
 
 定义挂载点，用于持久化存储。
 
@@ -110,7 +110,7 @@ VOLUME /var/lib/mysql
 VOLUME ["/app/data", "/app/logs"]
 ```
 
-### 9. **ENTRYPOINT**
+### 9. ENTRYPOINT
 
 定义容器的入口命令，通常是主进程。
 
@@ -124,7 +124,7 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 - 标准化部署：统一的启动方式
 - 资源管理：Docker 可以监控主进程的状态
 
-### 10. **CMD**
+### 10. CMD
 
 容器启动时默认执行的命令，可以被 `docker run` 的参数覆盖。
 
@@ -139,7 +139,7 @@ CMD ["echo", "Hello World"]
 - `CMD` 提供默认参数，可以被覆盖
 - 可以同时使用：`ENTRYPOINT ["python"]` + `CMD ["app.py"]`
 
-### 11. **ARG**
+### 11. ARG
 
 构建时参数（仅在 `docker build` 阶段生效）。
 
@@ -155,7 +155,7 @@ RUN echo "Building version $APP_VERSION"
 docker build --build-arg APP_VERSION=2.0 -t myapp:2.0 .
 ```
 
-### 12. **USER**
+### 12. USER
 
 指定运行容器时的用户名或 UID。
 
@@ -164,7 +164,7 @@ USER node
 USER 1000
 ```
 
-### 13. **HEALTHCHECK**
+### 13. HEALTHCHECK
 
 定义容器健康检查。
 
@@ -253,7 +253,7 @@ CMD ["npm", "start"]
 
 ## Dockerfile 最佳实践
 
-### 1. **选择轻量级基础镜像**
+### 1. 选择轻量级基础镜像
 
 ```dockerfile
 # 推荐
@@ -264,7 +264,7 @@ FROM node:18-alpine
 FROM ubuntu:20.04
 ```
 
-### 2. **合并 RUN 指令**
+### 2. 合并 RUN 指令
 
 ```dockerfile
 # 推荐 - 减少层数
@@ -278,7 +278,7 @@ RUN apt-get install -y curl vim
 RUN rm -rf /var/lib/apt/lists/*
 ```
 
-### 3. **使用 .dockerignore**
+### 3. 使用 .dockerignore
 排除不必要的文件
 创建 `.dockerignore` 文件：
 
@@ -292,7 +292,7 @@ coverage/
 .nyc_output/
 ```
 
-### 4. **固定版本**
+### 4. 固定版本
 
 ```dockerfile
 # 推荐 - 固定版本
@@ -304,7 +304,7 @@ FROM node:latest
 RUN pip install flask
 ```
 
-### 5. **分阶段构建 (Multi-stage builds)**
+### 5. 分阶段构建 (Multi-stage builds)
 
 ```dockerfile
 # 构建阶段
@@ -321,7 +321,7 @@ COPY --from=builder /build/app .
 CMD ["./app"]
 ```
 
-### 6. **优化层缓存**
+### 6. 优化层缓存
 
 ```dockerfile
 # 推荐 - 依赖文件先复制
@@ -334,7 +334,7 @@ COPY . .
 RUN pip install -r requirements.txt
 ```
 
-### 7. **使用非 root 用户**
+### 7. 使用非 root 用户
 
 ```dockerfile
 RUN addgroup -g 1001 -S nodejs
@@ -342,7 +342,7 @@ RUN adduser -S nextjs -u 1001
 USER nextjs
 ```
 
-### 8. **设置健康检查**
+### 8. 设置健康检查
 
 ```dockerfile
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
@@ -353,20 +353,20 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 
 ## 常见问题
 
-### 1. **如何减小镜像大小？**
+### 1. 如何减小镜像大小？
 
 - 使用 Alpine 基础镜像
 - 多阶段构建
 - 清理缓存和临时文件
 - 使用 .dockerignore
 
-### 2. **如何提高构建速度？**
+### 2. 如何提高构建速度？
 
 - 合理利用层缓存
 - 并行安装依赖
 - 使用构建缓存
 
-### 3. **如何调试 Dockerfile？**
+### 3. 如何调试 Dockerfile？
 
 ```bash
 # 构建时查看详细输出
