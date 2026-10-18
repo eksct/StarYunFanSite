@@ -225,10 +225,10 @@
     </item>
     <item>
       <title>充电桩与平台交互逻辑</title>
-      <link>https://eksct.github.io/StarYunFanSite/#/notes/major/%E6%96%B0%E4%BA%9A%E8%BD%A6%E5%85%85%E5%B9%B3%E5%8F%B0/%E5%85%85%E7%94%B5%E6%A1%A9%E4%B8%8E%E5%B9%B3%E5%8F%B0%E4%BA%A4%E4%BA%92%E9%80%BB%E8%BE%91.md</link>
-      <guid isPermaLink="false">major/新亚车充平台/充电桩与平台交互逻辑.md</guid>
+      <link>https://eksct.github.io/StarYunFanSite/#/notes/major/%E8%BD%A6%E5%85%85%E5%B9%B3%E5%8F%B0/%E5%85%85%E7%94%B5%E6%A1%A9%E4%B8%8E%E5%B9%B3%E5%8F%B0%E4%BA%A4%E4%BA%92%E9%80%BB%E8%BE%91.md</link>
+      <guid isPermaLink="false">major/车充平台/充电桩与平台交互逻辑.md</guid>
       <pubDate>2026-09-18T08:29:01.751Z</pubDate>
-      <category>新亚车充平台</category>
+      <category>车充平台</category>
       <description>充电桩与平台交互逻辑 固件--[mqtt发布up/订阅down]---emqx&lt;---[mqtt订阅up/发布down]--服务端---kafka 通过MQTTConfiguration设置生产者消费</description>
     </item>
     <item>
