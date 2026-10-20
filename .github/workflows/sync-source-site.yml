@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout published site
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: master
           path: site
@@ -29,7 +29,7 @@ jobs:
 
       - name: Checkout source
         id: source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: eksct/StarYunFan
           ref: master
@@ -47,12 +47,10 @@ jobs:
           fi
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         if: steps.freshness.outputs.up_to_date != 'true'
         with:
           node-version: '24'
-          cache: pnpm
-          cache-dependency-path: source/pnpm-lock.yaml
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
