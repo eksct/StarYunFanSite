@@ -3,8 +3,6 @@ name: Sync source site
 on:
   push:
     branches: [master]
-    paths:
-      - .github/workflows/sync-source-site.yml
   schedule:
     - cron: '*/15 * * * *'
   workflow_dispatch:
