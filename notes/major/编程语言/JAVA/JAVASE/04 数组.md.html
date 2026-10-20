@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="04 数组 在 Java 中，数组是一种用于存储固定大小的相同类型元素的数据结构。数组在 Java 中是对象，具有固定的长度，创建后无法动态调整大小。 1. 数组的创建 (1) 声明数组 - 语法： ">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="04 数组 · Seiga">
+    <meta property="og:description" content="04 数组 在 Java 中，数组是一种用于存储固定大小的相同类型元素的数据结构。数组在 Java 中是对象，具有固定的长度，创建后无法动态调整大小。 1. 数组的创建 (1) 声明数组 - 语法： ">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/04%20%E6%95%B0%E7%BB%84.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/04%20%E6%95%B0%E7%BB%84.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>04 数组 · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"04 数组","description":"04 数组 在 Java 中，数组是一种用于存储固定大小的相同类型元素的数据结构。数组在 Java 中是对象，具有固定的长度，创建后无法动态调整大小。 1. 数组的创建 (1) 声明数组 - 语法： ","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/04%20%E6%95%B0%E7%BB%84.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>04 数组</h1>
+        <p class="static-note-meta">Java · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/04%20%E6%95%B0%E7%BB%84.md">在站内打开</a>
+      </header>
+      <article class="prose"><h1>04 数组</h1>
+<p>在 Java 中，数组是一种用于存储<strong>固定大小</strong>的<strong>相同类型</strong>元素的数据结构。数组在 Java 中是对象，具有固定的长度，创建后无法动态调整大小。</p>
+<h3>1. 数组的创建</h3>
+<h4>(1) 声明数组</h4>
+<ul>
+<li><strong>语法</strong>：</li>
+</ul>
+<pre><code>数据类型[] 数组名; // 推荐
+或
+数据类型 数组名[];
+</code></pre>
+<ul>
+<li><strong>示例</strong>：</li>
+</ul>
+<pre><code class="language-java">int[] numbers; // 声明一个整型数组
+String[] names; // 声明一个字符串数组
+</code></pre>
+<h4>(2) 创建数组</h4>
+<ul>
+<li><strong>语法</strong>：</li>
+</ul>
+<pre><code class="language-java">数组名 = new 数据类型[数组长度];
+</code></pre>
+<ul>
+<li><strong>示例</strong>：</li>
+</ul>
+<pre><code class="language-java">numbers = new int[5]; // 创建一个长度为 5 的整型数组
+names = new String[10]; // 创建一个长度为 10 的字符串数组
+</code></pre>
+<h4>(3) 声明并创建数组</h4>
+<ul>
+<li><strong>语法</strong>：</li>
+</ul>
+<pre><code class="language-java">数据类型[] 数组名 = new 数据类型[数组长度];
+</code></pre>
+<ul>
+<li><strong>示例</strong>：</li>
+</ul>
+<pre><code class="language-java">int[] numbers = new int[5]; // 声明并创建一个长度为 5 的整型数组
+String[] names = new String[10]; // 声明并创建一个长度为 10 的字符串数组
+</code></pre>
+<h4>(4) 直接初始化数组</h4>
+<ul>
+<li><strong>语法</strong>：</li>
+</ul>
+<pre><code class="language-java">数据类型[] 数组名 = {元素1, 元素2, 元素3, ...};
+</code></pre>
+<ul>
+<li><strong>示例</strong>：</li>
+</ul>
+<pre><code class="language-java">int[] numbers = {1, 2, 3, 4, 5}; // 直接初始化一个整型数组
+String[] names = {&quot;Alice&quot;, &quot;Bob&quot;, &quot;Charlie&quot;}; // 直接初始化一个字符串数组
+</code></pre>
+<h3>2. 数组的常用方法</h3>
+<h4>(1) 访问数组元素</h4>
+<ul>
+<li>
+<p>通过索引访问数组元素，索引从 <code>0</code> 开始。</p>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+</li>
+</ul>
+<pre><code class="language-java">int[] numbers = {1, 2, 3, 4, 5};
+System.out.println(numbers[0]); // 输出 1
+System.out.println(numbers[2]); // 输出 3
+</code></pre>
+<h4>(2) 修改数组元素</h4>
+<ul>
+<li>
+<p>通过索引修改数组元素。</p>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+</li>
+</ul>
+<pre><code class="language-java">int[] numbers = {1, 2, 3, 4, 5};
+numbers[2] = 10; // 将第 3 个元素修改为 10
+System.out.println(numbers[2]); // 输出 10
+</code></pre>
+<h4>(3) 获取数组长度</h4>
+<ul>
+<li>
+<p>使用 <code>数组名.length</code> 获取数组的长度。</p>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+</li>
+</ul>
+<pre><code class="language-java">int[] numbers = {1, 2, 3, 4, 5};
+System.out.println(numbers.length); // 输出 5
+</code></pre>
+<h4>(4) 遍历数组</h4>
+<ul>
+<li>
+<p>使用 <code>for</code> 循环或增强 <code>for</code> 循环遍历数组。</p>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+</li>
+</ul>
+<pre><code class="language-java">
+int[] numbers = {1, 2, 3, 4, 5};
+
+// 使用 for 循环
+for (int i = 0; i &lt; numbers.length; i++) {
+System.out.println(numbers[i]);
+}
+
+// 使用增强 for 循环
+for (int number : numbers) {
+System.out.println(number);
+}
+
+</code></pre>
+<h4>(5) 数组排序</h4>
+<ul>
+<li>
+<p>使用 <code>Arrays.sort()</code> 方法对数组进行排序。</p>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+</li>
+</ul>
+<pre><code class="language-java">import java.util.Arrays;
+
+int[] numbers = {5, 3, 1, 4, 2};
+Arrays.sort(numbers); // 对数组进行排序
+System.out.println(Arrays.toString(numbers)); // 输出 [1, 2, 3, 4, 5]
+
+</code></pre>
+<h4>(6) 数组转换为字符串</h4>
+<ul>
+<li>
+<p>使用 <code>Arrays.toString()</code> 方法将数组转换为字符串。</p>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+</li>
+</ul>
+<pre><code class="language-java">import java.util.Arrays;
+
+int[] numbers = {1, 2, 3, 4, 5};
+System.out.println(Arrays.toString(numbers)); // 输出 [1, 2, 3, 4, 5]
+</code></pre>
+<h4>(7) 数组复制</h4>
+<ul>
+<li>
+<p>使用 <code>Arrays.copyOf()</code> 或 <code>System.arraycopy()</code> 方法复制数组。</p>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+</li>
+</ul>
+<pre><code class="language-java">import java.util.Arrays;
+
+int[] numbers = {1, 2, 3, 4, 5};
+int[] copy = Arrays.copyOf(numbers, numbers.length); // 复制数组
+System.out.println(Arrays.toString(copy)); // 输出 [1, 2, 3, 4, 5]
+</code></pre>
+<h4>(8)多维数组</h4>
+<p>Java也支持多维数组，最常见的是二维数组。例如：</p>
+<pre><code class="language-java">int[][] matrix = new int[3][3];  // 创建一个3x3的二维数组
+
+// 初始化二维数组
+matrix[0][0] = 1;
+matrix[0][1] = 2;
+matrix[0][2] = 3;
+matrix[1][0] = 4;
+matrix[1][1] = 5;
+matrix[1][2] = 6;
+matrix[2][0] = 7;
+matrix[2][1] = 8;
+matrix[2][2] = 9;
+
+// 遍历二维数组
+for (int i = 0; i &lt; matrix.length; i++) {
+    for (int j = 0; j &lt; matrix[i].length; j++) {
+        System.out.print(matrix[i][j] + &quot; &quot;);
+    }
+    System.out.println();
+}
+</code></pre>
+<h4>(9)数组查找</h4>
+<p>可以使用<code>Arrays.binarySearch()</code>方法在已排序的数组中进行二分查找。</p>
+<pre><code class="language-java">import java.util.Arrays;
+
+public class BinarySearchExample {
+    public static void main(String[] args) {
+        // 已排序的数组
+        int[] numbers = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20};
+
+        // 查找目标值
+        int key = 12;
+        int index = Arrays.binarySearch(numbers, key);
+
+        if (index &gt;= 0) {
+            System.out.println(&quot;找到目标值 &quot; + key + &quot;，索引为: &quot; + index);
+        } else {
+            System.out.println(&quot;未找到目标值 &quot; + key + &quot;，应插入的位置为: &quot; + (-index - 1));
+        }
+
+        // 查找不存在的值
+        key = 15;
+        index = Arrays.binarySearch(numbers, key);
+
+        if (index &gt;= 0) {
+            System.out.println(&quot;找到目标值 &quot; + key + &quot;，索引为: &quot; + index);
+        } else {
+            System.out.println(&quot;未找到目标值 &quot; + key + &quot;，应插入的位置为: &quot; + (-index - 1));
+        }
+    }
+}
+</code></pre>
+<h3>3. 数组的最佳实践</h3>
+<h4>(1) 使用 <code>Arrays</code> 工具类</h4>
+<ul>
+<li><code>Arrays</code> 类提供了许多实用的方法（如排序、复制、转换为字符串等），可以简化数组操作。</li>
+</ul>
+<pre><code class="language-java">import java.util.Arrays;
+
+int[] numbers = {5, 3, 1, 4, 2};
+Arrays.sort(numbers); // 排序
+System.out.println(Arrays.toString(numbers)); // 转换为字符串
+</code></pre>
+<h4>(2) 使用多维数组</h4>
+<ul>
+<li>多维数组可以用于存储表格数据或矩阵。</li>
+</ul>
+<pre><code class="language-java">int[][] matrix = {
+    {1, 2, 3},
+    {4, 5, 6},
+    {7, 8, 9}
+};
+System.out.println(matrix[1][2]); // 输出 6
+</code></pre>
+<h3>4. 示例代码</h3>
+<pre><code class="language-java">import java.util.Arrays;
+
+public class ArrayExample {
+    public static void main(String[] args) {
+        // 创建数组
+        int[] numbers = {5, 3, 1, 4, 2};
+
+        // 访问数组元素
+        System.out.println(&quot;第一个元素: &quot; + numbers[0]);
+
+        // 修改数组元素
+        numbers[2] = 10;
+        System.out.println(&quot;修改后的第三个元素: &quot; + numbers[2]);
+
+        // 获取数组长度
+        System.out.println(&quot;数组长度: &quot; + numbers.length);
+
+        // 遍历数组
+        System.out.println(&quot;遍历数组:&quot;);
+        for (int number : numbers) {
+            System.out.println(number);
+        }
+
+        // 数组排序
+        Arrays.sort(numbers);
+        System.out.println(&quot;排序后的数组: &quot; + Arrays.toString(numbers));
+
+        // 数组复制
+        int[] copy = Arrays.copyOf(numbers, numbers.length);
+        System.out.println(&quot;复制后的数组: &quot; + Arrays.toString(copy));
+    }
+}
+</code></pre>
+</article>
+    </main>
+  </body>
+</html>

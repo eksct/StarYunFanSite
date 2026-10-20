@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="1. 为什么需要 Docker？ 在传统开发到运维的过程中，经常会遇到 环境不一致 的问题： - 开发环境可以跑，测试环境报错； - 测试环境 OK，上线后生产环境出问题； - 迁移到新平台时，需要重">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Docker概述与安装 · Seiga">
+    <meta property="og:description" content="1. 为什么需要 Docker？ 在传统开发到运维的过程中，经常会遇到 环境不一致 的问题： - 开发环境可以跑，测试环境报错； - 测试环境 OK，上线后生产环境出问题； - 迁移到新平台时，需要重">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Docker/Docker%E6%A6%82%E8%BF%B0%E4%B8%8E%E5%AE%89%E8%A3%85.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Docker/Docker%E6%A6%82%E8%BF%B0%E4%B8%8E%E5%AE%89%E8%A3%85.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>Docker概述与安装 · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Docker概述与安装","description":"1. 为什么需要 Docker？ 在传统开发到运维的过程中，经常会遇到 环境不一致 的问题： - 开发环境可以跑，测试环境报错； - 测试环境 OK，上线后生产环境出问题； - 迁移到新平台时，需要重","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Docker/Docker%E6%A6%82%E8%BF%B0%E4%B8%8E%E5%AE%89%E8%A3%85.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>Docker概述与安装</h1>
+        <p class="static-note-meta">Docker · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/Docker/Docker%E6%A6%82%E8%BF%B0%E4%B8%8E%E5%AE%89%E8%A3%85.md">在站内打开</a>
+      </header>
+      <article class="prose"><h2>1. 为什么需要 Docker？</h2>
+<p>在传统开发到运维的过程中，经常会遇到 <strong>环境不一致</strong> 的问题：</p>
+<ul>
+<li>
+<p>开发环境可以跑，测试环境报错；</p>
+</li>
+<li>
+<p>测试环境 OK，上线后生产环境出问题；</p>
+</li>
+<li>
+<p>迁移到新平台时，需要重新配置环境。</p>
+</li>
+</ul>
+<p><strong>Docker 的出现，解决了这些问题</strong>：</p>
+<ul>
+<li>
+<p>将应用和运行环境 <strong>一起打包</strong> 成镜像；</p>
+</li>
+<li>
+<p>部署时直接运行镜像，无需额外配置；</p>
+</li>
+<li>
+<p>支持跨平台迁移，做到 <strong>“一次打包，到处运行”</strong>。</p>
+</li>
+</ul>
+<hr>
+<h2>2. Docker 工作流程</h2>
+<ol>
+<li>
+<p>开发完成后，将应用和依赖环境打包成 <strong>镜像 (Image)</strong></p>
+<ul>
+<li>
+<p>Java 项目示例：<code>java -jar app.jar</code></p>
+</li>
+<li>
+<p>打包时将 JDK、依赖环境一并打入镜像。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>将镜像上传到 <strong>Docker 仓库 (Registry)</strong></p>
+<ul>
+<li>类似于 “应用商店”。</li>
+</ul>
+</li>
+<li>
+<p>部署时，直接从仓库下载镜像并运行容器：</p>
+<ul>
+<li>
+<p><code>docker run your-image</code></p>
+</li>
+<li>
+<p>即可在任意平台运行，无需额外配置。</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2>3. Docker vs 虚拟机</h2>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>虚拟机 (VM)</th>
+<th>Docker 容器</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>系统开销</td>
+<td>每个 VM 需要完整操作系统</td>
+<td>容器共享宿主机内核</td>
+</tr>
+<tr>
+<td>启动速度</td>
+<td>分钟级</td>
+<td>秒级</td>
+</tr>
+<tr>
+<td>资源利用率</td>
+<td>相对较低</td>
+<td>更高效，密度更大</td>
+</tr>
+<tr>
+<td>隔离性</td>
+<td>完全隔离（硬件级）</td>
+<td>进程级隔离（文件系统独立）</td>
+</tr>
+<tr>
+<td>跨平台能力</td>
+<td>受限</td>
+<td>一次打包，到处运行</td>
+</tr>
+</tbody>
+</table>
+<p><strong>总结</strong>：Docker 是 <strong>内核级虚拟化</strong>，相比虚拟机更轻量，资源利用率更高。</p>
+<hr>
+<h2>4. Docker 在 DevOps 中的优势</h2>
+<ol>
+<li>
+<p><strong>更快速的交付与部署</strong></p>
+<ul>
+<li>
+<p>传统方式：繁琐的安装文档 + 环境配置；</p>
+</li>
+<li>
+<p>Docker：打包镜像 → 发布测试 → 一键运行。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>更便捷的升级与扩缩容</strong></p>
+<ul>
+<li>
+<p>部署像“搭积木”一样：</p>
+<ul>
+<li>镜像相同，容器可快速扩展到服务器 A、B。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>更简单的系统运维</strong></p>
+<ul>
+<li>
+<p>开发、测试、生产环境高度一致；</p>
+</li>
+<li>
+<p>降低环境差异带来的问题。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>更高效的资源利用</strong></p>
+<ul>
+<li>
+<p>内核级虚拟化，一个物理机可运行大量容器；</p>
+</li>
+<li>
+<p>充分压榨服务器性能。</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2>5. 总结</h2>
+<ul>
+<li>
+<p><strong>Docker 是容器化技术</strong>，区别于传统虚拟化，不需要安装完整系统；</p>
+</li>
+<li>
+<p>容器之间相互隔离，拥有独立的文件系统和运行环境；</p>
+</li>
+<li>
+<p>结合 DevOps 流程，Docker 极大提升了 <strong>应用交付效率、环境一致性和资源利用率</strong>。</p>
+</li>
+</ul>
+<hr>
+<h1>安装 Docker</h1>
+<h2>1. Windows 系统</h2>
+<p>在 Windows 上，可以通过 <strong>Docker Desktop</strong> 进行安装：</p>
+<ul>
+<li>
+<p>进入 <a href="https://www.docker.com/products/docker-desktop/">Docker 官方下载页面</a></p>
+</li>
+<li>
+<p>下载并安装 <strong>Docker Desktop for Windows</strong></p>
+</li>
+<li>
+<p>安装完成后，即可通过 <code>docker version</code> 验证安装结果</p>
+</li>
+</ul>
+<hr>
+<h2>2. Linux 系统（以 Ubuntu 为例）</h2>
+<h3>系统要求</h3>
+<ul>
+<li>
+<p>支持的系统版本：</p>
+<ul>
+<li>
+<p>Ubuntu <strong>22.04 (LTS)</strong>、<strong>24.04 (LTS)</strong></p>
+</li>
+<li>
+<p>或最新非 LTS 版本</p>
+</li>
+</ul>
+</li>
+<li>
+<p>系统架构：64 位</p>
+</li>
+</ul>
+<h3>安装步骤</h3>
+<ol>
+<li>更新软件源</li>
+</ol>
+<pre><code class="language-bash">   sudo apt-get update
+</code></pre>
+<ol start="2">
+<li>安装 Docker Desktop</li>
+</ol>
+<pre><code class="language-bash">   sudo apt-get install ./docker-desktop-amd64.deb
+</code></pre>
+<ol start="3">
+<li>验证安装是否成功</li>
+</ol>
+<pre><code class="language-bash">   docker version
+</code></pre>
+<p>Docker是怎么工作的?<br>
+Docker 是一个 (lient-Server 结构的系统，Docker的守护进程运行在主机上。通过Socket从客户端访问!<br>
+DockerServer 接收到 Docker-Client的指令，就会执行这个命令!</p>
+</article>
+    </main>
+  </body>
+</html>

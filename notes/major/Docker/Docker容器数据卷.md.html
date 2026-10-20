@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Docker 容器数据卷（Volumes）是 Docker 中用于持久化和共享容器数据的重要机制。它允许容器在多个生命周期中保持数据的持久性，将容器内挂载了数据卷的数据保存在主机上，避免容器停止或删除">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Docker容器数据卷 · Seiga">
+    <meta property="og:description" content="Docker 容器数据卷（Volumes）是 Docker 中用于持久化和共享容器数据的重要机制。它允许容器在多个生命周期中保持数据的持久性，将容器内挂载了数据卷的数据保存在主机上，避免容器停止或删除">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Docker/Docker%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Docker/Docker%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>Docker容器数据卷 · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Docker容器数据卷","description":"Docker 容器数据卷（Volumes）是 Docker 中用于持久化和共享容器数据的重要机制。它允许容器在多个生命周期中保持数据的持久性，将容器内挂载了数据卷的数据保存在主机上，避免容器停止或删除","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Docker/Docker%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>Docker容器数据卷</h1>
+        <p class="static-note-meta">Docker · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/Docker/Docker%E5%AE%B9%E5%99%A8%E6%95%B0%E6%8D%AE%E5%8D%B7.md">在站内打开</a>
+      </header>
+      <article class="prose"><p>Docker 容器数据卷（<strong>Volumes</strong>）是 Docker 中用于持久化和共享容器数据的重要机制。它允许容器在多个生命周期中保持数据的持久性，将容器内挂载了数据卷的数据保存在主机上，避免容器停止或删除时数据丢失。</p>
+<hr>
+<h2>数据卷的作用</h2>
+<h3>1. 持久化数据</h3>
+<p>容器的文件系统是临时的，当容器删除时，容器内的数据会丢失。使用数据卷可以确保数据在容器生命周期之外得以保存。</p>
+<h3>2. 共享数据</h3>
+<p>多个容器可以通过挂载同一个数据卷来共享数据。</p>
+<h3>3. 数据隔离</h3>
+<p>即使容器销毁并重建，数据卷中的数据依然存在，不受容器生命周期影响。</p>
+<hr>
+<h2>数据卷的创建与使用</h2>
+<h3>1. 创建数据卷</h3>
+<p>使用以下命令创建一个数据卷：</p>
+<pre><code class="language-bash">docker volume create my_volume
+</code></pre>
+<h3>2. 查看数据卷</h3>
+<p>查看所有数据卷：</p>
+<pre><code class="language-bash">docker volume ls
+</code></pre>
+<p>查看特定数据卷的详细信息：</p>
+<pre><code class="language-bash">docker volume inspect my_volume
+</code></pre>
+<h3>3. 挂载数据卷到容器</h3>
+<p>使用 <code>-v</code> 参数将数据卷挂载到容器中：</p>
+<pre><code class="language-bash">docker run -d -v my_volume:/path/in/container my_image
+</code></pre>
+<h3>4. 多位置挂载</h3>
+<p>将同一数据卷挂载到容器的多个目录：</p>
+<pre><code class="language-bash">docker run -d -v my_volume:/path1 -v my_volume:/path2 my_image
+</code></pre>
+<hr>
+<h2>数据卷的持久化挂载</h2>
+<p><strong>重要提示</strong>：无法在创建容器后持久挂载数据卷。想要持久挂载就需要从头开始。</p>
+<h3>方法一：数据迁移重新创建</h3>
+<pre><code class="language-bash"># 创建数据卷
+docker volume create my_volume
+
+# 备份容器数据
+docker cp my_container:/path/in/container /backup
+
+# 停止并删除容器
+docker stop my_container
+docker rm my_container
+
+# 重新创建容器并挂载数据卷
+docker run -d --name my_container -v my_volume:/path/in/container my_image
+
+# 恢复数据
+docker cp /backup my_container:/path/in/container
+</code></pre>
+<h3>方法二：临时挂载</h3>
+<pre><code class="language-bash"># 进入容器
+docker exec -it my_container bash
+
+# 临时挂载数据卷
+mount -o bind /path/in/host /path/in/container
+</code></pre>
+<h3>方法三：Docker Compose 重启</h3>
+<p>使用 Docker Compose 重新部署服务。</p>
+<hr>
+<h2>数据卷的类型</h2>
+<h3>1. 命名卷（Named Volumes）</h3>
+<ul>
+<li>使用 <code>docker volume create</code> 命令创建</li>
+<li>便于管理，可在多个容器间共享数据</li>
+</ul>
+<h3>2. 匿名卷（Anonymous Volumes）</h3>
+<ul>
+<li>未指定名称的卷，Docker 自动分配随机名称</li>
+<li>适用于临时数据</li>
+</ul>
+<pre><code class="language-bash">docker run -d -v /container/path my_image
+</code></pre>
+<h3>3. 绑定挂载（Bind Mounts）</h3>
+<ul>
+<li>将宿主机目录或文件直接挂载到容器中</li>
+<li>容器可直接访问宿主机文件</li>
+<li>适用于开发环境</li>
+</ul>
+<pre><code class="language-bash">docker run -d -v /host/path:/container/path my_image
+</code></pre>
+<hr>
+<h2>数据卷的管理</h2>
+<h3>1. 删除数据卷</h3>
+<p>删除指定数据卷：</p>
+<pre><code class="language-bash">docker volume rm my_volume
+</code></pre>
+<p>删除所有未使用的数据卷：</p>
+<pre><code class="language-bash">docker volume prune
+</code></pre>
+<h3>2. 备份与恢复</h3>
+<p>备份数据卷：</p>
+<pre><code class="language-bash">docker run --rm -v my_volume:/volume -v /host/path:/backup alpine tar cvf /backup/backup.tar /volume
+</code></pre>
+<p>恢复数据卷：</p>
+<pre><code class="language-bash">docker run --rm -v my_volume:/volume -v /host/path:/backup alpine tar xvf /backup/backup.tar -C /volume
+</code></pre>
+<hr>
+<h2>常见的容器数据卷应用场景</h2>
+<h3>1. 数据库持久化存储</h3>
+<p>存储数据库文件，确保容器重启后数据不丢失：</p>
+<pre><code class="language-bash">docker run -d -v db_data:/var/lib/mysql mysql:5.7
+</code></pre>
+<h3>2. 日志收集</h3>
+<p>将容器日志输出到数据卷，便于查看和持久化：</p>
+<pre><code class="language-bash">docker run -d -v /path/to/logs:/var/log/nginx nginx
+</code></pre>
+<h3>3. 共享文件</h3>
+<p>多个容器通过挂载同一数据卷实现文件共享：</p>
+<pre><code class="language-bash"># 容器1
+docker run -d -v shared_volume:/data container1
+
+# 容器2
+docker run -d -v shared_volume:/data container2
+</code></pre>
+<hr>
+<h2>常见问题</h2>
+<h3>1. 如何知道数据卷的存储位置？</h3>
+<p>查看数据卷详细信息：</p>
+<pre><code class="language-bash">docker volume inspect my_volume
+</code></pre>
+<p><code>Mountpoint</code> 字段显示数据卷在宿主机上的实际存储路径。</p>
+<h3>2. 如何避免数据丢失？</h3>
+<p>对关键数据使用数据卷进行持久化，并定期备份数据。</p>
+<hr>
+<h2>数据卷的生命周期</h2>
+<h3>1. 容器的数据生命周期</h3>
+<ul>
+<li><strong>容器的数据是临时的</strong>：容器启动时创建文件系统，停止或删除时数据丢失。</li>
+</ul>
+<h3>2. 数据卷的持久性</h3>
+<ul>
+<li><strong>数据卷独立于容器存在</strong>：即使容器被删除或重启，数据卷中的数据依然存在，可在新容器中继续使用。</li>
+</ul>
+<h3>3. 容器之间的数据共享</h3>
+<ul>
+<li><strong>数据卷可在多个容器间共享</strong>：多个容器可挂载同一数据卷，实现数据共享，数据不会因容器生命周期而丢失。</li>
+</ul>
+<hr>
+<h2>总结</h2>
+<p>Docker 数据卷是容器化应用中数据持久化的核心机制，通过合理使用数据卷，可以确保应用数据的安全性和可移植性。在实际应用中，建议：</p>
+<ol>
+<li>为数据库等重要应用使用命名数据卷</li>
+<li>定期备份数据卷中的数据</li>
+<li>在开发环境中使用绑定挂载提高开发效率</li>
+<li>合理规划数据卷的挂载策略，避免数据丢失</li>
+</ol>
+</article>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Spring for Apache Kafka 1️⃣ 引入依赖 在 pom.xml 中加上： --- 2️⃣ 配置 Kafka 在 application.yml 里写： --- 3️⃣ 生产者（发">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Spring for Apache Kafka · Seiga">
+    <meta property="og:description" content="Spring for Apache Kafka 1️⃣ 引入依赖 在 pom.xml 中加上： --- 2️⃣ 配置 Kafka 在 application.yml 里写： --- 3️⃣ 生产者（发">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/kafka/Spring%20for%20Apache%20Kafka.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/kafka/Spring%20for%20Apache%20Kafka.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>Spring for Apache Kafka · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Spring for Apache Kafka","description":"Spring for Apache Kafka 1️⃣ 引入依赖 在 pom.xml 中加上： --- 2️⃣ 配置 Kafka 在 application.yml 里写： --- 3️⃣ 生产者（发","datePublished":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/kafka/Spring%20for%20Apache%20Kafka.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>Spring for Apache Kafka</h1>
+        <p class="static-note-meta">kafka · 2026-09-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/kafka/Spring%20for%20Apache%20Kafka.md">在站内打开</a>
+      </header>
+      <article class="prose"><h1>Spring for Apache Kafka</h1>
+<h2>1️⃣ 引入依赖</h2>
+<p>在 <code>pom.xml</code> 中加上：</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-kafka&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<hr>
+<h2>2️⃣ 配置 Kafka</h2>
+<p>在 <code>application.yml</code> 里写：</p>
+<pre><code class="language-yaml">spring:
+  kafka:
+    bootstrap-servers: localhost:9092   # Kafka 地址
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: demo-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest   # 从头开始消费（可选）
+</code></pre>
+<hr>
+<h2>3️⃣ 生产者（发送消息）</h2>
+<pre><code class="language-java">import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ProducerService {
+
+    private final KafkaTemplate&lt;String, String&gt; kafkaTemplate;
+
+    public ProducerService(KafkaTemplate&lt;String, String&gt; kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
+
+    public void send(String topic, String message) {
+        kafkaTemplate.send(topic, message);
+        System.out.println(&quot;✅ 发送消息到 &quot; + topic + &quot; ：&quot; + message);
+    }
+}
+</code></pre>
+<hr>
+<h2>4️⃣ 消费者（接收消息）</h2>
+<pre><code class="language-java">import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ConsumerService {
+
+    @KafkaListener(topics = &quot;test-topic&quot;, groupId = &quot;demo-group&quot;)
+    public void listen(String message) {
+        System.out.println(&quot;📩 收到消息：&quot; + message);
+    }
+}
+</code></pre>
+<hr>
+<h2>5️⃣ 测试（Controller）</h2>
+<pre><code class="language-java">import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class KafkaController {
+
+    private final ProducerService producerService;
+
+    public KafkaController(ProducerService producerService) {
+        this.producerService = producerService;
+    }
+
+    @GetMapping(&quot;/send&quot;)
+    public String send(@RequestParam String msg) {
+        producerService.send(&quot;test-topic&quot;, msg);
+        return &quot;消息已发送: &quot; + msg;
+    }
+}
+</code></pre>
+<hr>
+<h2>6️⃣ 测试步骤</h2>
+<ol>
+<li>
+<p>启动 Kafka &amp; Zookeeper</p>
+<pre><code class="language-bash">bin/zookeeper-server-start.sh config/zookeeper.properties
+bin/kafka-server-start.sh config/server.properties
+</code></pre>
+</li>
+<li>
+<p>启动 Spring Boot 项目</p>
+</li>
+<li>
+<p>浏览器访问：</p>
+<pre><code>http://localhost:8080/send?msg=hello-kafka
+</code></pre>
+<p>👉 控制台应该会看到消费者打印：</p>
+<pre><code>📩 收到消息：hello-kafka
+</code></pre>
+</li>
+</ol>
+</article>
+    </main>
+  </body>
+</html>

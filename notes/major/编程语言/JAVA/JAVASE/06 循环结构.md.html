@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="06 循环结构 Java 中的循环结构用于重复执行某段代码，直到满足特定条件。Java 提供了多种循环结构，包括 for 循环、while 循环、do-while 循环以及增强的 for-each 循">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="06 循环结构 · Seiga">
+    <meta property="og:description" content="06 循环结构 Java 中的循环结构用于重复执行某段代码，直到满足特定条件。Java 提供了多种循环结构，包括 for 循环、while 循环、do-while 循环以及增强的 for-each 循">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/06%20%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/06%20%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>06 循环结构 · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"06 循环结构","description":"06 循环结构 Java 中的循环结构用于重复执行某段代码，直到满足特定条件。Java 提供了多种循环结构，包括 for 循环、while 循环、do-while 循环以及增强的 for-each 循","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/06%20%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>06 循环结构</h1>
+        <p class="static-note-meta">Java · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/06%20%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84.md">在站内打开</a>
+      </header>
+      <article class="prose"><h1>06 循环结构</h1>
+<p>Java 中的循环结构用于重复执行某段代码，直到满足特定条件。Java 提供了多种循环结构，包括 <code>for</code> 循环、<code>while</code> 循环、<code>do-while</code> 循环以及增强的 <code>for-each</code> 循环。</p>
+<h2>1. 循环结构的类型</h2>
+<h3>(1) <code>for</code> 循环</h3>
+<p><code>for</code> 循环用于在已知循环次数的情况下重复执行代码。</p>
+<pre><code class="language-java">for (初始化; 条件; 更新) {
+    // 循环体
+}
+for (int i = 0; i &lt; 5; i++) {
+    System.out.println(&quot;i 的值: &quot; + i);
+}
+</code></pre>
+<h4>最佳实践</h4>
+<ol>
+<li>
+<p><strong>明确循环变量名</strong>：使用有意义的变量名（如 <code>index</code> 而不是 <code>i</code>），尤其是在嵌套循环中。</p>
+</li>
+<li>
+<p><strong>避免修改循环变量</strong>：不要在循环体内修改循环变量（如 <code>i++</code>），除非有特殊需求。</p>
+</li>
+<li>
+<p><strong>减少循环内部的计算</strong>：将循环内部不变的计算提取到循环外部。</p>
+</li>
+</ol>
+<h3>(2) <code>while</code> 循环</h3>
+<p><code>while</code> 循环用于在条件为 <code>true</code> 时重复执行代码。</p>
+<pre><code class="language-java">while (条件) {
+    // 循环体
+}
+int i = 0;
+while (i &lt; 5) {
+    System.out.println(&quot;i 的值: &quot; + i);
+    i++;
+}
+</code></pre>
+<h4>最佳实践</h4>
+<ol>
+<li>
+<p><strong>避免死循环</strong>：确保循环条件最终会变为 <code>false</code>，否则会导致死循环。</p>
+</li>
+<li>
+<p><strong>明确退出条件</strong>：在循环开始前明确退出条件，避免逻辑混乱。</p>
+</li>
+<li>
+<p><strong>使用 <code>break</code> 或 <code>continue</code> 谨慎</strong>：过度使用 <code>break</code> 或 <code>continue</code> 会降低代码可读性。</p>
+</li>
+</ol>
+<h3>(3) <code>do-while</code> 循环</h3>
+<p><code>do-while</code> 循环与 <code>while</code> 循环类似，但它的循环体至少会执行一次，然后再检查条件。</p>
+<pre><code class="language-java">do {
+    // 循环体
+} while (条件);
+
+int i = 0;
+do {
+    System.out.println(&quot;i 的值: &quot; + i);
+    i++;
+} while (i &lt; 5);
+
+</code></pre>
+<h4>最佳实践</h4>
+<ol>
+<li>
+<p><strong>适用于至少执行一次的场景</strong>：如用户输入验证。</p>
+</li>
+<li>
+<p><strong>避免滥用</strong>：如果不需要至少执行一次，优先使用 <code>while</code> 循环。</p>
+</li>
+</ol>
+<h2>4. 增强的 <code>for-each</code> 循环</h2>
+<p><code>for-each</code> 循环用于遍历数组或集合，语法简洁。</p>
+<pre><code class="language-java">for (数据类型 变量 : 数组或集合) {
+    // 循环体
+}
+int[] numbers = {1, 2, 3, 4, 5};
+for (int num : numbers) {
+    System.out.println(&quot;数字: &quot; + num);
+}
+</code></pre>
+<h4>最佳实践</h4>
+<ol>
+<li>
+<p><strong>遍历集合或数组</strong>：优先使用 <code>for-each</code> 循环，代码更简洁。</p>
+</li>
+<li>
+<p><strong>避免修改集合</strong>：在 <code>for-each</code> 循环中不要修改集合（如删除元素），否则会抛出 <code>ConcurrentModificationException</code>。</p>
+</li>
+<li>
+<p><strong>需要索引时使用普通 <code>for</code> 循环</strong>：如果需要访问索引，使用普通 <code>for</code> 循环。</p>
+</li>
+</ol>
+<h2>5. 嵌套循环</h2>
+<p>嵌套循环是指在一个循环内部再嵌套另一个循环。</p>
+<pre><code class="language-java">for (int i = 0; i &lt; 3; i++) {
+    for (int j = 0; j &lt; 3; j++) {
+        System.out.println(&quot;i = &quot; + i + &quot;, j = &quot; + j);
+    }
+}
+</code></pre>
+<h4>最佳实践</h4>
+<ol>
+<li>
+<p><strong>避免过深嵌套</strong>：嵌套层次过多会降低代码可读性，尽量控制在 2-3 层。</p>
+</li>
+<li>
+<p><strong>提取内层循环</strong>：如果内层循环逻辑复杂，可以将其提取为一个独立的方法。</p>
+</li>
+<li>
+<p><strong>优化性能</strong>：尽量减少内层循环的计算量，避免重复计算。</p>
+</li>
+</ol>
+<h2>6. 循环控制语句</h2>
+<h3>(1) <code>break</code></h3>
+<p>用于立即退出循环。</p>
+<h3>(2) <code>continue</code></h3>
+<p>用于跳过当前迭代，直接进入下一次迭代。</p>
+</article>
+    </main>
+  </body>
+</html>

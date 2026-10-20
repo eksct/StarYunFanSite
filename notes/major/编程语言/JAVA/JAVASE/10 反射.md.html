@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="10 反射 Java 反射（Reflection）是 Java 提供的一种强大机制，允许程序在运行时动态地获取类的信息并操作类的属性和方法。通过反射，可以在运行时检查类、接口、字段和方法，甚至可以调用">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="10 反射 · Seiga">
+    <meta property="og:description" content="10 反射 Java 反射（Reflection）是 Java 提供的一种强大机制，允许程序在运行时动态地获取类的信息并操作类的属性和方法。通过反射，可以在运行时检查类、接口、字段和方法，甚至可以调用">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/10%20%E5%8F%8D%E5%B0%84.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/10%20%E5%8F%8D%E5%B0%84.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>10 反射 · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"10 反射","description":"10 反射 Java 反射（Reflection）是 Java 提供的一种强大机制，允许程序在运行时动态地获取类的信息并操作类的属性和方法。通过反射，可以在运行时检查类、接口、字段和方法，甚至可以调用","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/10%20%E5%8F%8D%E5%B0%84.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>10 反射</h1>
+        <p class="static-note-meta">Java · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/10%20%E5%8F%8D%E5%B0%84.md">在站内打开</a>
+      </header>
+      <article class="prose"><h1>10 反射</h1>
+<p>Java 反射（Reflection）是 Java 提供的一种强大机制，允许程序在运行时动态地获取类的信息并操作类的属性和方法。通过反射，可以在运行时检查类、接口、字段和方法，甚至可以调用方法或修改字段的值。</p>
+<h2>1. 反射的核心类</h2>
+<p>Java 反射的核心类位于 <code>java.lang.reflect</code> 包中，主要包括：</p>
+<table>
+<thead>
+<tr>
+<th>类名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Class</code></td>
+<td>表示类或接口，是反射的核心类。</td>
+</tr>
+<tr>
+<td><code>Field</code></td>
+<td>表示类的字段（成员变量）。</td>
+</tr>
+<tr>
+<td><code>Method</code></td>
+<td>表示类的方法。</td>
+</tr>
+<tr>
+<td><code>Constructor</code></td>
+<td>表示类的构造方法。</td>
+</tr>
+<tr>
+<td><code>Modifier</code></td>
+<td>提供对类和成员访问修饰符的解码。</td>
+</tr>
+<tr>
+<td><code>Array</code></td>
+<td>提供动态创建和访问数组的静态方法。</td>
+</tr>
+</tbody>
+</table>
+<h2>2. 获取 <code>Class</code> 对象</h2>
+<p><code>Class</code> 对象是反射的入口，可以通过以下方式获取：</p>
+<pre><code class="language-java">//通过类名获取
+Class&lt;?&gt; clazz = Class.forName(&quot;java.lang.String&quot;);
+//通过对象获取
+String str = &quot;Hello&quot;;
+Class&lt;?&gt; clazz = str.getClass();
+//通过 .class 语法获取
+Class&lt;?&gt; clazz = String.class;
+</code></pre>
+<h2>3. 获取类的信息</h2>
+<pre><code class="language-java">//获取类名
+String className = clazz.getName();  // 全限定名
+String simpleName = clazz.getSimpleName();  // 简单类名
+//获取修饰符
+int modifiers = clazz.getModifiers();
+String modifierStr = Modifier.toString(modifiers);  // 如 &quot;public final&quot;
+//获取父类
+Class&lt;?&gt; superClass = clazz.getSuperclass();
+//获取实现的接口
+Class&lt;?&gt;[] interfaces = clazz.getInterfaces();
+</code></pre>
+<h2>4. 获取字段信息</h2>
+<pre><code class="language-java">//获取所有字段
+Field[] fields = clazz.getDeclaredFields();
+for (Field field : fields) {
+    System.out.println(field.getName());
+}
+//获取指定字段
+Field field = clazz.getDeclaredField(&quot;fieldName&quot;);
+//获取字段类型
+Class&lt;?&gt; fieldType = field.getType();
+//获取和设置字段值
+Object obj = clazz.getDeclaredConstructor().newInstance();
+field.setAccessible(true);  // 设置可访问私有字段
+field.set(obj, value);  // 设置字段值
+Object value = field.get(obj);  // 获取字段值
+</code></pre>
+<h2>5. 获取方法信息</h2>
+<pre><code class="language-java">//获取所有方法
+Method[] methods = clazz.getDeclaredMethods();
+for (Method method : methods) {
+    System.out.println(method.getName());
+}
+//获取指定方法
+//**`parameterTypes`**：这是一个 `Class` 类型的数组，表示方法的参数类型。如果方法有多个参数，你需要为每个参数指定其类型。
+Method method = clazz.getDeclaredMethod(&quot;methodName&quot;, parameterTypes);
+//调用方法
+Object obj = clazz.getDeclaredConstructor().newInstance();
+method.setAccessible(true);  // 设置可访问私有方法
+Object result = method.invoke(obj, args);  // 调用方法
+</code></pre>
+<h2>6. 获取构造方法信息</h2>
+<pre><code class="language-java">//获取所有构造方法
+Constructor&lt;?&gt;[] constructors = clazz.getDeclaredConstructors();
+for (Constructor&lt;?&gt; constructor : constructors) {
+    System.out.println(constructor.getName());
+}
+//获取指定构造方法
+Constructor&lt;?&gt; constructor = clazz.getDeclaredConstructor(parameterTypes);
+//创建对象
+Object obj = constructor.newInstance(args);
+</code></pre>
+<h2>7. 动态创建和操作数组</h2>
+<pre><code class="language-java">//创建数组
+Object array = Array.newInstance(String.class, 10);  // 创建长度为 10 的 String 数组
+Array.set(array, 0, &quot;Hello&quot;);
+//设置和获取数组元素
+String element = (String) Array.get(array, 0);
+</code></pre>
+<h2>8. 反射的应用场景</h2>
+<ul>
+<li>
+<p><strong>动态加载类</strong>：在运行时加载类并调用其方法。</p>
+</li>
+<li>
+<p><strong>框架开发</strong>：如 Spring 框架通过反射实现依赖注入。</p>
+</li>
+<li>
+<p><strong>测试工具</strong>：如 JUnit 通过反射调用测试方法。</p>
+</li>
+<li>
+<p><strong>序列化和反序列化</strong>：通过反射获取对象的字段和方法。</p>
+</li>
+</ul>
+<h2>9. 反射的优缺点</h2>
+<h3>优点</h3>
+<ul>
+<li>
+<p>灵活性：可以在运行时动态操作类。</p>
+</li>
+<li>
+<p>强大的功能：可以访问私有成员和方法。</p>
+</li>
+</ul>
+<h3>缺点</h3>
+<ul>
+<li>
+<p>性能开销：反射操作比直接调用慢。</p>
+</li>
+<li>
+<p>安全性问题：可以绕过访问控制，破坏封装性。</p>
+</li>
+<li>
+<p>代码可读性差：反射代码通常难以理解和维护。</p>
+</li>
+</ul>
+</article>
+    </main>
+  </body>
+</html>

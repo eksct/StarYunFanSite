@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Docker 最常用命令速查表 功能分类 命令示例 说明 -------- ---------------------------------------------------- ---------">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Docker命令 · Seiga">
+    <meta property="og:description" content="Docker 最常用命令速查表 功能分类 命令示例 说明 -------- ---------------------------------------------------- ---------">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Docker/Docker%E5%91%BD%E4%BB%A4.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Docker/Docker%E5%91%BD%E4%BB%A4.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>Docker命令 · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Docker命令","description":"Docker 最常用命令速查表 功能分类 命令示例 说明 -------- ---------------------------------------------------- ---------","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Docker/Docker%E5%91%BD%E4%BB%A4.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>Docker命令</h1>
+        <p class="static-note-meta">Docker · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/Docker/Docker%E5%91%BD%E4%BB%A4.md">在站内打开</a>
+      </header>
+      <article class="prose"><h1>Docker 最常用命令速查表</h1>
+<table>
+<thead>
+<tr>
+<th>功能分类</th>
+<th>命令示例</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>镜像操作</strong></td>
+<td><code>docker images</code></td>
+<td>查看本地镜像</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker pull nginx:[latest:版本]</code></td>
+<td>拉取远程镜像</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker rmi &lt;镜像ID或名字&gt;</code></td>
+<td>删除镜像，可以多删</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker build -t myapp:1.0 .</code></td>
+<td>从 Dockerfile 构建镜像</td>
+</tr>
+<tr>
+<td><strong>容器操作</strong></td>
+<td><code>docker ps</code></td>
+<td>查看正在运行的容器</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker ps -a</code></td>
+<td>查看所有容器</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker run -it --name mycontainer -p 8080:80 nginx</code></td>
+<td>运行容器（交互模式 + 端口映射）</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker run -d --name mycontainer -p 8080:80 nginx</code></td>
+<td>后台运行容器,后台运行需要有运行的服务，不然就会寄</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker start &lt;容器ID或名字&gt;</code></td>
+<td>启动已停止的容器</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker stop &lt;容器ID或名字&gt;</code></td>
+<td>停止容器</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker rm &lt;容器ID或名字&gt;</code></td>
+<td>删除容器</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker exec -it &lt;容器名&gt; /bin/bash</code></td>
+<td>进入容器命令行</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker logs &lt;容器名&gt;</code></td>
+<td>查看容器日志</td>
+</tr>
+<tr>
+<td><strong>网络操作</strong></td>
+<td><code>docker network ls</code></td>
+<td>查看网络列表</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker network create mynet</code></td>
+<td>创建自定义网络</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker network rm mynet</code></td>
+<td>删除网络</td>
+</tr>
+<tr>
+<td><strong>卷操作</strong></td>
+<td><code>docker volume ls</code></td>
+<td>查看卷列表</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker volume create myvol</code></td>
+<td>创建卷</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker volume rm myvol</code></td>
+<td>删除卷</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker run -v myvol:/data nginx</code></td>
+<td>挂载卷到容器</td>
+</tr>
+<tr>
+<td><strong>清理操作</strong></td>
+<td><code>docker container prune</code></td>
+<td>删除所有停止的容器</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker image prune -a</code></td>
+<td>删除所有未使用的镜像</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker system prune</code></td>
+<td>删除未使用的容器、镜像、网络、卷</td>
+</tr>
+<tr>
+<td><strong>其他常用</strong></td>
+<td><code>docker inspect &lt;容器ID或名字&gt;</code></td>
+<td>查看容器详细信息</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker stats</code></td>
+<td>实时查看容器资源占用</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker top &lt;容器ID或名字&gt;</code></td>
+<td>查看容器内进程</td>
+</tr>
+<tr>
+<td></td>
+<td><code>docker cp &lt;容器&gt;:&lt;路径&gt; &lt;本地路径&gt;</code></td>
+<td>容器与本地复制文件</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>如果你需要，我可以帮你做一个 <strong>更精简的单页速查表</strong>，打印出来就能随手查，里面只保留 <strong>90%日常开发最常用命令</strong>，不会太杂。</p>
+<p>你希望我帮你做吗？</p>
+</article>
+    </main>
+  </body>
+</html>

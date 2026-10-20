@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="@ConditionalOnMissingBean 是 Spring Boot 提供的一个 条件化配置注解，用于在容器中 不存在指定 Bean 时 才注册当前 Bean。 核心属性 属性名 类型 说明">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="@ConditionalOnMissingBean · Seiga">
+    <meta property="og:description" content="@ConditionalOnMissingBean 是 Spring Boot 提供的一个 条件化配置注解，用于在容器中 不存在指定 Bean 时 才注册当前 Bean。 核心属性 属性名 类型 说明">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnMissingBean.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnMissingBean.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>@ConditionalOnMissingBean · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"@ConditionalOnMissingBean","description":"@ConditionalOnMissingBean 是 Spring Boot 提供的一个 条件化配置注解，用于在容器中 不存在指定 Bean 时 才注册当前 Bean。 核心属性 属性名 类型 说明","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnMissingBean.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>@ConditionalOnMissingBean</h1>
+        <p class="static-note-meta">Spring Boot · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnMissingBean.md">在站内打开</a>
+      </header>
+      <article class="prose"><h1>@ConditionalOnMissingBean</h1>
+<p> 是 Spring Boot 提供的一个 <strong>条件化配置注解</strong>，用于在容器中 <strong>不存在指定 Bean 时</strong> 才注册当前 Bean。</p>
+<h3><strong>核心属性</strong></h3>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>value</code></td>
+<td><code>Class&lt;?&gt;[]</code></td>
+<td>要检查的 Bean 类型（默认根据被注解方法的返回类型推断）</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>String[]</code></td>
+<td>要检查的 Bean 名称（需精确匹配）</td>
+</tr>
+<tr>
+<td><code>ignored</code></td>
+<td><code>Class&lt;?&gt;[]</code></td>
+<td>忽略的 Bean 类型（即使存在这些类型的 Bean，仍视为“缺失”）</td>
+</tr>
+<tr>
+<td><code>ignoredType</code></td>
+<td><code>Class&lt;?&gt;[]</code></td>
+<td>同 <code>ignored</code>（Spring Boot 2.2+ 新增，更清晰的命名）</td>
+</tr>
+<tr>
+<td><code>annotation</code></td>
+<td><code>Class&lt;?&gt;[]</code></td>
+<td>检查 Bean 是否带有指定注解</td>
+</tr>
+</tbody>
+</table>
+</article>
+    </main>
+  </body>
+</html>

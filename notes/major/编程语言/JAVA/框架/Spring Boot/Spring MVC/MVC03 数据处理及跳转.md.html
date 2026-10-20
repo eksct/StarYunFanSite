@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MVC03 数据处理及跳转 结果跳转方式 ModelAndView 设置ModelAndView对象 , 根据view的名称 , 和视图解析器跳到指定的页面 . 页面 : {视图解析器前缀} + vi">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="MVC03 数据处理及跳转 · Seiga">
+    <meta property="og:description" content="MVC03 数据处理及跳转 结果跳转方式 ModelAndView 设置ModelAndView对象 , 根据view的名称 , 和视图解析器跳到指定的页面 . 页面 : {视图解析器前缀} + vi">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC03%20%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%8F%8A%E8%B7%B3%E8%BD%AC.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC03%20%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%8F%8A%E8%B7%B3%E8%BD%AC.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>MVC03 数据处理及跳转 · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"MVC03 数据处理及跳转","description":"MVC03 数据处理及跳转 结果跳转方式 ModelAndView 设置ModelAndView对象 , 根据view的名称 , 和视图解析器跳到指定的页面 . 页面 : {视图解析器前缀} + vi","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC03%20%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%8F%8A%E8%B7%B3%E8%BD%AC.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>MVC03 数据处理及跳转</h1>
+        <p class="static-note-meta">Spring Boot · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC03%20%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86%E5%8F%8A%E8%B7%B3%E8%BD%AC.md">在站内打开</a>
+      </header>
+      <article class="prose"><h1>MVC03 数据处理及跳转</h1>
+<h2>结果跳转方式</h2>
+<h3>ModelAndView</h3>
+<p>设置ModelAndView对象 , 根据view的名称 , 和视图解析器跳到指定的页面 .</p>
+<p>页面 : {视图解析器前缀} + viewName +{视图解析器后缀}</p>
+<pre><code class="language-xml">&lt;!-- 视图解析器 --&gt;
+&lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;  
+     id=&quot;internalResourceViewResolver&quot;&gt;  
+   &lt;!-- 前缀 --&gt;  
+   &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot; /&gt;  
+   &lt;!-- 后缀 --&gt;  
+   &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot; /&gt;  
+&lt;/bean&gt;
+</code></pre>
+<p>&lt;bean class=&quot;org.springframework.web.servlet.view.InternalResourceViewResolver&quot;<br>
+     id=&quot;internalResourceViewResolver&quot;&gt;<br>
+   &lt;!-- 前缀 --&gt;<br>
+   &lt;property name=&quot;prefix&quot; value=&quot;/WEB-INF/jsp/&quot; /&gt;<br>
+   &lt;!-- 后缀 --&gt;<br>
+   &lt;property name=&quot;suffix&quot; value=&quot;.jsp&quot; /&gt;<br>
+&lt;/bean&gt;</p>
+<pre><code class="language-java">//对应的controller类
+
+public class ControllerTest1 implements Controller {  
+  
+   public ModelAndView handleRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {  
+       //返回一个模型视图对象  
+       ModelAndView mv = new ModelAndView();  
+       mv.addObject(&quot;msg&quot;,&quot;ControllerTest1&quot;);  
+       mv.setViewName(&quot;test&quot;);  
+       return mv;  
+  }  
+}
+</code></pre>
+<h3>ServletAPI</h3>
+<p>通过设置ServletAPI , 不需要视图解析器 .</p>
+<p>1、通过HttpServletResponse进行输出</p>
+<p>2、通过HttpServletResponse实现重定向</p>
+<p>3、通过HttpServletResponse实现转发</p>
+<pre><code class="language-java">@Controller  
+public class ResultGo {  
+  
+   @RequestMapping(&quot;/result/t1&quot;)  
+   public void test1(HttpServletRequest req, HttpServletResponse rsp) throws IOException {  
+       rsp.getWriter().println(&quot;Hello,Spring BY servlet API&quot;);  
+  }  
+  
+   @RequestMapping(&quot;/result/t2&quot;)  
+   public void test2(HttpServletRequest req, HttpServletResponse rsp) throws IOException {  
+       rsp.sendRedirect(&quot;/index.jsp&quot;);  
+  }  
+  
+   @RequestMapping(&quot;/result/t3&quot;)  
+   public void test3(HttpServletRequest req, HttpServletResponse rsp) throws Exception {  
+       //转发  
+       req.setAttribute(&quot;msg&quot;,&quot;/result/t3&quot;);  
+       req.getRequestDispatcher(&quot;/WEB-INF/jsp/test.jsp&quot;).forward(req,rsp);  
+  }  
+  
+}
+</code></pre>
+<h3>SpringMVC</h3>
+<p><strong>通过SpringMVC来实现转发和重定向 - 无需视图解析器；</strong></p>
+<p>测试前，需要将视图解析器注释掉</p>
+<pre><code class="language-java">@Controller  
+public class ResultSpringMVC {  
+   @RequestMapping(&quot;/rsm/t1&quot;)  
+   public String test1(){  
+       //转发  
+       return &quot;/index.jsp&quot;;  
+  }  
+  
+   @RequestMapping(&quot;/rsm/t2&quot;)  
+   public String test2(){  
+       //转发二  
+       return &quot;forward:/index.jsp&quot;;  
+  }  
+  
+   @RequestMapping(&quot;/rsm/t3&quot;)  
+   public String test3(){  
+       //重定向  
+       return &quot;redirect:/index.jsp&quot;;  
+  }  
+}
+</code></pre>
+<p><strong>通过SpringMVC来实现转发和重定向 - 有视图解析器；</strong></p>
+<p>重定向 , 不需要视图解析器 , 本质就是重新请求一个新地方嘛 , 所以注意路径问题.</p>
+<p>可以重定向到另外一个请求实现 .</p>
+<pre><code class="language-java">@Controller  
+public class ResultSpringMVC2 {  
+   @RequestMapping(&quot;/rsm2/t1&quot;)  
+   public String test1(){  
+       //转发  
+       return &quot;test&quot;;  
+  }  
+  
+   @RequestMapping(&quot;/rsm2/t2&quot;)  
+   public String test2(){  
+       //重定向  
+       return &quot;redirect:/index.jsp&quot;;  
+       //return &quot;redirect:hello.do&quot;; //hello.do为另一个请求/  
+  }  
+  
+}
+</code></pre>
+<h2>数据处理</h2>
+<h3>处理提交数据</h3>
+<p><strong>1、提交的域名称和处理方法的参数名一致</strong></p>
+<p>提交数据 : <a href="http://localhost:8080/hello?name=kuangshen">http://localhost:8080/hello?name=kuangshen</a></p>
+<p>处理方法 :</p>
+<pre><code class="language-java">@RequestMapping(&quot;/hello&quot;)  
+public String hello(String name){  
+   System.out.println(name);  
+   return &quot;hello&quot;;  
+}
+</code></pre>
+<p>后台输出 : kuangshen</p>
+<p><strong>2、提交的域名称和处理方法的参数名不一致</strong></p>
+<p>提交数据 : <a href="http://localhost:8080/hello?username=kuangshen">http://localhost:8080/hello?username=kuangshen</a></p>
+<p>处理方法 :</p>
+<pre><code class="language-java">//@RequestParam(&quot;username&quot;) : username提交的域的名称 .  
+@RequestMapping(&quot;/hello&quot;)  
+public String hello(@RequestParam(&quot;username&quot;) String name){  
+   System.out.println(name);  
+   return &quot;hello&quot;;  
+}
+</code></pre>
+<p>后台输出 : kuangshen</p>
+<p><strong>3、提交的是一个对象</strong></p>
+<p>要求提交的表单域和对象的属性名一致  , 参数使用对象即可</p>
+<p>1、实体类</p>
+<pre><code class="language-java">public class User {  
+   private int id;  
+   private String name;  
+   private int age;  
+   //构造  
+   //get/set  
+   //tostring()  
+}
+</code></pre>
+<p>2、提交数据 : <a href="http://localhost:8080/mvc04/user?name=kuangshen&amp;id=1&amp;age=15">http://localhost:8080/mvc04/user?name=kuangshen&amp;id=1&amp;age=15</a></p>
+<p>3、处理方法 :</p>
+<pre><code class="language-java">@RequestMapping(&quot;/user&quot;)  
+public String user(User user){  
+   System.out.println(user);  
+   return &quot;hello&quot;;  
+}
+</code></pre>
+<p>后台输出 : User { id=1, name='kuangshen', age=15 }</p>
+<p>说明：如果使用对象的话，前端传递的参数名和对象名必须一致，否则就是null。</p>
+</article>
+    </main>
+  </body>
+</html>

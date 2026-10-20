@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="当然可以，以下是优化后的 Redis 安装指南（Markdown 格式），适合用作学习笔记或文档使用： --- bash 打开 cmd 或 PowerShell 输入： wsl 然后在 WSL 中执行">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="安装&amp;连接 · Seiga">
+    <meta property="og:description" content="当然可以，以下是优化后的 Redis 安装指南（Markdown 格式），适合用作学习笔记或文档使用： --- bash 打开 cmd 或 PowerShell 输入： wsl 然后在 WSL 中执行">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Redis/%E5%AE%89%E8%A3%85%26%E8%BF%9E%E6%8E%A5.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Redis/%E5%AE%89%E8%A3%85%26%E8%BF%9E%E6%8E%A5.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>安装&amp;连接 · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"安装&连接","description":"当然可以，以下是优化后的 Redis 安装指南（Markdown 格式），适合用作学习笔记或文档使用： --- bash 打开 cmd 或 PowerShell 输入： wsl 然后在 WSL 中执行","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Redis/%E5%AE%89%E8%A3%85%26%E8%BF%9E%E6%8E%A5.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>安装&amp;连接</h1>
+        <p class="static-note-meta">Redis · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/Redis/%E5%AE%89%E8%A3%85%26%E8%BF%9E%E6%8E%A5.md">在站内打开</a>
+      </header>
+      <article class="prose"><p>当然可以，以下是优化后的 <strong>Redis 安装指南（Markdown 格式）</strong>，适合用作学习笔记或文档使用：</p>
+<hr>
+<pre><code class="language-md"># Redis 安装指南（Windows / Linux / Docker）
+
+---
+
+## 🪟 Windows 安装 Redis
+
+### ✅ 方法一：通过 WSL 安装 Redis（推荐）
+前提：你已开启 WSL 并安装标准 Linux 发行版（如 Ubuntu）
+
+```bash
+# 打开 cmd 或 PowerShell 输入：
+wsl
+
+# 然后在 WSL 中执行以下命令（若已是 root 用户，无需 sudo）
+sudo apt update
+sudo apt install redis-server
+
+# 启动 Redis 服务
+sudo service redis-server start
+
+# 测试连接
+redis-cli
+ping  # 返回 PONG 表示成功
+</code></pre>
+<hr>
+<h3>✅ 方法二：直接安装 Windows 版 Redis</h3>
+<blockquote>
+<p>虽然 Redis 官方不支持 Windows，但社区提供了稳定版本。</p>
+</blockquote>
+<p>🔗 下载地址：<br>
+👉 <a href="https://github.com/tporadowski/redis/releases/tag/v5.0.14.1">https://github.com/tporadowski/redis/releases/tag/v5.0.14.1</a></p>
+<pre><code class="language-bash"># 下载 zip，解压后运行：
+redis-server.exe     # 启动服务
+redis-cli.exe        # 打开客户端
+</code></pre>
+<hr>
+<h2>🐧 Linux 发行版安装 Redis</h2>
+<h3>✅ 方法一：使用 APT（Ubuntu / Debian 系统）</h3>
+<pre><code class="language-bash">sudo apt update
+sudo apt install redis-server -y
+
+# 启动服务
+sudo service redis-server start
+
+# 测试连接
+redis-cli
+ping
+</code></pre>
+<hr>
+<h3>✅ 方法二：使用 YUM（CentOS / Rocky / RHEL）</h3>
+<pre><code class="language-bash">sudo yum install epel-release -y
+sudo yum install redis -y
+
+# 启动服务
+sudo systemctl start redis
+sudo systemctl enable redis  # 设置开机自启
+
+# 测试连接
+redis-cli
+ping
+</code></pre>
+<hr>
+<h3>✅ 方法三：手动编译安装（适合所有 Linux）</h3>
+<pre><code class="language-bash"># 安装编译工具
+sudo apt update
+sudo apt install build-essential tcl git -y
+
+# 下载 Redis 源码并编译
+cd /usr/local/src
+sudo git clone https://github.com/redis/redis.git
+cd redis
+sudo make
+sudo make install
+
+# 启动 Redis
+redis-server
+</code></pre>
+<hr>
+<h2>🐳 使用 Docker 安装 Redis</h2>
+<pre><code class="language-bash"># 拉取 Redis 镜像并运行容器
+docker run -d -p 6379:6379 --name redis redis
+
+# 测试连接（如果你已安装 redis-cli）
+redis-cli -h 127.0.0.1 -p 6379
+ping
+</code></pre>
+<hr>
+<h2>📌 常见 Redis 配置文件路径</h2>
+<table>
+<thead>
+<tr>
+<th>系统</th>
+<th>配置文件路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ubuntu / Debian</td>
+<td><code>/etc/redis/redis.conf</code></td>
+</tr>
+<tr>
+<td>CentOS / Rocky</td>
+<td><code>/etc/redis.conf</code></td>
+</tr>
+<tr>
+<td>源码安装</td>
+<td>源码目录下的 <code>redis.conf</code></td>
+</tr>
+</tbody>
+</table>
+</article>
+    </main>
+  </body>
+</html>

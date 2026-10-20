@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="读取缓存前先判断key可能存在或一定不存在。可以设置误判率。 可以先把存在的key存入过滤器也可以即时缓存(过滤器判断可能存在，但是缓存中没有。)查询数据库后将查询到的加入缓存和过滤器。 缓存穿透 =">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="布隆过滤器 · Seiga">
+    <meta property="og:description" content="读取缓存前先判断key可能存在或一定不存在。可以设置误判率。 可以先把存在的key存入过滤器也可以即时缓存(过滤器判断可能存在，但是缓存中没有。)查询数据库后将查询到的加入缓存和过滤器。 缓存穿透 =">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Redis/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Redis/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>布隆过滤器 · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"布隆过滤器","description":"读取缓存前先判断key可能存在或一定不存在。可以设置误判率。 可以先把存在的key存入过滤器也可以即时缓存(过滤器判断可能存在，但是缓存中没有。)查询数据库后将查询到的加入缓存和过滤器。 缓存穿透 =","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Redis/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>布隆过滤器</h1>
+        <p class="static-note-meta">Redis · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/Redis/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8.md">在站内打开</a>
+      </header>
+      <article class="prose"><p>读取缓存前先判断key<strong>可能存在</strong>或<strong>一定不存在</strong>。可以设置误判率。<br>
+可以先把存在的key存入过滤器也可以即时缓存(过滤器判断可能存在，但是缓存中没有。)查询数据库后将查询到的加入缓存和过滤器。</p>
+<p><strong>缓存穿透</strong> = 用户频繁请求数据库和缓存中都没有的数据 → 每次都打到数据库。<br>
+布隆过滤器可以防止这个问题。判断不存在时直接结束。</p>
+<h1>原理</h1>
+<p>布隆过滤器（<strong>Bloom Filter</strong>）是一种<strong>空间效率极高的概率型数据结构</strong>，主要用于<strong>判断一个元素是否存在于集合中</strong>，具有：</p>
+<ul>
+<li>✅ <strong>高效判断存在性</strong></li>
+<li>❌ <strong>可能误判“存在”，但绝不会误判“不存在”</strong></li>
+</ul>
+<p>**布隆过滤器的核心由位图、多个哈希函数组成。</p>
+<p>位图由一个长度为m的bit数组，初始值为0，插入元素并对元素进行多函数哈希后，会对相应的下标bit位置置1</p>
+<p>当插入元素时，使用K个哈希函数对插入的字符串哈希出k个位置后将bit数组中这三个位置置为1</p>
+<p>查询元素时，对插入内容哈希，若哈希后的位置均为1，则元素<strong>可能存在</strong>，若任意为0，则<strong>不可能存在</strong>。<br>
+毕竟哈希是会存在相同值的，所以是可能存在，而一旦查询key某个元素为0，那说明这玩意压根没在过滤器里。<br>
+所以是存在误判的可能性的。</p>
+<h1>Guava 实现布隆过滤器（本地）</h1>
+<p>适用于：<strong>单机服务、本地缓存、轻量级场景</strong></p>
+<h3>✅ 引入依赖</h3>
+<pre><code class="language-xml">`&lt;dependency&gt;   
+	&lt;groupId&gt;com.google.guava&lt;/groupId&gt;
+	&lt;artifactId&gt;guava&lt;/artifactId&gt;
+	&lt;version&gt;32.1.3-jre&lt;/version&gt; 
+&lt;/dependency&gt;`
+</code></pre>
+<hr>
+<h3>✅ 使用示例</h3>
+<pre><code class="language-java">import com.google.common.hash.BloomFilter;
+import com.google.common.hash.Funnels;
+
+import java.nio.charset.StandardCharsets;
+
+public class GuavaBloomDemo {
+
+    public static void main(String[] args) {
+        // 期望插入数 100000，误判率 1%
+        BloomFilter&lt;String&gt; bloomFilter = BloomFilter.create(
+                Funnels.stringFunnel(StandardCharsets.UTF_8),
+                100_000,
+                0.01
+        );
+
+        // 添加数据
+        bloomFilter.put(&quot;user:123&quot;);
+        bloomFilter.put(&quot;user:456&quot;);
+
+        // 查询
+        System.out.println(bloomFilter.mightContain(&quot;user:123&quot;));  // true
+        System.out.println(bloomFilter.mightContain(&quot;user:999&quot;));  // false (或小概率 true)
+    }
+}
+</code></pre>
+<hr>
+<h3>✅ 优缺点</h3>
+<table>
+<thead>
+<tr>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>使用简单，性能高</td>
+<td>单机内存，不支持分布式</td>
+</tr>
+<tr>
+<td>可控误判率，支持泛型</td>
+<td>重启后数据丢失</td>
+</tr>
+</tbody>
+</table>
+<h1>✅ 二、Redis 实现布隆过滤器（分布式）</h1>
+<h3>Redisson BloomFilter（基于 Redis 实现）</h3>
+<p><strong>适用于：Spring Boot 服务，跨服务共享布隆过滤器</strong>*<br>
+**引入Redisson</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.redisson&lt;/groupId&gt;
+  &lt;artifactId&gt;redisson-spring-boot-starter&lt;/artifactId&gt;
+  &lt;version&gt;3.23.2&lt;/version&gt;
+&lt;/dependency&gt;
+
+</code></pre>
+<p>**配置 <code>application.yml</code></p>
+<pre><code class="language-yaml">redisson:
+  config: |
+    singleServerConfig:
+      address: &quot;redis://127.0.0.1:6379&quot;
+
+</code></pre>
+<p>or</p>
+<pre><code class="language-java">Config config = new Config();
+config.useSingleServer()
+      .setAddress(&quot;redis://127.0.0.1:6379&quot;)
+      .setDatabase(0);
+
+RedissonClient redissonClient = Redisson.create(config);
+
+</code></pre>
+<p>示例：</p>
+<pre><code class="language-java">import org.redisson.api.RBloomFilter;
+import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class RedisBloomService {
+
+    @Autowired
+    private RedissonClient redissonClient;
+
+    public void initFilter() {
+        RBloomFilter&lt;String&gt; bloomFilter = redissonClient.getBloomFilter(&quot;user:filter&quot;);
+        // 初始化：预计元素数、误判率
+        bloomFilter.tryInit(1000000L, 0.01);
+    }
+
+    public void add(String userId) {
+    //向过滤器添加元素
+        RBloomFilter&lt;String&gt; bloomFilter = redissonClient.getBloomFilter(&quot;user:filter&quot;);
+        bloomFilter.add(userId);
+    }
+
+    public boolean mightExist(String userId) {
+        RBloomFilter&lt;String&gt; bloomFilter = redissonClient.getBloomFilter(&quot;user:filter&quot;);
+        return bloomFilter.contains(userId);
+    }
+}
+
+</code></pre>
+</article>
+    </main>
+  </body>
+</html>

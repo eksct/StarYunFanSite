@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Spring Data redis spring提供的对不同redis客户端的整合(lettuce和jredis) 提供redisTemplate统一API操作 支持redis的发布订阅 支持Redi">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Spring Data redis · Seiga">
+    <meta property="og:description" content="Spring Data redis spring提供的对不同redis客户端的整合(lettuce和jredis) 提供redisTemplate统一API操作 支持redis的发布订阅 支持Redi">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Redis/Spring%20Data%20redis.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Redis/Spring%20Data%20redis.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>Spring Data redis · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Spring Data redis","description":"Spring Data redis spring提供的对不同redis客户端的整合(lettuce和jredis) 提供redisTemplate统一API操作 支持redis的发布订阅 支持Redi","datePublished":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Redis/Spring%20Data%20redis.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>Spring Data redis</h1>
+        <p class="static-note-meta">Redis · 2026-09-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/Redis/Spring%20Data%20redis.md">在站内打开</a>
+      </header>
+      <article class="prose"><h1>Spring Data redis</h1>
+<p>spring提供的对不同redis客户端的整合(lettuce和jredis)<br>
+提供redisTemplate统一API操作<br>
+支持redis的发布订阅<br>
+支持Redis哨兵和Redis集群<br>
+支持基于Lettuce的响应式编程<br>
+支持基于JDK、JSON、字符串、Spring对象的数据序列化及反序列化<br>
+支持基于Redis的JDKCollection实现</p>
+<h2>一、快速入门</h2>
+<p>1.引入redis</p>
+<pre><code class="language-xml">&lt;!--meavn--&gt;
+&lt;!--Redis依赖--&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+	&lt;artifactid&gt;spring-boot-starter-data-redis&lt;/artifactid&gt;
+&lt;/dependency&gt;
+&lt;!--连接池依赖--&gt;
+&lt;dependency&gt;
+	&lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
+	&lt;artifactId&gt;commons-pool2&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<pre><code class="language-gradle">
+</code></pre>
+<p>2.修改redis客户端连接驱动<br>
+lettuce</p>
+<pre><code class="language-xml">&lt;dependencies&gt;
+
+  &lt;!-- other dependency elements omitted --&gt;
+
+  &lt;dependency&gt;
+    &lt;groupId&gt;io.lettuce&lt;/groupId&gt;
+    &lt;artifactId&gt;lettuce-core&lt;/artifactId&gt;
+    &lt;version&gt;6.6.0.RELEASE&lt;/version&gt;
+  &lt;/dependency&gt;
+
+&lt;/dependencies&gt;
+</code></pre>
+<pre><code class="language-java">//配置连接工厂
+@Configuration
+class AppConfig {
+
+  @Bean
+  public LettuceConnectionFactory redisConnectionFactory() {
+
+    return new LettuceConnectionFactory(new RedisStandaloneConfiguration(&quot;server&quot;, 6379));
+  }
+}
+</code></pre>
+<p>jredis</p>
+<pre><code class="language-xml">&lt;dependencies&gt;
+
+  &lt;!-- other dependency elements omitted --&gt;
+
+  &lt;dependency&gt;
+    &lt;groupId&gt;redis.clients&lt;/groupId&gt;
+    &lt;artifactId&gt;jedis&lt;/artifactId&gt;
+    &lt;version&gt;6.0.0&lt;/version&gt;
+  &lt;/dependency&gt;
+
+&lt;/dependencies&gt;
+</code></pre>
+<pre><code class="language-java">@Configuration
+class RedisConfiguration {
+
+  @Bean
+  public JedisConnectionFactory redisConnectionFactory() {
+
+    RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(&quot;server&quot;, 6379);
+    return new JedisConnectionFactory(config);
+  }
+}
+</code></pre>
+<p>看起来jedis是最简单的配置<br>
+3.配置文件编写</p>
+<pre><code class="language-yml">spring:
+	redis:
+		host:192.168.150.101
+		port:6379
+		password:123321lettuce:
+		pool:
+			max-active:8#最大连接
+			max-idle:8#最大空闲连接
+			min-idle:0#最小空闲连接
+			max-wait:100#连接等待时间
+</code></pre>
+<p>4.使用示例</p>
+<pre><code class="language-java">//注入redisTemplate
+@resource
+private RedisTemplate redisTemplate;
+//插入一条string数据
+redisTemplate.opsForValue().set(&quot;name&quot;,&quot;ls&quot;)
+//读取key=name的数据
+Object name = redisTemplate.opsForValue().get(&quot;name&quot;)
+
+</code></pre>
+<p>5.Spring Data Redis API 对照表</p>
+<table>
+<thead>
+<tr>
+<th>API（RedisTemplate）</th>
+<th>Redis 数据类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>opsForValue()</code></td>
+<td><strong>String</strong></td>
+<td>操作 Redis 的字符串（key-value），最常用的 KV 存储。</td>
+</tr>
+<tr>
+<td><code>opsForHash()</code></td>
+<td><strong>Hash</strong></td>
+<td>操作哈希表，类似 <code>Map</code>，可在一个 key 下存储多个 field-value。</td>
+</tr>
+<tr>
+<td><code>opsForList()</code></td>
+<td><strong>List</strong></td>
+<td>操作列表，支持左/右 push、pop 等，用作队列或栈。</td>
+</tr>
+<tr>
+<td><code>opsForSet()</code></td>
+<td><strong>Set</strong></td>
+<td>操作集合，存储不重复元素，支持交集、并集、差集。</td>
+</tr>
+<tr>
+<td><code>opsForZSet()</code></td>
+<td><strong>Sorted Set</strong></td>
+<td>操作有序集合，每个元素带一个 score，可按权重排序。</td>
+</tr>
+<tr>
+<td><code>opsForGeo()</code></td>
+<td><strong>Geo</strong></td>
+<td>操作地理空间数据，存储经纬度，支持距离计算、范围查询。</td>
+</tr>
+<tr>
+<td><code>opsForHyperLogLog()</code></td>
+<td><strong>HyperLogLog</strong></td>
+<td>操作基数统计，用于近似计算唯一值数量。</td>
+</tr>
+<tr>
+<td><code>opsForCluster()</code></td>
+<td><strong>Cluster</strong></td>
+<td>集群相关操作，主要用于 Redis 集群环境。</td>
+</tr>
+<tr>
+<td><code>opsForStream()</code></td>
+<td><strong>Stream</strong></td>
+<td>操作 Redis Stream（消息队列/日志型结构）。</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-java">//例子
+// String
+redisTemplate.opsForValue().set(&quot;key&quot;, &quot;value&quot;);
+
+// Hash
+redisTemplate.opsForHash().put(&quot;user:1&quot;, &quot;name&quot;, &quot;Alice&quot;);
+
+// List
+redisTemplate.opsForList().leftPush(&quot;tasks&quot;, &quot;task1&quot;);
+
+// Set
+redisTemplate.opsForSet().add(&quot;tags&quot;, &quot;java&quot;, &quot;spring&quot;);
+
+// ZSet
+redisTemplate.opsForZSet().add(&quot;ranking&quot;, &quot;Alice&quot;, 100);
+
+// Geo
+redisTemplate.opsForGeo().add(&quot;locations&quot;, new Point(116.40, 39.90), &quot;Beijing&quot;);
+
+// HyperLogLog
+redisTemplate.opsForHyperLogLog().add(&quot;unique_users&quot;, &quot;user1&quot;, &quot;user2&quot;);
+
+// Stream
+RecordId recordId = redisTemplate.opsForStream().add(
+    StreamRecords.newRecord()
+                 .in(&quot;mystream&quot;)
+                 .ofObject(&quot;eventData&quot;)
+);
+
+</code></pre>
+<h2>二、自定义redis序列化配置</h2>
+<p>Spring 已经提供了一个现成的模板：StringRedisTemplate 键值都是string，不适合存储对象<br>
+需要存储对象的话，则需要使用json序列化器<br>
+（然鹅，为了后续的反序列化，redis中会存入对象的class，导致字节占用较大；通常是用json工具转成json字符串后再存入）<br>
+自定义序列化Bean：</p>
+<pre><code class="language-java">@Configuration
+public class RedisConfig {
+
+    @Bean
+    public RedisTemplate&lt;String, Object&gt; redisTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate&lt;String, Object&gt; template = new RedisTemplate&lt;&gt;();
+        template.setConnectionFactory(connectionFactory);
+
+        // 使用 String 序列化 key
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setHashKeySerializer(new StringRedisSerializer());
+
+        // 使用 JSON 序列化 value
+        GenericJackson2JsonRedisSerializer jsonSerializer = new GenericJackson2JsonRedisSerializer();
+        template.setValueSerializer(jsonSerializer);
+        template.setHashValueSerializer(jsonSerializer);
+
+        return template;
+    }
+}
+
+</code></pre>
+<p>其他可选序列化</p>
+<table>
+<thead>
+<tr>
+<th>序列化器</th>
+<th>说明</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>StringRedisSerializer</code></td>
+<td>以 UTF-8 字符串方式存储</td>
+<td>最常用的 key 序列化器</td>
+</tr>
+<tr>
+<td><code>JdkSerializationRedisSerializer</code></td>
+<td>Java 原生序列化</td>
+<td>默认方式（但不推荐）</td>
+</tr>
+<tr>
+<td><code>Jackson2JsonRedisSerializer</code></td>
+<td>Jackson JSON 序列化</td>
+<td>跨语言，推荐存对象</td>
+</tr>
+<tr>
+<td><code>GenericJackson2JsonRedisSerializer</code></td>
+<td>Jackson JSON 通用序列化（包含类型信息）</td>
+<td>推荐，比上面的更通用</td>
+</tr>
+<tr>
+<td><code>OxmSerializer</code></td>
+<td>使用 JAXB/OXM</td>
+<td>XML 序列化场景</td>
+</tr>
+</tbody>
+</table>
+</article>
+    </main>
+  </body>
+</html>

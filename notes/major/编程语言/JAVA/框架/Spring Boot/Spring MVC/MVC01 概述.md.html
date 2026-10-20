@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MVC01 概述 1.1、什么是MVC - MVC是模型(Model)、视图(View)、控制器(Controller)的简写，是一种软件设计规范。 - 是将业务逻辑、数据、显示分离的方法来组织代码。">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="MVC01 概述 · Seiga">
+    <meta property="og:description" content="MVC01 概述 1.1、什么是MVC - MVC是模型(Model)、视图(View)、控制器(Controller)的简写，是一种软件设计规范。 - 是将业务逻辑、数据、显示分离的方法来组织代码。">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC01%20%E6%A6%82%E8%BF%B0.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC01%20%E6%A6%82%E8%BF%B0.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>MVC01 概述 · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"MVC01 概述","description":"MVC01 概述 1.1、什么是MVC - MVC是模型(Model)、视图(View)、控制器(Controller)的简写，是一种软件设计规范。 - 是将业务逻辑、数据、显示分离的方法来组织代码。","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC01%20%E6%A6%82%E8%BF%B0.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>MVC01 概述</h1>
+        <p class="static-note-meta">Spring Boot · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC01%20%E6%A6%82%E8%BF%B0.md">在站内打开</a>
+      </header>
+      <article class="prose"><h1>MVC01 概述</h1>
+<h3>1.1、什么是MVC</h3>
+<ul>
+<li>
+<p>MVC是模型(Model)、视图(View)、控制器(Controller)的简写，是一种<strong>软件设计规范</strong>。</p>
+</li>
+<li>
+<p>是将业务逻辑、数据、显示分离的方法来组织代码。</p>
+</li>
+<li>
+<p>MVC主要作用是<strong>降低了视图与业务逻辑间的双向偶合</strong>。</p>
+</li>
+<li>
+<p>MVC不是一种设计模式，<strong>MVC是一种架构模式</strong>。当然不同的MVC存在差异。</p>
+</li>
+</ul>
+<p>**Model（模型）：数据模型，提供要展示的数据，因此包含数据和行为，可以认为是领域模型或JavaBean组件（包含数据和行为），不过现在一般都分离开来：Value Object（数据Dao） 和 服务层（行为Service）。也就是模型提供了模型数据查询和模型数据的状态更新等功能，包括数据和业务。</p>
+<p>**View（视图）：负责进行模型的展示，一般就是我们见到的用户界面，客户想看到的东西。</p>
+<p>**Controller（控制器）：接收用户请求，委托给模型进行处理（状态改变），处理完毕后把返回的模型数据返回给视图，由视图负责展示。也就是说控制器做了个调度员的工作。</p>
+<p><strong>职责分析：</strong></p>
+<p><strong>Controller：控制器</strong></p>
+<ol>
+<li>
+<p>取得表单数据</p>
+</li>
+<li>
+<p>调用业务逻辑</p>
+</li>
+<li>
+<p>转向指定的页面</p>
+</li>
+</ol>
+<p><strong>Model：模型</strong> （dao+service）</p>
+<ol>
+<li>
+<p>业务逻辑</p>
+</li>
+<li>
+<p>保存数据的状态</p>
+</li>
+</ol>
+<p><strong>View：视图</strong></p>
+<ol>
+<li>显示页面</li>
+</ol>
+<p><strong>MVC框架要做哪些事情</strong></p>
+<ol>
+<li>
+<p>将url映射到java类或java类的方法 .</p>
+</li>
+<li>
+<p>封装用户提交的数据 .</p>
+</li>
+<li>
+<p>处理请求--调用相关的业务处理--封装响应数据 .</p>
+</li>
+<li>
+<p>将响应的数据进行渲染 . jsp / html 等表示层数据 .</p>
+</li>
+</ol>
+<p><strong>说明：</strong></p>
+<p>常见的服务器端MVC框架有：Struts、Spring MVC、ASP.NET MVC、Zend Framework、JSF；常见前端MVC框架：vue、angularjs、react、backbone；由MVC演化出了另外一些模式如：MVP、MVVM 等等....</p>
+<h2>2、什么是SpringMVC</h2>
+<h3>2.1、概述</h3>
+<p><strong>Spring MVC是Spring Framework的一部分，是基于Java实现MVC的轻量级Web框架。</strong></p>
+<p>查看官方文档：<a href="https://docs.spring.io/spring/docs/5.2.0.RELEASE/spring-framework-reference/web.html#spring-web">https://docs.spring.io/spring/docs/5.2.0.RELEASE/spring-framework-reference/web.html#spring-web</a></p>
+<p><strong>我们为什么要学习SpringMVC呢?</strong></p>
+<p>Spring MVC的特点：</p>
+<ol>
+<li>
+<p>轻量级，简单易学</p>
+</li>
+<li>
+<p>高效 , 基于请求响应的MVC框架</p>
+</li>
+<li>
+<p>与Spring兼容性好，无缝结合</p>
+</li>
+<li>
+<p>约定优于配置</p>
+</li>
+<li>
+<p>功能强大：RESTful、数据验证、格式化、本地化、主题等</p>
+</li>
+<li>
+<p>简洁灵活</p>
+</li>
+</ol>
+<p>Spring的web框架围绕<strong>DispatcherServlet</strong> [ 调度Servlet ] 设计。</p>
+<p>DispatcherServlet的作用是将请求分发到不同的处理器。从Spring 2.5开始，使用Java 5或者以上版本的用户可以采用基于注解形式进行开发，十分简洁；</p>
+<p>正因为SpringMVC好 , 简单 , 便捷 , 易学 , 天生和Spring无缝集成(使用SpringIoC和Aop) , 使用约定优于配置 . 能够进行简单的junit测试 . 支持Restful风格 .异常处理 , 本地化 , 国际化 , 数据验证 , 类型转换 , 拦截器 等等......所以我们要学习 .</p>
+<p><strong>最重要的一点还是用的人多 , 使用的公司多 .</strong></p>
+<h3>2.2、中心控制器</h3>
+<p>Spring的web框架围绕DispatcherServlet设计。DispatcherServlet的作用是将请求分发到不同的处理器。从Spring 2.5开始，使用Java 5或者以上版本的用户可以采用基于注解的controller声明方式。</p>
+<p>Spring MVC框架像许多其他MVC框架一样, <strong>以请求为驱动</strong> , <strong>围绕一个中心Servlet分派请求及提供其他功能</strong>，<strong>DispatcherServlet是一个实际的Servlet (它继承自HttpServlet 基类)</strong>。</p>
+<p>SpringMVC的原理：</p>
+<p>当发起请求时被前置的控制器（DispatcherServlet）拦截到请求，根据请求参数生成代理请求，找到请求对应的实际控制器，控制器处理请求，创建数据模型，访问数据库，将模型响应给中心控制器，控制器使用模型与视图渲染视图结果，将结果返回给中心控制器，再将结果返回给请求者。</p>
+<p><img src="/StarYunFanSite/postDir/major/image/cf554a1f4fb9050bf4f9ad98ad482e81_640_wx_fmt%3Dpng%26tp%3Dwebp%26wxfrom%3D5%26wx_lazy%3D1%26wx_co%3D1.webp" alt="cf554a1f4fb9050bf4f9ad98ad482e81_640_wx_fmt=png&amp;tp=webp&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1.webp" loading="lazy" decoding="async"><br>
+<strong>简要分析执行流程</strong></p>
+<ol>
+<li>
+<p>DispatcherServlet表示前置控制器，是整个SpringMVC的控制中心。用户发出请求，DispatcherServlet接收请求并拦截请求。</p>
+<p>我们假设请求的url为 : <a href="http://localhost:8080/SpringMVC/hello">http://localhost:8080/SpringMVC/hello</a></p>
+<p><strong>如上url拆分成三部分：</strong></p>
+<p>http://localhost:8080服务器域名</p>
+<p>SpringMVC部署在服务器上的web站点</p>
+<p>hello表示控制器</p>
+<p>通过分析，如上url表示为：请求位于服务器localhost:8080上的SpringMVC站点的hello控制器。</p>
+</li>
+<li>
+<p>HandlerMapping为处理器映射。DispatcherServlet调用HandlerMapping,HandlerMapping根据请求url查找Handler。</p>
+</li>
+<li>
+<p>HandlerExecution表示具体的Handler,其主要作用是根据url查找控制器，如上url被查找控制器为：hello。</p>
+</li>
+<li>
+<p>HandlerExecution将解析后的信息传递给DispatcherServlet,如解析控制器映射等。</p>
+</li>
+<li>
+<p>HandlerAdapter表示处理器适配器，其按照特定的规则去执行Handler。</p>
+</li>
+<li>
+<p>Handler让具体的Controller执行。</p>
+</li>
+<li>
+<p>Controller将具体的执行信息返回给HandlerAdapter,如ModelAndView。</p>
+</li>
+<li>
+<p>HandlerAdapter将视图逻辑名或模型传递给DispatcherServlet。</p>
+</li>
+<li>
+<p>DispatcherServlet调用视图解析器(ViewResolver)来解析HandlerAdapter传递的逻辑视图名。</p>
+</li>
+<li>
+<p>视图解析器将解析的逻辑视图名传给DispatcherServlet。</p>
+</li>
+<li>
+<p>DispatcherServlet根据视图解析器解析的视图结果，调用具体的视图。</p>
+</li>
+<li>
+<p>最终视图呈现给用户。</p>
+</li>
+</ol>
+</article>
+    </main>
+  </body>
+</html>

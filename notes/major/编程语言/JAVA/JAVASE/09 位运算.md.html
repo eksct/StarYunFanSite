@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="09 位运算 位运算是直接对整数的二进制位进行操作的运算。位运算在底层编程、性能优化和某些特定算法中非常有用。 1. 位运算符 Java 提供了以下位运算符： 运算符 名称 描述 :---- :---">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="09 位运算 · Seiga">
+    <meta property="og:description" content="09 位运算 位运算是直接对整数的二进制位进行操作的运算。位运算在底层编程、性能优化和某些特定算法中非常有用。 1. 位运算符 Java 提供了以下位运算符： 运算符 名称 描述 :---- :---">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/09%20%E4%BD%8D%E8%BF%90%E7%AE%97.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/09%20%E4%BD%8D%E8%BF%90%E7%AE%97.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>09 位运算 · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"09 位运算","description":"09 位运算 位运算是直接对整数的二进制位进行操作的运算。位运算在底层编程、性能优化和某些特定算法中非常有用。 1. 位运算符 Java 提供了以下位运算符： 运算符 名称 描述 :---- :---","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/09%20%E4%BD%8D%E8%BF%90%E7%AE%97.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>09 位运算</h1>
+        <p class="static-note-meta">Java · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/09%20%E4%BD%8D%E8%BF%90%E7%AE%97.md">在站内打开</a>
+      </header>
+      <article class="prose"><h1>09 位运算</h1>
+<p>位运算是直接对整数的二进制位进行操作的运算。位运算在底层编程、性能优化和某些特定算法中非常有用。</p>
+<h2>1. 位运算符</h2>
+<p>Java 提供了以下位运算符：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">运算符</th>
+<th style="text-align:center">名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>&amp;</code></td>
+<td style="text-align:center">按位与（AND）</td>
+<td>两个操作数的对应位都为 1 时，结果位才为 1。</td>
+</tr>
+<tr>
+<td style="text-align:left">`</td>
+<td style="text-align:center">`</td>
+<td>按位或（OR）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>^</code></td>
+<td style="text-align:center">按位异或（XOR）</td>
+<td>两个操作数的对应位不同时，结果位为 1。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>~</code></td>
+<td style="text-align:center">按位取反（NOT）</td>
+<td>对操作数的每一位取反（0 变 1，1 变 0）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&lt;&lt;</code></td>
+<td style="text-align:center">左移</td>
+<td>将操作数的二进制位向左移动指定的位数，右侧补 0。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&gt;&gt;</code></td>
+<td style="text-align:center">右移</td>
+<td>将操作数的二进制位向右移动指定的位数，左侧补符号位（正数补 0，负数补 1）。</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>&gt;&gt;&gt;</code></td>
+<td style="text-align:center">无符号右移</td>
+<td>将操作数的二进制位向右移动指定的位数，左侧补 0。</td>
+</tr>
+</tbody>
+</table>
+<h2>2. 位运算示例</h2>
+<h3>2.1 按位与（<code>&amp;</code>）</h3>
+<pre><code class="language-java">int a = 5;  // 二进制: 0101
+int b = 3;  // 二进制: 0011
+int result = a &amp; b;  // 二进制: 0001 (十进制: 1)
+System.out.println(result);  // 输出: 1
+</code></pre>
+<h3>2.2 按位或（<code>|</code>）</h3>
+<pre><code class="language-java">int a = 5;  // 二进制: 0101
+int b = 3;  // 二进制: 0011
+int result = a | b;  // 二进制: 0111 (十进制: 7)
+System.out.println(result);  // 输出: 7
+</code></pre>
+<h3>2.3 按位异或（<code>^</code>）</h3>
+<pre><code class="language-java">int a = 5;  // 二进制: 0101
+int b = 3;  // 二进制: 0011
+int result = a ^ b;  // 二进制: 0110 (十进制: 6)
+System.out.println(result);  // 输出: 6
+</code></pre>
+<h3>2.4 按位取反（<code>~</code>）</h3>
+<pre><code class="language-java">int a = 5;  // 二进制: 0000 0101
+int result = ~a;  // 二进制: 1111 1010 (十进制: -6)
+System.out.println(result);  // 输出: -6
+</code></pre>
+<h3>2.5 左移（<code>&lt;&lt;</code>）</h3>
+<pre><code class="language-java">int a = 5;  // 二进制: 0000 0101
+int result = a &lt;&lt; 1;  // 二进制: 0000 1010 (十进制: 10)
+System.out.println(result);  // 输出: 10
+</code></pre>
+<h3>2.6 右移（<code>&gt;&gt;</code>）</h3>
+<pre><code class="language-java">int a = -8;  // 二进制: 1111 1000
+int result = a &gt;&gt; 1;  // 二进制: 1111 1100 (十进制: -4)
+System.out.println(result);  // 输出: -4
+</code></pre>
+<h3>2.7 无符号右移（<code>&gt;&gt;&gt;</code>）</h3>
+<pre><code class="language-java">int a = -8;  // 二进制: 1111 1000
+int result = a &gt;&gt;&gt; 1;  // 二进制: 0111 1100 (十进制: 2147483644)
+System.out.println(result);  // 输出: 2147483644
+</code></pre>
+<h2>3. 位运算的应用场景</h2>
+<h3>3.1 快速乘除</h3>
+<ul>
+<li>左移一位相当于乘以 2，右移一位相当于除以 2。</li>
+</ul>
+<pre><code class="language-java">int a = 10;
+int multiplyBy2 = a &lt;&lt; 1;  // 20
+int divideBy2 = a &gt;&gt; 1;    // 5
+</code></pre>
+<h3>3.2 判断奇偶</h3>
+<ul>
+<li>使用 <code>&amp;</code> 运算判断一个数是否为偶数：</li>
+</ul>
+<pre><code class="language-java">boolean isEven = (a &amp; 1) == 0;
+</code></pre>
+<h3>3.3 交换两个数</h3>
+<ul>
+<li>使用异或运算交换两个数，无需临时变量：</li>
+</ul>
+<pre><code class="language-java">int a = 5, b = 3;
+a = a ^ b;
+b = a ^ b;
+a = a ^ b;
+System.out.println(a + &quot;, &quot; + b);  // 输出: 3, 5
+</code></pre>
+<h2>4. 注意事项</h2>
+<ul>
+<li>
+<p>位运算只能用于整数类型（<code>int</code>、<code>long</code>、<code>short</code>、<code>byte</code>、<code>char</code>）。</p>
+</li>
+<li>
+<p>位运算的性能通常高于算术运算，但代码可读性较差，需谨慎使用。</p>
+</li>
+<li>
+<p>无符号右移（<code>&gt;&gt;&gt;</code>）只对 <code>int</code> 和 <code>long</code> 类型有效。</p>
+</li>
+<li>
+<p>位运算直接操作二进制位，适用于底层编程和性能优化。</p>
+</li>
+<li>
+<p>常见的位运算符包括 <code>&amp;</code>、<code>|</code>、<code>^</code>、<code>~</code>、<code>&lt;&lt;</code>、<code>&gt;&gt;</code>、<code>&gt;&gt;&gt;</code>。</p>
+</li>
+<li>
+<p>位运算可以用于快速乘除、判断奇偶、交换数值、掩码操作等场景。</p>
+</li>
+</ul>
+</article>
+    </main>
+  </body>
+</html>

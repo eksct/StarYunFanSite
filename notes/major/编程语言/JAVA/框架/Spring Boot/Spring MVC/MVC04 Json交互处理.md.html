@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MVC04 Json交互处理 什么是JSON？ - JSON(JavaScript Object Notation, JS 对象标记) 是一种轻量级的数据交换格式，目前使用特别广泛。 - 采用完全独立">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="MVC04 Json交互处理 · Seiga">
+    <meta property="og:description" content="MVC04 Json交互处理 什么是JSON？ - JSON(JavaScript Object Notation, JS 对象标记) 是一种轻量级的数据交换格式，目前使用特别广泛。 - 采用完全独立">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC04%20Json%E4%BA%A4%E4%BA%92%E5%A4%84%E7%90%86.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC04%20Json%E4%BA%A4%E4%BA%92%E5%A4%84%E7%90%86.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>MVC04 Json交互处理 · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"MVC04 Json交互处理","description":"MVC04 Json交互处理 什么是JSON？ - JSON(JavaScript Object Notation, JS 对象标记) 是一种轻量级的数据交换格式，目前使用特别广泛。 - 采用完全独立","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC04%20Json%E4%BA%A4%E4%BA%92%E5%A4%84%E7%90%86.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>MVC04 Json交互处理</h1>
+        <p class="static-note-meta">Spring Boot · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC04%20Json%E4%BA%A4%E4%BA%92%E5%A4%84%E7%90%86.md">在站内打开</a>
+      </header>
+      <article class="prose"><h1>MVC04 Json交互处理</h1>
+<h3>什么是JSON？</h3>
+<ul>
+<li>
+<p>JSON(JavaScript Object Notation, JS 对象标记) 是一种轻量级的数据交换格式，目前使用特别广泛。</p>
+</li>
+<li>
+<p>采用完全独立于编程语言的<strong>文本格式</strong>来存储和表示数据。</p>
+</li>
+<li>
+<p>简洁和清晰的层次结构使得 JSON 成为理想的数据交换语言。</p>
+</li>
+<li>
+<p>易于人阅读和编写，同时也易于机器解析和生成，并有效地提升网络传输效率。</p>
+</li>
+</ul>
+<p>在 JavaScript 语言中，一切都是对象。因此，任何JavaScript 支持的类型都可以通过 JSON 来表示，例如字符串、数字、对象、数组等。看看他的要求和语法格式：</p>
+<ul>
+<li>
+<p>对象表示为键值对，数据由逗号分隔</p>
+</li>
+<li>
+<p>花括号保存对象</p>
+</li>
+<li>
+<p>方括号保存数组</p>
+</li>
+</ul>
+<p><strong>JSON 键值对</strong>是用来保存 JavaScript 对象的一种方式，和 JavaScript 对象的写法也大同小异，键/值对组合中的键名写在前面并用双引号 &quot;&quot; 包裹，使用冒号 : 分隔，然后紧接着值：</p>
+<pre><code class="language-json">{&quot;name&quot;: &quot;QinJiang&quot;}  
+{&quot;age&quot;: &quot;3&quot;}  
+{&quot;sex&quot;: &quot;男&quot;}
+</code></pre>
+<p>很多人搞不清楚 JSON 和 JavaScript 对象的关系，甚至连谁是谁都不清楚。其实，可以这么理解：</p>
+<p>JSON 是 JavaScript 对象的字符串表示法，它使用文本表示一个 JS 对象的信息，本质是一个字符串。</p>
+<pre><code class="language-JavaScript">var obj = {a: 'Hello', b: 'World'}; //这是一个对象，注意键名也是可以使用引号包裹的  
+var json = '{&quot;a&quot;: &quot;Hello&quot;, &quot;b&quot;: &quot;World&quot;}'; //这是一个 JSON 字符串，本质是一个字符串
+</code></pre>
+<p><strong>JSON 和 JavaScript 对象互转</strong></p>
+<p>要实现从JSON字符串转换为JavaScript 对象，使用 JSON.parse() 方法：</p>
+<pre><code class="language-JavaScript">var obj = JSON.parse('{&quot;a&quot;: &quot;Hello&quot;, &quot;b&quot;: &quot;World&quot;}');  
+//结果是 {a: 'Hello', b: 'World'}
+</code></pre>
+<p>要实现从JavaScript 对象转换为JSON字符串，使用 JSON.stringify() 方法：</p>
+<pre><code class="language-JavaScript">var json = JSON.stringify({a: 'Hello', b: 'World'});  
+//结果是 '{&quot;a&quot;: &quot;Hello&quot;, &quot;b&quot;: &quot;World&quot;}'
+</code></pre>
+<p>【注意：使用json记得处理乱码问题】</p>
+<p><strong>返回json字符串统一解决</strong></p>
+<p>在类上直接使用 <strong>@RestController</strong> ，这样子，里面所有的方法都只会返回 json 字符串了，不用再每一个都添加@ResponseBody ！我们在前后端分离开发中，一般都使用 @RestController ，十分便捷！</p>
+<h3>jackson</h3>
+<p>jackson 的 pom依赖！</p>
+<pre><code class="language-xml">&lt;dependency&gt;  
+   &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;  
+   &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;  
+   &lt;version&gt;需求版本&lt;/version&gt;  
+&lt;/dependency&gt;
+</code></pre>
+<h3>fastjson</h3>
+<p>fastjson.jar是阿里开发的一款专门用于Java开发的包，可以方便的实现json对象与JavaBean对象的转换，实现JavaBean对象与json字符串的转换，实现json对象与json字符串的转换。实现json的转换方法很多，最后的实现结果都是一样的。</p>
+<p>fastjson 的 pom依赖！</p>
+<pre><code class="language-xml">&lt;dependency&gt;  
+   &lt;groupId&gt;com.alibaba&lt;/groupId&gt;  
+   &lt;artifactId&gt;fastjson&lt;/artifactId&gt;  
+   &lt;version&gt;你的版本&lt;/version&gt;  
+&lt;/dependency&gt;
+</code></pre>
+<p>fastjson 三个主要的类：</p>
+<p><strong>JSONObject  代表 json 对象</strong></p>
+<ul>
+<li>
+<p>JSONObject实现了Map接口, 猜想 JSONObject底层操作是由Map实现的。</p>
+</li>
+<li>
+<p>JSONObject对应json对象，通过各种形式的get()方法可以获取json对象中的数据，也可利用诸如size()，isEmpty()等方法获取&quot;键：值&quot;对的个数和判断是否为空。其本质是通过实现Map接口并调用接口中的方法完成的。</p>
+</li>
+</ul>
+<p><strong>JSONArray   代表 json 对象数组</strong></p>
+<ul>
+<li>内部是有List接口中的方法来完成操作的。</li>
+</ul>
+<p><strong>JSON代表 JSONObject和JSONArray的转化</strong></p>
+<ul>
+<li>
+<p>JSON类源码分析与使用</p>
+</li>
+<li>
+<p>仔细观察这些方法，主要是实现json对象，json对象数组，javabean对象，json字符串之间的相互转化。</p>
+</li>
+</ul>
+</article>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="📑 单机监控系统（Web 端）项目文档 一、项目目标 开发一个轻量级 单机服务器监控系统，用户可通过浏览器实时查看本机状态（CPU、内存、磁盘、网络等），并支持用户认证、历史数据存储、告警与可视化展">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="初步的项目文档 · Seiga">
+    <meta property="og:description" content="📑 单机监控系统（Web 端）项目文档 一、项目目标 开发一个轻量级 单机服务器监控系统，用户可通过浏览器实时查看本机状态（CPU、内存、磁盘、网络等），并支持用户认证、历史数据存储、告警与可视化展">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/go%E5%8D%95%E6%9C%BA%E7%9B%91%E6%8E%A7%E9%A1%B9%E7%9B%AE/%E5%88%9D%E6%AD%A5%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%96%87%E6%A1%A3.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/go%E5%8D%95%E6%9C%BA%E7%9B%91%E6%8E%A7%E9%A1%B9%E7%9B%AE/%E5%88%9D%E6%AD%A5%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%96%87%E6%A1%A3.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>初步的项目文档 · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"初步的项目文档","description":"📑 单机监控系统（Web 端）项目文档 一、项目目标 开发一个轻量级 单机服务器监控系统，用户可通过浏览器实时查看本机状态（CPU、内存、磁盘、网络等），并支持用户认证、历史数据存储、告警与可视化展","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/go%E5%8D%95%E6%9C%BA%E7%9B%91%E6%8E%A7%E9%A1%B9%E7%9B%AE/%E5%88%9D%E6%AD%A5%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%96%87%E6%A1%A3.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>初步的项目文档</h1>
+        <p class="static-note-meta">go单机监控项目 · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/go%E5%8D%95%E6%9C%BA%E7%9B%91%E6%8E%A7%E9%A1%B9%E7%9B%AE/%E5%88%9D%E6%AD%A5%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%96%87%E6%A1%A3.md">在站内打开</a>
+      </header>
+      <article class="prose"><h1>📑 单机监控系统（Web 端）项目文档</h1>
+<h2>一、项目目标</h2>
+<p>开发一个轻量级 <strong>单机服务器监控系统</strong>，用户可通过浏览器实时查看本机状态（CPU、内存、磁盘、网络等），并支持用户认证、历史数据存储、告警与可视化展示。<br>
+项目以 <strong>低成本、易安装、轻量化</strong> 为目标，分阶段迭代。</p>
+<hr>
+<h2>二、功能需求</h2>
+<h3>1. 必备功能</h3>
+<ul>
+<li>
+<p>用户登录（JWT 鉴权）</p>
+</li>
+<li>
+<p>系统基础信息（主机名、IP、系统版本、内核、运行时长）</p>
+</li>
+<li>
+<p>CPU / 内存 / 磁盘 / 网络 实时监控</p>
+</li>
+<li>
+<p>Web 仪表盘可视化</p>
+</li>
+</ul>
+<h3>2. 进阶功能</h3>
+<ul>
+<li>
+<p>历史数据存储与查询（MySQL）</p>
+</li>
+<li>
+<p>进程监控（Top 占用）</p>
+</li>
+<li>
+<p>服务状态检测（Nginx / MySQL / Redis 等）</p>
+</li>
+<li>
+<p>WebUI 优化（仪表盘 + 曲线图）</p>
+</li>
+</ul>
+<h3>3. 高阶功能</h3>
+<ul>
+<li>
+<p>告警通知（阈值设定 + 邮件/Webhook）</p>
+</li>
+<li>
+<p>用户与权限管理（多角色）</p>
+</li>
+<li>
+<p>多节点扩展（Agent + Server 模式）</p>
+</li>
+<li>
+<p>插件化扩展机制</p>
+</li>
+</ul>
+<hr>
+<h2>三、分阶段规划</h2>
+<blockquote>
+<p>假设一个 2~3 人的小团队，每人每天 6-7 小时开发量。<br>
+工期可按 <strong>人天</strong> 来预估。</p>
+</blockquote>
+<hr>
+<h3>阶段 1：MVP 最小可用版本</h3>
+<p><strong>工期：2 周（10 人天左右）</strong></p>
+<h4>功能目标</h4>
+<ul>
+<li>
+<p>用户认证（JWT 登录、注册）</p>
+</li>
+<li>
+<p>采集并展示系统信息（gopsutil）</p>
+</li>
+<li>
+<p>实时监控 CPU、内存、磁盘、网络</p>
+</li>
+<li>
+<p>简单 Web 前端展示（Echarts/Chart.js）</p>
+</li>
+</ul>
+<h4>具体任务</h4>
+<ol>
+<li>
+<p><strong>后端</strong></p>
+<ul>
+<li>
+<p>Gin + Gorm + MySQL 项目框架搭建</p>
+</li>
+<li>
+<p>用户表设计、登录接口、JWT 中间件</p>
+</li>
+<li>
+<p>gopsutil 调用：CPU/内存/磁盘/网络实时数据采集</p>
+</li>
+<li>
+<p>API：<code>/api/metrics</code> 提供实时数据</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>前端（可内嵌 HTML/Echarts）</strong></p>
+<ul>
+<li>
+<p>登录页（Token 存储在 LocalStorage）</p>
+</li>
+<li>
+<p>仪表盘（CPU/内存/磁盘/网络 折线图）</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>数据库</strong></p>
+<ul>
+<li>
+<p>users 表</p>
+</li>
+<li>
+<p>metrics_xxx 表（预留）</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>👉 阶段结束后：<br>
+用户能登录系统 → 打开仪表盘 → 实时查看服务器运行状态。</p>
+<hr>
+<h3>阶段 2：进阶功能</h3>
+<p><strong>工期：3<s>4 周（15</s>20 人天）</strong></p>
+<h4>功能目标</h4>
+<ul>
+<li>
+<p>历史数据存储（按分钟定时采集存 DB）</p>
+</li>
+<li>
+<p>指标趋势查询（最近 1h / 24h / 7d）</p>
+</li>
+<li>
+<p>进程监控（CPU/内存占用 Top 10）</p>
+</li>
+<li>
+<p>服务状态检测（端口检测 + ps 检查）</p>
+</li>
+<li>
+<p>UI 优化（图表切换、区块化布局）</p>
+</li>
+</ul>
+<h4>具体任务</h4>
+<ol>
+<li>
+<p><strong>后端</strong></p>
+<ul>
+<li>
+<p>定时采集器（cron + gopsutil）写入 MySQL</p>
+</li>
+<li>
+<p>API：历史数据查询（带时间范围）</p>
+</li>
+<li>
+<p>API：进程列表（分页、排序）</p>
+</li>
+<li>
+<p>API：服务检测（支持配置服务端口/进程名）</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>前端</strong></p>
+<ul>
+<li>
+<p>历史数据趋势图（折线图/柱状图）</p>
+</li>
+<li>
+<p>进程列表（表格分页、排序）</p>
+</li>
+<li>
+<p>服务状态（运行/停止标识）</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>数据库</strong></p>
+<ul>
+<li>
+<p>metrics_cpu/mem/disk/net → 按时间存储</p>
+</li>
+<li>
+<p>processes 表（可选）</p>
+</li>
+<li>
+<p>services 表（服务配置）</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>👉 阶段结束后：<br>
+用户可查看历史趋势 → 进程占用 → 常见服务运行状态。</p>
+<hr>
+<h3>阶段 3：高阶功能</h3>
+<p><strong>工期：4<s>6 周（20</s>30 人天）</strong></p>
+<h4>功能目标</h4>
+<ul>
+<li>
+<p>告警机制（CPU/内存/磁盘阈值报警 → 邮件/钉钉/企业微信）</p>
+</li>
+<li>
+<p>用户权限管理（多角色支持）</p>
+</li>
+<li>
+<p>多节点扩展（Agent + Server 模式）</p>
+</li>
+<li>
+<p>插件化扩展（安装/卸载监控模块）</p>
+</li>
+</ul>
+<h4>具体任务</h4>
+<ol>
+<li>
+<p><strong>后端</strong></p>
+<ul>
+<li>
+<p>告警规则表（阈值、通知方式）</p>
+</li>
+<li>
+<p>告警任务（定时检测 → 触发通知）</p>
+</li>
+<li>
+<p>用户表扩展（角色字段，管理员/普通用户）</p>
+</li>
+<li>
+<p>多节点模式（Agent 上报数据 → Server 聚合展示）</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>前端</strong></p>
+<ul>
+<li>
+<p>告警设置（阈值配置）</p>
+</li>
+<li>
+<p>告警历史列表</p>
+</li>
+<li>
+<p>多节点切换/总览</p>
+</li>
+<li>
+<p>插件管理（模块启停）</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>数据库</strong></p>
+<ul>
+<li>
+<p>alerts 表（告警记录）</p>
+</li>
+<li>
+<p>nodes 表（多节点支持）</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>👉 阶段结束后：<br>
+系统不仅能本机监控，还能监控多台机器，并支持告警与扩展。</p>
+<hr>
+<h2>四、工期总览</h2>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>功能</th>
+<th>工期</th>
+<th>主要内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>阶段 1</td>
+<td>MVP 版本</td>
+<td>2 周</td>
+<td>用户认证 + 实时监控 + 简单仪表盘</td>
+</tr>
+<tr>
+<td>阶段 2</td>
+<td>进阶功能</td>
+<td>3~4 周</td>
+<td>历史数据 + 进程监控 + 服务检测 + UI 优化</td>
+</tr>
+<tr>
+<td>阶段 3</td>
+<td>高阶功能</td>
+<td>4~6 周</td>
+<td>告警机制 + 多角色 + 多节点 + 插件化</td>
+</tr>
+</tbody>
+</table>
+<p>总工期：约 <strong>2 ~ 3 个月</strong>（小团队可控范围）。</p>
+<hr>
+<h2>五、技术选型说明</h2>
+<ul>
+<li>
+<p><strong>后端框架</strong>：Gin（API 服务）</p>
+</li>
+<li>
+<p><strong>数据库 ORM</strong>：Gorm + MySQL</p>
+</li>
+<li>
+<p><strong>配置管理</strong>：Viper</p>
+</li>
+<li>
+<p><strong>认证授权</strong>：JWT（dgrijalva/jwt-go）</p>
+</li>
+<li>
+<p><strong>监控采集</strong>：gopsutil</p>
+</li>
+<li>
+<p><strong>前端展示</strong>：Echarts / Chart.js（可后期 Vue/React）</p>
+</li>
+<li>
+<p><strong>任务调度</strong>：Go <code>cron</code> 库</p>
+</li>
+</ul>
+</article>
+    </main>
+  </body>
+</html>

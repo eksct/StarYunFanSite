@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ParameterNameDiscoverer ParameterNameDiscoverer 是 Spring 框架中用于获取方法或构造函数参数名称的工具类。 这是一个接口 作用 - 参数名发现：在">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="ParameterNameDiscoverer · Seiga">
+    <meta property="og:description" content="ParameterNameDiscoverer ParameterNameDiscoverer 是 Spring 框架中用于获取方法或构造函数参数名称的工具类。 这是一个接口 作用 - 参数名发现：在">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/ParameterNameDiscoverer.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/ParameterNameDiscoverer.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>ParameterNameDiscoverer · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"ParameterNameDiscoverer","description":"ParameterNameDiscoverer ParameterNameDiscoverer 是 Spring 框架中用于获取方法或构造函数参数名称的工具类。 这是一个接口 作用 - 参数名发现：在","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/ParameterNameDiscoverer.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>ParameterNameDiscoverer</h1>
+        <p class="static-note-meta">Spring Boot · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/ParameterNameDiscoverer.md">在站内打开</a>
+      </header>
+      <article class="prose"><h1>ParameterNameDiscoverer</h1>
+<p>ParameterNameDiscoverer 是 Spring 框架中用于获取方法或构造函数参数名称的工具类。<br>
+这是一个接口</p>
+<h3>作用</h3>
+<ul>
+<li>
+<p><strong>参数名发现</strong>：在 Java 反射中，默认无法直接获取方法参数的名称（编译后通常变为 <code>arg0</code>, <code>arg1</code> 等），此类通过多种策略尝试获取真实的参数名。</p>
+</li>
+<li>
+<p><strong>支持场景</strong>：适用于 AOP、消息处理、注解驱动等需要参数名映射的场景，如 Spring MVC 的请求参数绑定。</p>
+</li>
+</ul>
+<h3>核心实现类</h3>
+<ul>
+<li>
+<p><strong><code>DefaultParameterNameDiscoverer</code></strong>：Spring 默认实现，组合了两种发现策略：</p>
+<ol>
+<li>
+<p><strong>基于 Java 8 的反射</strong>：利用 <code>java.lang.reflect.Parameter#getName()</code>，要求编译时使用 <code>-parameters</code> 参数。</p>
+</li>
+<li>
+<p><strong>基于 ASM 字节码分析</strong>：读取类文件的局部变量表（LocalVariableTable），需编译时包含调试信息（<code>-g</code> 参数）。</p>
+</li>
+</ol>
+</li>
+</ul>
+<h3>使用方法</h3>
+<pre><code class="language-java">// 创建实例
+ParameterNameDiscoverer discoverer = new DefaultParameterNameDiscoverer();
+
+// 获取方法的参数名
+Method method = MyClass.class.getMethod(&quot;myMethod&quot;, String.class, int.class);
+String[] paramNames = discoverer.getParameterNames(method);
+// 可能返回 [&quot;name&quot;, &quot;age&quot;] 或 null（若无法获取）
+
+// 获取构造函数的参数名
+Constructor&lt;?&gt; constructor = MyClass.class.getConstructor(String.class);
+String[] constructorParamNames = discoverer.getParameterNames(constructor);
+</code></pre>
+<p><code>DefaultParameterNameDiscoverer</code>又继承<code>PrioritizedParameterNameDiscoverer</code>将<code>ParameterNameDiscoverer</code>的实现类添加至List中；</p>
+<pre><code class="language-java">public class DefaultParameterNameDiscoverer extends PrioritizedParameterNameDiscoverer {  
+  
+    @SuppressWarnings(&quot;removal&quot;)  
+    public DefaultParameterNameDiscoverer() {  
+       if (KotlinDetector.isKotlinReflectPresent()) {  
+          addDiscoverer(new KotlinReflectionParameterNameDiscoverer());  
+       }  
+  
+       // Recommended approach on Java 8+: compilation with -parameters.  
+       addDiscoverer(new StandardReflectionParameterNameDiscoverer());  
+  
+       // Deprecated fallback to class file parsing for -debug symbols.  
+       // Does not work on native images without class file resources.       if (!NativeDetector.inNativeImage()) {  
+          addDiscoverer(new LocalVariableTableParameterNameDiscoverer());  
+       }  
+    }  
+  
+}
+</code></pre>
+<p><code>StandardReflectionParameterNameDiscoverer</code>用于获取方法参数的真实名称<br>
+基于<code>-parameters</code>参数</p>
+<pre><code class="language-java">public class StandardReflectionParameterNameDiscoverer implements ParameterNameDiscoverer {  
+  
+    @Override  
+    @Nullable    public String[] getParameterNames(Method method) {  
+       return getParameterNames(method.getParameters());  
+    }  
+  
+    @Override  
+    @Nullable    public String[] getParameterNames(Constructor&lt;?&gt; ctor) {  
+       return getParameterNames(ctor.getParameters());  
+    }  
+  
+    @Nullable  
+    private String[] getParameterNames(Parameter[] parameters) {  
+       String[] parameterNames = new String[parameters.length];  
+       for (int i = 0; i &lt; parameters.length; i++) {  
+          Parameter param = parameters[i];  
+          if (!param.isNamePresent()) {  
+             return null;  
+          }  
+          parameterNames[i] = param.getName();  
+       }  
+       return parameterNames;  
+    }  
+  
+}
+</code></pre>
+</article>
+    </main>
+  </body>
+</html>

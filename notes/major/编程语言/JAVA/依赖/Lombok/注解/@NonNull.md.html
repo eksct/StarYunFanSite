@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="@NonNull 由lombok提供的一个检查字段、方法、参数是否为空的注解 1.@NonNull作用 1. 在方法参数前使用则标注该参数不能为空，否则抛出带有参数名的NullPointerExcep">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="@NonNull · Seiga">
+    <meta property="og:description" content="@NonNull 由lombok提供的一个检查字段、方法、参数是否为空的注解 1.@NonNull作用 1. 在方法参数前使用则标注该参数不能为空，否则抛出带有参数名的NullPointerExcep">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40NonNull.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40NonNull.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>@NonNull · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"@NonNull","description":"@NonNull 由lombok提供的一个检查字段、方法、参数是否为空的注解 1.@NonNull作用 1. 在方法参数前使用则标注该参数不能为空，否则抛出带有参数名的NullPointerExcep","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40NonNull.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>@NonNull</h1>
+        <p class="static-note-meta">Java · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40NonNull.md">在站内打开</a>
+      </header>
+      <article class="prose"><h1>@NonNull</h1>
+<p>由lombok提供的一个检查字段、方法、参数是否为空的注解</p>
+<h3>1.@NonNull作用</h3>
+<ol>
+<li>在方法参数前使用则标注该参数不能为空，否则抛出带有参数名的<code>NullPointerException</code>异常</li>
+<li>若在字段上，则将值分配给该字段的方法都将插入空检查</li>
+<li>在方法上则标注方法返回值不能为空</li>
+</ol>
+<h2>2. 最佳实践</h2>
+<ol>
+<li>
+<p><strong>明确非空约束</strong>：</p>
+<ul>
+<li>使用 <code>@NonNull</code> 明确方法参数、字段或返回值的非空约束。</li>
+</ul>
+</li>
+<li>
+<p><strong>避免过度使用</strong>：</p>
+<ul>
+<li>仅在确实需要非空约束的地方使用 <code>@NonNull</code>，避免滥用。</li>
+</ul>
+</li>
+<li>
+<p><strong>结合其他注解</strong>：</p>
+<ul>
+<li>结合 <code>@RequiredArgsConstructor</code>、<code>@Data</code> 等注解，简化代码。</li>
+</ul>
+</li>
+</ol>
+</article>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Redis 常用命令大全 1️⃣ Key 操作 命令 作用 示例 ---------------------- ------------ ------------------------- KEYS ">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Redis 常用命令大全 · Seiga">
+    <meta property="og:description" content="Redis 常用命令大全 1️⃣ Key 操作 命令 作用 示例 ---------------------- ------------ ------------------------- KEYS ">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Redis/Redis%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Redis/Redis%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>Redis 常用命令大全 · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Redis 常用命令大全","description":"Redis 常用命令大全 1️⃣ Key 操作 命令 作用 示例 ---------------------- ------------ ------------------------- KEYS ","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Redis/Redis%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>Redis 常用命令大全</h1>
+        <p class="static-note-meta">Redis · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/Redis/Redis%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.md">在站内打开</a>
+      </header>
+      <article class="prose"><h1>Redis 常用命令大全</h1>
+<h2>1️⃣ Key 操作</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>KEYS pattern</code></td>
+<td>查找匹配的 key</td>
+<td><code>KEYS user:*</code></td>
+</tr>
+<tr>
+<td><code>DEL key</code></td>
+<td>删除 key</td>
+<td><code>DEL user:1</code></td>
+</tr>
+<tr>
+<td><code>EXISTS key</code></td>
+<td>判断 key 是否存在</td>
+<td><code>EXISTS user:1</code></td>
+</tr>
+<tr>
+<td><code>EXPIRE key seconds</code></td>
+<td>设置 key 过期时间</td>
+<td><code>EXPIRE session:123 3600</code></td>
+</tr>
+<tr>
+<td><code>TTL key</code></td>
+<td>查看剩余过期时间（秒）</td>
+<td><code>TTL session:123</code></td>
+</tr>
+<tr>
+<td><code>RENAME oldkey newkey</code></td>
+<td>重命名 key</td>
+<td><code>RENAME user:1 user:1001</code></td>
+</tr>
+<tr>
+<td><code>PERSIST key</code></td>
+<td>移除 key 的过期时间</td>
+<td><code>PERSIST session:123</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>2️⃣ 字符串（String）</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SET key value</code></td>
+<td>设置字符串</td>
+<td><code>SET name &quot;Tom&quot;</code></td>
+</tr>
+<tr>
+<td><code>GET key</code></td>
+<td>获取字符串</td>
+<td><code>GET name</code></td>
+</tr>
+<tr>
+<td><code>INCR key</code></td>
+<td>自增（整数）</td>
+<td><code>INCR visits</code></td>
+</tr>
+<tr>
+<td><code>DECR key</code></td>
+<td>自减（整数）</td>
+<td><code>DECR visits</code></td>
+</tr>
+<tr>
+<td><code>APPEND key val</code></td>
+<td>追加字符串</td>
+<td><code>APPEND name &quot; Smith&quot;</code></td>
+</tr>
+<tr>
+<td><code>MSET k1 v1 k2 v2</code></td>
+<td>批量设置</td>
+<td><code>MSET name &quot;Tom&quot; age &quot;20&quot;</code></td>
+</tr>
+<tr>
+<td><code>MGET k1 k2</code></td>
+<td>批量获取</td>
+<td><code>MGET name age</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>3️⃣ 哈希（Hash）</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HSET key field value</code></td>
+<td>设置字段</td>
+<td><code>HSET user:1 name &quot;Tom&quot;</code></td>
+</tr>
+<tr>
+<td><code>HGET key field</code></td>
+<td>获取字段</td>
+<td><code>HGET user:1 name</code></td>
+</tr>
+<tr>
+<td><code>HMSET key f1 v1 f2 v2</code></td>
+<td>批量设置字段</td>
+<td><code>HMSET user:1 age 20 city Beijing</code></td>
+</tr>
+<tr>
+<td><code>HMGET key f1 f2</code></td>
+<td>批量获取字段</td>
+<td><code>HMGET user:1 name age</code></td>
+</tr>
+<tr>
+<td><code>HGETALL key</code></td>
+<td>获取所有字段和值</td>
+<td><code>HGETALL user:1</code></td>
+</tr>
+<tr>
+<td><code>HDEL key field</code></td>
+<td>删除字段</td>
+<td><code>HDEL user:1 age</code></td>
+</tr>
+<tr>
+<td><code>HEXISTS key field</code></td>
+<td>判断字段是否存在</td>
+<td><code>HEXISTS user:1 name</code></td>
+</tr>
+<tr>
+<td><code>HLEN key</code></td>
+<td>获取字段数量</td>
+<td><code>HLEN user:1</code></td>
+</tr>
+<tr>
+<td>user:1为了区分是哪个用户的hash</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>4️⃣ 列表（List）</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LPUSH key val</code></td>
+<td>左侧插入</td>
+<td><code>LPUSH tasks &quot;task1&quot;</code></td>
+</tr>
+<tr>
+<td><code>RPUSH key val</code></td>
+<td>右侧插入</td>
+<td><code>RPUSH tasks &quot;task2&quot;</code></td>
+</tr>
+<tr>
+<td><code>LPOP key</code></td>
+<td>左侧弹出</td>
+<td><code>LPOP tasks</code></td>
+</tr>
+<tr>
+<td><code>RPOP key</code></td>
+<td>右侧弹出</td>
+<td><code>RPOP tasks</code></td>
+</tr>
+<tr>
+<td><code>LRANGE key start end</code></td>
+<td>获取区间元素</td>
+<td><code>LRANGE tasks 0 10</code></td>
+</tr>
+<tr>
+<td><code>LLEN key</code></td>
+<td>获取长度</td>
+<td><code>LLEN tasks</code></td>
+</tr>
+<tr>
+<td><code>LSET key index val</code></td>
+<td>修改指定下标元素</td>
+<td><code>LSET tasks 0 &quot;newTask&quot;</code></td>
+</tr>
+<tr>
+<td><code>LREM key count val</code></td>
+<td>删除元素</td>
+<td><code>LREM tasks 1 &quot;task1&quot;</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>5️⃣ 集合（Set）</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SADD key member</code></td>
+<td>添加成员</td>
+<td><code>SADD tags &quot;java&quot;</code></td>
+</tr>
+<tr>
+<td><code>SMEMBERS key</code></td>
+<td>获取所有成员</td>
+<td><code>SMEMBERS tags</code></td>
+</tr>
+<tr>
+<td><code>SREM key member</code></td>
+<td>删除成员</td>
+<td><code>SREM tags &quot;java&quot;</code></td>
+</tr>
+<tr>
+<td><code>SISMEMBER key member</code></td>
+<td>判断成员是否存在</td>
+<td><code>SISMEMBER tags &quot;java&quot;</code></td>
+</tr>
+<tr>
+<td><code>SCARD key</code></td>
+<td>成员数量</td>
+<td><code>SCARD tags</code></td>
+</tr>
+<tr>
+<td><code>SUNION key1 key2</code></td>
+<td>并集</td>
+<td><code>SUNION tags1 tags2</code></td>
+</tr>
+<tr>
+<td><code>SINTER key1 key2</code></td>
+<td>交集</td>
+<td><code>SINTER tags1 tags2</code></td>
+</tr>
+<tr>
+<td><code>SDIFF key1 key2</code></td>
+<td>差集</td>
+<td><code>SDIFF tags1 tags2</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>6️⃣ 有序集合（Sorted Set，ZSet）</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ZADD key score member</code></td>
+<td>添加成员和分数</td>
+<td><code>ZADD leaderboard 100 tom</code></td>
+</tr>
+<tr>
+<td><code>ZRANGE key start end [WITHSCORES]</code></td>
+<td>按分数正序取成员</td>
+<td><code>ZRANGE leaderboard 0 -1 WITHSCORES</code></td>
+</tr>
+<tr>
+<td><code>ZREVRANGE key start end [WITHSCORES]</code></td>
+<td>按分数倒序取成员</td>
+<td><code>ZREVRANGE leaderboard 0 -1 WITHSCORES</code></td>
+</tr>
+<tr>
+<td><code>ZSCORE key member</code></td>
+<td>获取成员分数</td>
+<td><code>ZSCORE leaderboard tom</code></td>
+</tr>
+<tr>
+<td><code>ZRANK key member</code></td>
+<td>获取成员排名（正序）</td>
+<td><code>ZRANK leaderboard tom</code></td>
+</tr>
+<tr>
+<td><code>ZREVRANK key member</code></td>
+<td>获取成员排名（倒序）</td>
+<td><code>ZREVRANK leaderboard tom</code></td>
+</tr>
+<tr>
+<td><code>ZREM key member</code></td>
+<td>删除成员</td>
+<td><code>ZREM leaderboard tom</code></td>
+</tr>
+<tr>
+<td><code>ZCOUNT key min max</code></td>
+<td>统计分数区间成员数</td>
+<td><code>ZCOUNT leaderboard 50 150</code></td>
+</tr>
+<tr>
+<td><code>ZINCRBY key increment member</code></td>
+<td>增加成员分数</td>
+<td><code>ZINCRBY leaderboard 10 tom</code></td>
+</tr>
+<tr>
+<td><code>ZCARD key</code></td>
+<td>获取元素个数</td>
+<td>ZCARD leaderboard</td>
+</tr>
+<tr>
+<td>注：排名默认升序，倒叙在命令的Z后面加REV即可</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>7️⃣ 事务（Transaction）</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MULTI</code></td>
+<td>开启事务</td>
+</tr>
+<tr>
+<td><code>EXEC</code></td>
+<td>提交事务</td>
+</tr>
+<tr>
+<td><code>DISCARD</code></td>
+<td>放弃事务</td>
+</tr>
+<tr>
+<td><code>WATCH key</code></td>
+<td>监视 key，乐观锁机制</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>8️⃣ 发布订阅（Pub/Sub）</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PUBLISH channel message</code></td>
+<td>发送消息</td>
+</tr>
+<tr>
+<td><code>SUBSCRIBE channel</code></td>
+<td>订阅频道</td>
+</tr>
+<tr>
+<td><code>UNSUBSCRIBE channel</code></td>
+<td>取消订阅</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>9️⃣ 脚本（Lua）</h2>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EVAL script numkeys key [arg...]</code></td>
+<td>执行 Lua 脚本</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<p>如果你想，我可以帮你整理 <strong>命令示例</strong> 或 <strong>Java/Spring Redis 代码示范</strong>，告诉我！</p>
+</article>
+    </main>
+  </body>
+</html>

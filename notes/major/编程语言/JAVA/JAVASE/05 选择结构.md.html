@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="05 选择结构 Java 中的选择结构用于根据条件执行不同的代码块。常见的选择结构包括 if、if-else、if-else if-else 和 switch 语句。选择结构是控制程序流程的重要工具，">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="05 选择结构 · Seiga">
+    <meta property="og:description" content="05 选择结构 Java 中的选择结构用于根据条件执行不同的代码块。常见的选择结构包括 if、if-else、if-else if-else 和 switch 语句。选择结构是控制程序流程的重要工具，">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/05%20%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/05%20%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>05 选择结构 · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"05 选择结构","description":"05 选择结构 Java 中的选择结构用于根据条件执行不同的代码块。常见的选择结构包括 if、if-else、if-else if-else 和 switch 语句。选择结构是控制程序流程的重要工具，","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/05%20%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>05 选择结构</h1>
+        <p class="static-note-meta">Java · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/05%20%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84.md">在站内打开</a>
+      </header>
+      <article class="prose"><h1>05 选择结构</h1>
+<p>Java 中的选择结构用于根据条件执行不同的代码块。常见的选择结构包括 <code>if</code>、<code>if-else</code>、<code>if-else if-else</code> 和 <code>switch</code> 语句。选择结构是控制程序流程的重要工具，合理使用可以提高代码的可读性和效率。</p>
+<h2>1. 选择结构的类型</h2>
+<h3>(1) <code>if</code> 语句</h3>
+<p><code>if</code> 语句用于判断一个条件，如果条件为 <code>true</code>，则执行对应的代码块。</p>
+<pre><code class="language-java">int num = 10;
+if (num &gt; 0) {
+    System.out.println(&quot;数字是正数&quot;);
+}
+</code></pre>
+<h3>(2) <code>if-else</code> 语句</h3>
+<p><code>if-else</code> 语句用于在条件为 <code>true</code> 时执行一个代码块，否则执行另一个代码块。</p>
+<pre><code class="language-java">int num = -5;
+if (num &gt; 0) {
+    System.out.println(&quot;数字是正数&quot;);
+} else {
+    System.out.println(&quot;数字是非正数&quot;);
+}
+</code></pre>
+<h3>(3) <code>if-else if-else</code> 语句</h3>
+<p><code>if-else if-else</code> 语句用于处理多个条件，依次检查每个条件，直到找到第一个为 <code>true</code> 的条件。</p>
+<pre><code class="language-java">int score = 85;
+if (score &gt;= 90) {
+    System.out.println(&quot;成绩等级：A&quot;);
+} else if (score &gt;= 80) {
+    System.out.println(&quot;成绩等级：B&quot;);
+} else if (score &gt;= 70) {
+    System.out.println(&quot;成绩等级：C&quot;);
+} else {
+    System.out.println(&quot;成绩等级：D&quot;);
+}
+</code></pre>
+<h3>(4) <code>switch</code> 语句</h3>
+<p><code>switch</code> 语句用于根据变量的值执行不同的代码块。它适用于多个固定值的条件判断。</p>
+<pre><code class="language-java">int day = 3;
+switch (day) {
+    case 1:
+        System.out.println(&quot;星期一&quot;);
+        break;
+    case 2:
+        System.out.println(&quot;星期二&quot;);
+        break;
+    case 3:
+        System.out.println(&quot;星期三&quot;);
+        break;
+    default:
+        System.out.println(&quot;无效的日期&quot;);
+}
+</code></pre>
+<h2>2. 选择结构的最佳实践</h2>
+<h3>(1) 保持条件简单</h3>
+<ul>
+<li>
+<p>尽量将复杂的条件拆分为多个简单的条件，或者使用布尔变量来提高可读性。</p>
+</li>
+<li>
+<p>例如：</p>
+</li>
+</ul>
+<pre><code class="language-java">boolean isPositive = num &gt; 0;
+boolean isEven = num % 2 == 0;
+if (isPositive &amp;&amp; isEven) {
+    System.out.println(&quot;数字是正偶数&quot;);
+}
+</code></pre>
+<h3>(2) 避免深层嵌套</h3>
+<ul>
+<li>
+<p>深层嵌套的 <code>if-else</code> 语句会降低代码的可读性。可以通过提前返回或使用卫语句（Guard Clauses）来减少嵌套。</p>
+</li>
+<li>
+<p>例如：</p>
+</li>
+</ul>
+<pre><code class="language-java">if (num &lt; 0) {
+    System.out.println(&quot;数字是负数&quot;);
+    return; // 提前返回
+}
+if (num == 0) {
+    System.out.println(&quot;数字是零&quot;);
+    return; // 提前返回
+}
+System.out.println(&quot;数字是正数&quot;);
+</code></pre>
+<h3>(3) 使用 <code>switch</code> 替代多重 <code>if-else</code></h3>
+<ul>
+<li>
+<p>当需要根据一个变量的多个固定值进行判断时，优先使用 <code>switch</code> 语句，而不是多重 <code>if-else</code>。</p>
+</li>
+<li>
+<p>例如：</p>
+</li>
+</ul>
+<pre><code class="language-java">switch (day) {
+    case 1: System.out.println(&quot;星期一&quot;); break;
+    case 2: System.out.println(&quot;星期二&quot;); break;
+    // ...
+    default: System.out.println(&quot;无效的日期&quot;);
+}
+</code></pre>
+<pre><code class="language-java">//java12+开始可以写成
+String dayType = switch (day) {
+    case 1, 2, 3, 4, 5 -&gt; &quot;工作日&quot;;
+    case 6, 7 -&gt; &quot;周末&quot;;
+    default -&gt; &quot;无效的日期&quot;;
+};
+System.out.println(dayType);
+</code></pre>
+<h3>(4) 避免魔法数字</h3>
+<ul>
+<li>在条件判断中，避免直接使用魔法数字（Magic Numbers），应该使用常量或枚举来提高代码的可读性。</li>
+</ul>
+<pre><code class="language-java">final int MAX_SCORE = 100;
+if (score == MAX_SCORE) {
+    System.out.println(&quot;满分！&quot;);
+}
+</code></pre>
+<h3>(5) 使用 <code>Optional</code> 处理空值</h3>
+<ul>
+<li>
+<p>在条件判断中，如果需要处理可能为 <code>null</code> 的值，可以使用 <code>Optional</code> 来避免空指针异常。</p>
+</li>
+<li>
+<p>例如：</p>
+</li>
+</ul>
+<pre><code class="language-java">Optional&lt;String&gt; name = Optional.ofNullable(getName());
+if (name.isPresent()) {
+    System.out.println(&quot;名字是: &quot; + name.get());
+} else {
+    System.out.println(&quot;名字为空&quot;);
+}
+</code></pre>
+<h3>(6) 优先使用早返回（Early Return）</h3>
+<ul>
+<li>
+<p>在方法中，如果某些条件不满足，可以尽早返回，避免不必要的嵌套。</p>
+</li>
+<li>
+<p>例如：</p>
+</li>
+</ul>
+<pre><code class="language-java">public void process(int num) {
+    if (num &lt; 0) {
+        return; // 早返回
+    }
+    // 正常逻辑
+    System.out.println(&quot;处理数字: &quot; + num);
+}
+</code></pre>
+<h2>3. 示例代码</h2>
+<pre><code class="language-java">public class SelectionExample {
+    public static void main(String[] args) {
+        int score = 85;
+        String grade = getGrade(score);
+        System.out.println(&quot;成绩等级: &quot; + grade);
+
+        int day = 3;
+        String dayType = getDayType(day);
+        System.out.println(&quot;日期类型: &quot; + dayType);
+    }
+
+    // 使用 if-else if-else 判断成绩等级
+    public static String getGrade(int score) {
+        if (score &gt;= 90) {
+            return &quot;A&quot;;
+        } else if (score &gt;= 80) {
+            return &quot;B&quot;;
+        } else if (score &gt;= 70) {
+            return &quot;C&quot;;
+        } else {
+            return &quot;D&quot;;
+        }
+    }
+
+    // 使用 switch 表达式判断日期类型
+    public static String getDayType(int day) {
+        return switch (day) {
+            case 1, 2, 3, 4, 5 -&gt; &quot;工作日&quot;;
+            case 6, 7 -&gt; &quot;周末&quot;;
+            default -&gt; &quot;无效的日期&quot;;
+        };
+    }
+}
+</code></pre>
+</article>
+    </main>
+  </body>
+</html>

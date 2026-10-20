@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="随笔 spring boot + kafka + mqtt +emqx +sa-token+redis+mysql+clickhouse+hutool+gradle+mybatis-plus+? 微信">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="随笔 · Seiga">
+    <meta property="og:description" content="随笔 spring boot + kafka + mqtt +emqx +sa-token+redis+mysql+clickhouse+hutool+gradle+mybatis-plus+? 微信">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E8%BD%A6%E5%85%85%E5%B9%B3%E5%8F%B0/%E9%9A%8F%E7%AC%94.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E8%BD%A6%E5%85%85%E5%B9%B3%E5%8F%B0/%E9%9A%8F%E7%AC%94.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>随笔 · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"随笔","description":"随笔 spring boot + kafka + mqtt +emqx +sa-token+redis+mysql+clickhouse+hutool+gradle+mybatis-plus+? 微信","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E8%BD%A6%E5%85%85%E5%B9%B3%E5%8F%B0/%E9%9A%8F%E7%AC%94.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>随笔</h1>
+        <p class="static-note-meta">车充平台 · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E8%BD%A6%E5%85%85%E5%B9%B3%E5%8F%B0/%E9%9A%8F%E7%AC%94.md">在站内打开</a>
+      </header>
+      <article class="prose"><h1>随笔</h1>
+<p>spring boot + kafka + mqtt +emqx +sa-token+redis+mysql+clickhouse+hutool+gradle+mybatis-plus+?</p>
+<p>微信小程序+后台管理</p>
+<p>重点？<br>
+平常的crud controller应该是不用看了。<br>
+我认为重点在于使用mqtt+emqx+kafka的这一段固件消息传输、如何支付、互联互通——功能性的<br>
+用到的框架也该看看罢。<br>
+硬软通过mqtt发布消息到emqx的自编号下的“topic”，然后服务端订阅/upStream/v2_2/#下的所有topic，并通过mqtt消费者消费，通过handler再转发给kafka进行处理。</p>
+</article>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="02 变量 在 Java 中，变量是存储数据的基本单元。每个变量都有一个数据类型、名称和值。变量可以分为不同的类型，具体取决于其作用域、生命周期和用途。 1. 变量的组成 - 数据类型：定义变量可以存">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="02 变量 · Seiga">
+    <meta property="og:description" content="02 变量 在 Java 中，变量是存储数据的基本单元。每个变量都有一个数据类型、名称和值。变量可以分为不同的类型，具体取决于其作用域、生命周期和用途。 1. 变量的组成 - 数据类型：定义变量可以存">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/02%20%E5%8F%98%E9%87%8F.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/02%20%E5%8F%98%E9%87%8F.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>02 变量 · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"02 变量","description":"02 变量 在 Java 中，变量是存储数据的基本单元。每个变量都有一个数据类型、名称和值。变量可以分为不同的类型，具体取决于其作用域、生命周期和用途。 1. 变量的组成 - 数据类型：定义变量可以存","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/02%20%E5%8F%98%E9%87%8F.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>02 变量</h1>
+        <p class="static-note-meta">Java · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/02%20%E5%8F%98%E9%87%8F.md">在站内打开</a>
+      </header>
+      <article class="prose"><h1>02 变量</h1>
+<p>在 Java 中，变量是存储数据的基本单元。每个变量都有一个数据类型、名称和值。变量可以分为不同的类型，具体取决于其作用域、生命周期和用途。</p>
+<h3>1. 变量的组成</h3>
+<ul>
+<li>
+<p><strong>数据类型</strong>：定义变量可以存储的数据类型（如 <code>int</code>, <code>String</code>, <code>double</code> 等）。</p>
+</li>
+<li>
+<p><strong>变量名</strong>：变量的标识符，用于在代码中引用变量。</p>
+</li>
+<li>
+<p><strong>值</strong>：变量存储的具体数据。</p>
+</li>
+</ul>
+<h3>2. 变量的声明与初始化</h3>
+<h4>声明变量</h4>
+<p>数据类型 变量名;</p>
+<p>例如：</p>
+<pre><code class="language-java">int age;
+String name;
+</code></pre>
+<h4>初始化变量</h4>
+<p>变量名 = 值;</p>
+<p>例如：</p>
+<pre><code class="language-java">age = 25;
+name = &quot;Alice&quot;;
+</code></pre>
+<h4>声明并初始化</h4>
+<p>数据类型 变量名 = 值;</p>
+<p>例如：</p>
+<pre><code class="language-java">int age = 25;
+String name = &quot;Alice&quot;;
+</code></pre>
+<h3>3. 变量的分类</h3>
+<p>根据作用域和生命周期，Java 变量可以分为以下几类：</p>
+<h4>(1) 局部变量（Local Variables）</h4>
+<ul>
+<li>
+<p><strong>定义</strong>：在方法、构造函数或代码块中声明的变量。</p>
+</li>
+<li>
+<p><strong>作用域</strong>：仅限于声明它的方法、构造函数或代码块。</p>
+</li>
+<li>
+<p><strong>生命周期</strong>：从声明处开始，到方法、构造函数或代码块结束时销毁。</p>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+</li>
+</ul>
+<pre><code class="language-java">public void printAge() {
+    int age = 25; // 局部变量
+    System.out.println(age);
+}
+</code></pre>
+<h4>(2) 实例变量（Instance Variables）</h4>
+<ul>
+<li>
+<p><strong>定义</strong>：在类中声明，但在方法、构造函数或代码块之外的变量。</p>
+</li>
+<li>
+<p><strong>作用域</strong>：整个类中都可以访问。</p>
+</li>
+<li>
+<p><strong>生命周期</strong>：与对象的生命周期相同，对象创建时分配内存，对象销毁时释放内存。</p>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+</li>
+</ul>
+<pre><code class="language-java">public class Person {
+    String name; // 实例变量
+    int age;     // 实例变量
+
+    public void printInfo() {
+        System.out.println(&quot;Name: &quot; + name + &quot;, Age: &quot; + age);
+    }
+}
+</code></pre>
+<h4>(3) 静态变量（Static Variables）</h4>
+<ul>
+<li>
+<p><strong>定义</strong>：使用 <code>static</code> 关键字声明的变量，属于类而不是类的实例。</p>
+</li>
+<li>
+<p><strong>作用域</strong>：整个类中都可以访问，甚至可以通过类名直接访问。</p>
+</li>
+<li>
+<p><strong>生命周期</strong>：与类的生命周期相同，类加载时分配内存，程序结束时释放内存。</p>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+</li>
+</ul>
+<pre><code class="language-java">public class Counter {
+    static int count = 0; // 静态变量
+
+    public Counter() {
+        count++;
+    }
+
+    public void printCount() {
+        System.out.println(&quot;Count: &quot; + count);
+    }
+}
+</code></pre>
+<h3>4. 变量的命名规则</h3>
+<ul>
+<li>
+<p>变量名必须以字母、下划线（<code>_</code>）或美元符号（<code>$</code>）开头。</p>
+</li>
+<li>
+<p>变量名不能以数字开头。</p>
+</li>
+<li>
+<p>变量名不能是 Java 关键字（如 <code>int</code>, <code>class</code>, <code>public</code> 等）。</p>
+</li>
+<li>
+<p>变量名区分大小写。</p>
+</li>
+<li>
+<p>遵循驼峰命名法（如 <code>myVariableName</code>）。</p>
+</li>
+</ul>
+<h3>5. 变量的默认值</h3>
+<ul>
+<li>
+<p><strong>局部变量</strong>：没有默认值，必须显式初始化后才能使用。</p>
+</li>
+<li>
+<p><strong>实例变量</strong>：如果没有显式初始化，会有默认值（如 <code>int</code> 默认为 <code>0</code>，<code>String</code> 默认为 <code>null</code>）。</p>
+</li>
+<li>
+<p><strong>静态变量</strong>：与实例变量相同，有默认值。</p>
+</li>
+</ul>
+<h3>6. 变量的作用域</h3>
+<ul>
+<li>
+<p><strong>局部变量</strong>：只能在<strong>声明</strong>它的方法、构造函数或代码块中访问。</p>
+</li>
+<li>
+<p><strong>实例变量</strong>：可以在类的任何非静态方法、构造函数或代码块中访问。</p>
+</li>
+<li>
+<p><strong>静态变量</strong>：可以在类的任何地方访问，甚至可以通过类名直接访问。</p>
+</li>
+</ul>
+<h3>7. 注意事项</h3>
+<ol>
+<li>
+<p><strong>局部变量必须初始化</strong>：</p>
+<ul>
+<li>局部变量在使用前必须显式初始化，否则会编译错误。</li>
+</ul>
+</li>
+<li>
+<p><strong>避免变量名冲突</strong>：</p>
+<ul>
+<li>局部变量和实例变量、静态变量的名称不能冲突。</li>
+</ul>
+</li>
+<li>
+<p><strong>静态变量的共享性</strong>：</p>
+<ul>
+<li>静态变量是类级别的，所有实例共享同一个静态变量。</li>
+</ul>
+</li>
+<li>
+<p><strong>变量的生命周期</strong>：</p>
+<ul>
+<li>局部变量的生命周期最短，实例变量和静态变量的生命周期较长。</li>
+</ul>
+</li>
+</ol>
+<h3>9. 实例变量与静态方法的区别</h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>实例变量（Instance Variables）</th>
+<th>静态方法（Static Methods）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>所属对象</strong></td>
+<td>属于类的实例（对象）</td>
+<td>属于类本身</td>
+</tr>
+<tr>
+<td><strong>内存分配</strong></td>
+<td>每个实例都有独立的副本</td>
+<td>只有一个副本，所有实例共享</td>
+</tr>
+<tr>
+<td><strong>访问方式</strong></td>
+<td>通过对象访问（如 <code>obj.variable</code>）</td>
+<td>通过类名访问（如 <code>ClassName.method()</code>）</td>
+</tr>
+<tr>
+<td><strong>生命周期</strong></td>
+<td>与对象的生命周期相同</td>
+<td>与类的生命周期相同</td>
+</tr>
+<tr>
+<td><strong>依赖关系</strong></td>
+<td>依赖于对象的存在</td>
+<td>不依赖于对象的存在</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p><strong>实例变量依赖于对象</strong>：</p>
+<ul>
+<li>
+<p>实例变量只有在创建对象后才会分配内存。</p>
+</li>
+<li>
+<p>静态方法不依赖于对象，可以在没有对象的情况下调用。</p>
+</li>
+<li>
+<p>因此，静态方法无法直接访问实例变量，因为可能没有对象存在。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>静态方法没有 <code>this</code> 引用</strong>：</p>
+<ul>
+<li>
+<p>实例变量需要通过 <code>this</code> 关键字访问（隐式或显式）。</p>
+</li>
+<li>
+<p>静态方法没有 <code>this</code> 引用，因此无法访问实例变量。</p>
+</li>
+</ul>
+</li>
+</ul>
+</article>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="11 网络编程 网络编程与以往的javaweb编程不同，javaweb是网页开发，网络编程是与TCP、UDP等网络协议打交道。 规则：网络通信协议 TCP/IP参考模型 2. 网络编程基础 2.1 T">
+    <meta property="og:site_name" content="Seiga 的个人站">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="11 网络编程 · Seiga">
+    <meta property="og:description" content="11 网络编程 网络编程与以往的javaweb编程不同，javaweb是网页开发，网络编程是与TCP、UDP等网络协议打交道。 规则：网络通信协议 TCP/IP参考模型 2. 网络编程基础 2.1 T">
+    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/11%20%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B.md.html">
+    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/11%20%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B.md.html">
+    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <title>11 网络编程 · Seiga</title>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"11 网络编程","description":"11 网络编程 网络编程与以往的javaweb编程不同，javaweb是网页开发，网络编程是与TCP、UDP等网络协议打交道。 规则：网络通信协议 TCP/IP参考模型 2. 网络编程基础 2.1 T","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/11%20%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B.md.html"}</script>
+    <script>
+      try {
+        var stored = localStorage.getItem('site.theme');
+        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (error) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
+    <style>
+      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
+      .static-note { max-width: 760px; margin: 0 auto; }
+      .static-note a { color: var(--c-accent); }
+      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
+      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
+      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
+      .static-note .prose { max-width: none; }
+    </style>
+  </head>
+  <body>
+    <main class="static-note">
+      <header class="static-note-header">
+        <a href="/StarYunFanSite/">Seiga</a>
+        <h1>11 网络编程</h1>
+        <p class="static-note-meta">Java · 2026-10-20</p>
+        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/11%20%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B.md">在站内打开</a>
+      </header>
+      <article class="prose"><h1>11 网络编程</h1>
+<p>网络编程与以往的javaweb编程不同，javaweb是网页开发，网络编程是与TCP、UDP等网络协议打交道。</p>
+<p><strong>规则：网络通信协议</strong><br>
+<strong>TCP/IP参考模型</strong><br>
+<img src="/StarYunFanSite/postDir/major/image/Pasted%20image%2020250310224306.png" alt="Pasted image 20250310224306.png" loading="lazy" decoding="async"></p>
+<h2>2. 网络编程基础</h2>
+<h3>2.1 TCP/IP 协议</h3>
+<ul>
+<li>
+<p><strong>TCP（传输控制协议）</strong>：面向连接的协议，提供可靠的数据传输。</p>
+</li>
+<li>
+<p><strong>IP（网际协议）</strong>：负责将数据包从源地址发送到目标地址。</p>
+</li>
+</ul>
+<h3>2.2 UDP 协议</h3>
+<ul>
+<li><strong>UDP（用户数据报协议）</strong>：无连接的协议，提供不可靠的数据传输，但速度更快。</li>
+</ul>
+<h3>2.3 Socket</h3>
+<ul>
+<li>
+<p><strong>Socket</strong>：网络通信的端点，用于在客户端和服务器之间传输数据。</p>
+</li>
+<li>
+<p><strong>ServerSocket</strong>：服务器端用于监听客户端连接。</p>
+</li>
+</ul>
+</article>
+    </main>
+  </body>
+</html>
