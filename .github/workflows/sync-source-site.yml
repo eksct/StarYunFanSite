@@ -62,7 +62,12 @@ jobs:
         working-directory: source
         run: pnpm install --frozen-lockfile
 
-      - name: Test note data helpers
+      - name: Lint source
+        if: steps.freshness.outputs.up_to_date != 'true'
+        working-directory: source
+        run: pnpm lint
+
+      - name: Test publishing regressions
         if: steps.freshness.outputs.up_to_date != 'true'
         working-directory: source
         run: pnpm test
@@ -71,6 +76,11 @@ jobs:
         if: steps.freshness.outputs.up_to_date != 'true'
         working-directory: source
         run: pnpm run build
+
+      - name: Verify production files
+        if: steps.freshness.outputs.up_to_date != 'true'
+        working-directory: source
+        run: node scripts/verify-dist.mjs
 
       - name: Update published branch
         if: steps.freshness.outputs.up_to_date != 'true'
