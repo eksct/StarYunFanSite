@@ -11,7 +11,7 @@ document.addEventListener('click', async event => {
       if (status) status.textContent = '代码已复制'
     } catch { window.prompt('请复制代码：', code) }
   }
-  if (target instanceof HTMLImageElement && target.classList.contains('prose-img')) {
+  if (target instanceof HTMLImageElement && target.classList.contains('prose-img') && target.complete && target.naturalWidth) {
     const dialog = document.createElement('dialog')
     dialog.className = 'image-dialog'
     const close = document.createElement('button')
@@ -31,7 +31,13 @@ document.addEventListener('keydown', event => {
     event.preventDefault(); event.target.click()
   }
 })
-document.querySelectorAll('.prose-img').forEach(image => image.addEventListener('error', () => {
-  image.removeAttribute('role'); image.removeAttribute('tabindex')
-  image.alt = '图片加载失败：' + image.alt
-}))
+document.querySelectorAll('.prose-img').forEach(image => {
+  const failed = () => {
+    if (image.classList.contains('image-failed')) return
+    image.removeAttribute('role'); image.removeAttribute('tabindex'); image.removeAttribute('aria-label')
+    image.alt = '图片加载失败：' + image.alt
+    image.classList.add('image-failed')
+  }
+  image.addEventListener('error', failed, { once: true })
+  if (image.complete && !image.naturalWidth) failed()
+})
