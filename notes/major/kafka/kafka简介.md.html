@@ -7,16 +7,15 @@
 <meta property="og:title" content="kafka简介 · Seiga"><meta property="og:description" content="参考3.5版本中文文档 参考4.0版本官方文档 会进行消息持久化(存硬盘) Apache Kafka® 是 一个分布式流处理平台，这使得kafka： 可以让你发布和订阅流式的记录。这一方面与消息队列或">
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/kafka/kafka%E7%AE%80%E4%BB%8B.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/kafka/kafka%E7%AE%80%E4%BB%8B.md.html">
-<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-BocUcxlR.css">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-Ccr1-b9f.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"kafka简介","description":"参考3.5版本中文文档 参考4.0版本官方文档 会进行消息持久化(存硬盘) Apache Kafka® 是 一个分布式流处理平台，这使得kafka： 可以让你发布和订阅流式的记录。这一方面与消息队列或","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/kafka/kafka%E7%AE%80%E4%BB%8B.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
-<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
-<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
-<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=kafka">kafka</a></nav>
 <h1>kafka简介</h1><p class="static-note-meta">kafka · 发布 2025-09-27 · 更新 2026-09-20</p>
-<a href="/StarYunFanSite/#/notes/major/kafka/kafka%E7%AE%80%E4%BB%8B.md">在站内打开</a></header>
-
+<a href="/StarYunFanSite/#/notes/major/kafka/kafka%E7%AE%80%E4%BB%8B.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
+<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:1.4rem"><a href="#kafka-%E6%98%AF%E5%A6%82%E4%BD%95%E5%B7%A5%E4%BD%9C%E7%9A%84">Kafka 是如何工作的？</a></li><li style="padding-inline-start:1.4rem"><a href="#%E4%B8%BB%E8%A6%81%E6%A6%82%E5%BF%B5%E5%92%8C%E6%9C%AF%E8%AF%AD">主要概念和术语</a></li><li style="padding-inline-start:1.4rem"><a href="#kafka%E6%9C%89%E4%BA%94%E4%B8%AA%E6%A0%B8%E5%BF%83%E7%9A%84api">Kafka有五个核心的API:</a></li><li style="padding-inline-start:1.4rem"><a href="#%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E5%85%B3%E4%BA%8Eapi">官方文档关于api</a></li><li style="padding-inline-start:1.4rem"><a href="#kafka-api">Kafka API</a></li><li style="padding-inline-start:1.4rem"><a href="#%E4%BC%98%E9%9B%85%E5%85%B3%E6%9C%BA">优雅关机</a></li><li style="padding-inline-start:1.4rem"><a href="#%E5%B9%B3%E8%A1%A1%E9%A2%86%E5%AF%BC%E5%8A%9B">平衡领导力</a></li></ul></nav></details>
 <article id="article" tabindex="-1" class="prose"><span id="kafka简介" class="article-title-anchor"></span>
 <p>参考3.5版本<a href="https://kafka1x.apachecn.org/intro.html" rel="noopener noreferrer">中文文档</a><br>
 参考4.0版本<a href="https://kafka.apache.org/34/documentation.html" rel="noopener noreferrer">官方文档</a></p>
@@ -80,4 +79,5 @@ kafka中每个主题都会有多个副本，这是为了确保数据容错和高
 <p>每当一个 Broker 停止或崩溃时，该 Broker 分区的领导权将转移给其他副本。当 Broker 重新启动时，它将仅作为其所有分区的跟随者，这意味着它将不再用于客户端的读写操作。</p>
 <p>为了避免这种不平衡，Kafka 引入了“优先副本”的概念。如果某个分区的副本列表为 1,5,9，则节点 1 优先于节点 5 或 9 成为 Leader，因为它在副本列表中的位置更靠前。默认情况下，Kafka 集群会尝试将 Leader 恢复到优先副本。</p>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
+<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/kafka/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.md.html"><span class="dim">上一篇</span><span>快速入门</span></a><a href="/StarYunFanSite/notes/major/kafka/Spring%20for%20Apache%20Kafka.md.html"><span class="dim">下一篇</span><span>Spring for Apache Kafka</span></a></nav>
 </main></body></html>

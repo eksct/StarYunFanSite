@@ -7,16 +7,15 @@
 <meta property="og:title" content="Spring Boot集成Redis · Seiga"><meta property="og:description" content="一、添加依赖 Maven： Gradle: 二. 配置 Redis 可以在spring boot中自行配置redisConfig，指定序列化配置 默认情况下可以直接使用redisTemplate或者s">
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/springboot%E9%9B%86%E6%88%90/Spring%20Boot%E9%9B%86%E6%88%90Redis.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/springboot%E9%9B%86%E6%88%90/Spring%20Boot%E9%9B%86%E6%88%90Redis.md.html">
-<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-BocUcxlR.css">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-Ccr1-b9f.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Spring Boot集成Redis","description":"一、添加依赖 Maven： Gradle: 二. 配置 Redis 可以在spring boot中自行配置redisConfig，指定序列化配置 默认情况下可以直接使用redisTemplate或者s","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/springboot%E9%9B%86%E6%88%90/Spring%20Boot%E9%9B%86%E6%88%90Redis.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
-<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
-<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
-<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
 <h1>Spring Boot集成Redis</h1><p class="static-note-meta">Spring Boot · 发布 2025-09-27 · 更新 2026-09-20</p>
-<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/springboot%E9%9B%86%E6%88%90/Spring%20Boot%E9%9B%86%E6%88%90Redis.md">在站内打开</a></header>
-<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#%E4%B8%80%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96">一、添加依赖</a></li><li><a href="#%E4%BA%8C-%E9%85%8D%E7%BD%AE-redis">二. 配置 Redis</a></li></ul></nav></details>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/springboot%E9%9B%86%E6%88%90/Spring%20Boot%E9%9B%86%E6%88%90Redis.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
+<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#%E4%B8%80%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96">一、添加依赖</a></li><li style="padding-inline-start:0rem"><a href="#%E4%BA%8C-%E9%85%8D%E7%BD%AE-redis">二. 配置 Redis</a></li></ul></nav></details>
 <article id="article" tabindex="-1" class="prose"><span id="spring-boot集成redis" class="article-title-anchor"></span>
 <h2 id="一添加依赖">一、添加依赖</h2>
 <p>Maven：</p>
@@ -71,4 +70,5 @@
 }
 </code></pre></div>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
+
 </main></body></html>

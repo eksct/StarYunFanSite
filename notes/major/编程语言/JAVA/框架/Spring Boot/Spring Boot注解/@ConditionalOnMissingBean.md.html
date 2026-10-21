@@ -7,16 +7,15 @@
 <meta property="og:title" content="@ConditionalOnMissingBean · Seiga"><meta property="og:description" content="是 Spring Boot 提供的一个 条件化配置注解，用于在容器中 不存在指定 Bean 时 才注册当前 Bean。 核心属性 属性名 类型 说明 value Class&lt;?&gt;[] 要检查的 Bea">
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnMissingBean.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnMissingBean.md.html">
-<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-BocUcxlR.css">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-Ccr1-b9f.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"@ConditionalOnMissingBean","description":"是 Spring Boot 提供的一个 条件化配置注解，用于在容器中 不存在指定 Bean 时 才注册当前 Bean。 核心属性 属性名 类型 说明 value Class\u003c?>[] 要检查的 Bea","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnMissingBean.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
-<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
-<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
-<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
 <h1>@ConditionalOnMissingBean</h1><p class="static-note-meta">Spring Boot · 发布 2025-09-27 · 更新 2026-09-20</p>
-<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnMissingBean.md">在站内打开</a></header>
-<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#%E6%A0%B8%E5%BF%83%E5%B1%9E%E6%80%A7">核心属性</a></li></ul></nav></details>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnMissingBean.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
+<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0.7rem"><a href="#%E6%A0%B8%E5%BF%83%E5%B1%9E%E6%80%A7">核心属性</a></li></ul></nav></details>
 <article id="article" tabindex="-1" class="prose"><span id="conditionalonmissingbean" class="article-title-anchor"></span>
 <p> 是 Spring Boot 提供的一个 <strong>条件化配置注解</strong>，用于在容器中 <strong>不存在指定 Bean 时</strong> 才注册当前 Bean。</p>
 <h3 id="核心属性"><strong>核心属性</strong></h3>
@@ -57,4 +56,5 @@
 </tbody>
 </table></div>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
+<nav class="static-siblings" aria-label="同目录文章"><span></span><a href="/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnProperty.md.html"><span class="dim">下一篇</span><span>@ConditionalOnProperty</span></a></nav>
 </main></body></html>

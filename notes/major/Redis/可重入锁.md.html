@@ -7,15 +7,14 @@
 <meta property="og:title" content="可重入锁 · Seiga"><meta property="og:description" content="支持可重入，watchdog自动续期(默认三十秒)，过期释放锁，tryLock 阻塞或超时 为什么是可重入锁？因为同一个线程中多次加锁不会导致死锁。 Redis 中的锁键默认以 redisson_lo">
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Redis/%E5%8F%AF%E9%87%8D%E5%85%A5%E9%94%81.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Redis/%E5%8F%AF%E9%87%8D%E5%85%A5%E9%94%81.md.html">
-<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-BocUcxlR.css">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-Ccr1-b9f.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"可重入锁","description":"支持可重入，watchdog自动续期(默认三十秒)，过期释放锁，tryLock 阻塞或超时 为什么是可重入锁？因为同一个线程中多次加锁不会导致死锁。 Redis 中的锁键默认以 redisson_lo","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Redis/%E5%8F%AF%E9%87%8D%E5%85%A5%E9%94%81.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
-<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
-<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
-<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=Redis">Redis</a></nav>
 <h1>可重入锁</h1><p class="static-note-meta">Redis · 发布 2025-09-27 · 更新 2026-09-20</p>
-<a href="/StarYunFanSite/#/notes/major/Redis/%E5%8F%AF%E9%87%8D%E5%85%A5%E9%94%81.md">在站内打开</a></header>
+<a href="/StarYunFanSite/#/notes/major/Redis/%E5%8F%AF%E9%87%8D%E5%85%A5%E9%94%81.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
 
 <article id="article" tabindex="-1" class="prose"><span id="可重入锁" class="article-title-anchor"></span>
 <p>支持可重入，watchdog自动续期(默认三十秒)，过期释放锁，tryLock 阻塞或超时</p>
@@ -60,4 +59,5 @@ lock.lock();
 </code></pre></div>
 <p>Redis 中的锁键默认以 <code>redisson_lock:{yourLockName}</code> 命名。</p>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
+<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/Redis/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E3%80%81%E5%87%BB%E7%A9%BF%E3%80%81%E9%9B%AA%E5%B4%A9%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5.md.html"><span class="dim">上一篇</span><span>缓存穿透、击穿、雪崩处理策略</span></a><a href="/StarYunFanSite/notes/major/Redis/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.md.html"><span class="dim">下一篇</span><span>数据类型</span></a></nav>
 </main></body></html>

@@ -7,16 +7,15 @@
 <meta property="og:title" content="@ConditionalOnProperty · Seiga"><meta property="og:description" content="@ConditionalOnProperty 是 Spring Boot 提供的一个 条件化配置注解，用于根据 配置文件中的属性值 决定是否加载某个 Bean 或配置类。它常用于实现功能模块的动态启用">
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnProperty.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnProperty.md.html">
-<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-BocUcxlR.css">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-Ccr1-b9f.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"@ConditionalOnProperty","description":"@ConditionalOnProperty 是 Spring Boot 提供的一个 条件化配置注解，用于根据 配置文件中的属性值 决定是否加载某个 Bean 或配置类。它常用于实现功能模块的动态启用","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnProperty.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
-<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
-<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
-<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
 <h1>@ConditionalOnProperty</h1><p class="static-note-meta">Spring Boot · 发布 2025-09-27 · 更新 2026-09-20</p>
-<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnProperty.md">在站内打开</a></header>
-<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#%E6%A0%B8%E5%BF%83%E4%BD%9C%E7%94%A8">核心作用</a></li><li><a href="#%E6%A0%B8%E5%BF%83%E5%B1%9E%E6%80%A7">核心属性</a></li><li><a href="#%E5%8C%B9%E9%85%8D%E9%80%BB%E8%BE%91">匹配逻辑</a></li><li><a href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">最佳实践</a></li></ul></nav></details>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnProperty.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
+<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0.7rem"><a href="#%E6%A0%B8%E5%BF%83%E4%BD%9C%E7%94%A8">核心作用</a></li><li style="padding-inline-start:0.7rem"><a href="#%E6%A0%B8%E5%BF%83%E5%B1%9E%E6%80%A7">核心属性</a></li><li style="padding-inline-start:0.7rem"><a href="#%E5%8C%B9%E9%85%8D%E9%80%BB%E8%BE%91">匹配逻辑</a></li><li style="padding-inline-start:0.7rem"><a href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">最佳实践</a></li></ul></nav></details>
 <article id="article" tabindex="-1" class="prose"><span id="conditionalonproperty" class="article-title-anchor"></span>
 <p><code>@ConditionalOnProperty</code> 是 Spring Boot 提供的一个 <strong>条件化配置注解</strong>，用于根据 <strong>配置文件中的属性值</strong> 决定是否加载某个 Bean 或配置类。它常用于实现功能模块的动态启用/禁用，或根据环境差异灵活控制组件的初始化。</p>
 <h3 id="核心作用">核心作用</h3>
@@ -139,4 +138,5 @@
 </li>
 </ol>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
+<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnMissingBean.md.html"><span class="dim">上一篇</span><span>@ConditionalOnMissingBean</span></a><span></span></nav>
 </main></body></html>

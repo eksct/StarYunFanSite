@@ -1,8 +1,35 @@
 // Small progressive enhancement for standalone article pages.
 const status = document.getElementById('interaction-status')
+const system = window.matchMedia('(prefers-color-scheme: dark)')
+const themeSelect = document.querySelector('[data-theme-select]')
+let mode = 'system'
+function readTheme() {
+  try {
+    const stored = localStorage.getItem('site.theme')
+    mode = stored === 'light' || stored === 'dark' ? stored : 'system'
+  } catch { mode = 'system' }
+}
+function applyTheme() {
+  document.documentElement.dataset.theme = mode === 'system' ? system.matches ? 'dark' : 'light' : mode
+  if (themeSelect) themeSelect.value = mode
+}
+readTheme(); applyTheme()
+themeSelect?.addEventListener('change', () => {
+  mode = themeSelect.value
+  try {
+    if (mode === 'system') localStorage.removeItem('site.theme')
+    else localStorage.setItem('site.theme', mode)
+  } catch { /* The current page still follows the chosen mode. */ }
+  applyTheme()
+})
+system.addEventListener('change', applyTheme)
+window.addEventListener('storage', event => {
+  if (event.key === 'site.theme' || event.key === null) { readTheme(); applyTheme() }
+})
 document.addEventListener('click', async event => {
   const target = event.target
   if (!(target instanceof Element)) return
+  if (target.closest('[data-action="print"]')) { window.print(); return }
   const copy = target.closest('[data-action="copy"]')
   if (copy) {
     const code = copy.closest('.code-block')?.querySelector('code')?.textContent || ''
@@ -22,7 +49,9 @@ document.addEventListener('click', async event => {
     dialog.append(close, image); document.body.append(dialog)
     close.addEventListener('click', () => dialog.close())
     dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close() })
-    dialog.addEventListener('close', () => { dialog.remove(); target.focus() }, { once: true })
+    const overflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    dialog.addEventListener('close', () => { document.body.style.overflow = overflow; dialog.remove(); target.focus() }, { once: true })
     dialog.showModal(); close.focus()
   }
 })

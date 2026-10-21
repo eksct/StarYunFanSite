@@ -7,16 +7,15 @@
 <meta property="og:title" content="@RequiredArgsConstructor · Seiga"><meta property="og:description" content="Lombok 提供的注解，用于自动生成一个包含 final 字段或 @NonNull 字段的构造函数。通过此注解可以省略手动编写构造方法，简化代码。 1. @RequiredArgsConstruct">
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40RequiredArgsConstructor.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40RequiredArgsConstructor.md.html">
-<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-BocUcxlR.css">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-Ccr1-b9f.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"@RequiredArgsConstructor","description":"Lombok 提供的注解，用于自动生成一个包含 final 字段或 @NonNull 字段的构造函数。通过此注解可以省略手动编写构造方法，简化代码。 1. @RequiredArgsConstruct","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40RequiredArgsConstructor.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
-<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
-<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
-<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
 <h1>@RequiredArgsConstructor</h1><p class="static-note-meta">Java · 发布 2025-09-27 · 更新 2026-09-20</p>
-<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40RequiredArgsConstructor.md">在站内打开</a></header>
-<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#1-requiredargsconstructor-%E7%9A%84%E4%BD%9C%E7%94%A8">1. @RequiredArgsConstructor 的作用</a></li><li><a href="#2-%E4%BD%BF%E7%94%A8-requiredargsconstructor">2. 使用 @RequiredArgsConstructor</a></li></ul></nav></details>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40RequiredArgsConstructor.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
+<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0.7rem"><a href="#1-requiredargsconstructor-%E7%9A%84%E4%BD%9C%E7%94%A8">1. @RequiredArgsConstructor 的作用</a></li><li style="padding-inline-start:0.7rem"><a href="#2-%E4%BD%BF%E7%94%A8-requiredargsconstructor">2. 使用 @RequiredArgsConstructor</a></li><li style="padding-inline-start:1.4rem"><a href="#21-%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95">2.1 基本用法</a></li><li style="padding-inline-start:1.4rem"><a href="#22-%E7%BB%93%E5%90%88-nonnull">2.2 结合 @NonNull</a></li></ul></nav></details>
 <article id="article" tabindex="-1" class="prose"><span id="requiredargsconstructor" class="article-title-anchor"></span>
 <p>Lombok 提供的注解，用于自动生成一个包含 <code>final</code> 字段或 <code>@NonNull</code> 字段的构造函数。通过此注解可以省略手动编写构造方法，简化代码。</p>
 <h3 id="1-requiredargsconstructor-的作用">1. <code>@RequiredArgsConstructor</code> 的作用</h3>
@@ -52,4 +51,5 @@
 }
 </code></pre></div>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
+<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40NonNull.md.html"><span class="dim">上一篇</span><span>@NonNull</span></a><a href="/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40Slf4j.md.html"><span class="dim">下一篇</span><span>@Slf4j</span></a></nav>
 </main></body></html>

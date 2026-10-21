@@ -7,16 +7,15 @@
 <meta property="og:title" content="快速入门 · Seiga"><meta property="og:description" content="一、获取kafka kafka官网下载 命令下载 docker镜像启动 二、启动kafka 注意：从4.0开始，kafka不再支持使用ZooKeeper作为协调中心和元数据仓库，仅支持 KRaft 模">
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/kafka/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/kafka/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.md.html">
-<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-BocUcxlR.css">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-Ccr1-b9f.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"快速入门","description":"一、获取kafka kafka官网下载 命令下载 docker镜像启动 二、启动kafka 注意：从4.0开始，kafka不再支持使用ZooKeeper作为协调中心和元数据仓库，仅支持 KRaft 模","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/kafka/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
-<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
-<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
-<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=kafka">kafka</a></nav>
 <h1>快速入门</h1><p class="static-note-meta">kafka · 发布 2025-09-27 · 更新 2026-09-20</p>
-<a href="/StarYunFanSite/#/notes/major/kafka/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.md">在站内打开</a></header>
-
+<a href="/StarYunFanSite/#/notes/major/kafka/%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
+<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:1.4rem"><a href="#%E4%B8%80%E8%8E%B7%E5%8F%96kafka">一、获取kafka</a></li><li style="padding-inline-start:1.4rem"><a href="#%E4%BA%8C%E5%90%AF%E5%8A%A8kafka">二、启动kafka</a></li><li style="padding-inline-start:1.4rem"><a href="#%E4%B8%89%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C">三、基本操作</a></li><li style="padding-inline-start:1.4rem"><a href="#%E7%94%A8-kafka-connect-%E5%B0%86%E6%95%B0%E6%8D%AE%E4%BD%9C%E4%B8%BA%E4%BA%8B%E4%BB%B6%E6%B5%81%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA">用 Kafka Connect 将数据作为事件流导入/导出</a></li><li style="padding-inline-start:1.4rem"><a href="#%E6%B6%88%E6%81%AF%E6%A8%A1%E5%BC%8F">消息模式</a></li></ul></nav></details>
 <article id="article" tabindex="-1" class="prose"><span id="快速入门" class="article-title-anchor"></span>
 <h4 id="一获取kafka">一、获取kafka</h4>
 <ol>
@@ -96,4 +95,5 @@ This is my second event
 发布订阅模式：每个消费者都在不同组内，一个消息可以被多个消费者消费。</p>
 <p>如何保证不同分区内的消费顺序？给消息设置相同的key，同key消息会发到同一个分区。</p>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
+<nav class="static-siblings" aria-label="同目录文章"><span></span><a href="/StarYunFanSite/notes/major/kafka/kafka%E7%AE%80%E4%BB%8B.md.html"><span class="dim">下一篇</span><span>kafka简介</span></a></nav>
 </main></body></html>

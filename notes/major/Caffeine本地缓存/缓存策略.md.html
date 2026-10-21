@@ -7,16 +7,15 @@
 <meta property="og:title" content="缓存策略 · Seiga"><meta property="og:description" content="Caffeine提供了四种缓存添加策略：手动加载，自动加载，手动异步加载和自动异步加载。 手动加载 Cache 接口提供了显式搜索查找、更新和移除缓存元素的能力。 推荐使用cache.get(key,">
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Caffeine%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Caffeine%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5.md.html">
-<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-BocUcxlR.css">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-Ccr1-b9f.css">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"缓存策略","description":"Caffeine提供了四种缓存添加策略：手动加载，自动加载，手动异步加载和自动异步加载。 手动加载 Cache 接口提供了显式搜索查找、更新和移除缓存元素的能力。 推荐使用cache.get(key,","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Caffeine%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
-<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
-<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
-<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=Caffeine%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98">Caffeine本地缓存</a></nav>
 <h1>缓存策略</h1><p class="static-note-meta">Caffeine本地缓存 · 发布 2025-09-27 · 更新 2026-09-20</p>
-<a href="/StarYunFanSite/#/notes/major/Caffeine%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5.md">在站内打开</a></header>
-<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#%E6%89%8B%E5%8A%A8%E5%8A%A0%E8%BD%BD">手动加载</a></li><li><a href="#%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD">自动加载</a></li><li><a href="#%E6%89%8B%E5%8A%A8%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD">手动异步加载</a></li><li><a href="#%E8%87%AA%E5%8A%A8%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD">自动异步加载</a></li></ul></nav></details>
+<a href="/StarYunFanSite/#/notes/major/Caffeine%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
+<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0.7rem"><a href="#%E6%89%8B%E5%8A%A8%E5%8A%A0%E8%BD%BD">手动加载</a></li><li style="padding-inline-start:0.7rem"><a href="#%E8%87%AA%E5%8A%A8%E5%8A%A0%E8%BD%BD">自动加载</a></li><li style="padding-inline-start:0.7rem"><a href="#%E6%89%8B%E5%8A%A8%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD">手动异步加载</a></li><li style="padding-inline-start:0.7rem"><a href="#%E8%87%AA%E5%8A%A8%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD">自动异步加载</a></li></ul></nav></details>
 <article id="article" tabindex="-1" class="prose"><span id="缓存策略" class="article-title-anchor"></span>
 <p>Caffeine提供了四种缓存添加策略：手动加载，自动加载，手动异步加载和自动异步加载。</p>
 <h3 id="手动加载">手动加载</h3>
@@ -90,4 +89,5 @@ cache.synchronous().invalidate(key);
 <p>通过 <code>getAll</code>可以达到批量查找缓存的目的。 默认情况下，在<code>getAll</code> 方法中，将会对每个不存在对应缓存的key调用一次 <code>AsyncCacheLoader.asyncLoad</code> 来生成缓存元素。 在批量检索比单个查找更有效率的场景下，你可以覆盖并开发<code>AsyncCacheLoader.asyncLoadAll</code> 方法来使你的缓存更有效率。</p>
 <p>值得注意的是，你可以通过实现一个 <code>AsyncCacheLoader.asyncLoadAll</code>并在其中为没有在参数中请求的key也生成对应的缓存元素。打个比方，如果对应某个key生成的缓存元素与包含这个key的一组集合剩余的key所对应的元素一致，那么在<code>asyncLoadAll</code>中也可以同时加载剩下的key对应的元素到缓存当中。</p>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
+<nav class="static-siblings" aria-label="同目录文章"><span></span><a href="/StarYunFanSite/notes/major/Caffeine%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98/%E7%AE%80%E4%BB%8B.md.html"><span class="dim">下一篇</span><span>简介</span></a></nav>
 </main></body></html>
