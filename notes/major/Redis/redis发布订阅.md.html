@@ -1,50 +1,25 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="redis发布订阅 📌 Redis 发布/订阅（Pub/Sub）机制 1. 概念 - 发布者（Publisher）：往某个 channel 发送消息。 - 订阅者（Subscriber）：订阅一个或">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="redis发布订阅 · Seiga">
-    <meta property="og:description" content="redis发布订阅 📌 Redis 发布/订阅（Pub/Sub）机制 1. 概念 - 发布者（Publisher）：往某个 channel 发送消息。 - 订阅者（Subscriber）：订阅一个或">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Redis/redis%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Redis/redis%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>redis发布订阅 · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"redis发布订阅","description":"redis发布订阅 📌 Redis 发布/订阅（Pub/Sub）机制 1. 概念 - 发布者（Publisher）：往某个 channel 发送消息。 - 订阅者（Subscriber）：订阅一个或","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Redis/redis%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>redis发布订阅</h1>
-        <p class="static-note-meta">Redis · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/Redis/redis%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>redis发布订阅</h1>
-<h2>📌 Redis 发布/订阅（Pub/Sub）机制</h2>
-<h3>1. 概念</h3>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>redis发布订阅 · Seiga</title>
+<meta name="description" content="📌 Redis 发布/订阅（Pub/Sub）机制 1. 概念 发布者（Publisher）：往某个 channel 发送消息。 订阅者（Subscriber）：订阅一个或多个 channel，监听消">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="redis发布订阅 · Seiga"><meta property="og:description" content="📌 Redis 发布/订阅（Pub/Sub）机制 1. 概念 发布者（Publisher）：往某个 channel 发送消息。 订阅者（Subscriber）：订阅一个或多个 channel，监听消">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Redis/redis%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Redis/redis%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"redis发布订阅","description":"📌 Redis 发布/订阅（Pub/Sub）机制 1. 概念 发布者（Publisher）：往某个 channel 发送消息。 订阅者（Subscriber）：订阅一个或多个 channel，监听消","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Redis/redis%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=Redis">Redis</a></nav>
+<h1>redis发布订阅</h1><p class="static-note-meta">Redis · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/Redis/redis%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#-redis-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85pubsub%E6%9C%BA%E5%88%B6">📌 Redis 发布/订阅（Pub/Sub）机制</a></li><li><a href="#1-%E6%A6%82%E5%BF%B5">1. 概念</a></li><li><a href="#2-redis-%E5%8E%9F%E7%94%9F%E5%91%BD%E4%BB%A4">2. Redis 原生命令</a></li><li><a href="#-spring-data-redis-%E5%AE%9E%E7%8E%B0-pubsub">📌 Spring Data Redis 实现 Pub/Sub</a></li><li><a href="#1-%E5%8F%91%E5%B8%83%E6%B6%88%E6%81%AF">1. 发布消息</a></li><li><a href="#2-%E8%AE%A2%E9%98%85%E6%B6%88%E6%81%AF">2. 订阅消息</a></li><li><a href="#3-%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B">3. 使用示例</a></li><li><a href="#-%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF">📌 应用场景</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="redis发布订阅" class="article-title-anchor"></span>
+<h2 id="-redis-发布订阅pubsub机制">📌 Redis 发布/订阅（Pub/Sub）机制</h2>
+<h3 id="1-概念">1. 概念</h3>
 <ul>
 <li>
 <p><strong>发布者（Publisher）</strong>：往某个 channel 发送消息。</p>
@@ -58,96 +33,96 @@
 </ul>
 <p>👉 类似 <strong>消息广播</strong>，但和 Kafka、RabbitMQ 不一样，Redis Pub/Sub <strong>不做持久化</strong>。</p>
 <hr>
-<h3>2. Redis 原生命令</h3>
+<h3 id="2-redis-原生命令">2. Redis 原生命令</h3>
 <ul>
 <li>
 <p>订阅频道：</p>
-<pre><code class="language-bash">SUBSCRIBE myChannel
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>bash</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-bash">SUBSCRIBE myChannel
+</code></pre></div>
 </li>
 <li>
 <p>发布消息：</p>
-<pre><code class="language-bash">PUBLISH myChannel &quot;Hello World&quot;
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>bash</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-bash">PUBLISH myChannel <span class="hljs-string">&quot;Hello World&quot;</span>
+</code></pre></div>
 </li>
 <li>
 <p>取消订阅：</p>
-<pre><code class="language-bash">UNSUBSCRIBE myChannel
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>bash</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-bash">UNSUBSCRIBE myChannel
+</code></pre></div>
 </li>
 </ul>
 <hr>
-<h2>📌 Spring Data Redis 实现 Pub/Sub</h2>
-<h3>1. 发布消息</h3>
+<h2 id="-spring-data-redis-实现-pubsub">📌 Spring Data Redis 实现 Pub/Sub</h2>
+<h3 id="1-发布消息">1. 发布消息</h3>
 <p>直接用 <code>RedisTemplate.convertAndSend()</code>：</p>
-<pre><code class="language-java">@Autowired
-private RedisTemplate&lt;String, Object&gt; redisTemplate;
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-meta">@Autowired</span>
+<span class="hljs-keyword">private</span> RedisTemplate&lt;String, Object&gt; redisTemplate;
 
-public void publishMessage(String channel, String message) {
+<span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">publishMessage</span><span class="hljs-params">(String channel, String message)</span> {
     redisTemplate.convertAndSend(channel, message);
 }
-</code></pre>
+</code></pre></div>
 <hr>
-<h3>2. 订阅消息</h3>
+<h3 id="2-订阅消息">2. 订阅消息</h3>
 <p>在 Spring 里有两种常见方式：</p>
-<h4>✅ 方式一：实现 <code>MessageListener</code></h4>
-<pre><code class="language-java">@Component
-public class RedisSubscriber implements MessageListener {
+<h4 id="-方式一实现-messagelistener">✅ 方式一：实现 <code>MessageListener</code></h4>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-meta">@Component</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RedisSubscriber</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">MessageListener</span> {
 
-    @Override
-    public void onMessage(Message message, byte[] pattern) {
-        String channel = new String(message.getChannel());
-        String body = new String(message.getBody());
-        System.out.printf(&quot;收到消息: channel=%s, body=%s%n&quot;, channel, body);
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">onMessage</span><span class="hljs-params">(Message message, <span class="hljs-type">byte</span>[] pattern)</span> {
+        <span class="hljs-type">String</span> <span class="hljs-variable">channel</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(message.getChannel());
+        <span class="hljs-type">String</span> <span class="hljs-variable">body</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>(message.getBody());
+        System.out.printf(<span class="hljs-string">&quot;收到消息: channel=%s, body=%s%n&quot;</span>, channel, body);
     }
 }
-</code></pre>
+</code></pre></div>
 <p>注册监听器：</p>
-<pre><code class="language-java">@Configuration
-public class RedisPubSubConfig {
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-meta">@Configuration</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RedisPubSubConfig</span> {
 
-    @Bean
-    public RedisMessageListenerContainer container(
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">RedisMessageListenerContainer</span> <span class="hljs-title function_">container</span><span class="hljs-params">(
             RedisConnectionFactory connectionFactory,
-            RedisSubscriber subscriber) {
-        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+            RedisSubscriber subscriber)</span> {
+        <span class="hljs-type">RedisMessageListenerContainer</span> <span class="hljs-variable">container</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RedisMessageListenerContainer</span>();
         container.setConnectionFactory(connectionFactory);
 
-        // 订阅频道 myChannel
-        container.addMessageListener(subscriber, new ChannelTopic(&quot;myChannel&quot;));
-        return container;
+        <span class="hljs-comment">// 订阅频道 myChannel</span>
+        container.addMessageListener(subscriber, <span class="hljs-keyword">new</span> <span class="hljs-title class_">ChannelTopic</span>(<span class="hljs-string">&quot;myChannel&quot;</span>));
+        <span class="hljs-keyword">return</span> container;
     }
 }
-</code></pre>
+</code></pre></div>
 <hr>
-<h4>✅ 方式二：注解方式（更简洁）</h4>
+<h4 id="-方式二注解方式更简洁">✅ 方式二：注解方式（更简洁）</h4>
 <p>Spring Boot 2.2+ 可以用 <code>@EnableRedisRepositories</code> + <code>@RedisHash</code> 方式，但 <strong>Pub/Sub 更推荐用 MessageListenerContainer</strong>。</p>
 <hr>
-<h3>3. 使用示例</h3>
+<h3 id="3-使用示例">3. 使用示例</h3>
 <ul>
 <li>发布：</li>
 </ul>
-<pre><code class="language-java">@RestController
-@RequestMapping(&quot;/pub&quot;)
-public class PubController {
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-meta">@RestController</span>
+<span class="hljs-meta">@RequestMapping(&quot;/pub&quot;)</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PubController</span> {
 
-    @Autowired
-    private RedisTemplate&lt;String, Object&gt; redisTemplate;
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> RedisTemplate&lt;String, Object&gt; redisTemplate;
 
-    @GetMapping(&quot;/{msg}&quot;)
-    public String send(@PathVariable String msg) {
-        redisTemplate.convertAndSend(&quot;myChannel&quot;, msg);
-        return &quot;消息已发布: &quot; + msg;
+    <span class="hljs-meta">@GetMapping(&quot;/{msg}&quot;)</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">String</span> <span class="hljs-title function_">send</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable</span> String msg)</span> {
+        redisTemplate.convertAndSend(<span class="hljs-string">&quot;myChannel&quot;</span>, msg);
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;消息已发布: &quot;</span> + msg;
     }
 }
-</code></pre>
+</code></pre></div>
 <ul>
 <li>订阅端日志输出：</li>
 </ul>
-<pre><code class="language-text">收到消息: channel=myChannel, body=HelloWorld
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>text</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-text">收到消息: channel=myChannel, body=HelloWorld
+</code></pre></div>
 <hr>
-<h2>📌 应用场景</h2>
+<h2 id="-应用场景">📌 应用场景</h2>
 <ul>
 <li>
 <p><strong>广播通知</strong>（如系统公告、即时消息）</p>
@@ -160,7 +135,5 @@ public class PubController {
 </li>
 </ul>
 <p>⚠️ 如果需要 <strong>可靠性 + 消息持久化</strong> → 建议用 <strong>Redis Stream / Kafka / RabbitMQ</strong></p>
-</article>
-    </main>
-  </body>
-</html>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

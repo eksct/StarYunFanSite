@@ -1,133 +1,106 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MVC F0-01-01 Mapper Service ServiceImpl Dao层的 Mapper接口 编写Service层的接口和实现类 接口： 实现类：">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="MVC F0-01-01 Mapper Service ServiceImpl · Seiga">
-    <meta property="og:description" content="MVC F0-01-01 Mapper Service ServiceImpl Dao层的 Mapper接口 编写Service层的接口和实现类 接口： 实现类：">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/%E5%85%B6%E4%BB%96/MVC%20F0-01-01%20Mapper%20Service%20ServiceImpl.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/%E5%85%B6%E4%BB%96/MVC%20F0-01-01%20Mapper%20Service%20ServiceImpl.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>MVC F0-01-01 Mapper Service ServiceImpl · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"MVC F0-01-01 Mapper Service ServiceImpl","description":"MVC F0-01-01 Mapper Service ServiceImpl Dao层的 Mapper接口 编写Service层的接口和实现类 接口： 实现类：","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/%E5%85%B6%E4%BB%96/MVC%20F0-01-01%20Mapper%20Service%20ServiceImpl.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>MVC F0-01-01 Mapper Service ServiceImpl</h1>
-        <p class="static-note-meta">Spring Boot · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/%E5%85%B6%E4%BB%96/MVC%20F0-01-01%20Mapper%20Service%20ServiceImpl.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>MVC F0-01-01 Mapper Service ServiceImpl</h1>
-<h3>Dao层的 Mapper接口</h3>
-<pre><code class="language-java">package com.kuang.dao;  
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MVC F0-01-01 Mapper Service ServiceImpl · Seiga</title>
+<meta name="description" content="Dao层的 Mapper接口 编写Service层的接口和实现类 接口： 实现类：">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="MVC F0-01-01 Mapper Service ServiceImpl · Seiga"><meta property="og:description" content="Dao层的 Mapper接口 编写Service层的接口和实现类 接口： 实现类：">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/%E5%85%B6%E4%BB%96/MVC%20F0-01-01%20Mapper%20Service%20ServiceImpl.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/%E5%85%B6%E4%BB%96/MVC%20F0-01-01%20Mapper%20Service%20ServiceImpl.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"MVC F0-01-01 Mapper Service ServiceImpl","description":"Dao层的 Mapper接口 编写Service层的接口和实现类 接口： 实现类：","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/%E5%85%B6%E4%BB%96/MVC%20F0-01-01%20Mapper%20Service%20ServiceImpl.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
+<h1>MVC F0-01-01 Mapper Service ServiceImpl</h1><p class="static-note-meta">Spring Boot · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/%E5%85%B6%E4%BB%96/MVC%20F0-01-01%20Mapper%20Service%20ServiceImpl.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#dao%E5%B1%82%E7%9A%84-mapper%E6%8E%A5%E5%8F%A3">Dao层的 Mapper接口</a></li><li><a href="#%E7%BC%96%E5%86%99service%E5%B1%82%E7%9A%84%E6%8E%A5%E5%8F%A3%E5%92%8C%E5%AE%9E%E7%8E%B0%E7%B1%BB">编写Service层的接口和实现类</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="mvc-f0-01-01-mapper-service-serviceimpl" class="article-title-anchor"></span>
+<h3 id="dao层的-mapper接口">Dao层的 Mapper接口</h3>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">package</span> com.kuang.dao;  
   
-import com.kuang.pojo.Books;  
-import java.util.List;  
+<span class="hljs-keyword">import</span> com.kuang.pojo.Books;  
+<span class="hljs-keyword">import</span> java.util.List;  
   
-public interface BookMapper {  
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">BookMapper</span> {  
   
-   //增加一个Book  
-   int addBook(Books book);  
+   <span class="hljs-comment">//增加一个Book  </span>
+   <span class="hljs-type">int</span> <span class="hljs-title function_">addBook</span><span class="hljs-params">(Books book)</span>;  
   
-   //根据id删除一个Book  
-   int deleteBookById(int id);  
+   <span class="hljs-comment">//根据id删除一个Book  </span>
+   <span class="hljs-type">int</span> <span class="hljs-title function_">deleteBookById</span><span class="hljs-params">(<span class="hljs-type">int</span> id)</span>;  
   
-   //更新Book  
-   int updateBook(Books books);  
+   <span class="hljs-comment">//更新Book  </span>
+   <span class="hljs-type">int</span> <span class="hljs-title function_">updateBook</span><span class="hljs-params">(Books books)</span>;  
   
-   //根据id查询,返回一个Book  
-   Books queryBookById(int id);  
+   <span class="hljs-comment">//根据id查询,返回一个Book  </span>
+   <span class="hljs-type">Books</span> <span class="hljs-title function_">queryBookById</span><span class="hljs-params">(<span class="hljs-type">int</span> id)</span>;  
   
-   //查询全部Book,返回list集合  
-   List&lt;Books&gt; queryAllBook();  
+   <span class="hljs-comment">//查询全部Book,返回list集合  </span>
+   <span class="hljs-type">List</span>&lt;Books&gt; <span class="hljs-title function_">queryAllBook</span><span class="hljs-params">()</span>;  
   
 }
-</code></pre>
-<h3>编写Service层的接口和实现类</h3>
+</code></pre></div>
+<h3 id="编写service层的接口和实现类">编写Service层的接口和实现类</h3>
 <p>接口：</p>
-<pre><code class="language-java">package com.kuang.service;  
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">package</span> com.kuang.service;  
   
-import com.kuang.pojo.Books;  
+<span class="hljs-keyword">import</span> com.kuang.pojo.Books;  
   
-import java.util.List;  
+<span class="hljs-keyword">import</span> java.util.List;  
   
-//BookService:底下需要去实现,调用dao层  
-public interface BookService {  
-   //增加一个Book  
-   int addBook(Books book);  
-   //根据id删除一个Book  
-   int deleteBookById(int id);  
-   //更新Book  
-   int updateBook(Books books);  
-   //根据id查询,返回一个Book  
-   Books queryBookById(int id);  
-   //查询全部Book,返回list集合  
-   List&lt;Books&gt; queryAllBook();  
+<span class="hljs-comment">//BookService:底下需要去实现,调用dao层  </span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">BookService</span> {  
+   <span class="hljs-comment">//增加一个Book  </span>
+   <span class="hljs-type">int</span> <span class="hljs-title function_">addBook</span><span class="hljs-params">(Books book)</span>;  
+   <span class="hljs-comment">//根据id删除一个Book  </span>
+   <span class="hljs-type">int</span> <span class="hljs-title function_">deleteBookById</span><span class="hljs-params">(<span class="hljs-type">int</span> id)</span>;  
+   <span class="hljs-comment">//更新Book  </span>
+   <span class="hljs-type">int</span> <span class="hljs-title function_">updateBook</span><span class="hljs-params">(Books books)</span>;  
+   <span class="hljs-comment">//根据id查询,返回一个Book  </span>
+   <span class="hljs-type">Books</span> <span class="hljs-title function_">queryBookById</span><span class="hljs-params">(<span class="hljs-type">int</span> id)</span>;  
+   <span class="hljs-comment">//查询全部Book,返回list集合  </span>
+   <span class="hljs-type">List</span>&lt;Books&gt; <span class="hljs-title function_">queryAllBook</span><span class="hljs-params">()</span>;  
 }
-</code></pre>
+</code></pre></div>
 <p>实现类：</p>
-<pre><code class="language-java">package com.kuang.service;  
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">package</span> com.kuang.service;  
   
-import com.kuang.dao.BookMapper;  
-import com.kuang.pojo.Books;  
-import java.util.List;  
+<span class="hljs-keyword">import</span> com.kuang.dao.BookMapper;  
+<span class="hljs-keyword">import</span> com.kuang.pojo.Books;  
+<span class="hljs-keyword">import</span> java.util.List;  
   
-public class BookServiceImpl implements BookService {  
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">BookServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">BookService</span> {  
   
-   //调用dao层的操作，设置一个set接口，方便Spring管理  
-   private BookMapper bookMapper;  
+   <span class="hljs-comment">//调用dao层的操作，设置一个set接口，方便Spring管理  </span>
+   <span class="hljs-keyword">private</span> BookMapper bookMapper;  
   
-   public void setBookMapper(BookMapper bookMapper) {  
-       this.bookMapper = bookMapper;  
+   <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">setBookMapper</span><span class="hljs-params">(BookMapper bookMapper)</span> {  
+       <span class="hljs-built_in">this</span>.bookMapper = bookMapper;  
   }  
      
-   public int addBook(Books book) {  
-       return bookMapper.addBook(book);  
+   <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">addBook</span><span class="hljs-params">(Books book)</span> {  
+       <span class="hljs-keyword">return</span> bookMapper.addBook(book);  
   }  
      
-   public int deleteBookById(int id) {  
-       return bookMapper.deleteBookById(id);  
+   <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">deleteBookById</span><span class="hljs-params">(<span class="hljs-type">int</span> id)</span> {  
+       <span class="hljs-keyword">return</span> bookMapper.deleteBookById(id);  
   }  
      
-   public int updateBook(Books books) {  
-       return bookMapper.updateBook(books);  
+   <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">updateBook</span><span class="hljs-params">(Books books)</span> {  
+       <span class="hljs-keyword">return</span> bookMapper.updateBook(books);  
   }  
      
-   public Books queryBookById(int id) {  
-       return bookMapper.queryBookById(id);  
+   <span class="hljs-keyword">public</span> <span class="hljs-type">Books</span> <span class="hljs-title function_">queryBookById</span><span class="hljs-params">(<span class="hljs-type">int</span> id)</span> {  
+       <span class="hljs-keyword">return</span> bookMapper.queryBookById(id);  
   }  
      
-   public List&lt;Books&gt; queryAllBook() {  
-       return bookMapper.queryAllBook();  
+   <span class="hljs-keyword">public</span> <span class="hljs-type">List</span>&lt;Books&gt; <span class="hljs-title function_">queryAllBook</span><span class="hljs-params">()</span> {  
+       <span class="hljs-keyword">return</span> bookMapper.queryAllBook();  
   }  
 }
-</code></pre>
-</article>
-    </main>
-  </body>
-</html>
+</code></pre></div>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

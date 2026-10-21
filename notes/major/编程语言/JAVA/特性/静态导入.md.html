@@ -1,53 +1,28 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="静态导入 静态导入（Static Import） 是 Java 5 引入的一个特性，允许在代码中直接使用类的静态成员（如静态方法、静态字段）而无需通过类名引用。 1. 静态导入的语法 静态导入使用 i">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="静态导入 · Seiga">
-    <meta property="og:description" content="静态导入 静态导入（Static Import） 是 Java 5 引入的一个特性，允许在代码中直接使用类的静态成员（如静态方法、静态字段）而无需通过类名引用。 1. 静态导入的语法 静态导入使用 i">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E7%89%B9%E6%80%A7/%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E7%89%B9%E6%80%A7/%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>静态导入 · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"静态导入","description":"静态导入 静态导入（Static Import） 是 Java 5 引入的一个特性，允许在代码中直接使用类的静态成员（如静态方法、静态字段）而无需通过类名引用。 1. 静态导入的语法 静态导入使用 i","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E7%89%B9%E6%80%A7/%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>静态导入</h1>
-        <p class="static-note-meta">Java · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E7%89%B9%E6%80%A7/%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>静态导入</h1>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>静态导入 · Seiga</title>
+<meta name="description" content="静态导入（Static Import） 是 Java 5 引入的一个特性，允许在代码中直接使用类的静态成员（如静态方法、静态字段）而无需通过类名引用。 1. 静态导入的语法 静态导入使用 import">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="静态导入 · Seiga"><meta property="og:description" content="静态导入（Static Import） 是 Java 5 引入的一个特性，允许在代码中直接使用类的静态成员（如静态方法、静态字段）而无需通过类名引用。 1. 静态导入的语法 静态导入使用 import">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E7%89%B9%E6%80%A7/%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E7%89%B9%E6%80%A7/%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"静态导入","description":"静态导入（Static Import） 是 Java 5 引入的一个特性，允许在代码中直接使用类的静态成员（如静态方法、静态字段）而无需通过类名引用。 1. 静态导入的语法 静态导入使用 import","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E7%89%B9%E6%80%A7/%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
+<h1>静态导入</h1><p class="static-note-meta">Java · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E7%89%B9%E6%80%A7/%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#1-%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5%E7%9A%84%E8%AF%AD%E6%B3%95">1. 静态导入的语法</a></li><li><a href="#2-%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5%E7%9A%84%E7%A4%BA%E4%BE%8B">2. 静态导入的示例</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="静态导入" class="article-title-anchor"></span>
 <p><strong>静态导入（Static Import）</strong> 是 Java 5 引入的一个特性，允许在代码中直接使用类的静态成员（如静态方法、静态字段）而无需通过类名引用。</p>
-<h2>1. 静态导入的语法</h2>
+<h2 id="1-静态导入的语法">1. 静态导入的语法</h2>
 <p>静态导入使用 <code>import static</code> 关键字，语法如下：</p>
-<pre><code class="language-java">import static 包名.类名.静态成员名;
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> 包名.类名.静态成员名;
+</code></pre></div>
 <ul>
 <li>
 <p><strong>静态成员名</strong>：可以是静态方法、静态字段或静态内部类。</p>
@@ -56,36 +31,34 @@
 <p>如果要导入类的所有静态成员，可以使用 <code>*</code> 通配符：</p>
 </li>
 </ul>
-<pre><code class="language-java">import static 包名.类名.*;
-</code></pre>
-<h2>2. 静态导入的示例</h2>
-<pre><code class="language-java">//导入单个静态成员
-import static java.lang.Math.PI; // 导入 Math 类的 PI 常量
-import static java.lang.Math.sqrt; // 导入 Math 类的 sqrt 方法
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> 包名.类名.*;
+</code></pre></div>
+<h2 id="2-静态导入的示例">2. 静态导入的示例</h2>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-comment">//导入单个静态成员</span>
+<span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> java.lang.Math.PI; <span class="hljs-comment">// 导入 Math 类的 PI 常量</span>
+<span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> java.lang.Math.sqrt; <span class="hljs-comment">// 导入 Math 类的 sqrt 方法</span>
 
-public class Main {
-    public static void main(String[] args) {
-        double radius = 5.0;
-        double area = PI * radius * radius; // 直接使用 PI，无需 Math.PI
-        double sqrtValue = sqrt(area); // 直接使用 sqrt，无需 Math.sqrt
-        System.out.println(&quot;Area: &quot; + area);
-        System.out.println(&quot;Square root: &quot; + sqrtValue);
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        <span class="hljs-type">double</span> <span class="hljs-variable">radius</span> <span class="hljs-operator">=</span> <span class="hljs-number">5.0</span>;
+        <span class="hljs-type">double</span> <span class="hljs-variable">area</span> <span class="hljs-operator">=</span> PI * radius * radius; <span class="hljs-comment">// 直接使用 PI，无需 Math.PI</span>
+        <span class="hljs-type">double</span> <span class="hljs-variable">sqrtValue</span> <span class="hljs-operator">=</span> sqrt(area); <span class="hljs-comment">// 直接使用 sqrt，无需 Math.sqrt</span>
+        System.out.println(<span class="hljs-string">&quot;Area: &quot;</span> + area);
+        System.out.println(<span class="hljs-string">&quot;Square root: &quot;</span> + sqrtValue);
     }
 }
-//导入所有静态成员
-import static java.lang.Math.*; // 导入 Math 类的所有静态成员
+<span class="hljs-comment">//导入所有静态成员</span>
+<span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> java.lang.Math.*; <span class="hljs-comment">// 导入 Math 类的所有静态成员</span>
 
-public class Main {
-    public static void main(String[] args) {
-        double radius = 5.0;
-        double area = PI * radius * radius; // 直接使用 PI
-        double sqrtValue = sqrt(area); // 直接使用 sqrt
-        System.out.println(&quot;Area: &quot; + area);
-        System.out.println(&quot;Square root: &quot; + sqrtValue);
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        <span class="hljs-type">double</span> <span class="hljs-variable">radius</span> <span class="hljs-operator">=</span> <span class="hljs-number">5.0</span>;
+        <span class="hljs-type">double</span> <span class="hljs-variable">area</span> <span class="hljs-operator">=</span> PI * radius * radius; <span class="hljs-comment">// 直接使用 PI</span>
+        <span class="hljs-type">double</span> <span class="hljs-variable">sqrtValue</span> <span class="hljs-operator">=</span> sqrt(area); <span class="hljs-comment">// 直接使用 sqrt</span>
+        System.out.println(<span class="hljs-string">&quot;Area: &quot;</span> + area);
+        System.out.println(<span class="hljs-string">&quot;Square root: &quot;</span> + sqrtValue);
     }
 }
-</code></pre>
-</article>
-    </main>
-  </body>
-</html>
+</code></pre></div>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

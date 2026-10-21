@@ -8,28 +8,25 @@
     <meta name="theme-color" content="#f6f7f9">
     <link rel="alternate" type="application/rss+xml" title="Seiga 的笔记" href="https://eksct.github.io/StarYunFanSite/feed.xml">
     <link rel="sitemap" type="application/xml" href="https://eksct.github.io/StarYunFanSite/sitemap.xml">
-    <meta property="og:site_name" content="Seiga 的个人站">
+    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/">
+    <meta property="og:site_name" content="Seiga">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Seiga">
     <meta property="og:description" content="Seiga 的个人站：笔记归档、学习时间线与项目记录。">
     <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/">
     <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <title>Seiga</title>
     <script>
       // 在样式生效前定好主题，避免深色模式下闪一下白屏
       (function () {
-        try {
-          var stored = localStorage.getItem('site.theme');
-          var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-          document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-        } catch (error) {
-          document.documentElement.dataset.theme = 'light';
-        }
+        var stored;
+        try { stored = localStorage.getItem('site.theme'); } catch (error) {}
+        document.documentElement.dataset.theme = stored === 'dark' || (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
       })();
     </script>
-    <script type="module" crossorigin src="/StarYunFanSite/assets/index-Qqt2mjVr.js"></script>
-    <link rel="stylesheet" crossorigin href="/StarYunFanSite/assets/index-BnnmRRsm.css">
+    <script type="module" crossorigin src="/StarYunFanSite/assets/index-DmFTKsW6.js"></script>
+    <link rel="stylesheet" crossorigin href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
   </head>
   <body>
     <div id="app"></div>

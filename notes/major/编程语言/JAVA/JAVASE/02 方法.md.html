@@ -1,63 +1,38 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="02 方法 在 Java 中，方法是执行特定任务的代码块。方法可以接受输入参数并返回结果。 1.定义方法 定义: 方法声明的两个组成部分包括 方法签名 -方法的名称和参数类型。 下面是一个典型方法声明">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="02 方法 · Seiga">
-    <meta property="og:description" content="02 方法 在 Java 中，方法是执行特定任务的代码块。方法可以接受输入参数并返回结果。 1.定义方法 定义: 方法声明的两个组成部分包括 方法签名 -方法的名称和参数类型。 下面是一个典型方法声明">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/02%20%E6%96%B9%E6%B3%95.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/02%20%E6%96%B9%E6%B3%95.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>02 方法 · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"02 方法","description":"02 方法 在 Java 中，方法是执行特定任务的代码块。方法可以接受输入参数并返回结果。 1.定义方法 定义: 方法声明的两个组成部分包括 方法签名 -方法的名称和参数类型。 下面是一个典型方法声明","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/02%20%E6%96%B9%E6%B3%95.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>02 方法</h1>
-        <p class="static-note-meta">Java · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/02%20%E6%96%B9%E6%B3%95.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>02 方法</h1>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>02 方法 · Seiga</title>
+<meta name="description" content="在 Java 中，方法是执行特定任务的代码块。方法可以接受输入参数并返回结果。 1.定义方法 定义: 方法声明的两个组成部分包括 方法签名 -方法的名称和参数类型。 下面是一个典型方法声明的例子: 方">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="02 方法 · Seiga"><meta property="og:description" content="在 Java 中，方法是执行特定任务的代码块。方法可以接受输入参数并返回结果。 1.定义方法 定义: 方法声明的两个组成部分包括 方法签名 -方法的名称和参数类型。 下面是一个典型方法声明的例子: 方">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/02%20%E6%96%B9%E6%B3%95.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/02%20%E6%96%B9%E6%B3%95.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"02 方法","description":"在 Java 中，方法是执行特定任务的代码块。方法可以接受输入参数并返回结果。 1.定义方法 定义: 方法声明的两个组成部分包括 方法签名 -方法的名称和参数类型。 下面是一个典型方法声明的例子: 方","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/02%20%E6%96%B9%E6%B3%95.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
+<h1>02 方法</h1><p class="static-note-meta">Java · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/02%20%E6%96%B9%E6%B3%95.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#1%E5%AE%9A%E4%B9%89%E6%96%B9%E6%B3%95">1.定义方法</a></li><li><a href="#2-%E6%96%B9%E6%B3%95%E7%9A%84%E8%B0%83%E7%94%A8">2. 方法的调用</a></li><li><a href="#3-%E6%96%B9%E6%B3%95%E7%9A%84%E9%87%8D%E8%BD%BD">3. 方法的重载</a></li><li><a href="#4-%E6%96%B9%E6%B3%95%E7%9A%84%E9%80%92%E5%BD%92">4. 方法的递归</a></li><li><a href="#5-%E6%96%B9%E6%B3%95%E7%9A%84%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0">5. 方法的可变参数</a></li><li><a href="#6-%E6%96%B9%E6%B3%95%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">6. 方法的注意事项</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="02-方法" class="article-title-anchor"></span>
 <p>在 Java 中，方法是执行特定任务的代码块。方法可以接受输入参数并返回结果。</p>
-<h2>1.定义方法</h2>
+<h2 id="1定义方法">1.定义方法</h2>
 <p><strong>定义:</strong> 方法声明的两个组成部分包括 <em>方法签名</em> -方法的名称和参数类型。</p>
 <p>下面是一个典型方法声明的例子:</p>
-<pre><code class="language-java">public double calculateAnswer(double wingSpan, int numberOfEngines,
-                              double length, double grossTons) {
-    //do the calculation here
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">calculateAnswer</span><span class="hljs-params">(<span class="hljs-type">double</span> wingSpan, <span class="hljs-type">int</span> numberOfEngines,
+                              <span class="hljs-type">double</span> length, <span class="hljs-type">double</span> grossTons)</span> {
+    <span class="hljs-comment">//do the calculation here</span>
 }
-</code></pre>
+</code></pre></div>
 <p>方法声明需要的元素是方法的范围类型，名称，括号，大括号</p>
-<pre><code class="language-java">[访问修饰符] [返回类型] 方法名([参数列表]) {
-    // 方法体
-    [return 返回值;]
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java">[访问修饰符] [返回类型] 方法名([参数列表]) {
+    <span class="hljs-comment">// 方法体</span>
+    [<span class="hljs-keyword">return</span> 返回值;]
 }
-</code></pre>
+</code></pre></div>
 <ul>
 <li>
 <p><strong>访问修饰符</strong>：控制方法的可见性（如 <code>public</code>、<code>private</code>、<code>protected</code>）。</p>
@@ -79,53 +54,53 @@
 </li>
 </ul>
 <p><strong>静态方法</strong></p>
-<pre><code class="language-java">public static void printMessage(String message) {
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">printMessage</span><span class="hljs-params">(String message)</span> {
     System.out.println(message);
 }
-</code></pre>
-<h2>2. 方法的调用</h2>
+</code></pre></div>
+<h2 id="2-方法的调用">2. 方法的调用</h2>
 <ul>
 <li><strong>实例方法</strong>：需要通过对象实例调用。</li>
 <li><strong>静态方法</strong>：可以直接通过类名调用。</li>
 </ul>
-<pre><code class="language-java">//实例
-MyClass obj = new MyClass();
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-comment">//实例</span>
+<span class="hljs-type">MyClass</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyClass</span>();
 obj.greet();
-//静态
-MyClass.printMessage(&quot;Hello, Java!&quot;);
-</code></pre>
-<h2>3. 方法的重载</h2>
+<span class="hljs-comment">//静态</span>
+MyClass.printMessage(<span class="hljs-string">&quot;Hello, Java!&quot;</span>);
+</code></pre></div>
+<h2 id="3-方法的重载">3. 方法的重载</h2>
 <p>Java 支持方法重载（Overloading），即在同一类中定义多个同名方法，但参数列表不同。</p>
-<pre><code class="language-java">public class Calculator {
-    public int add(int a, int b) {
-        return a + b;
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Calculator</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">add</span><span class="hljs-params">(<span class="hljs-type">int</span> a, <span class="hljs-type">int</span> b)</span> {
+        <span class="hljs-keyword">return</span> a + b;
     }
 
-    public double add(double a, double b) {
-        return a + b;
+    <span class="hljs-keyword">public</span> <span class="hljs-type">double</span> <span class="hljs-title function_">add</span><span class="hljs-params">(<span class="hljs-type">double</span> a, <span class="hljs-type">double</span> b)</span> {
+        <span class="hljs-keyword">return</span> a + b;
     }
 }
-</code></pre>
-<h2>4. 方法的递归</h2>
+</code></pre></div>
+<h2 id="4-方法的递归">4. 方法的递归</h2>
 <p>方法可以调用自身，称为递归。</p>
-<pre><code class="language-java">public int factorial(int n) {
-    if (n == 0) {
-        return 1;
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">factorial</span><span class="hljs-params">(<span class="hljs-type">int</span> n)</span> {
+    <span class="hljs-keyword">if</span> (n == <span class="hljs-number">0</span>) {
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
     }
-    return n * factorial(n - 1);
+    <span class="hljs-keyword">return</span> n * factorial(n - <span class="hljs-number">1</span>);
 }
-</code></pre>
-<h2>5. 方法的可变参数</h2>
+</code></pre></div>
+<h2 id="5-方法的可变参数">5. 方法的可变参数</h2>
 <p>Java 支持可变参数（Varargs），用于传递任意数量的参数。</p>
-<pre><code class="language-java">public int sum(int... numbers) {
-    int total = 0;
-    for (int num : numbers) {
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">sum</span><span class="hljs-params">(<span class="hljs-type">int</span>... numbers)</span> {
+    <span class="hljs-type">int</span> <span class="hljs-variable">total</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> num : numbers) {
         total += num;
     }
-    return total;
+    <span class="hljs-keyword">return</span> total;
 }
-</code></pre>
-<h2>6. 方法的注意事项</h2>
+</code></pre></div>
+<h2 id="6-方法的注意事项">6. 方法的注意事项</h2>
 <ul>
 <li>
 <p><strong>返回值</strong>：如果方法声明了返回类型，必须使用 <code>return</code> 返回值。</p>
@@ -137,7 +112,5 @@ MyClass.printMessage(&quot;Hello, Java!&quot;);
 <p><strong>参数传递</strong>：Java 中的参数传递是按值传递（对于基本类型）或按引用传递（对于对象）。</p>
 </li>
 </ul>
-</article>
-    </main>
-  </body>
-</html>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

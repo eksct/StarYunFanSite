@@ -1,101 +1,74 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Spring Boot集成Redis 一、添加依赖 Maven： Gradle: 二. 配置 Redis 可以在spring boot中自行配置redisConfig，指定序列化配置 默认情况下可以直">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Spring Boot集成Redis · Seiga">
-    <meta property="og:description" content="Spring Boot集成Redis 一、添加依赖 Maven： Gradle: 二. 配置 Redis 可以在spring boot中自行配置redisConfig，指定序列化配置 默认情况下可以直">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/springboot%E9%9B%86%E6%88%90/Spring%20Boot%E9%9B%86%E6%88%90Redis.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/springboot%E9%9B%86%E6%88%90/Spring%20Boot%E9%9B%86%E6%88%90Redis.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>Spring Boot集成Redis · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Spring Boot集成Redis","description":"Spring Boot集成Redis 一、添加依赖 Maven： Gradle: 二. 配置 Redis 可以在spring boot中自行配置redisConfig，指定序列化配置 默认情况下可以直","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/springboot%E9%9B%86%E6%88%90/Spring%20Boot%E9%9B%86%E6%88%90Redis.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>Spring Boot集成Redis</h1>
-        <p class="static-note-meta">Spring Boot · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/springboot%E9%9B%86%E6%88%90/Spring%20Boot%E9%9B%86%E6%88%90Redis.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>Spring Boot集成Redis</h1>
-<h2>一、添加依赖</h2>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spring Boot集成Redis · Seiga</title>
+<meta name="description" content="一、添加依赖 Maven： Gradle: 二. 配置 Redis 可以在spring boot中自行配置redisConfig，指定序列化配置 默认情况下可以直接使用redisTemplate或者s">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="Spring Boot集成Redis · Seiga"><meta property="og:description" content="一、添加依赖 Maven： Gradle: 二. 配置 Redis 可以在spring boot中自行配置redisConfig，指定序列化配置 默认情况下可以直接使用redisTemplate或者s">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/springboot%E9%9B%86%E6%88%90/Spring%20Boot%E9%9B%86%E6%88%90Redis.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/springboot%E9%9B%86%E6%88%90/Spring%20Boot%E9%9B%86%E6%88%90Redis.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Spring Boot集成Redis","description":"一、添加依赖 Maven： Gradle: 二. 配置 Redis 可以在spring boot中自行配置redisConfig，指定序列化配置 默认情况下可以直接使用redisTemplate或者s","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/springboot%E9%9B%86%E6%88%90/Spring%20Boot%E9%9B%86%E6%88%90Redis.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
+<h1>Spring Boot集成Redis</h1><p class="static-note-meta">Spring Boot · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/springboot%E9%9B%86%E6%88%90/Spring%20Boot%E9%9B%86%E6%88%90Redis.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#%E4%B8%80%E6%B7%BB%E5%8A%A0%E4%BE%9D%E8%B5%96">一、添加依赖</a></li><li><a href="#%E4%BA%8C-%E9%85%8D%E7%BD%AE-redis">二. 配置 Redis</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="spring-boot集成redis" class="article-title-anchor"></span>
+<h2 id="一添加依赖">一、添加依赖</h2>
 <p>Maven：</p>
-<pre><code class="language-xml">&lt;!-- 添加 Spring Boot Redis Starter --&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;
-&lt;/dependency&gt;
+<div class="code-block"><div class="code-block-bar"><span>xml</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-xml"><span class="hljs-comment">&lt;!-- 添加 Spring Boot Redis Starter --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
 
-&lt;!-- 可选：使用 FastJson 或 Jackson 作为 Redis 的序列化方式 --&gt;
-&lt;dependency&gt;
-    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
-    &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
-&lt;/dependency&gt;
+<span class="hljs-comment">&lt;!-- 可选：使用 FastJson 或 Jackson 作为 Redis 的序列化方式 --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jackson-databind<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
 
-</code></pre>
+</code></pre></div>
 <p>Gradle:</p>
-<pre><code class="language-groovy">dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-    implementation 'com.fasterxml.jackson.core:jackson-databind' // 可选：用于 Redis 对象序列化
+<div class="code-block"><div class="code-block-bar"><span>groovy</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-groovy">dependencies {
+    implementation <span class="hljs-string">&#x27;org.springframework.boot:spring-boot-starter-data-redis&#x27;</span>
+    implementation <span class="hljs-string">&#x27;com.fasterxml.jackson.core:jackson-databind&#x27;</span> <span class="hljs-comment">// 可选：用于 Redis 对象序列化</span>
 }
 
-</code></pre>
-<h2>二. 配置 Redis</h2>
-<pre><code class="language-yaml">spring:
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    password: 你的密码（没有可留空）
-    timeout: 5000ms
-    lettuce:
-      pool:
-        max-active: 8
-        max-idle: 8
-        min-idle: 1
+</code></pre></div>
+<h2 id="二-配置-redis">二. 配置 Redis</h2>
+<div class="code-block"><div class="code-block-bar"><span>yaml</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-yaml"><span class="hljs-attr">spring:</span>
+  <span class="hljs-attr">redis:</span>
+    <span class="hljs-attr">host:</span> <span class="hljs-number">127.0</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
+    <span class="hljs-attr">port:</span> <span class="hljs-number">6379</span>
+    <span class="hljs-attr">password:</span> <span class="hljs-string">你的密码（没有可留空）</span>
+    <span class="hljs-attr">timeout:</span> <span class="hljs-string">5000ms</span>
+    <span class="hljs-attr">lettuce:</span>
+      <span class="hljs-attr">pool:</span>
+        <span class="hljs-attr">max-active:</span> <span class="hljs-number">8</span>
+        <span class="hljs-attr">max-idle:</span> <span class="hljs-number">8</span>
+        <span class="hljs-attr">min-idle:</span> <span class="hljs-number">1</span>
 
-</code></pre>
+</code></pre></div>
 <p>可以在spring boot中自行配置redisConfig，指定序列化配置<br>
 默认情况下可以直接使用redisTemplate或者stringRedisTemplate，但不进行配置，自行序列化数据方面不太好看（二进制乱码）</p>
-<pre><code class="language-java">@Configuration
-public class RedisConfig {
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-meta">@Configuration</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RedisConfig</span> {
 
-    @Bean
-    public RedisTemplate&lt;String, Object&gt; redisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate&lt;String, Object&gt; template = new RedisTemplate&lt;&gt;();
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">RedisTemplate</span>&lt;String, Object&gt; <span class="hljs-title function_">redisTemplate</span><span class="hljs-params">(RedisConnectionFactory connectionFactory)</span> {
+        <span class="hljs-type">RedisTemplate</span>&lt;String, Object&gt; <span class="hljs-variable">template</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RedisTemplate</span>&lt;&gt;();
         template.setConnectionFactory(connectionFactory);
-        // JSON 序列化配置
-        Jackson2JsonRedisSerializer&lt;Object&gt; serializer = new Jackson2JsonRedisSerializer&lt;&gt;(Object.class);
+        <span class="hljs-comment">// JSON 序列化配置</span>
+        <span class="hljs-type">Jackson2JsonRedisSerializer</span>&lt;Object&gt; <span class="hljs-variable">serializer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Jackson2JsonRedisSerializer</span>&lt;&gt;(Object.class);
         template.setDefaultSerializer(serializer);
-        return template;
+        <span class="hljs-keyword">return</span> template;
     }
 }
-</code></pre>
-</article>
-    </main>
-  </body>
-</html>
+</code></pre></div>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

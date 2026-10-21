@@ -1,48 +1,23 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Spring Data redis spring提供的对不同redis客户端的整合(lettuce和jredis) 提供redisTemplate统一API操作 支持redis的发布订阅 支持Redi">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Spring Data redis · Seiga">
-    <meta property="og:description" content="Spring Data redis spring提供的对不同redis客户端的整合(lettuce和jredis) 提供redisTemplate统一API操作 支持redis的发布订阅 支持Redi">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Redis/Spring%20Data%20redis.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Redis/Spring%20Data%20redis.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>Spring Data redis · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Spring Data redis","description":"Spring Data redis spring提供的对不同redis客户端的整合(lettuce和jredis) 提供redisTemplate统一API操作 支持redis的发布订阅 支持Redi","datePublished":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Redis/Spring%20Data%20redis.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>Spring Data redis</h1>
-        <p class="static-note-meta">Redis · 2026-09-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/Redis/Spring%20Data%20redis.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>Spring Data redis</h1>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spring Data redis · Seiga</title>
+<meta name="description" content="spring提供的对不同redis客户端的整合(lettuce和jredis) 提供redisTemplate统一API操作 支持redis的发布订阅 支持Redis哨兵和Redis集群 支持基于Le">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="Spring Data redis · Seiga"><meta property="og:description" content="spring提供的对不同redis客户端的整合(lettuce和jredis) 提供redisTemplate统一API操作 支持redis的发布订阅 支持Redis哨兵和Redis集群 支持基于Le">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Redis/Spring%20Data%20redis.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Redis/Spring%20Data%20redis.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Spring Data redis","description":"spring提供的对不同redis客户端的整合(lettuce和jredis) 提供redisTemplate统一API操作 支持redis的发布订阅 支持Redis哨兵和Redis集群 支持基于Le","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Redis/Spring%20Data%20redis.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=Redis">Redis</a></nav>
+<h1>Spring Data redis</h1><p class="static-note-meta">Redis · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/Redis/Spring%20Data%20redis.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#%E4%B8%80%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8">一、快速入门</a></li><li><a href="#%E4%BA%8C%E8%87%AA%E5%AE%9A%E4%B9%89redis%E5%BA%8F%E5%88%97%E5%8C%96%E9%85%8D%E7%BD%AE">二、自定义redis序列化配置</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="spring-data-redis" class="article-title-anchor"></span>
 <p>spring提供的对不同redis客户端的整合(lettuce和jredis)<br>
 提供redisTemplate统一API操作<br>
 支持redis的发布订阅<br>
@@ -50,96 +25,96 @@
 支持基于Lettuce的响应式编程<br>
 支持基于JDK、JSON、字符串、Spring对象的数据序列化及反序列化<br>
 支持基于Redis的JDKCollection实现</p>
-<h2>一、快速入门</h2>
+<h2 id="一快速入门">一、快速入门</h2>
 <p>1.引入redis</p>
-<pre><code class="language-xml">&lt;!--meavn--&gt;
-&lt;!--Redis依赖--&gt;
-&lt;dependency&gt;
-	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-	&lt;artifactid&gt;spring-boot-starter-data-redis&lt;/artifactid&gt;
-&lt;/dependency&gt;
-&lt;!--连接池依赖--&gt;
-&lt;dependency&gt;
-	&lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
-	&lt;artifactId&gt;commons-pool2&lt;/artifactId&gt;
-&lt;/dependency&gt;
-</code></pre>
-<pre><code class="language-gradle">
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>xml</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-xml"><span class="hljs-comment">&lt;!--meavn--&gt;</span>
+<span class="hljs-comment">&lt;!--Redis依赖--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">artifactid</span>&gt;</span>spring-boot-starter-data-redis<span class="hljs-tag">&lt;/<span class="hljs-name">artifactid</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+<span class="hljs-comment">&lt;!--连接池依赖--&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.commons<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+	<span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>commons-pool2<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+</code></pre></div>
+<div class="code-block"><div class="code-block-bar"><span>gradle</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-gradle">
+</code></pre></div>
 <p>2.修改redis客户端连接驱动<br>
 lettuce</p>
-<pre><code class="language-xml">&lt;dependencies&gt;
+<div class="code-block"><div class="code-block-bar"><span>xml</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span>
 
-  &lt;!-- other dependency elements omitted --&gt;
+  <span class="hljs-comment">&lt;!-- other dependency elements omitted --&gt;</span>
 
-  &lt;dependency&gt;
-    &lt;groupId&gt;io.lettuce&lt;/groupId&gt;
-    &lt;artifactId&gt;lettuce-core&lt;/artifactId&gt;
-    &lt;version&gt;6.6.0.RELEASE&lt;/version&gt;
-  &lt;/dependency&gt;
+  <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.lettuce<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>lettuce-core<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>6.6.0.RELEASE<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
 
-&lt;/dependencies&gt;
-</code></pre>
-<pre><code class="language-java">//配置连接工厂
-@Configuration
-class AppConfig {
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span>
+</code></pre></div>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-comment">//配置连接工厂</span>
+<span class="hljs-meta">@Configuration</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">AppConfig</span> {
 
-  @Bean
-  public LettuceConnectionFactory redisConnectionFactory() {
+  <span class="hljs-meta">@Bean</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-type">LettuceConnectionFactory</span> <span class="hljs-title function_">redisConnectionFactory</span><span class="hljs-params">()</span> {
 
-    return new LettuceConnectionFactory(new RedisStandaloneConfiguration(&quot;server&quot;, 6379));
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">LettuceConnectionFactory</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">RedisStandaloneConfiguration</span>(<span class="hljs-string">&quot;server&quot;</span>, <span class="hljs-number">6379</span>));
   }
 }
-</code></pre>
+</code></pre></div>
 <p>jredis</p>
-<pre><code class="language-xml">&lt;dependencies&gt;
+<div class="code-block"><div class="code-block-bar"><span>xml</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span>
 
-  &lt;!-- other dependency elements omitted --&gt;
+  <span class="hljs-comment">&lt;!-- other dependency elements omitted --&gt;</span>
 
-  &lt;dependency&gt;
-    &lt;groupId&gt;redis.clients&lt;/groupId&gt;
-    &lt;artifactId&gt;jedis&lt;/artifactId&gt;
-    &lt;version&gt;6.0.0&lt;/version&gt;
-  &lt;/dependency&gt;
+  <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>redis.clients<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>jedis<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>6.0.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
 
-&lt;/dependencies&gt;
-</code></pre>
-<pre><code class="language-java">@Configuration
-class RedisConfiguration {
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span>
+</code></pre></div>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-meta">@Configuration</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">RedisConfiguration</span> {
 
-  @Bean
-  public JedisConnectionFactory redisConnectionFactory() {
+  <span class="hljs-meta">@Bean</span>
+  <span class="hljs-keyword">public</span> <span class="hljs-type">JedisConnectionFactory</span> <span class="hljs-title function_">redisConnectionFactory</span><span class="hljs-params">()</span> {
 
-    RedisStandaloneConfiguration config = new RedisStandaloneConfiguration(&quot;server&quot;, 6379);
-    return new JedisConnectionFactory(config);
+    <span class="hljs-type">RedisStandaloneConfiguration</span> <span class="hljs-variable">config</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RedisStandaloneConfiguration</span>(<span class="hljs-string">&quot;server&quot;</span>, <span class="hljs-number">6379</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">JedisConnectionFactory</span>(config);
   }
 }
-</code></pre>
+</code></pre></div>
 <p>看起来jedis是最简单的配置<br>
 3.配置文件编写</p>
-<pre><code class="language-yml">spring:
-	redis:
-		host:192.168.150.101
-		port:6379
-		password:123321lettuce:
-		pool:
-			max-active:8#最大连接
-			max-idle:8#最大空闲连接
-			min-idle:0#最小空闲连接
-			max-wait:100#连接等待时间
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>yml</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-yml"><span class="hljs-attr">spring:</span>
+	<span class="hljs-attr">redis:</span>
+		<span class="hljs-string">host:192.168.150.101</span>
+		<span class="hljs-string">port:6379</span>
+		<span class="hljs-attr">password:123321lettuce:</span>
+		<span class="hljs-attr">pool:</span>
+			<span class="hljs-string">max-active:8#最大连接</span>
+			<span class="hljs-string">max-idle:8#最大空闲连接</span>
+			<span class="hljs-string">min-idle:0#最小空闲连接</span>
+			<span class="hljs-string">max-wait:100#连接等待时间</span>
+</code></pre></div>
 <p>4.使用示例</p>
-<pre><code class="language-java">//注入redisTemplate
-@resource
-private RedisTemplate redisTemplate;
-//插入一条string数据
-redisTemplate.opsForValue().set(&quot;name&quot;,&quot;ls&quot;)
-//读取key=name的数据
-Object name = redisTemplate.opsForValue().get(&quot;name&quot;)
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-comment">//注入redisTemplate</span>
+<span class="hljs-meta">@resource</span>
+<span class="hljs-keyword">private</span> RedisTemplate redisTemplate;
+<span class="hljs-comment">//插入一条string数据</span>
+redisTemplate.opsForValue().set(<span class="hljs-string">&quot;name&quot;</span>,<span class="hljs-string">&quot;ls&quot;</span>)
+<span class="hljs-comment">//读取key=name的数据</span>
+<span class="hljs-type">Object</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> redisTemplate.opsForValue().get(<span class="hljs-string">&quot;name&quot;</span>)
 
-</code></pre>
+</code></pre></div>
 <p>5.Spring Data Redis API 对照表</p>
-<table>
+<div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0"><table>
 <thead>
 <tr>
 <th>API（RedisTemplate）</th>
@@ -194,66 +169,66 @@ Object name = redisTemplate.opsForValue().get(&quot;name&quot;)
 <td>操作 Redis Stream（消息队列/日志型结构）。</td>
 </tr>
 </tbody>
-</table>
-<pre><code class="language-java">//例子
-// String
-redisTemplate.opsForValue().set(&quot;key&quot;, &quot;value&quot;);
+</table></div>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-comment">//例子</span>
+<span class="hljs-comment">// String</span>
+redisTemplate.opsForValue().set(<span class="hljs-string">&quot;key&quot;</span>, <span class="hljs-string">&quot;value&quot;</span>);
 
-// Hash
-redisTemplate.opsForHash().put(&quot;user:1&quot;, &quot;name&quot;, &quot;Alice&quot;);
+<span class="hljs-comment">// Hash</span>
+redisTemplate.opsForHash().put(<span class="hljs-string">&quot;user:1&quot;</span>, <span class="hljs-string">&quot;name&quot;</span>, <span class="hljs-string">&quot;Alice&quot;</span>);
 
-// List
-redisTemplate.opsForList().leftPush(&quot;tasks&quot;, &quot;task1&quot;);
+<span class="hljs-comment">// List</span>
+redisTemplate.opsForList().leftPush(<span class="hljs-string">&quot;tasks&quot;</span>, <span class="hljs-string">&quot;task1&quot;</span>);
 
-// Set
-redisTemplate.opsForSet().add(&quot;tags&quot;, &quot;java&quot;, &quot;spring&quot;);
+<span class="hljs-comment">// Set</span>
+redisTemplate.opsForSet().add(<span class="hljs-string">&quot;tags&quot;</span>, <span class="hljs-string">&quot;java&quot;</span>, <span class="hljs-string">&quot;spring&quot;</span>);
 
-// ZSet
-redisTemplate.opsForZSet().add(&quot;ranking&quot;, &quot;Alice&quot;, 100);
+<span class="hljs-comment">// ZSet</span>
+redisTemplate.opsForZSet().add(<span class="hljs-string">&quot;ranking&quot;</span>, <span class="hljs-string">&quot;Alice&quot;</span>, <span class="hljs-number">100</span>);
 
-// Geo
-redisTemplate.opsForGeo().add(&quot;locations&quot;, new Point(116.40, 39.90), &quot;Beijing&quot;);
+<span class="hljs-comment">// Geo</span>
+redisTemplate.opsForGeo().add(<span class="hljs-string">&quot;locations&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Point</span>(<span class="hljs-number">116.40</span>, <span class="hljs-number">39.90</span>), <span class="hljs-string">&quot;Beijing&quot;</span>);
 
-// HyperLogLog
-redisTemplate.opsForHyperLogLog().add(&quot;unique_users&quot;, &quot;user1&quot;, &quot;user2&quot;);
+<span class="hljs-comment">// HyperLogLog</span>
+redisTemplate.opsForHyperLogLog().add(<span class="hljs-string">&quot;unique_users&quot;</span>, <span class="hljs-string">&quot;user1&quot;</span>, <span class="hljs-string">&quot;user2&quot;</span>);
 
-// Stream
-RecordId recordId = redisTemplate.opsForStream().add(
+<span class="hljs-comment">// Stream</span>
+<span class="hljs-type">RecordId</span> <span class="hljs-variable">recordId</span> <span class="hljs-operator">=</span> redisTemplate.opsForStream().add(
     StreamRecords.newRecord()
-                 .in(&quot;mystream&quot;)
-                 .ofObject(&quot;eventData&quot;)
+                 .in(<span class="hljs-string">&quot;mystream&quot;</span>)
+                 .ofObject(<span class="hljs-string">&quot;eventData&quot;</span>)
 );
 
-</code></pre>
-<h2>二、自定义redis序列化配置</h2>
+</code></pre></div>
+<h2 id="二自定义redis序列化配置">二、自定义redis序列化配置</h2>
 <p>Spring 已经提供了一个现成的模板：StringRedisTemplate 键值都是string，不适合存储对象<br>
 需要存储对象的话，则需要使用json序列化器<br>
 （然鹅，为了后续的反序列化，redis中会存入对象的class，导致字节占用较大；通常是用json工具转成json字符串后再存入）<br>
 自定义序列化Bean：</p>
-<pre><code class="language-java">@Configuration
-public class RedisConfig {
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-meta">@Configuration</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RedisConfig</span> {
 
-    @Bean
-    public RedisTemplate&lt;String, Object&gt; redisTemplate(RedisConnectionFactory connectionFactory) {
-        RedisTemplate&lt;String, Object&gt; template = new RedisTemplate&lt;&gt;();
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">RedisTemplate</span>&lt;String, Object&gt; <span class="hljs-title function_">redisTemplate</span><span class="hljs-params">(RedisConnectionFactory connectionFactory)</span> {
+        <span class="hljs-type">RedisTemplate</span>&lt;String, Object&gt; <span class="hljs-variable">template</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RedisTemplate</span>&lt;&gt;();
         template.setConnectionFactory(connectionFactory);
 
-        // 使用 String 序列化 key
-        template.setKeySerializer(new StringRedisSerializer());
-        template.setHashKeySerializer(new StringRedisSerializer());
+        <span class="hljs-comment">// 使用 String 序列化 key</span>
+        template.setKeySerializer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">StringRedisSerializer</span>());
+        template.setHashKeySerializer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">StringRedisSerializer</span>());
 
-        // 使用 JSON 序列化 value
-        GenericJackson2JsonRedisSerializer jsonSerializer = new GenericJackson2JsonRedisSerializer();
+        <span class="hljs-comment">// 使用 JSON 序列化 value</span>
+        <span class="hljs-type">GenericJackson2JsonRedisSerializer</span> <span class="hljs-variable">jsonSerializer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">GenericJackson2JsonRedisSerializer</span>();
         template.setValueSerializer(jsonSerializer);
         template.setHashValueSerializer(jsonSerializer);
 
-        return template;
+        <span class="hljs-keyword">return</span> template;
     }
 }
 
-</code></pre>
+</code></pre></div>
 <p>其他可选序列化</p>
-<table>
+<div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0"><table>
 <thead>
 <tr>
 <th>序列化器</th>
@@ -288,8 +263,6 @@ public class RedisConfig {
 <td>XML 序列化场景</td>
 </tr>
 </tbody>
-</table>
-</article>
-    </main>
-  </body>
-</html>
+</table></div>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

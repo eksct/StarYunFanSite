@@ -1,54 +1,29 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="这是 Redis 在实际生产中三大常见缓存问题：缓存穿透、缓存击穿、缓存雪崩，如果不处理好，轻则性能抖动，重则数据库崩溃。下面我详细给你梳理这三者的定义 + 产生原因 + 解决方案（附代码/设计思路）">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="缓存穿透、击穿、雪崩处理策略 · Seiga">
-    <meta property="og:description" content="这是 Redis 在实际生产中三大常见缓存问题：缓存穿透、缓存击穿、缓存雪崩，如果不处理好，轻则性能抖动，重则数据库崩溃。下面我详细给你梳理这三者的定义 + 产生原因 + 解决方案（附代码/设计思路）">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Redis/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E3%80%81%E5%87%BB%E7%A9%BF%E3%80%81%E9%9B%AA%E5%B4%A9%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Redis/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E3%80%81%E5%87%BB%E7%A9%BF%E3%80%81%E9%9B%AA%E5%B4%A9%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>缓存穿透、击穿、雪崩处理策略 · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"缓存穿透、击穿、雪崩处理策略","description":"这是 Redis 在实际生产中三大常见缓存问题：缓存穿透、缓存击穿、缓存雪崩，如果不处理好，轻则性能抖动，重则数据库崩溃。下面我详细给你梳理这三者的定义 + 产生原因 + 解决方案（附代码/设计思路）","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Redis/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E3%80%81%E5%87%BB%E7%A9%BF%E3%80%81%E9%9B%AA%E5%B4%A9%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>缓存穿透、击穿、雪崩处理策略</h1>
-        <p class="static-note-meta">Redis · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/Redis/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E3%80%81%E5%87%BB%E7%A9%BF%E3%80%81%E9%9B%AA%E5%B4%A9%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5.md">在站内打开</a>
-      </header>
-      <article class="prose"><p>这是 Redis 在实际生产中<strong>三大常见缓存问题</strong>：<strong>缓存穿透、缓存击穿、缓存雪崩</strong>，如果不处理好，轻则性能抖动，重则数据库崩溃。下面我详细给你梳理这三者的<strong>定义 + 产生原因 + 解决方案（附代码/设计思路）</strong>。</p>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>缓存穿透、击穿、雪崩处理策略 · Seiga</title>
+<meta name="description" content="这是 Redis 在实际生产中三大常见缓存问题：缓存穿透、缓存击穿、缓存雪崩，如果不处理好，轻则性能抖动，重则数据库崩溃。下面我详细给你梳理这三者的定义 + 产生原因 + 解决方案（附代码/设计思路）">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="缓存穿透、击穿、雪崩处理策略 · Seiga"><meta property="og:description" content="这是 Redis 在实际生产中三大常见缓存问题：缓存穿透、缓存击穿、缓存雪崩，如果不处理好，轻则性能抖动，重则数据库崩溃。下面我详细给你梳理这三者的定义 + 产生原因 + 解决方案（附代码/设计思路）">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Redis/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E3%80%81%E5%87%BB%E7%A9%BF%E3%80%81%E9%9B%AA%E5%B4%A9%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Redis/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E3%80%81%E5%87%BB%E7%A9%BF%E3%80%81%E9%9B%AA%E5%B4%A9%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"缓存穿透、击穿、雪崩处理策略","description":"这是 Redis 在实际生产中三大常见缓存问题：缓存穿透、缓存击穿、缓存雪崩，如果不处理好，轻则性能抖动，重则数据库崩溃。下面我详细给你梳理这三者的定义 + 产生原因 + 解决方案（附代码/设计思路）","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Redis/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E3%80%81%E5%87%BB%E7%A9%BF%E3%80%81%E9%9B%AA%E5%B4%A9%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=Redis">Redis</a></nav>
+<h1>缓存穿透、击穿、雪崩处理策略</h1><p class="static-note-meta">Redis · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/Redis/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E3%80%81%E5%87%BB%E7%A9%BF%E3%80%81%E9%9B%AA%E5%B4%A9%E5%A4%84%E7%90%86%E7%AD%96%E7%95%A5.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#-%E4%B8%80%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8Fcache-penetration">🔍 一、缓存穿透（Cache Penetration）</a></li><li><a href="#-%E6%A6%82%E5%BF%B5">✅ 概念：</a></li><li><a href="#-%E5%9C%BA%E6%99%AF">🚨 场景：</a></li><li><a href="#-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88">✅ 解决方案：</a></li><li><a href="#-%E4%BA%8C%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BFcache-breakdown">⚡ 二、缓存击穿（Cache Breakdown）</a></li><li><a href="#-%E6%A6%82%E5%BF%B5-1">✅ 概念：</a></li><li><a href="#-%E5%9C%BA%E6%99%AF-1">🚨 场景：</a></li><li><a href="#-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-1">✅ 解决方案：</a></li><li><a href="#-%E4%B8%89%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9cache-avalanche">🌨 三、缓存雪崩（Cache Avalanche）</a></li><li><a href="#-%E6%A6%82%E5%BF%B5-2">✅ 概念：</a></li><li><a href="#-%E5%9C%BA%E6%99%AF-2">🚨 场景：</a></li><li><a href="#-%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-2">✅ 解决方案：</a></li><li><a href="#-%E6%80%BB%E7%BB%93%E5%AF%B9%E6%AF%94%E8%A1%A8">✅ 总结对比表</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><p>这是 Redis 在实际生产中<strong>三大常见缓存问题</strong>：<strong>缓存穿透、缓存击穿、缓存雪崩</strong>，如果不处理好，轻则性能抖动，重则数据库崩溃。下面我详细给你梳理这三者的<strong>定义 + 产生原因 + 解决方案（附代码/设计思路）</strong>。</p>
 <hr>
-<h1>🔍 一、缓存穿透（Cache Penetration）</h1>
-<h3>✅ 概念：</h3>
+<h2 id="-一缓存穿透cache-penetration">🔍 一、缓存穿透（Cache Penetration）</h2>
+<h3 id="-概念">✅ 概念：</h3>
 <p>请求的数据 <strong>在缓存中不存在，数据库中也不存在</strong>，每次都会去查数据库，导致数据库压力剧增。</p>
 <hr>
-<h3>🚨 场景：</h3>
+<h3 id="-场景">🚨 场景：</h3>
 <ul>
 <li>
 <p>用户请求一个 <code>userId = -9999</code> 的数据，Redis 没有，数据库也没有。</p>
@@ -58,71 +33,71 @@
 </li>
 </ul>
 <hr>
-<h3>✅ 解决方案：</h3>
-<h4>✅ 1. 缓存空值（推荐）</h4>
+<h3 id="-解决方案">✅ 解决方案：</h3>
+<h4 id="-1-缓存空值推荐">✅ 1. 缓存空值（推荐）</h4>
 <p>当数据库返回空结果时，也写入缓存：</p>
-<pre><code class="language-java">// 查询缓存
-String val = redis.get(key);
-if (val == null) {
-    Object dbVal = db.query(key);
-    if (dbVal == null) {
-        redis.setex(key, &quot;NULL&quot;, 60); // 缓存空值，过期时间短
-        return null;
-    } else {
-        redis.set(key, dbVal, 3600);
-        return dbVal;
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-comment">// 查询缓存</span>
+<span class="hljs-type">String</span> <span class="hljs-variable">val</span> <span class="hljs-operator">=</span> redis.get(key);
+<span class="hljs-keyword">if</span> (val == <span class="hljs-literal">null</span>) {
+    <span class="hljs-type">Object</span> <span class="hljs-variable">dbVal</span> <span class="hljs-operator">=</span> db.query(key);
+    <span class="hljs-keyword">if</span> (dbVal == <span class="hljs-literal">null</span>) {
+        redis.setex(key, <span class="hljs-string">&quot;NULL&quot;</span>, <span class="hljs-number">60</span>); <span class="hljs-comment">// 缓存空值，过期时间短</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+    } <span class="hljs-keyword">else</span> {
+        redis.set(key, dbVal, <span class="hljs-number">3600</span>);
+        <span class="hljs-keyword">return</span> dbVal;
     }
 }
-</code></pre>
-<h4>✅ 2. 使用布隆过滤器（大规模穿透）</h4>
+</code></pre></div>
+<h4 id="-2-使用布隆过滤器大规模穿透">✅ 2. 使用布隆过滤器（大规模穿透）</h4>
 <p>用布隆过滤器维护所有合法 key 的集合，提前拦截非法请求。</p>
-<pre><code class="language-java">if (!bloomFilter.mightContain(key)) {
-    return null; // 根本不可能存在
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">if</span> (!bloomFilter.mightContain(key)) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>; <span class="hljs-comment">// 根本不可能存在</span>
 }
-</code></pre>
+</code></pre></div>
 <hr>
-<h1>⚡ 二、缓存击穿（Cache Breakdown）</h1>
-<h3>✅ 概念：</h3>
+<h2 id="-二缓存击穿cache-breakdown">⚡ 二、缓存击穿（Cache Breakdown）</h2>
+<h3 id="-概念-1">✅ 概念：</h3>
 <p><strong>某个热点 key 失效的瞬间</strong>，大量请求同时到来，请求全打在数据库上，瞬间把数据库压垮。</p>
 <hr>
-<h3>🚨 场景：</h3>
+<h3 id="-场景-1">🚨 场景：</h3>
 <ul>
 <li>某个热点商品秒杀信息失效，几万请求瞬间访问 DB。</li>
 </ul>
 <hr>
-<h3>✅ 解决方案：</h3>
-<h4>✅ 1. 加互斥锁（推荐）</h4>
+<h3 id="-解决方案-1">✅ 解决方案：</h3>
+<h4 id="-1-加互斥锁推荐">✅ 1. 加互斥锁（推荐）</h4>
 <p>防止大量请求同时回源数据库：</p>
-<pre><code class="language-java">if (redis.get(key) == null) {
-    // 分布式锁
-    if (tryLock(&quot;lock:&quot; + key)) {
-        try {
-            // 只有一个线程查库并写缓存
-            Object dbData = db.query(key);
-            redis.set(key, dbData, 60 * 60);
-        } finally {
-            releaseLock(&quot;lock:&quot; + key);
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">if</span> (redis.get(key) == <span class="hljs-literal">null</span>) {
+    <span class="hljs-comment">// 分布式锁</span>
+    <span class="hljs-keyword">if</span> (tryLock(<span class="hljs-string">&quot;lock:&quot;</span> + key)) {
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-comment">// 只有一个线程查库并写缓存</span>
+            <span class="hljs-type">Object</span> <span class="hljs-variable">dbData</span> <span class="hljs-operator">=</span> db.query(key);
+            redis.set(key, dbData, <span class="hljs-number">60</span> * <span class="hljs-number">60</span>);
+        } <span class="hljs-keyword">finally</span> {
+            releaseLock(<span class="hljs-string">&quot;lock:&quot;</span> + key);
         }
-    } else {
-        // 其他线程等待或快速失败
-        Thread.sleep(50);
-        return redis.get(key);
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-comment">// 其他线程等待或快速失败</span>
+        Thread.sleep(<span class="hljs-number">50</span>);
+        <span class="hljs-keyword">return</span> redis.get(key);
     }
 }
-</code></pre>
+</code></pre></div>
 <blockquote>
 <p>可以用 Redisson 提供的 <code>RLock</code> 实现分布式锁。</p>
 </blockquote>
-<h4>✅ 2. 永不过期 + 异步更新（缓存预热/刷新策略）</h4>
+<h4 id="-2-永不过期--异步更新缓存预热刷新策略">✅ 2. 永不过期 + 异步更新（缓存预热/刷新策略）</h4>
 <ul>
 <li>热点数据设置为永不过期，后台定时刷新。</li>
 </ul>
 <hr>
-<h1>🌨 三、缓存雪崩（Cache Avalanche）</h1>
-<h3>✅ 概念：</h3>
+<h2 id="-三缓存雪崩cache-avalanche">🌨 三、缓存雪崩（Cache Avalanche）</h2>
+<h3 id="-概念-2">✅ 概念：</h3>
 <p><strong>大量缓存同一时间过期或失效</strong>，导致请求集中打到数据库，系统崩溃。</p>
 <hr>
-<h3>🚨 场景：</h3>
+<h3 id="-场景-2">🚨 场景：</h3>
 <ul>
 <li>
 <p>系统重启后所有缓存一起失效</p>
@@ -132,16 +107,16 @@ if (val == null) {
 </li>
 </ul>
 <hr>
-<h3>✅ 解决方案：</h3>
-<h4>✅ 1. 设置过期时间时加随机值（推荐）</h4>
-<pre><code class="language-java">redis.set(key, value, 3600 + random.nextInt(300));
-</code></pre>
+<h3 id="-解决方案-2">✅ 解决方案：</h3>
+<h4 id="-1-设置过期时间时加随机值推荐">✅ 1. 设置过期时间时加随机值（推荐）</h4>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java">redis.set(key, value, <span class="hljs-number">3600</span> + random.nextInt(<span class="hljs-number">300</span>));
+</code></pre></div>
 <blockquote>
 <p>避免所有 key 同时过期，缓解压力。</p>
 </blockquote>
-<h4>✅ 2. 做数据预热</h4>
+<h4 id="-2-做数据预热">✅ 2. 做数据预热</h4>
 <p>系统启动时，提前将热点数据加载进 Redis。</p>
-<h4>✅ 3. 异步延迟双写机制（预防性刷新）</h4>
+<h4 id="-3-异步延迟双写机制预防性刷新">✅ 3. 异步延迟双写机制（预防性刷新）</h4>
 <ul>
 <li>
 <p>提前批量刷新即将过期的 key</p>
@@ -151,8 +126,8 @@ if (val == null) {
 </li>
 </ul>
 <hr>
-<h1>✅ 总结对比表</h1>
-<table>
+<h2 id="-总结对比表">✅ 总结对比表</h2>
+<div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0"><table>
 <thead>
 <tr>
 <th>问题</th>
@@ -187,78 +162,76 @@ if (val == null) {
 <td></td>
 </tr>
 </tbody>
-</table>
-<pre><code class="language-java">@Service
-public class CacheService {
+</table></div>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-meta">@Service</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CacheService</span> {
 
-    @Autowired
-    private RedisTemplate&lt;String, Object&gt; redisTemplate;
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> RedisTemplate&lt;String, Object&gt; redisTemplate;
 
-    @Autowired
-    private RedissonClient redissonClient;
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> RedissonClient redissonClient;
 
-    /**
+    <span class="hljs-comment">/**
      * 获取数据，带缓存击穿防护
-     */
-    public Object getDataWithLock(String key) {
-        // 1. 先查缓存
-        Object cacheData = redisTemplate.opsForValue().get(key);
-        if (cacheData != null) {
-            return cacheData;
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">Object</span> <span class="hljs-title function_">getDataWithLock</span><span class="hljs-params">(String key)</span> {
+        <span class="hljs-comment">// 1. 先查缓存</span>
+        <span class="hljs-type">Object</span> <span class="hljs-variable">cacheData</span> <span class="hljs-operator">=</span> redisTemplate.opsForValue().get(key);
+        <span class="hljs-keyword">if</span> (cacheData != <span class="hljs-literal">null</span>) {
+            <span class="hljs-keyword">return</span> cacheData;
         }
 
-        // 2. 缓存没有，尝试加锁
-        String lockKey = &quot;lock:&quot; + key;
-        RLock lock = redissonClient.getLock(lockKey);
+        <span class="hljs-comment">// 2. 缓存没有，尝试加锁</span>
+        <span class="hljs-type">String</span> <span class="hljs-variable">lockKey</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;lock:&quot;</span> + key;
+        <span class="hljs-type">RLock</span> <span class="hljs-variable">lock</span> <span class="hljs-operator">=</span> redissonClient.getLock(lockKey);
 
-        try {
-            // tryLock(等待时间, 锁过期时间, 单位)
-            if (lock.tryLock(5, 10, TimeUnit.SECONDS)) {
-                try {
-                    // 3. 双重检查，避免重复查库
-                    Object doubleCheck = redisTemplate.opsForValue().get(key);
-                    if (doubleCheck != null) {
-                        return doubleCheck;
+        <span class="hljs-keyword">try</span> {
+            <span class="hljs-comment">// tryLock(等待时间, 锁过期时间, 单位)</span>
+            <span class="hljs-keyword">if</span> (lock.tryLock(<span class="hljs-number">5</span>, <span class="hljs-number">10</span>, TimeUnit.SECONDS)) {
+                <span class="hljs-keyword">try</span> {
+                    <span class="hljs-comment">// 3. 双重检查，避免重复查库</span>
+                    <span class="hljs-type">Object</span> <span class="hljs-variable">doubleCheck</span> <span class="hljs-operator">=</span> redisTemplate.opsForValue().get(key);
+                    <span class="hljs-keyword">if</span> (doubleCheck != <span class="hljs-literal">null</span>) {
+                        <span class="hljs-keyword">return</span> doubleCheck;
                     }
 
-                    // 4. 查数据库
-                    Object dbData = queryDB(key);
+                    <span class="hljs-comment">// 4. 查数据库</span>
+                    <span class="hljs-type">Object</span> <span class="hljs-variable">dbData</span> <span class="hljs-operator">=</span> queryDB(key);
 
-                    if (dbData == null) {
-                        // 防止缓存穿透：写一个短期空值
-                        redisTemplate.opsForValue().set(key, &quot;NULL&quot;, 1, TimeUnit.MINUTES);
-                        return null;
+                    <span class="hljs-keyword">if</span> (dbData == <span class="hljs-literal">null</span>) {
+                        <span class="hljs-comment">// 防止缓存穿透：写一个短期空值</span>
+                        redisTemplate.opsForValue().set(key, <span class="hljs-string">&quot;NULL&quot;</span>, <span class="hljs-number">1</span>, TimeUnit.MINUTES);
+                        <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
                     }
 
-                    // 5. 写缓存（加上随机 TTL，避免雪崩）
-                    int ttl = 30 + new Random().nextInt(10); // 30~40 分钟
+                    <span class="hljs-comment">// 5. 写缓存（加上随机 TTL，避免雪崩）</span>
+                    <span class="hljs-type">int</span> <span class="hljs-variable">ttl</span> <span class="hljs-operator">=</span> <span class="hljs-number">30</span> + <span class="hljs-keyword">new</span> <span class="hljs-title class_">Random</span>().nextInt(<span class="hljs-number">10</span>); <span class="hljs-comment">// 30~40 分钟</span>
                     redisTemplate.opsForValue().set(key, dbData, ttl, TimeUnit.MINUTES);
-                    return dbData;
+                    <span class="hljs-keyword">return</span> dbData;
 
-                } finally {
-                    lock.unlock(); // 释放锁
+                } <span class="hljs-keyword">finally</span> {
+                    lock.unlock(); <span class="hljs-comment">// 释放锁</span>
                 }
-            } else {
-                // 获取锁失败：稍等再读缓存
-                Thread.sleep(50);
-                return redisTemplate.opsForValue().get(key);
+            } <span class="hljs-keyword">else</span> {
+                <span class="hljs-comment">// 获取锁失败：稍等再读缓存</span>
+                Thread.sleep(<span class="hljs-number">50</span>);
+                <span class="hljs-keyword">return</span> redisTemplate.opsForValue().get(key);
             }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        } <span class="hljs-keyword">catch</span> (InterruptedException e) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(e);
         }
     }
 
-    /**
+    <span class="hljs-comment">/**
      * 模拟数据库查询
-     */
-    private Object queryDB(String key) {
-        System.out.println(&quot;查询数据库: &quot; + key);
-        return &quot;value-for-&quot; + key;
+     */</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-type">Object</span> <span class="hljs-title function_">queryDB</span><span class="hljs-params">(String key)</span> {
+        System.out.println(<span class="hljs-string">&quot;查询数据库: &quot;</span> + key);
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;value-for-&quot;</span> + key;
     }
 }
 
-</code></pre>
-</article>
-    </main>
-  </body>
-</html>
+</code></pre></div>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

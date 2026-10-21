@@ -1,52 +1,27 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="stream流 Java中的Stream流是从Java 8引入的一个新特性，主要用于处理集合框架（如List、Set等）的数据，提供了对数据进行声明式操作的能力，简化了代码，并且支持并行操作。通过St">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="stream流 · Seiga">
-    <meta property="og:description" content="stream流 Java中的Stream流是从Java 8引入的一个新特性，主要用于处理集合框架（如List、Set等）的数据，提供了对数据进行声明式操作的能力，简化了代码，并且支持并行操作。通过St">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E7%B1%BB/stream%E6%B5%81.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E7%B1%BB/stream%E6%B5%81.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>stream流 · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"stream流","description":"stream流 Java中的Stream流是从Java 8引入的一个新特性，主要用于处理集合框架（如List、Set等）的数据，提供了对数据进行声明式操作的能力，简化了代码，并且支持并行操作。通过St","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E7%B1%BB/stream%E6%B5%81.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>stream流</h1>
-        <p class="static-note-meta">Java · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E7%B1%BB/stream%E6%B5%81.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>stream流</h1>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>stream流 · Seiga</title>
+<meta name="description" content="Java中的Stream流是从Java 8引入的一个新特性，主要用于处理集合框架（如List、Set等）的数据，提供了对数据进行声明式操作的能力，简化了代码，并且支持并行操作。通过Stream，我们可">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="stream流 · Seiga"><meta property="og:description" content="Java中的Stream流是从Java 8引入的一个新特性，主要用于处理集合框架（如List、Set等）的数据，提供了对数据进行声明式操作的能力，简化了代码，并且支持并行操作。通过Stream，我们可">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E7%B1%BB/stream%E6%B5%81.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E7%B1%BB/stream%E6%B5%81.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"stream流","description":"Java中的Stream流是从Java 8引入的一个新特性，主要用于处理集合框架（如List、Set等）的数据，提供了对数据进行声明式操作的能力，简化了代码，并且支持并行操作。通过Stream，我们可","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E7%B1%BB/stream%E6%B5%81.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
+<h1>stream流</h1><p class="static-note-meta">Java · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E7%B1%BB/stream%E6%B5%81.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#1-stream%E7%9A%84%E6%A6%82%E5%BF%B5">1. Stream的概念</a></li><li><a href="#2-stream%E7%9A%84%E7%89%B9%E7%82%B9">2. Stream的特点</a></li><li><a href="#3-stream%E7%9A%84%E6%93%8D%E4%BD%9C%E7%B1%BB%E5%9E%8B">3. Stream的操作类型</a></li><li><a href="#4%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81">4.示例代码</a></li><li><a href="#5%E5%B9%B6%E8%A1%8C%E6%93%8D%E4%BD%9C">5.并行操作</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="stream流" class="article-title-anchor"></span>
 <p>Java中的<code>Stream</code>流是从Java 8引入的一个新特性，主要用于处理集合框架（如<code>List</code>、<code>Set</code>等）的数据，提供了对数据进行声明式操作的能力，简化了代码，并且支持并行操作。通过Stream，我们可以以更简洁的方式处理集合数据，避免了传统的使用循环来进行操作。</p>
-<h3>1. <code>Stream</code>的概念</h3>
+<h3 id="1-stream的概念">1. <code>Stream</code>的概念</h3>
 <p><code>Stream</code>是一个顺序或并行的元素序列，支持聚合操作。<code>Stream</code>的元素可以是集合中的数据，也可以是其他数据源中的数据，主要提供了对数据集合的高效操作方式，避免了显式的循环控制。</p>
-<h3>2. <code>Stream</code>的特点</h3>
+<h3 id="2-stream的特点">2. <code>Stream</code>的特点</h3>
 <ul>
 <li>
 <p><strong>不存储数据</strong>：<code>Stream</code>本身不存储数据，它是从数据源（如集合、数组等）中获取数据，进行一系列操作后返回结果。</p>
@@ -61,7 +36,7 @@
 <p><strong>可并行化</strong>：<code>Stream</code>支持并行操作，可以轻松地并行处理数据。</p>
 </li>
 </ul>
-<h3>3. <code>Stream</code>的操作类型</h3>
+<h3 id="3-stream的操作类型">3. <code>Stream</code>的操作类型</h3>
 <p><code>Stream</code>的操作可以分为两大类：</p>
 <ul>
 <li>
@@ -71,7 +46,7 @@
 <p><strong>终止操作</strong>：触发计算的操作，通常会产生一个非<code>Stream</code>的结果，或者产生副作用，例如<code>forEach</code>、<code>collect</code>、<code>reduce</code>、<code>count</code>等。</p>
 </li>
 </ul>
-<h4>中间操作</h4>
+<h4 id="中间操作">中间操作</h4>
 <p>这些操作会返回一个新的<code>Stream</code>，它们通常是惰性求值的，只有在终止操作调用时才会执行。例如：</p>
 <ul>
 <li>
@@ -93,7 +68,7 @@
 <p><code>skip(long n)</code>：跳过前<code>n</code>个元素。</p>
 </li>
 </ul>
-<h4>终止操作</h4>
+<h4 id="终止操作">终止操作</h4>
 <p>这些操作会对流进行最终的计算，返回一个具体的结果，执行时会触发实际计算。例如：</p>
 <ul>
 <li>
@@ -118,28 +93,26 @@
 <p><code>findFirst()</code>：返回流中的第一个元素。</p>
 </li>
 </ul>
-<h3>4.示例代码</h3>
-<pre><code class="language-java">import java.util.*;
-import java.util.stream.*;
-public class StreamExample {
-    public static void main(String[] args) {
-        List&lt;Integer&gt; numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+<h3 id="4示例代码">4.示例代码</h3>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">import</span> java.util.*;
+<span class="hljs-keyword">import</span> java.util.stream.*;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">StreamExample</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        <span class="hljs-type">List</span>&lt;Integer&gt; <span class="hljs-variable">numbers</span> <span class="hljs-operator">=</span> Arrays.asList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">7</span>, <span class="hljs-number">8</span>, <span class="hljs-number">9</span>, <span class="hljs-number">10</span>);
         
-        // 过滤出偶数并将每个偶数乘2
-        List&lt;Integer&gt; result = numbers.stream()
-                                      .filter(n -&gt; n % 2 == 0)  // 中间操作: 过滤偶数
-                                      .map(n -&gt; n * 2)           // 中间操作: 将每个偶数乘2
-                                      .collect(Collectors.toList());  // 终止操作: 收集结果
+        <span class="hljs-comment">// 过滤出偶数并将每个偶数乘2</span>
+        <span class="hljs-type">List</span>&lt;Integer&gt; <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> numbers.stream()
+                                      .filter(n -&gt; n % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>)  <span class="hljs-comment">// 中间操作: 过滤偶数</span>
+                                      .map(n -&gt; n * <span class="hljs-number">2</span>)           <span class="hljs-comment">// 中间操作: 将每个偶数乘2</span>
+                                      .collect(Collectors.toList());  <span class="hljs-comment">// 终止操作: 收集结果</span>
         
-        System.out.println(result); // 输出: [4, 8, 12, 16, 20]
+        System.out.println(result); <span class="hljs-comment">// 输出: [4, 8, 12, 16, 20]</span>
     }
 }
 
-</code></pre>
-<h3>5.并行操作</h3>
+</code></pre></div>
+<h3 id="5并行操作">5.并行操作</h3>
 <p>通过<code>parallelStream()</code>，我们可以轻松地将<code>Stream</code>转换为并行流。并行流会使用多个线程来并行处理数据，可以提高性能，特别是在数据量较大的时候。<br>
 并行流对于大数据集的处理具有优势，但在处理小数据集时，使用并行流可能带来的开销反而更大。因此，对于小数据集，通常应该使用顺序流（<code>stream()</code>）而不是并行流（<code>parallelStream()</code>）。</p>
-</article>
-    </main>
-  </body>
-</html>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

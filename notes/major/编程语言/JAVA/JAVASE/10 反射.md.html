@@ -1,52 +1,27 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="10 反射 Java 反射（Reflection）是 Java 提供的一种强大机制，允许程序在运行时动态地获取类的信息并操作类的属性和方法。通过反射，可以在运行时检查类、接口、字段和方法，甚至可以调用">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="10 反射 · Seiga">
-    <meta property="og:description" content="10 反射 Java 反射（Reflection）是 Java 提供的一种强大机制，允许程序在运行时动态地获取类的信息并操作类的属性和方法。通过反射，可以在运行时检查类、接口、字段和方法，甚至可以调用">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/10%20%E5%8F%8D%E5%B0%84.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/10%20%E5%8F%8D%E5%B0%84.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>10 反射 · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"10 反射","description":"10 反射 Java 反射（Reflection）是 Java 提供的一种强大机制，允许程序在运行时动态地获取类的信息并操作类的属性和方法。通过反射，可以在运行时检查类、接口、字段和方法，甚至可以调用","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/10%20%E5%8F%8D%E5%B0%84.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>10 反射</h1>
-        <p class="static-note-meta">Java · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/10%20%E5%8F%8D%E5%B0%84.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>10 反射</h1>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10 反射 · Seiga</title>
+<meta name="description" content="Java 反射（Reflection）是 Java 提供的一种强大机制，允许程序在运行时动态地获取类的信息并操作类的属性和方法。通过反射，可以在运行时检查类、接口、字段和方法，甚至可以调用方法或修改字">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="10 反射 · Seiga"><meta property="og:description" content="Java 反射（Reflection）是 Java 提供的一种强大机制，允许程序在运行时动态地获取类的信息并操作类的属性和方法。通过反射，可以在运行时检查类、接口、字段和方法，甚至可以调用方法或修改字">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/10%20%E5%8F%8D%E5%B0%84.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/10%20%E5%8F%8D%E5%B0%84.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"10 反射","description":"Java 反射（Reflection）是 Java 提供的一种强大机制，允许程序在运行时动态地获取类的信息并操作类的属性和方法。通过反射，可以在运行时检查类、接口、字段和方法，甚至可以调用方法或修改字","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/10%20%E5%8F%8D%E5%B0%84.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
+<h1>10 反射</h1><p class="static-note-meta">Java · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/10%20%E5%8F%8D%E5%B0%84.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#1-%E5%8F%8D%E5%B0%84%E7%9A%84%E6%A0%B8%E5%BF%83%E7%B1%BB">1. 反射的核心类</a></li><li><a href="#2-%E8%8E%B7%E5%8F%96-class-%E5%AF%B9%E8%B1%A1">2. 获取 Class 对象</a></li><li><a href="#3-%E8%8E%B7%E5%8F%96%E7%B1%BB%E7%9A%84%E4%BF%A1%E6%81%AF">3. 获取类的信息</a></li><li><a href="#4-%E8%8E%B7%E5%8F%96%E5%AD%97%E6%AE%B5%E4%BF%A1%E6%81%AF">4. 获取字段信息</a></li><li><a href="#5-%E8%8E%B7%E5%8F%96%E6%96%B9%E6%B3%95%E4%BF%A1%E6%81%AF">5. 获取方法信息</a></li><li><a href="#6-%E8%8E%B7%E5%8F%96%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E4%BF%A1%E6%81%AF">6. 获取构造方法信息</a></li><li><a href="#7-%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA%E5%92%8C%E6%93%8D%E4%BD%9C%E6%95%B0%E7%BB%84">7. 动态创建和操作数组</a></li><li><a href="#8-%E5%8F%8D%E5%B0%84%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF">8. 反射的应用场景</a></li><li><a href="#9-%E5%8F%8D%E5%B0%84%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9">9. 反射的优缺点</a></li><li><a href="#%E4%BC%98%E7%82%B9">优点</a></li><li><a href="#%E7%BC%BA%E7%82%B9">缺点</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="10-反射" class="article-title-anchor"></span>
 <p>Java 反射（Reflection）是 Java 提供的一种强大机制，允许程序在运行时动态地获取类的信息并操作类的属性和方法。通过反射，可以在运行时检查类、接口、字段和方法，甚至可以调用方法或修改字段的值。</p>
-<h2>1. 反射的核心类</h2>
+<h2 id="1-反射的核心类">1. 反射的核心类</h2>
 <p>Java 反射的核心类位于 <code>java.lang.reflect</code> 包中，主要包括：</p>
-<table>
+<div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0"><table>
 <thead>
 <tr>
 <th>类名</th>
@@ -79,78 +54,78 @@
 <td>提供动态创建和访问数组的静态方法。</td>
 </tr>
 </tbody>
-</table>
-<h2>2. 获取 <code>Class</code> 对象</h2>
+</table></div>
+<h2 id="2-获取-class-对象">2. 获取 <code>Class</code> 对象</h2>
 <p><code>Class</code> 对象是反射的入口，可以通过以下方式获取：</p>
-<pre><code class="language-java">//通过类名获取
-Class&lt;?&gt; clazz = Class.forName(&quot;java.lang.String&quot;);
-//通过对象获取
-String str = &quot;Hello&quot;;
-Class&lt;?&gt; clazz = str.getClass();
-//通过 .class 语法获取
-Class&lt;?&gt; clazz = String.class;
-</code></pre>
-<h2>3. 获取类的信息</h2>
-<pre><code class="language-java">//获取类名
-String className = clazz.getName();  // 全限定名
-String simpleName = clazz.getSimpleName();  // 简单类名
-//获取修饰符
-int modifiers = clazz.getModifiers();
-String modifierStr = Modifier.toString(modifiers);  // 如 &quot;public final&quot;
-//获取父类
-Class&lt;?&gt; superClass = clazz.getSuperclass();
-//获取实现的接口
-Class&lt;?&gt;[] interfaces = clazz.getInterfaces();
-</code></pre>
-<h2>4. 获取字段信息</h2>
-<pre><code class="language-java">//获取所有字段
-Field[] fields = clazz.getDeclaredFields();
-for (Field field : fields) {
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-comment">//通过类名获取</span>
+<span class="hljs-type">Class</span>&lt;?&gt; <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;java.lang.String&quot;</span>);
+<span class="hljs-comment">//通过对象获取</span>
+<span class="hljs-type">String</span> <span class="hljs-variable">str</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Hello&quot;</span>;
+<span class="hljs-type">Class</span>&lt;?&gt; <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> str.getClass();
+<span class="hljs-comment">//通过 .class 语法获取</span>
+<span class="hljs-type">Class</span>&lt;?&gt; <span class="hljs-variable">clazz</span> <span class="hljs-operator">=</span> String.class;
+</code></pre></div>
+<h2 id="3-获取类的信息">3. 获取类的信息</h2>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-comment">//获取类名</span>
+<span class="hljs-type">String</span> <span class="hljs-variable">className</span> <span class="hljs-operator">=</span> clazz.getName();  <span class="hljs-comment">// 全限定名</span>
+<span class="hljs-type">String</span> <span class="hljs-variable">simpleName</span> <span class="hljs-operator">=</span> clazz.getSimpleName();  <span class="hljs-comment">// 简单类名</span>
+<span class="hljs-comment">//获取修饰符</span>
+<span class="hljs-type">int</span> <span class="hljs-variable">modifiers</span> <span class="hljs-operator">=</span> clazz.getModifiers();
+<span class="hljs-type">String</span> <span class="hljs-variable">modifierStr</span> <span class="hljs-operator">=</span> Modifier.toString(modifiers);  <span class="hljs-comment">// 如 &quot;public final&quot;</span>
+<span class="hljs-comment">//获取父类</span>
+<span class="hljs-type">Class</span>&lt;?&gt; <span class="hljs-variable">superClass</span> <span class="hljs-operator">=</span> clazz.getSuperclass();
+<span class="hljs-comment">//获取实现的接口</span>
+<span class="hljs-type">Class</span>&lt;?&gt;[] <span class="hljs-variable">interfaces</span> <span class="hljs-operator">=</span> clazz.getInterfaces();
+</code></pre></div>
+<h2 id="4-获取字段信息">4. 获取字段信息</h2>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-comment">//获取所有字段</span>
+<span class="hljs-type">Field</span>[] <span class="hljs-variable">fields</span> <span class="hljs-operator">=</span> clazz.getDeclaredFields();
+<span class="hljs-keyword">for</span> (Field field : fields) {
     System.out.println(field.getName());
 }
-//获取指定字段
-Field field = clazz.getDeclaredField(&quot;fieldName&quot;);
-//获取字段类型
-Class&lt;?&gt; fieldType = field.getType();
-//获取和设置字段值
-Object obj = clazz.getDeclaredConstructor().newInstance();
-field.setAccessible(true);  // 设置可访问私有字段
-field.set(obj, value);  // 设置字段值
-Object value = field.get(obj);  // 获取字段值
-</code></pre>
-<h2>5. 获取方法信息</h2>
-<pre><code class="language-java">//获取所有方法
-Method[] methods = clazz.getDeclaredMethods();
-for (Method method : methods) {
+<span class="hljs-comment">//获取指定字段</span>
+<span class="hljs-type">Field</span> <span class="hljs-variable">field</span> <span class="hljs-operator">=</span> clazz.getDeclaredField(<span class="hljs-string">&quot;fieldName&quot;</span>);
+<span class="hljs-comment">//获取字段类型</span>
+<span class="hljs-type">Class</span>&lt;?&gt; <span class="hljs-variable">fieldType</span> <span class="hljs-operator">=</span> field.getType();
+<span class="hljs-comment">//获取和设置字段值</span>
+<span class="hljs-type">Object</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> clazz.getDeclaredConstructor().newInstance();
+field.setAccessible(<span class="hljs-literal">true</span>);  <span class="hljs-comment">// 设置可访问私有字段</span>
+field.set(obj, value);  <span class="hljs-comment">// 设置字段值</span>
+<span class="hljs-type">Object</span> <span class="hljs-variable">value</span> <span class="hljs-operator">=</span> field.get(obj);  <span class="hljs-comment">// 获取字段值</span>
+</code></pre></div>
+<h2 id="5-获取方法信息">5. 获取方法信息</h2>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-comment">//获取所有方法</span>
+<span class="hljs-type">Method</span>[] <span class="hljs-variable">methods</span> <span class="hljs-operator">=</span> clazz.getDeclaredMethods();
+<span class="hljs-keyword">for</span> (Method method : methods) {
     System.out.println(method.getName());
 }
-//获取指定方法
-//**`parameterTypes`**：这是一个 `Class` 类型的数组，表示方法的参数类型。如果方法有多个参数，你需要为每个参数指定其类型。
-Method method = clazz.getDeclaredMethod(&quot;methodName&quot;, parameterTypes);
-//调用方法
-Object obj = clazz.getDeclaredConstructor().newInstance();
-method.setAccessible(true);  // 设置可访问私有方法
-Object result = method.invoke(obj, args);  // 调用方法
-</code></pre>
-<h2>6. 获取构造方法信息</h2>
-<pre><code class="language-java">//获取所有构造方法
-Constructor&lt;?&gt;[] constructors = clazz.getDeclaredConstructors();
-for (Constructor&lt;?&gt; constructor : constructors) {
+<span class="hljs-comment">//获取指定方法</span>
+<span class="hljs-comment">//**`parameterTypes`**：这是一个 `Class` 类型的数组，表示方法的参数类型。如果方法有多个参数，你需要为每个参数指定其类型。</span>
+<span class="hljs-type">Method</span> <span class="hljs-variable">method</span> <span class="hljs-operator">=</span> clazz.getDeclaredMethod(<span class="hljs-string">&quot;methodName&quot;</span>, parameterTypes);
+<span class="hljs-comment">//调用方法</span>
+<span class="hljs-type">Object</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> clazz.getDeclaredConstructor().newInstance();
+method.setAccessible(<span class="hljs-literal">true</span>);  <span class="hljs-comment">// 设置可访问私有方法</span>
+<span class="hljs-type">Object</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> method.invoke(obj, args);  <span class="hljs-comment">// 调用方法</span>
+</code></pre></div>
+<h2 id="6-获取构造方法信息">6. 获取构造方法信息</h2>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-comment">//获取所有构造方法</span>
+<span class="hljs-type">Constructor</span>&lt;?&gt;[] <span class="hljs-variable">constructors</span> <span class="hljs-operator">=</span> clazz.getDeclaredConstructors();
+<span class="hljs-keyword">for</span> (Constructor&lt;?&gt; constructor : constructors) {
     System.out.println(constructor.getName());
 }
-//获取指定构造方法
-Constructor&lt;?&gt; constructor = clazz.getDeclaredConstructor(parameterTypes);
-//创建对象
-Object obj = constructor.newInstance(args);
-</code></pre>
-<h2>7. 动态创建和操作数组</h2>
-<pre><code class="language-java">//创建数组
-Object array = Array.newInstance(String.class, 10);  // 创建长度为 10 的 String 数组
-Array.set(array, 0, &quot;Hello&quot;);
-//设置和获取数组元素
-String element = (String) Array.get(array, 0);
-</code></pre>
-<h2>8. 反射的应用场景</h2>
+<span class="hljs-comment">//获取指定构造方法</span>
+<span class="hljs-type">Constructor</span>&lt;?&gt; <span class="hljs-variable">constructor</span> <span class="hljs-operator">=</span> clazz.getDeclaredConstructor(parameterTypes);
+<span class="hljs-comment">//创建对象</span>
+<span class="hljs-type">Object</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> constructor.newInstance(args);
+</code></pre></div>
+<h2 id="7-动态创建和操作数组">7. 动态创建和操作数组</h2>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-comment">//创建数组</span>
+<span class="hljs-type">Object</span> <span class="hljs-variable">array</span> <span class="hljs-operator">=</span> Array.newInstance(String.class, <span class="hljs-number">10</span>);  <span class="hljs-comment">// 创建长度为 10 的 String 数组</span>
+Array.set(array, <span class="hljs-number">0</span>, <span class="hljs-string">&quot;Hello&quot;</span>);
+<span class="hljs-comment">//设置和获取数组元素</span>
+<span class="hljs-type">String</span> <span class="hljs-variable">element</span> <span class="hljs-operator">=</span> (String) Array.get(array, <span class="hljs-number">0</span>);
+</code></pre></div>
+<h2 id="8-反射的应用场景">8. 反射的应用场景</h2>
 <ul>
 <li>
 <p><strong>动态加载类</strong>：在运行时加载类并调用其方法。</p>
@@ -165,8 +140,8 @@ String element = (String) Array.get(array, 0);
 <p><strong>序列化和反序列化</strong>：通过反射获取对象的字段和方法。</p>
 </li>
 </ul>
-<h2>9. 反射的优缺点</h2>
-<h3>优点</h3>
+<h2 id="9-反射的优缺点">9. 反射的优缺点</h2>
+<h3 id="优点">优点</h3>
 <ul>
 <li>
 <p>灵活性：可以在运行时动态操作类。</p>
@@ -175,7 +150,7 @@ String element = (String) Array.get(array, 0);
 <p>强大的功能：可以访问私有成员和方法。</p>
 </li>
 </ul>
-<h3>缺点</h3>
+<h3 id="缺点">缺点</h3>
 <ul>
 <li>
 <p>性能开销：反射操作比直接调用慢。</p>
@@ -187,7 +162,5 @@ String element = (String) Array.get(array, 0);
 <p>代码可读性差：反射代码通常难以理解和维护。</p>
 </li>
 </ul>
-</article>
-    </main>
-  </body>
-</html>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

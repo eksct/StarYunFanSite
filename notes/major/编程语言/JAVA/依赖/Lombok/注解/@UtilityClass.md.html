@@ -1,59 +1,34 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="@UtilityClass @UtilityClass是lombok提供的一个注解，用于简化工具类的创建。 工具类通常用于组织相关的静态方法和常量，并且不应该被实例化。 1. @UtilityClas">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="@UtilityClass · Seiga">
-    <meta property="og:description" content="@UtilityClass @UtilityClass是lombok提供的一个注解，用于简化工具类的创建。 工具类通常用于组织相关的静态方法和常量，并且不应该被实例化。 1. @UtilityClas">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40UtilityClass.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40UtilityClass.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>@UtilityClass · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"@UtilityClass","description":"@UtilityClass @UtilityClass是lombok提供的一个注解，用于简化工具类的创建。 工具类通常用于组织相关的静态方法和常量，并且不应该被实例化。 1. @UtilityClas","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40UtilityClass.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>@UtilityClass</h1>
-        <p class="static-note-meta">Java · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40UtilityClass.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>@UtilityClass</h1>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@UtilityClass · Seiga</title>
+<meta name="description" content="@UtilityClass是lombok提供的一个注解，用于简化工具类的创建。 工具类通常用于组织相关的静态方法和常量，并且不应该被实例化。 1. @UtilityClass 的作用 若一个类上有该注">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="@UtilityClass · Seiga"><meta property="og:description" content="@UtilityClass是lombok提供的一个注解，用于简化工具类的创建。 工具类通常用于组织相关的静态方法和常量，并且不应该被实例化。 1. @UtilityClass 的作用 若一个类上有该注">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40UtilityClass.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40UtilityClass.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"@UtilityClass","description":"@UtilityClass是lombok提供的一个注解，用于简化工具类的创建。 工具类通常用于组织相关的静态方法和常量，并且不应该被实例化。 1. @UtilityClass 的作用 若一个类上有该注","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40UtilityClass.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
+<h1>@UtilityClass</h1><p class="static-note-meta">Java · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40UtilityClass.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#1-utilityclass-%E7%9A%84%E4%BD%9C%E7%94%A8">1. @UtilityClass 的作用</a></li><li><a href="#2-%E4%B8%BB%E8%A6%81%E7%89%B9%E6%80%A7">2. 主要特性</a></li><li><a href="#21-%E9%98%B2%E6%AD%A2%E5%AE%9E%E4%BE%8B%E5%8C%96">2.1 防止实例化</a></li><li><a href="#22-%E5%BC%BA%E5%88%B6%E9%9D%99%E6%80%81%E6%88%90%E5%91%98">2.2 强制静态成员</a></li><li><a href="#23-%E7%BC%96%E8%AF%91%E6%97%B6%E5%AE%89%E5%85%A8%E6%80%A7">2.3 编译时安全性</a></li><li><a href="#3-%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">3. 注意事项</a></li><li><a href="#31-%E9%9D%99%E6%80%81%E5%AF%BC%E5%85%A5">3.1 静态导入</a></li><li><a href="#32-%E5%B7%A5%E5%85%B7%E7%B1%BB%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99">3.2 工具类的设计原则</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="utilityclass" class="article-title-anchor"></span>
 <p>@UtilityClass是lombok提供的一个注解，用于简化工具类的创建。<br>
 工具类通常用于组织相关的静态方法和常量，并且不应该被实例化。</p>
-<h2>1. <code>@UtilityClass</code> 的作用</h2>
+<h2 id="1-utilityclass-的作用">1. <code>@UtilityClass</code> 的作用</h2>
 <p>若一个类上有该注解，则这个类会：</p>
 <ol>
 <li>会自动为类加上final修饰，防止继承该类</li>
 <li>创建一个私有无参构造器，确保无法实例化该类；如果显式定义了构造函数，会产生编译错误；生成的构造函数在通过反射或其他方式调用时会抛出 <code>UnsupportedOperationException</code>；</li>
 <li>所有内部成员(方法，内部类，字段)设置为static，确保所有成员均为静态</li>
 </ol>
-<h2>2. 主要特性</h2>
-<h3>2.1 防止实例化</h3>
+<h2 id="2-主要特性">2. 主要特性</h2>
+<h3 id="21-防止实例化">2.1 防止实例化</h3>
 <ul>
 <li>
 <p>私有构造函数确保工具类不能被实例化。</p>
@@ -62,16 +37,16 @@
 <p>如果有人尝试实例化它（例如通过反射），会抛出 <code>UnsupportedOperationException</code>。</p>
 </li>
 </ul>
-<h3>2.2 强制静态成员</h3>
+<h3 id="22-强制静态成员">2.2 强制静态成员</h3>
 <ul>
 <li>所有方法、字段和内部类都会自动变为静态，确保工具类的正确使用。</li>
 </ul>
-<h3>2.3 编译时安全性</h3>
+<h3 id="23-编译时安全性">2.3 编译时安全性</h3>
 <ul>
 <li>如果你意外定义了一个非静态成员或构造函数，Lombok 会生成编译错误，提醒你修复问题。</li>
 </ul>
-<h2>3. 注意事项</h2>
-<h3>3.1 静态导入</h3>
+<h2 id="3-注意事项">3. 注意事项</h2>
+<h3 id="31-静态导入">3.1 静态导入</h3>
 <ul>
 <li>
 <p>使用静态导入时，避免使用非星号（<code>*</code>）导入工具类的成员，因为 <code>javac</code> 可能无法正确处理。</p>
@@ -80,7 +55,7 @@
 <p>建议使用 <code>import static ThisType.*;</code> 或者直接使用类名调用静态方法。</p>
 </li>
 </ul>
-<h3>3.2 工具类的设计原则</h3>
+<h3 id="32-工具类的设计原则">3.2 工具类的设计原则</h3>
 <ul>
 <li>
 <p>工具类应该是无状态的，即不包含实例字段。</p>
@@ -89,7 +64,5 @@
 <p>工具类的方法应该是纯函数（无副作用）。</p>
 </li>
 </ul>
-</article>
-    </main>
-  </body>
-</html>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

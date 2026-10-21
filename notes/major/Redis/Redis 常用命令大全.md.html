@@ -1,50 +1,25 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Redis 常用命令大全 1️⃣ Key 操作 命令 作用 示例 ---------------------- ------------ ------------------------- KEYS ">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Redis 常用命令大全 · Seiga">
-    <meta property="og:description" content="Redis 常用命令大全 1️⃣ Key 操作 命令 作用 示例 ---------------------- ------------ ------------------------- KEYS ">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Redis/Redis%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Redis/Redis%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>Redis 常用命令大全 · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Redis 常用命令大全","description":"Redis 常用命令大全 1️⃣ Key 操作 命令 作用 示例 ---------------------- ------------ ------------------------- KEYS ","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Redis/Redis%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>Redis 常用命令大全</h1>
-        <p class="static-note-meta">Redis · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/Redis/Redis%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>Redis 常用命令大全</h1>
-<h2>1️⃣ Key 操作</h2>
-<table>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redis 常用命令大全 · Seiga</title>
+<meta name="description" content="1️⃣ Key 操作 命令 作用 示例 KEYS pattern 查找匹配的 key KEYS user:* DEL key 删除 key DEL user:1 EXISTS key 判断 key 是">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="Redis 常用命令大全 · Seiga"><meta property="og:description" content="1️⃣ Key 操作 命令 作用 示例 KEYS pattern 查找匹配的 key KEYS user:* DEL key 删除 key DEL user:1 EXISTS key 判断 key 是">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Redis/Redis%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Redis/Redis%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Redis 常用命令大全","description":"1️⃣ Key 操作 命令 作用 示例 KEYS pattern 查找匹配的 key KEYS user:* DEL key 删除 key DEL user:1 EXISTS key 判断 key 是","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Redis/Redis%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=Redis">Redis</a></nav>
+<h1>Redis 常用命令大全</h1><p class="static-note-meta">Redis · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/Redis/Redis%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#1-key-%E6%93%8D%E4%BD%9C">1️⃣ Key 操作</a></li><li><a href="#2-%E5%AD%97%E7%AC%A6%E4%B8%B2string">2️⃣ 字符串（String）</a></li><li><a href="#3-%E5%93%88%E5%B8%8Chash">3️⃣ 哈希（Hash）</a></li><li><a href="#4-%E5%88%97%E8%A1%A8list">4️⃣ 列表（List）</a></li><li><a href="#5-%E9%9B%86%E5%90%88set">5️⃣ 集合（Set）</a></li><li><a href="#6-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88sorted-setzset">6️⃣ 有序集合（Sorted Set，ZSet）</a></li><li><a href="#7-%E4%BA%8B%E5%8A%A1transaction">7️⃣ 事务（Transaction）</a></li><li><a href="#8-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85pubsub">8️⃣ 发布订阅（Pub/Sub）</a></li><li><a href="#9-%E8%84%9A%E6%9C%AClua">9️⃣ 脚本（Lua）</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="redis-常用命令大全" class="article-title-anchor"></span>
+<h2 id="1-key-操作">1️⃣ Key 操作</h2>
+<div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0"><table>
 <thead>
 <tr>
 <th>命令</th>
@@ -89,10 +64,10 @@
 <td><code>PERSIST session:123</code></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
-<h2>2️⃣ 字符串（String）</h2>
-<table>
+<h2 id="2-字符串string">2️⃣ 字符串（String）</h2>
+<div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0"><table>
 <thead>
 <tr>
 <th>命令</th>
@@ -137,10 +112,10 @@
 <td><code>MGET name age</code></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
-<h2>3️⃣ 哈希（Hash）</h2>
-<table>
+<h2 id="3-哈希hash">3️⃣ 哈希（Hash）</h2>
+<div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0"><table>
 <thead>
 <tr>
 <th>命令</th>
@@ -195,10 +170,10 @@
 <td></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
-<h2>4️⃣ 列表（List）</h2>
-<table>
+<h2 id="4-列表list">4️⃣ 列表（List）</h2>
+<div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0"><table>
 <thead>
 <tr>
 <th>命令</th>
@@ -248,10 +223,10 @@
 <td><code>LREM tasks 1 &quot;task1&quot;</code></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
-<h2>5️⃣ 集合（Set）</h2>
-<table>
+<h2 id="5-集合set">5️⃣ 集合（Set）</h2>
+<div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0"><table>
 <thead>
 <tr>
 <th>命令</th>
@@ -301,10 +276,10 @@
 <td><code>SDIFF tags1 tags2</code></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
-<h2>6️⃣ 有序集合（Sorted Set，ZSet）</h2>
-<table>
+<h2 id="6-有序集合sorted-setzset">6️⃣ 有序集合（Sorted Set，ZSet）</h2>
+<div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0"><table>
 <thead>
 <tr>
 <th>命令</th>
@@ -369,10 +344,10 @@
 <td></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
-<h2>7️⃣ 事务（Transaction）</h2>
-<table>
+<h2 id="7-事务transaction">7️⃣ 事务（Transaction）</h2>
+<div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0"><table>
 <thead>
 <tr>
 <th>命令</th>
@@ -397,10 +372,10 @@
 <td>监视 key，乐观锁机制</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
-<h2>8️⃣ 发布订阅（Pub/Sub）</h2>
-<table>
+<h2 id="8-发布订阅pubsub">8️⃣ 发布订阅（Pub/Sub）</h2>
+<div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0"><table>
 <thead>
 <tr>
 <th>命令</th>
@@ -421,10 +396,10 @@
 <td>取消订阅</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
-<h2>9️⃣ 脚本（Lua）</h2>
-<table>
+<h2 id="9-脚本lua">9️⃣ 脚本（Lua）</h2>
+<div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0"><table>
 <thead>
 <tr>
 <th>命令</th>
@@ -437,10 +412,8 @@
 <td>执行 Lua 脚本</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
 <p>如果你想，我可以帮你整理 <strong>命令示例</strong> 或 <strong>Java/Spring Redis 代码示范</strong>，告诉我！</p>
-</article>
-    </main>
-  </body>
-</html>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

@@ -1,51 +1,26 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="ParameterNameDiscoverer ParameterNameDiscoverer 是 Spring 框架中用于获取方法或构造函数参数名称的工具类。 这是一个接口 作用 - 参数名发现：在">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="ParameterNameDiscoverer · Seiga">
-    <meta property="og:description" content="ParameterNameDiscoverer ParameterNameDiscoverer 是 Spring 框架中用于获取方法或构造函数参数名称的工具类。 这是一个接口 作用 - 参数名发现：在">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/ParameterNameDiscoverer.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/ParameterNameDiscoverer.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>ParameterNameDiscoverer · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"ParameterNameDiscoverer","description":"ParameterNameDiscoverer ParameterNameDiscoverer 是 Spring 框架中用于获取方法或构造函数参数名称的工具类。 这是一个接口 作用 - 参数名发现：在","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/ParameterNameDiscoverer.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>ParameterNameDiscoverer</h1>
-        <p class="static-note-meta">Spring Boot · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/ParameterNameDiscoverer.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>ParameterNameDiscoverer</h1>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ParameterNameDiscoverer · Seiga</title>
+<meta name="description" content="ParameterNameDiscoverer 是 Spring 框架中用于获取方法或构造函数参数名称的工具类。 这是一个接口 作用 参数名发现：在 Java 反射中，默认无法直接获取方法参数的名称（">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="ParameterNameDiscoverer · Seiga"><meta property="og:description" content="ParameterNameDiscoverer 是 Spring 框架中用于获取方法或构造函数参数名称的工具类。 这是一个接口 作用 参数名发现：在 Java 反射中，默认无法直接获取方法参数的名称（">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/ParameterNameDiscoverer.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/ParameterNameDiscoverer.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"ParameterNameDiscoverer","description":"ParameterNameDiscoverer 是 Spring 框架中用于获取方法或构造函数参数名称的工具类。 这是一个接口 作用 参数名发现：在 Java 反射中，默认无法直接获取方法参数的名称（","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/ParameterNameDiscoverer.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
+<h1>ParameterNameDiscoverer</h1><p class="static-note-meta">Spring Boot · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/ParameterNameDiscoverer.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#%E4%BD%9C%E7%94%A8">作用</a></li><li><a href="#%E6%A0%B8%E5%BF%83%E5%AE%9E%E7%8E%B0%E7%B1%BB">核心实现类</a></li><li><a href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="parameternamediscoverer" class="article-title-anchor"></span>
 <p>ParameterNameDiscoverer 是 Spring 框架中用于获取方法或构造函数参数名称的工具类。<br>
 这是一个接口</p>
-<h3>作用</h3>
+<h3 id="作用">作用</h3>
 <ul>
 <li>
 <p><strong>参数名发现</strong>：在 Java 反射中，默认无法直接获取方法参数的名称（编译后通常变为 <code>arg0</code>, <code>arg1</code> 等），此类通过多种策略尝试获取真实的参数名。</p>
@@ -54,7 +29,7 @@
 <p><strong>支持场景</strong>：适用于 AOP、消息处理、注解驱动等需要参数名映射的场景，如 Spring MVC 的请求参数绑定。</p>
 </li>
 </ul>
-<h3>核心实现类</h3>
+<h3 id="核心实现类">核心实现类</h3>
 <ul>
 <li>
 <p><strong><code>DefaultParameterNameDiscoverer</code></strong>：Spring 默认实现，组合了两种发现策略：</p>
@@ -68,69 +43,67 @@
 </ol>
 </li>
 </ul>
-<h3>使用方法</h3>
-<pre><code class="language-java">// 创建实例
-ParameterNameDiscoverer discoverer = new DefaultParameterNameDiscoverer();
+<h3 id="使用方法">使用方法</h3>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-comment">// 创建实例</span>
+<span class="hljs-type">ParameterNameDiscoverer</span> <span class="hljs-variable">discoverer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DefaultParameterNameDiscoverer</span>();
 
-// 获取方法的参数名
-Method method = MyClass.class.getMethod(&quot;myMethod&quot;, String.class, int.class);
-String[] paramNames = discoverer.getParameterNames(method);
-// 可能返回 [&quot;name&quot;, &quot;age&quot;] 或 null（若无法获取）
+<span class="hljs-comment">// 获取方法的参数名</span>
+<span class="hljs-type">Method</span> <span class="hljs-variable">method</span> <span class="hljs-operator">=</span> MyClass.class.getMethod(<span class="hljs-string">&quot;myMethod&quot;</span>, String.class, <span class="hljs-type">int</span>.class);
+<span class="hljs-type">String</span>[] <span class="hljs-variable">paramNames</span> <span class="hljs-operator">=</span> discoverer.getParameterNames(method);
+<span class="hljs-comment">// 可能返回 [&quot;name&quot;, &quot;age&quot;] 或 null（若无法获取）</span>
 
-// 获取构造函数的参数名
-Constructor&lt;?&gt; constructor = MyClass.class.getConstructor(String.class);
-String[] constructorParamNames = discoverer.getParameterNames(constructor);
-</code></pre>
+<span class="hljs-comment">// 获取构造函数的参数名</span>
+<span class="hljs-type">Constructor</span>&lt;?&gt; <span class="hljs-variable">constructor</span> <span class="hljs-operator">=</span> MyClass.class.getConstructor(String.class);
+<span class="hljs-type">String</span>[] <span class="hljs-variable">constructorParamNames</span> <span class="hljs-operator">=</span> discoverer.getParameterNames(constructor);
+</code></pre></div>
 <p><code>DefaultParameterNameDiscoverer</code>又继承<code>PrioritizedParameterNameDiscoverer</code>将<code>ParameterNameDiscoverer</code>的实现类添加至List中；</p>
-<pre><code class="language-java">public class DefaultParameterNameDiscoverer extends PrioritizedParameterNameDiscoverer {  
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DefaultParameterNameDiscoverer</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">PrioritizedParameterNameDiscoverer</span> {  
   
-    @SuppressWarnings(&quot;removal&quot;)  
-    public DefaultParameterNameDiscoverer() {  
-       if (KotlinDetector.isKotlinReflectPresent()) {  
-          addDiscoverer(new KotlinReflectionParameterNameDiscoverer());  
+    <span class="hljs-meta">@SuppressWarnings(&quot;removal&quot;)</span>  
+    <span class="hljs-type">public</span> <span class="hljs-title function_">DefaultParameterNameDiscoverer</span><span class="hljs-params">()</span> {  
+       <span class="hljs-keyword">if</span> (KotlinDetector.isKotlinReflectPresent()) {  
+          addDiscoverer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">KotlinReflectionParameterNameDiscoverer</span>());  
        }  
   
-       // Recommended approach on Java 8+: compilation with -parameters.  
-       addDiscoverer(new StandardReflectionParameterNameDiscoverer());  
+       <span class="hljs-comment">// Recommended approach on Java 8+: compilation with -parameters.  </span>
+       addDiscoverer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">StandardReflectionParameterNameDiscoverer</span>());  
   
-       // Deprecated fallback to class file parsing for -debug symbols.  
-       // Does not work on native images without class file resources.       if (!NativeDetector.inNativeImage()) {  
-          addDiscoverer(new LocalVariableTableParameterNameDiscoverer());  
+       <span class="hljs-comment">// Deprecated fallback to class file parsing for -debug symbols.  </span>
+       <span class="hljs-comment">// Does not work on native images without class file resources.       if (!NativeDetector.inNativeImage()) {  </span>
+          addDiscoverer(<span class="hljs-keyword">new</span> <span class="hljs-title class_">LocalVariableTableParameterNameDiscoverer</span>());  
        }  
     }  
   
 }
-</code></pre>
+</code></pre></div>
 <p><code>StandardReflectionParameterNameDiscoverer</code>用于获取方法参数的真实名称<br>
 基于<code>-parameters</code>参数</p>
-<pre><code class="language-java">public class StandardReflectionParameterNameDiscoverer implements ParameterNameDiscoverer {  
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">StandardReflectionParameterNameDiscoverer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ParameterNameDiscoverer</span> {  
   
-    @Override  
-    @Nullable    public String[] getParameterNames(Method method) {  
-       return getParameterNames(method.getParameters());  
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-meta">@Nullable</span>    <span class="hljs-keyword">public</span> <span class="hljs-type">String</span>[] <span class="hljs-title function_">getParameterNames</span><span class="hljs-params">(Method method)</span> {  
+       <span class="hljs-keyword">return</span> getParameterNames(method.getParameters());  
     }  
   
-    @Override  
-    @Nullable    public String[] getParameterNames(Constructor&lt;?&gt; ctor) {  
-       return getParameterNames(ctor.getParameters());  
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-meta">@Nullable</span>    <span class="hljs-keyword">public</span> <span class="hljs-type">String</span>[] <span class="hljs-title function_">getParameterNames</span><span class="hljs-params">(Constructor&lt;?&gt; ctor)</span> {  
+       <span class="hljs-keyword">return</span> getParameterNames(ctor.getParameters());  
     }  
   
-    @Nullable  
-    private String[] getParameterNames(Parameter[] parameters) {  
-       String[] parameterNames = new String[parameters.length];  
-       for (int i = 0; i &lt; parameters.length; i++) {  
-          Parameter param = parameters[i];  
-          if (!param.isNamePresent()) {  
-             return null;  
+    <span class="hljs-meta">@Nullable</span>  
+    <span class="hljs-keyword">private</span> <span class="hljs-type">String</span>[] <span class="hljs-title function_">getParameterNames</span><span class="hljs-params">(Parameter[] parameters)</span> {  
+       <span class="hljs-type">String</span>[] <span class="hljs-variable">parameterNames</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">String</span>[parameters.length];  
+       <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>; i &lt; parameters.length; i++) {  
+          <span class="hljs-type">Parameter</span> <span class="hljs-variable">param</span> <span class="hljs-operator">=</span> parameters[i];  
+          <span class="hljs-keyword">if</span> (!param.isNamePresent()) {  
+             <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;  
           }  
           parameterNames[i] = param.getName();  
        }  
-       return parameterNames;  
+       <span class="hljs-keyword">return</span> parameterNames;  
     }  
   
 }
-</code></pre>
-</article>
-    </main>
-  </body>
-</html>
+</code></pre></div>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

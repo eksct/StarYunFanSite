@@ -1,50 +1,25 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="@ConditionalOnProperty @ConditionalOnProperty 是 Spring Boot 提供的一个 条件化配置注解，用于根据 配置文件中的属性值 决定是否加载某个 Be">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="@ConditionalOnProperty · Seiga">
-    <meta property="og:description" content="@ConditionalOnProperty @ConditionalOnProperty 是 Spring Boot 提供的一个 条件化配置注解，用于根据 配置文件中的属性值 决定是否加载某个 Be">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnProperty.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnProperty.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>@ConditionalOnProperty · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"@ConditionalOnProperty","description":"@ConditionalOnProperty @ConditionalOnProperty 是 Spring Boot 提供的一个 条件化配置注解，用于根据 配置文件中的属性值 决定是否加载某个 Be","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnProperty.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>@ConditionalOnProperty</h1>
-        <p class="static-note-meta">Spring Boot · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnProperty.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>@ConditionalOnProperty</h1>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@ConditionalOnProperty · Seiga</title>
+<meta name="description" content="@ConditionalOnProperty 是 Spring Boot 提供的一个 条件化配置注解，用于根据 配置文件中的属性值 决定是否加载某个 Bean 或配置类。它常用于实现功能模块的动态启用">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="@ConditionalOnProperty · Seiga"><meta property="og:description" content="@ConditionalOnProperty 是 Spring Boot 提供的一个 条件化配置注解，用于根据 配置文件中的属性值 决定是否加载某个 Bean 或配置类。它常用于实现功能模块的动态启用">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnProperty.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnProperty.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"@ConditionalOnProperty","description":"@ConditionalOnProperty 是 Spring Boot 提供的一个 条件化配置注解，用于根据 配置文件中的属性值 决定是否加载某个 Bean 或配置类。它常用于实现功能模块的动态启用","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnProperty.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
+<h1>@ConditionalOnProperty</h1><p class="static-note-meta">Spring Boot · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnProperty.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#%E6%A0%B8%E5%BF%83%E4%BD%9C%E7%94%A8">核心作用</a></li><li><a href="#%E6%A0%B8%E5%BF%83%E5%B1%9E%E6%80%A7">核心属性</a></li><li><a href="#%E5%8C%B9%E9%85%8D%E9%80%BB%E8%BE%91">匹配逻辑</a></li><li><a href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">最佳实践</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="conditionalonproperty" class="article-title-anchor"></span>
 <p><code>@ConditionalOnProperty</code> 是 Spring Boot 提供的一个 <strong>条件化配置注解</strong>，用于根据 <strong>配置文件中的属性值</strong> 决定是否加载某个 Bean 或配置类。它常用于实现功能模块的动态启用/禁用，或根据环境差异灵活控制组件的初始化。</p>
-<h3>核心作用</h3>
+<h3 id="核心作用">核心作用</h3>
 <ul>
 <li>
 <p><strong>条件化加载</strong>：只有当配置文件中指定的属性满足条件时，才会创建被注解标记的 Bean 或配置类。</p>
@@ -56,8 +31,8 @@
 <p><strong>模块化控制</strong>：解耦代码与配置，避免硬编码条件逻辑。</p>
 </li>
 </ul>
-<h3>核心属性</h3>
-<table>
+<h3 id="核心属性">核心属性</h3>
+<div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0"><table>
 <thead>
 <tr>
 <th>属性名</th>
@@ -92,29 +67,29 @@
 <td></td>
 </tr>
 </tbody>
-</table>
-<pre><code class="language-java">若在application.properties中设置feature.cache.enabled=true时才会创建 `CacheService` Bean
-@Configuration
-@ConditionalOnProperty(name = &quot;feature.cache.enabled&quot;, havingValue = &quot;true&quot;)
-public class CacheConfig {
-    @Bean
-    public CacheService cacheService() {
-        return new RedisCacheService();
+</table></div>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java">若在application.properties中设置feature.cache.enabled=<span class="hljs-literal">true</span>时才会创建 `CacheService` Bean
+<span class="hljs-meta">@Configuration</span>
+<span class="hljs-meta">@ConditionalOnProperty(name = &quot;feature.cache.enabled&quot;, havingValue = &quot;true&quot;)</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CacheConfig</span> {
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">CacheService</span> <span class="hljs-title function_">cacheService</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RedisCacheService</span>();
     }
 }
-</code></pre>
-<pre><code class="language-java">@Bean
-@ConditionalOnProperty(
+</code></pre></div>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-meta">@Bean</span>
+<span class="hljs-meta">@ConditionalOnProperty(
     prefix = &quot;datasource&quot;,
     name = {&quot;url&quot;, &quot;username&quot;, &quot;password&quot;},
     matchIfMissing = false
-)
-public DataSource dataSource() {
-    // 仅当 datasource.url, datasource.username, datasource.password 均存在时初始化
+)</span>
+<span class="hljs-keyword">public</span> <span class="hljs-type">DataSource</span> <span class="hljs-title function_">dataSource</span><span class="hljs-params">()</span> {
+    <span class="hljs-comment">// 仅当 datasource.url, datasource.username, datasource.password 均存在时初始化</span>
 }
-</code></pre>
-<h3>匹配逻辑</h3>
-<table>
+</code></pre></div>
+<h3 id="匹配逻辑">匹配逻辑</h3>
+<div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0"><table>
 <thead>
 <tr>
 <th>条件类型</th>
@@ -147,8 +122,8 @@ public DataSource dataSource() {
 <td></td>
 </tr>
 </tbody>
-</table>
-<h3>最佳实践</h3>
+</table></div>
+<h3 id="最佳实践">最佳实践</h3>
 <ol>
 <li>
 <p><strong>明确属性命名规范</strong>：使用统一前缀（如 <code>feature.xxx</code>）提高可读性。</p>
@@ -163,7 +138,5 @@ public DataSource dataSource() {
 <p><strong>结合 <code>@ConfigurationProperties</code></strong>：与类型安全的配置类配合使用，减少硬编码。</p>
 </li>
 </ol>
-</article>
-    </main>
-  </body>
-</html>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

@@ -1,98 +1,73 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="05 选择结构 Java 中的选择结构用于根据条件执行不同的代码块。常见的选择结构包括 if、if-else、if-else if-else 和 switch 语句。选择结构是控制程序流程的重要工具，">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="05 选择结构 · Seiga">
-    <meta property="og:description" content="05 选择结构 Java 中的选择结构用于根据条件执行不同的代码块。常见的选择结构包括 if、if-else、if-else if-else 和 switch 语句。选择结构是控制程序流程的重要工具，">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/05%20%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/05%20%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>05 选择结构 · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"05 选择结构","description":"05 选择结构 Java 中的选择结构用于根据条件执行不同的代码块。常见的选择结构包括 if、if-else、if-else if-else 和 switch 语句。选择结构是控制程序流程的重要工具，","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/05%20%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>05 选择结构</h1>
-        <p class="static-note-meta">Java · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/05%20%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>05 选择结构</h1>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>05 选择结构 · Seiga</title>
+<meta name="description" content="Java 中的选择结构用于根据条件执行不同的代码块。常见的选择结构包括 if、if-else、if-else if-else 和 switch 语句。选择结构是控制程序流程的重要工具，合理使用可以提高">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="05 选择结构 · Seiga"><meta property="og:description" content="Java 中的选择结构用于根据条件执行不同的代码块。常见的选择结构包括 if、if-else、if-else if-else 和 switch 语句。选择结构是控制程序流程的重要工具，合理使用可以提高">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/05%20%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/05%20%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"05 选择结构","description":"Java 中的选择结构用于根据条件执行不同的代码块。常见的选择结构包括 if、if-else、if-else if-else 和 switch 语句。选择结构是控制程序流程的重要工具，合理使用可以提高","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/05%20%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
+<h1>05 选择结构</h1><p class="static-note-meta">Java · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/05%20%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#1-%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84%E7%9A%84%E7%B1%BB%E5%9E%8B">1. 选择结构的类型</a></li><li><a href="#1-if-%E8%AF%AD%E5%8F%A5">(1) if 语句</a></li><li><a href="#2-if-else-%E8%AF%AD%E5%8F%A5">(2) if-else 语句</a></li><li><a href="#3-if-else-if-else-%E8%AF%AD%E5%8F%A5">(3) if-else if-else 语句</a></li><li><a href="#4-switch-%E8%AF%AD%E5%8F%A5">(4) switch 语句</a></li><li><a href="#2-%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">2. 选择结构的最佳实践</a></li><li><a href="#1-%E4%BF%9D%E6%8C%81%E6%9D%A1%E4%BB%B6%E7%AE%80%E5%8D%95">(1) 保持条件简单</a></li><li><a href="#2-%E9%81%BF%E5%85%8D%E6%B7%B1%E5%B1%82%E5%B5%8C%E5%A5%97">(2) 避免深层嵌套</a></li><li><a href="#3-%E4%BD%BF%E7%94%A8-switch-%E6%9B%BF%E4%BB%A3%E5%A4%9A%E9%87%8D-if-else">(3) 使用 switch 替代多重 if-else</a></li><li><a href="#4-%E9%81%BF%E5%85%8D%E9%AD%94%E6%B3%95%E6%95%B0%E5%AD%97">(4) 避免魔法数字</a></li><li><a href="#5-%E4%BD%BF%E7%94%A8-optional-%E5%A4%84%E7%90%86%E7%A9%BA%E5%80%BC">(5) 使用 Optional 处理空值</a></li><li><a href="#6-%E4%BC%98%E5%85%88%E4%BD%BF%E7%94%A8%E6%97%A9%E8%BF%94%E5%9B%9Eearly-return">(6) 优先使用早返回（Early Return）</a></li><li><a href="#3-%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81">3. 示例代码</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="05-选择结构" class="article-title-anchor"></span>
 <p>Java 中的选择结构用于根据条件执行不同的代码块。常见的选择结构包括 <code>if</code>、<code>if-else</code>、<code>if-else if-else</code> 和 <code>switch</code> 语句。选择结构是控制程序流程的重要工具，合理使用可以提高代码的可读性和效率。</p>
-<h2>1. 选择结构的类型</h2>
-<h3>(1) <code>if</code> 语句</h3>
+<h2 id="1-选择结构的类型">1. 选择结构的类型</h2>
+<h3 id="1-if-语句">(1) <code>if</code> 语句</h3>
 <p><code>if</code> 语句用于判断一个条件，如果条件为 <code>true</code>，则执行对应的代码块。</p>
-<pre><code class="language-java">int num = 10;
-if (num &gt; 0) {
-    System.out.println(&quot;数字是正数&quot;);
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-type">int</span> <span class="hljs-variable">num</span> <span class="hljs-operator">=</span> <span class="hljs-number">10</span>;
+<span class="hljs-keyword">if</span> (num &gt; <span class="hljs-number">0</span>) {
+    System.out.println(<span class="hljs-string">&quot;数字是正数&quot;</span>);
 }
-</code></pre>
-<h3>(2) <code>if-else</code> 语句</h3>
+</code></pre></div>
+<h3 id="2-if-else-语句">(2) <code>if-else</code> 语句</h3>
 <p><code>if-else</code> 语句用于在条件为 <code>true</code> 时执行一个代码块，否则执行另一个代码块。</p>
-<pre><code class="language-java">int num = -5;
-if (num &gt; 0) {
-    System.out.println(&quot;数字是正数&quot;);
-} else {
-    System.out.println(&quot;数字是非正数&quot;);
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-type">int</span> <span class="hljs-variable">num</span> <span class="hljs-operator">=</span> -<span class="hljs-number">5</span>;
+<span class="hljs-keyword">if</span> (num &gt; <span class="hljs-number">0</span>) {
+    System.out.println(<span class="hljs-string">&quot;数字是正数&quot;</span>);
+} <span class="hljs-keyword">else</span> {
+    System.out.println(<span class="hljs-string">&quot;数字是非正数&quot;</span>);
 }
-</code></pre>
-<h3>(3) <code>if-else if-else</code> 语句</h3>
+</code></pre></div>
+<h3 id="3-if-else-if-else-语句">(3) <code>if-else if-else</code> 语句</h3>
 <p><code>if-else if-else</code> 语句用于处理多个条件，依次检查每个条件，直到找到第一个为 <code>true</code> 的条件。</p>
-<pre><code class="language-java">int score = 85;
-if (score &gt;= 90) {
-    System.out.println(&quot;成绩等级：A&quot;);
-} else if (score &gt;= 80) {
-    System.out.println(&quot;成绩等级：B&quot;);
-} else if (score &gt;= 70) {
-    System.out.println(&quot;成绩等级：C&quot;);
-} else {
-    System.out.println(&quot;成绩等级：D&quot;);
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-type">int</span> <span class="hljs-variable">score</span> <span class="hljs-operator">=</span> <span class="hljs-number">85</span>;
+<span class="hljs-keyword">if</span> (score &gt;= <span class="hljs-number">90</span>) {
+    System.out.println(<span class="hljs-string">&quot;成绩等级：A&quot;</span>);
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (score &gt;= <span class="hljs-number">80</span>) {
+    System.out.println(<span class="hljs-string">&quot;成绩等级：B&quot;</span>);
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (score &gt;= <span class="hljs-number">70</span>) {
+    System.out.println(<span class="hljs-string">&quot;成绩等级：C&quot;</span>);
+} <span class="hljs-keyword">else</span> {
+    System.out.println(<span class="hljs-string">&quot;成绩等级：D&quot;</span>);
 }
-</code></pre>
-<h3>(4) <code>switch</code> 语句</h3>
+</code></pre></div>
+<h3 id="4-switch-语句">(4) <code>switch</code> 语句</h3>
 <p><code>switch</code> 语句用于根据变量的值执行不同的代码块。它适用于多个固定值的条件判断。</p>
-<pre><code class="language-java">int day = 3;
-switch (day) {
-    case 1:
-        System.out.println(&quot;星期一&quot;);
-        break;
-    case 2:
-        System.out.println(&quot;星期二&quot;);
-        break;
-    case 3:
-        System.out.println(&quot;星期三&quot;);
-        break;
-    default:
-        System.out.println(&quot;无效的日期&quot;);
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-type">int</span> <span class="hljs-variable">day</span> <span class="hljs-operator">=</span> <span class="hljs-number">3</span>;
+<span class="hljs-keyword">switch</span> (day) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
+        System.out.println(<span class="hljs-string">&quot;星期一&quot;</span>);
+        <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:
+        System.out.println(<span class="hljs-string">&quot;星期二&quot;</span>);
+        <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:
+        System.out.println(<span class="hljs-string">&quot;星期三&quot;</span>);
+        <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">default</span>:
+        System.out.println(<span class="hljs-string">&quot;无效的日期&quot;</span>);
 }
-</code></pre>
-<h2>2. 选择结构的最佳实践</h2>
-<h3>(1) 保持条件简单</h3>
+</code></pre></div>
+<h2 id="2-选择结构的最佳实践">2. 选择结构的最佳实践</h2>
+<h3 id="1-保持条件简单">(1) 保持条件简单</h3>
 <ul>
 <li>
 <p>尽量将复杂的条件拆分为多个简单的条件，或者使用布尔变量来提高可读性。</p>
@@ -101,13 +76,13 @@ switch (day) {
 <p>例如：</p>
 </li>
 </ul>
-<pre><code class="language-java">boolean isPositive = num &gt; 0;
-boolean isEven = num % 2 == 0;
-if (isPositive &amp;&amp; isEven) {
-    System.out.println(&quot;数字是正偶数&quot;);
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-type">boolean</span> <span class="hljs-variable">isPositive</span> <span class="hljs-operator">=</span> num &gt; <span class="hljs-number">0</span>;
+<span class="hljs-type">boolean</span> <span class="hljs-variable">isEven</span> <span class="hljs-operator">=</span> num % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>;
+<span class="hljs-keyword">if</span> (isPositive &amp;&amp; isEven) {
+    System.out.println(<span class="hljs-string">&quot;数字是正偶数&quot;</span>);
 }
-</code></pre>
-<h3>(2) 避免深层嵌套</h3>
+</code></pre></div>
+<h3 id="2-避免深层嵌套">(2) 避免深层嵌套</h3>
 <ul>
 <li>
 <p>深层嵌套的 <code>if-else</code> 语句会降低代码的可读性。可以通过提前返回或使用卫语句（Guard Clauses）来减少嵌套。</p>
@@ -116,17 +91,17 @@ if (isPositive &amp;&amp; isEven) {
 <p>例如：</p>
 </li>
 </ul>
-<pre><code class="language-java">if (num &lt; 0) {
-    System.out.println(&quot;数字是负数&quot;);
-    return; // 提前返回
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">if</span> (num &lt; <span class="hljs-number">0</span>) {
+    System.out.println(<span class="hljs-string">&quot;数字是负数&quot;</span>);
+    <span class="hljs-keyword">return</span>; <span class="hljs-comment">// 提前返回</span>
 }
-if (num == 0) {
-    System.out.println(&quot;数字是零&quot;);
-    return; // 提前返回
+<span class="hljs-keyword">if</span> (num == <span class="hljs-number">0</span>) {
+    System.out.println(<span class="hljs-string">&quot;数字是零&quot;</span>);
+    <span class="hljs-keyword">return</span>; <span class="hljs-comment">// 提前返回</span>
 }
-System.out.println(&quot;数字是正数&quot;);
-</code></pre>
-<h3>(3) 使用 <code>switch</code> 替代多重 <code>if-else</code></h3>
+System.out.println(<span class="hljs-string">&quot;数字是正数&quot;</span>);
+</code></pre></div>
+<h3 id="3-使用-switch-替代多重-if-else">(3) 使用 <code>switch</code> 替代多重 <code>if-else</code></h3>
 <ul>
 <li>
 <p>当需要根据一个变量的多个固定值进行判断时，优先使用 <code>switch</code> 语句，而不是多重 <code>if-else</code>。</p>
@@ -135,31 +110,31 @@ System.out.println(&quot;数字是正数&quot;);
 <p>例如：</p>
 </li>
 </ul>
-<pre><code class="language-java">switch (day) {
-    case 1: System.out.println(&quot;星期一&quot;); break;
-    case 2: System.out.println(&quot;星期二&quot;); break;
-    // ...
-    default: System.out.println(&quot;无效的日期&quot;);
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">switch</span> (day) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>: System.out.println(<span class="hljs-string">&quot;星期一&quot;</span>); <span class="hljs-keyword">break</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>: System.out.println(<span class="hljs-string">&quot;星期二&quot;</span>); <span class="hljs-keyword">break</span>;
+    <span class="hljs-comment">// ...</span>
+    <span class="hljs-keyword">default</span>: System.out.println(<span class="hljs-string">&quot;无效的日期&quot;</span>);
 }
-</code></pre>
-<pre><code class="language-java">//java12+开始可以写成
-String dayType = switch (day) {
-    case 1, 2, 3, 4, 5 -&gt; &quot;工作日&quot;;
-    case 6, 7 -&gt; &quot;周末&quot;;
-    default -&gt; &quot;无效的日期&quot;;
+</code></pre></div>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-comment">//java12+开始可以写成</span>
+<span class="hljs-type">String</span> <span class="hljs-variable">dayType</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">switch</span> (day) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span> -&gt; <span class="hljs-string">&quot;工作日&quot;</span>;
+    <span class="hljs-keyword">case</span> <span class="hljs-number">6</span>, <span class="hljs-number">7</span> -&gt; <span class="hljs-string">&quot;周末&quot;</span>;
+    <span class="hljs-keyword">default</span> -&gt; <span class="hljs-string">&quot;无效的日期&quot;</span>;
 };
 System.out.println(dayType);
-</code></pre>
-<h3>(4) 避免魔法数字</h3>
+</code></pre></div>
+<h3 id="4-避免魔法数字">(4) 避免魔法数字</h3>
 <ul>
 <li>在条件判断中，避免直接使用魔法数字（Magic Numbers），应该使用常量或枚举来提高代码的可读性。</li>
 </ul>
-<pre><code class="language-java">final int MAX_SCORE = 100;
-if (score == MAX_SCORE) {
-    System.out.println(&quot;满分！&quot;);
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">MAX_SCORE</span> <span class="hljs-operator">=</span> <span class="hljs-number">100</span>;
+<span class="hljs-keyword">if</span> (score == MAX_SCORE) {
+    System.out.println(<span class="hljs-string">&quot;满分！&quot;</span>);
 }
-</code></pre>
-<h3>(5) 使用 <code>Optional</code> 处理空值</h3>
+</code></pre></div>
+<h3 id="5-使用-optional-处理空值">(5) 使用 <code>Optional</code> 处理空值</h3>
 <ul>
 <li>
 <p>在条件判断中，如果需要处理可能为 <code>null</code> 的值，可以使用 <code>Optional</code> 来避免空指针异常。</p>
@@ -168,14 +143,14 @@ if (score == MAX_SCORE) {
 <p>例如：</p>
 </li>
 </ul>
-<pre><code class="language-java">Optional&lt;String&gt; name = Optional.ofNullable(getName());
-if (name.isPresent()) {
-    System.out.println(&quot;名字是: &quot; + name.get());
-} else {
-    System.out.println(&quot;名字为空&quot;);
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-type">Optional</span>&lt;String&gt; <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> Optional.ofNullable(getName());
+<span class="hljs-keyword">if</span> (name.isPresent()) {
+    System.out.println(<span class="hljs-string">&quot;名字是: &quot;</span> + name.get());
+} <span class="hljs-keyword">else</span> {
+    System.out.println(<span class="hljs-string">&quot;名字为空&quot;</span>);
 }
-</code></pre>
-<h3>(6) 优先使用早返回（Early Return）</h3>
+</code></pre></div>
+<h3 id="6-优先使用早返回early-return">(6) 优先使用早返回（Early Return）</h3>
 <ul>
 <li>
 <p>在方法中，如果某些条件不满足，可以尽早返回，避免不必要的嵌套。</p>
@@ -184,50 +159,48 @@ if (name.isPresent()) {
 <p>例如：</p>
 </li>
 </ul>
-<pre><code class="language-java">public void process(int num) {
-    if (num &lt; 0) {
-        return; // 早返回
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">process</span><span class="hljs-params">(<span class="hljs-type">int</span> num)</span> {
+    <span class="hljs-keyword">if</span> (num &lt; <span class="hljs-number">0</span>) {
+        <span class="hljs-keyword">return</span>; <span class="hljs-comment">// 早返回</span>
     }
-    // 正常逻辑
-    System.out.println(&quot;处理数字: &quot; + num);
+    <span class="hljs-comment">// 正常逻辑</span>
+    System.out.println(<span class="hljs-string">&quot;处理数字: &quot;</span> + num);
 }
-</code></pre>
-<h2>3. 示例代码</h2>
-<pre><code class="language-java">public class SelectionExample {
-    public static void main(String[] args) {
-        int score = 85;
-        String grade = getGrade(score);
-        System.out.println(&quot;成绩等级: &quot; + grade);
+</code></pre></div>
+<h2 id="3-示例代码">3. 示例代码</h2>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SelectionExample</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        <span class="hljs-type">int</span> <span class="hljs-variable">score</span> <span class="hljs-operator">=</span> <span class="hljs-number">85</span>;
+        <span class="hljs-type">String</span> <span class="hljs-variable">grade</span> <span class="hljs-operator">=</span> getGrade(score);
+        System.out.println(<span class="hljs-string">&quot;成绩等级: &quot;</span> + grade);
 
-        int day = 3;
-        String dayType = getDayType(day);
-        System.out.println(&quot;日期类型: &quot; + dayType);
+        <span class="hljs-type">int</span> <span class="hljs-variable">day</span> <span class="hljs-operator">=</span> <span class="hljs-number">3</span>;
+        <span class="hljs-type">String</span> <span class="hljs-variable">dayType</span> <span class="hljs-operator">=</span> getDayType(day);
+        System.out.println(<span class="hljs-string">&quot;日期类型: &quot;</span> + dayType);
     }
 
-    // 使用 if-else if-else 判断成绩等级
-    public static String getGrade(int score) {
-        if (score &gt;= 90) {
-            return &quot;A&quot;;
-        } else if (score &gt;= 80) {
-            return &quot;B&quot;;
-        } else if (score &gt;= 70) {
-            return &quot;C&quot;;
-        } else {
-            return &quot;D&quot;;
+    <span class="hljs-comment">// 使用 if-else if-else 判断成绩等级</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">String</span> <span class="hljs-title function_">getGrade</span><span class="hljs-params">(<span class="hljs-type">int</span> score)</span> {
+        <span class="hljs-keyword">if</span> (score &gt;= <span class="hljs-number">90</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;A&quot;</span>;
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (score &gt;= <span class="hljs-number">80</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;B&quot;</span>;
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (score &gt;= <span class="hljs-number">70</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;C&quot;</span>;
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;D&quot;</span>;
         }
     }
 
-    // 使用 switch 表达式判断日期类型
-    public static String getDayType(int day) {
-        return switch (day) {
-            case 1, 2, 3, 4, 5 -&gt; &quot;工作日&quot;;
-            case 6, 7 -&gt; &quot;周末&quot;;
-            default -&gt; &quot;无效的日期&quot;;
+    <span class="hljs-comment">// 使用 switch 表达式判断日期类型</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">String</span> <span class="hljs-title function_">getDayType</span><span class="hljs-params">(<span class="hljs-type">int</span> day)</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">switch</span> (day) {
+            <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span> -&gt; <span class="hljs-string">&quot;工作日&quot;</span>;
+            <span class="hljs-keyword">case</span> <span class="hljs-number">6</span>, <span class="hljs-number">7</span> -&gt; <span class="hljs-string">&quot;周末&quot;</span>;
+            <span class="hljs-keyword">default</span> -&gt; <span class="hljs-string">&quot;无效的日期&quot;</span>;
         };
     }
 }
-</code></pre>
-</article>
-    </main>
-  </body>
-</html>
+</code></pre></div>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

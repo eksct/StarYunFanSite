@@ -1,65 +1,40 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MethodHandle 1. 基本概念： MethodHandle 是对方法的抽象引用，类似于函数指针或方法引用，但它能够直接与 JVM 紧密交互，避免了反射机制中的性能损耗。使用 MethodHa">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="MethodHandle · Seiga">
-    <meta property="og:description" content="MethodHandle 1. 基本概念： MethodHandle 是对方法的抽象引用，类似于函数指针或方法引用，但它能够直接与 JVM 紧密交互，避免了反射机制中的性能损耗。使用 MethodHa">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E5%85%B6%E4%BB%96%E7%B1%BB/MethodHandle.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E5%85%B6%E4%BB%96%E7%B1%BB/MethodHandle.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>MethodHandle · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"MethodHandle","description":"MethodHandle 1. 基本概念： MethodHandle 是对方法的抽象引用，类似于函数指针或方法引用，但它能够直接与 JVM 紧密交互，避免了反射机制中的性能损耗。使用 MethodHa","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E5%85%B6%E4%BB%96%E7%B1%BB/MethodHandle.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>MethodHandle</h1>
-        <p class="static-note-meta">Java · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E5%85%B6%E4%BB%96%E7%B1%BB/MethodHandle.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>MethodHandle</h1>
-<h4>1. 基本概念：</h4>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MethodHandle · Seiga</title>
+<meta name="description" content="1. 基本概念： MethodHandle 是对方法的抽象引用，类似于函数指针或方法引用，但它能够直接与 JVM 紧密交互，避免了反射机制中的性能损耗。使用 MethodHandle 时，方法的调用并">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="MethodHandle · Seiga"><meta property="og:description" content="1. 基本概念： MethodHandle 是对方法的抽象引用，类似于函数指针或方法引用，但它能够直接与 JVM 紧密交互，避免了反射机制中的性能损耗。使用 MethodHandle 时，方法的调用并">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E5%85%B6%E4%BB%96%E7%B1%BB/MethodHandle.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E5%85%B6%E4%BB%96%E7%B1%BB/MethodHandle.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"MethodHandle","description":"1. 基本概念： MethodHandle 是对方法的抽象引用，类似于函数指针或方法引用，但它能够直接与 JVM 紧密交互，避免了反射机制中的性能损耗。使用 MethodHandle 时，方法的调用并","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E5%85%B6%E4%BB%96%E7%B1%BB/MethodHandle.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
+<h1>MethodHandle</h1><p class="static-note-meta">Java · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E5%85%B6%E4%BB%96%E7%B1%BB/MethodHandle.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#methodhandle-%E7%9A%84%E4%BD%BF%E7%94%A8">MethodHandle 的使用：</a></li><li><a href="#%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95%E5%92%8C%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">高级用法和最佳实践</a></li><li><a href="#%E6%80%BB%E7%BB%93">总结：</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="methodhandle" class="article-title-anchor"></span>
+<h4 id="1-基本概念">1. 基本概念：</h4>
 <p><code>MethodHandle</code> 是对方法的抽象引用，类似于函数指针或方法引用，但它能够直接与 JVM 紧密交互，避免了反射机制中的性能损耗。使用 <code>MethodHandle</code> 时，方法的调用并不通过反射机制的动态代理，而是通过 JVM 提供的内存操作进行调用。</p>
-<h4>2. 优势：</h4>
+<h4 id="2-优势">2. 优势：</h4>
 <ul>
 <li><strong>性能：</strong> <code>MethodHandle</code> 能比传统反射机制更高效，因为它直接与 JVM 的执行引擎交互，不需要进行类型转换和调用方法查找。</li>
 <li><strong>灵活性：</strong> <code>MethodHandle</code> 可以表示类的方法、构造器、字段、静态方法等，支持更多种类型的操作。</li>
 <li><strong>动态调用：</strong> 可以根据运行时的条件动态选择和调用不同的方法。</li>
 </ul>
-<h4>3. 如何使用：</h4>
+<h4 id="3-如何使用">3. 如何使用：</h4>
 <p><code>MethodHandle</code> 是通过 <code>MethodHandles</code> 类的静态方法来获取的，通常与 <code>MethodType</code> 配合使用来描述方法的签名（即方法的参数和返回值类型）。</p>
-<h4>4. 重要类和方法：</h4>
+<h4 id="4-重要类和方法">4. 重要类和方法：</h4>
 <ul>
 <li><code>MethodHandles.Lookup</code>：用于查找类中的方法。</li>
 <li><code>MethodHandles</code>：提供了一些静态方法，用于创建 <code>MethodHandle</code>。</li>
 <li><code>MethodType</code>：表示方法的签名（方法的返回类型和参数类型）。</li>
 </ul>
-<h4>5. 创建和使用 <code>MethodHandle</code>：</h4>
+<h4 id="5-创建和使用-methodhandle">5. 创建和使用 <code>MethodHandle</code>：</h4>
 <ol>
 <li><strong><code>MethodHandles.Lookup</code>：</strong> 用于查找方法句柄（即 <code>MethodHandle</code> 对象）。</li>
 <li><strong><code>MethodType</code>：</strong> 用于描述方法的签名。</li>
@@ -67,81 +42,79 @@
 <li><strong><code>findStatic</code>：</strong> 查找静态方法。</li>
 <li><strong><code>findConstructor</code>：</strong> 查找构造器。</li>
 </ol>
-<h3><code>MethodHandle</code> 的使用：</h3>
+<h3 id="methodhandle-的使用"><code>MethodHandle</code> 的使用：</h3>
 <ul>
 <li><code>MethodHandle</code> 可以通过 <code>MethodHandles.lookup()</code> 来获取。</li>
 <li>一旦创建了 <code>MethodHandle</code> 对象，就可以通过 <code>invoke()</code> 或 <code>invokeExact()</code> 方法来调用方法。<br>
 **示例代码（基础使用）：</li>
 </ul>
-<pre><code class="language-java">import java.lang.invoke.MethodHandle;
-import java.lang.invoke.MethodHandles;
-import java.lang.invoke.MethodType;
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">import</span> java.lang.invoke.MethodHandle;
+<span class="hljs-keyword">import</span> java.lang.invoke.MethodHandles;
+<span class="hljs-keyword">import</span> java.lang.invoke.MethodType;
 
-public class MethodHandleExample {
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MethodHandleExample</span> {
 
-    public static void main(String[] args) throws Throwable {
-        // 获取 MethodHandle
-        MethodHandles.Lookup lookup = MethodHandles.lookup();
-        MethodType methodType = MethodType.methodType(void.class, String.class);
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Throwable {
+        <span class="hljs-comment">// 获取 MethodHandle</span>
+        MethodHandles.<span class="hljs-type">Lookup</span> <span class="hljs-variable">lookup</span> <span class="hljs-operator">=</span> MethodHandles.lookup();
+        <span class="hljs-type">MethodType</span> <span class="hljs-variable">methodType</span> <span class="hljs-operator">=</span> MethodType.methodType(<span class="hljs-keyword">void</span>.class, String.class);
         
-        // 查找实例方法
-        MethodHandle methodHandle = lookup.findVirtual(MethodHandleExample.class, &quot;printMessage&quot;, methodType);
+        <span class="hljs-comment">// 查找实例方法</span>
+        <span class="hljs-type">MethodHandle</span> <span class="hljs-variable">methodHandle</span> <span class="hljs-operator">=</span> lookup.findVirtual(MethodHandleExample.class, <span class="hljs-string">&quot;printMessage&quot;</span>, methodType);
 
-        // 创建对象并调用方法
-        MethodHandleExample example = new MethodHandleExample();
-        methodHandle.invoke(example, &quot;Hello, MethodHandle!&quot;);
+        <span class="hljs-comment">// 创建对象并调用方法</span>
+        <span class="hljs-type">MethodHandleExample</span> <span class="hljs-variable">example</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">MethodHandleExample</span>();
+        methodHandle.invoke(example, <span class="hljs-string">&quot;Hello, MethodHandle!&quot;</span>);
     }
 
-    public void printMessage(String message) {
+    <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">printMessage</span><span class="hljs-params">(String message)</span> {
         System.out.println(message);
     }
 }
 
-</code></pre>
-<h3>高级用法和最佳实践</h3>
-<h4>1. 方法重载支持：</h4>
+</code></pre></div>
+<h3 id="高级用法和最佳实践">高级用法和最佳实践</h3>
+<h4 id="1-方法重载支持">1. 方法重载支持：</h4>
 <p>通过 <code>MethodType</code> 可以支持方法重载，因为它包含了方法的参数类型和返回值类型。</p>
-<pre><code class="language-java">MethodType methodType1 = MethodType.methodType(void.class, String.class);
-MethodHandle methodHandle1 = lookup.findVirtual(MethodHandleExample.class, &quot;printMessage&quot;, methodType1);
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-type">MethodType</span> <span class="hljs-variable">methodType1</span> <span class="hljs-operator">=</span> MethodType.methodType(<span class="hljs-keyword">void</span>.class, String.class);
+<span class="hljs-type">MethodHandle</span> <span class="hljs-variable">methodHandle1</span> <span class="hljs-operator">=</span> lookup.findVirtual(MethodHandleExample.class, <span class="hljs-string">&quot;printMessage&quot;</span>, methodType1);
 
-MethodType methodType2 = MethodType.methodType(void.class, int.class);
-MethodHandle methodHandle2 = lookup.findVirtual(MethodHandleExample.class, &quot;printMessage&quot;, methodType2);
+<span class="hljs-type">MethodType</span> <span class="hljs-variable">methodType2</span> <span class="hljs-operator">=</span> MethodType.methodType(<span class="hljs-keyword">void</span>.class, <span class="hljs-type">int</span>.class);
+<span class="hljs-type">MethodHandle</span> <span class="hljs-variable">methodHandle2</span> <span class="hljs-operator">=</span> lookup.findVirtual(MethodHandleExample.class, <span class="hljs-string">&quot;printMessage&quot;</span>, methodType2);
 
-methodHandle1.invoke(example, &quot;Hello&quot;);
-methodHandle2.invoke(example, 42);
+methodHandle1.invoke(example, <span class="hljs-string">&quot;Hello&quot;</span>);
+methodHandle2.invoke(example, <span class="hljs-number">42</span>);
 
-</code></pre>
-<h4>2. 调用静态方法：</h4>
+</code></pre></div>
+<h4 id="2-调用静态方法">2. 调用静态方法：</h4>
 <p>静态方法可以通过 <code>findStatic</code> 查找。</p>
-<pre><code class="language-java">MethodType methodType = MethodType.methodType(void.class);
-MethodHandle methodHandle = lookup.findStatic(MethodHandleExample.class, &quot;staticMethod&quot;, methodType);
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-type">MethodType</span> <span class="hljs-variable">methodType</span> <span class="hljs-operator">=</span> MethodType.methodType(<span class="hljs-keyword">void</span>.class);
+<span class="hljs-type">MethodHandle</span> <span class="hljs-variable">methodHandle</span> <span class="hljs-operator">=</span> lookup.findStatic(MethodHandleExample.class, <span class="hljs-string">&quot;staticMethod&quot;</span>, methodType);
 methodHandle.invoke();
-</code></pre>
-<h4>3. 方法引用：</h4>
+</code></pre></div>
+<h4 id="3-方法引用">3. 方法引用：</h4>
 <p><code>MethodHandle</code> 也可以用于方法引用，通过 <code>bindTo</code> 可以将方法句柄绑定到特定对象上。</p>
-<pre><code class="language-java">MethodHandle methodHandle = lookup.findVirtual(MethodHandleExample.class, &quot;printMessage&quot;, methodType);
-MethodHandle boundMethodHandle = methodHandle.bindTo(example);  // 绑定到特定实例
-boundMethodHandle.invoke(&quot;Hello, bound method!&quot;);
-</code></pre>
-<h4>4. 使用 <code>invokeExact</code> 提高性能：</h4>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-type">MethodHandle</span> <span class="hljs-variable">methodHandle</span> <span class="hljs-operator">=</span> lookup.findVirtual(MethodHandleExample.class, <span class="hljs-string">&quot;printMessage&quot;</span>, methodType);
+<span class="hljs-type">MethodHandle</span> <span class="hljs-variable">boundMethodHandle</span> <span class="hljs-operator">=</span> methodHandle.bindTo(example);  <span class="hljs-comment">// 绑定到特定实例</span>
+boundMethodHandle.invoke(<span class="hljs-string">&quot;Hello, bound method!&quot;</span>);
+</code></pre></div>
+<h4 id="4-使用-invokeexact-提高性能">4. 使用 <code>invokeExact</code> 提高性能：</h4>
 <p><code>invokeExact</code> 是 <code>invoke</code> 的一种精确版本，它要求传入的参数类型严格匹配。如果参数不匹配，会抛出异常。与 <code>invoke</code> 不同，<code>invokeExact</code> 不进行参数转换，因此性能更高。</p>
-<pre><code class="language-java">methodHandle.invokeExact(example, &quot;Exact invocation&quot;);  // 性能更高
-</code></pre>
-<h4>5. 优化和性能：</h4>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java">methodHandle.invokeExact(example, <span class="hljs-string">&quot;Exact invocation&quot;</span>);  <span class="hljs-comment">// 性能更高</span>
+</code></pre></div>
+<h4 id="5-优化和性能">5. 优化和性能：</h4>
 <ul>
 <li><strong>避免反射中的额外检查</strong>： <code>MethodHandle</code> 在调用时比反射更加直接，不需要进行参数类型检查和方法查找。</li>
 <li><strong>缓存 <code>MethodHandle</code> 对象</strong>：为了避免每次调用时都重新查找 <code>MethodHandle</code>，可以将 <code>MethodHandle</code> 对象缓存起来，提升性能。</li>
 </ul>
-<h4>6. 动态代理：</h4>
+<h4 id="6-动态代理">6. 动态代理：</h4>
 <p><code>MethodHandle</code> 可以用于动态代理技术，例如使用 <code>Proxy</code> 类和 <code>MethodHandle</code> 来实现代理，避免反射的性能问题。</p>
-<h3>总结：</h3>
+<h3 id="总结">总结：</h3>
 <ul>
 <li><code>MethodHandle</code> 提供了一种高效、灵活的方式来动态调用方法，避免了传统反射的性能瓶颈。</li>
 <li>它支持方法、构造器、字段等的动态调用，并允许进行更低级别的操作。</li>
 <li>在高性能应用中，<code>MethodHandle</code> 是一种优于反射的解决方案，尤其是在需要频繁调用方法时。</li>
 <li>通过 <code>MethodHandles.Lookup</code> 查找方法，使用 <code>MethodType</code> 来描述方法签名，以及使用 <code>invokeExact</code> 提高性能是最佳实践。</li>
 </ul>
-</article>
-    </main>
-  </body>
-</html>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

@@ -1,80 +1,53 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="@val 由Lombok提供，类似于c++中的auto关键字，自动推断字段类型，不过只能在局部变量使用 示例： 注意：由于val在Lombok中是一个实际的类，所以要导入才可使用。 使用了val的局部">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="@Val And @Var · Seiga">
-    <meta property="og:description" content="@val 由Lombok提供，类似于c++中的auto关键字，自动推断字段类型，不过只能在局部变量使用 示例： 注意：由于val在Lombok中是一个实际的类，所以要导入才可使用。 使用了val的局部">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40Val%20And%20%40Var.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40Val%20And%20%40Var.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>@Val And @Var · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"@Val And @Var","description":"@val 由Lombok提供，类似于c++中的auto关键字，自动推断字段类型，不过只能在局部变量使用 示例： 注意：由于val在Lombok中是一个实际的类，所以要导入才可使用。 使用了val的局部","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40Val%20And%20%40Var.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>@Val And @Var</h1>
-        <p class="static-note-meta">Java · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40Val%20And%20%40Var.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>@val</h1>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@Val And @Var · Seiga</title>
+<meta name="description" content="由Lombok提供，类似于c++中的auto关键字，自动推断字段类型，不过只能在局部变量使用 示例： 注意：由于val在Lombok中是一个实际的类，所以要导入才可使用。 使用了val的局部变量，会自">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="@Val And @Var · Seiga"><meta property="og:description" content="由Lombok提供，类似于c++中的auto关键字，自动推断字段类型，不过只能在局部变量使用 示例： 注意：由于val在Lombok中是一个实际的类，所以要导入才可使用。 使用了val的局部变量，会自">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40Val%20And%20%40Var.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40Val%20And%20%40Var.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"@Val And @Var","description":"由Lombok提供，类似于c++中的auto关键字，自动推断字段类型，不过只能在局部变量使用 示例： 注意：由于val在Lombok中是一个实际的类，所以要导入才可使用。 使用了val的局部变量，会自","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40Val%20And%20%40Var.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
+<h1>@Val And @Var</h1><p class="static-note-meta">Java · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40Val%20And%20%40Var.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#var">@var</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="val" class="article-title-anchor"></span>
 <p>由Lombok提供，类似于c++中的auto关键字，自动推断字段类型，不过只能在局部变量使用<br>
 示例：</p>
-<pre><code class="language-java">import java.util.ArrayList;
-import java.util.HashMap;
-import lombok.val;
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">import</span> java.util.ArrayList;
+<span class="hljs-keyword">import</span> java.util.HashMap;
+<span class="hljs-keyword">import</span> lombok.val;
 
-public class ValExample {
-  public String example() {
-    val example = new ArrayList&lt;String&gt;();
-    example.add(&quot;Hello, World!&quot;);
-    val foo = example.get(0);
-    return foo.toLowerCase();
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ValExample</span> {
+  <span class="hljs-keyword">public</span> <span class="hljs-type">String</span> <span class="hljs-title function_">example</span><span class="hljs-params">()</span> {
+    <span class="hljs-type">val</span> <span class="hljs-variable">example</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;String&gt;();
+    example.add(<span class="hljs-string">&quot;Hello, World!&quot;</span>);
+    <span class="hljs-type">val</span> <span class="hljs-variable">foo</span> <span class="hljs-operator">=</span> example.get(<span class="hljs-number">0</span>);
+    <span class="hljs-keyword">return</span> foo.toLowerCase();
   }
   
-  public void example2() {
-    val map = new HashMap&lt;Integer, String&gt;();
-    map.put(0, &quot;zero&quot;);
-    map.put(5, &quot;five&quot;);
-    for (val entry : map.entrySet()) {
-      System.out.printf(&quot;%d: %s\n&quot;, entry.getKey(), entry.getValue());
+  <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">example2</span><span class="hljs-params">()</span> {
+    <span class="hljs-type">val</span> <span class="hljs-variable">map</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;Integer, String&gt;();
+    map.put(<span class="hljs-number">0</span>, <span class="hljs-string">&quot;zero&quot;</span>);
+    map.put(<span class="hljs-number">5</span>, <span class="hljs-string">&quot;five&quot;</span>);
+    <span class="hljs-keyword">for</span> (val entry : map.entrySet()) {
+      System.out.printf(<span class="hljs-string">&quot;%d: %s\n&quot;</span>, entry.getKey(), entry.getValue());
     }
   }
 }
-</code></pre>
+</code></pre></div>
 <p>注意：由于val在Lombok中是一个实际的类，所以要导入才可使用。<br>
 使用了val的局部变量，会自动推导实际类型，并添加final修饰<br>
 对于引用类型，val会推断出父类作为数据类型<br>
 为<code>null</code>时，推断Object</p>
-<h1>@var</h1>
+<h2 id="var">@var</h2>
 <p>是 Lombok 提供的注解，用于自动推断局部变量的类型<br>
 @var于@val类似，但是不添加final修饰</p>
-</article>
-    </main>
-  </body>
-</html>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

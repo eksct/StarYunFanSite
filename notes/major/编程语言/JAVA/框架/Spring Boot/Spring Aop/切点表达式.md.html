@@ -1,55 +1,30 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="切点表达式 Spring 的 AOP 中的一个核心概念是切点（Pointcut），切点表达式定义通知（Advice）执行的范围。它基于 AspectJ 的切点表达式语言，允许开发者通过方法签名、包名、">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="切点表达式 · Seiga">
-    <meta property="og:description" content="切点表达式 Spring 的 AOP 中的一个核心概念是切点（Pointcut），切点表达式定义通知（Advice）执行的范围。它基于 AspectJ 的切点表达式语言，允许开发者通过方法签名、包名、">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Aop/%E5%88%87%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Aop/%E5%88%87%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>切点表达式 · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"切点表达式","description":"切点表达式 Spring 的 AOP 中的一个核心概念是切点（Pointcut），切点表达式定义通知（Advice）执行的范围。它基于 AspectJ 的切点表达式语言，允许开发者通过方法签名、包名、","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Aop/%E5%88%87%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>切点表达式</h1>
-        <p class="static-note-meta">Spring Boot · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Aop/%E5%88%87%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>切点表达式</h1>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>切点表达式 · Seiga</title>
+<meta name="description" content="Spring 的 AOP 中的一个核心概念是切点（Pointcut），切点表达式定义通知（Advice）执行的范围。它基于 AspectJ 的切点表达式语言，允许开发者通过方法签名、包名、类名等条件精">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="切点表达式 · Seiga"><meta property="og:description" content="Spring 的 AOP 中的一个核心概念是切点（Pointcut），切点表达式定义通知（Advice）执行的范围。它基于 AspectJ 的切点表达式语言，允许开发者通过方法签名、包名、类名等条件精">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Aop/%E5%88%87%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Aop/%E5%88%87%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"切点表达式","description":"Spring 的 AOP 中的一个核心概念是切点（Pointcut），切点表达式定义通知（Advice）执行的范围。它基于 AspectJ 的切点表达式语言，允许开发者通过方法签名、包名、类名等条件精","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Aop/%E5%88%87%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
+<h1>切点表达式</h1><p class="static-note-meta">Spring Boot · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Aop/%E5%88%87%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#1-%E5%88%87%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95">1. 切点表达式的基本语法</a></li><li><a href="#2-%E5%B8%B8%E7%94%A8%E7%9A%84%E5%88%87%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F">2. 常用的切点表达式</a></li><li><a href="#21-%E6%8B%A6%E6%88%AA%E6%8C%87%E5%AE%9A%E5%8C%85%E4%B8%8B%E7%9A%84%E6%89%80%E6%9C%89%E6%96%B9%E6%B3%95">2.1 拦截指定包下的所有方法</a></li><li><a href="#22-%E6%8B%A6%E6%88%AA%E6%8C%87%E5%AE%9A%E7%B1%BB%E4%B8%8B%E7%9A%84%E6%89%80%E6%9C%89%E6%96%B9%E6%B3%95">2.2 拦截指定类下的所有方法</a></li><li><a href="#23-%E6%8B%A6%E6%88%AA%E6%8C%87%E5%AE%9A%E6%96%B9%E6%B3%95">2.3 拦截指定方法</a></li><li><a href="#24-%E6%8B%A6%E6%88%AA%E6%8C%87%E5%AE%9A%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%96%B9%E6%B3%95">2.4 拦截指定参数类型的方法</a></li><li><a href="#25-%E6%8B%A6%E6%88%AA%E5%85%AC%E5%85%B1%E6%96%B9%E6%B3%95">2.5 拦截公共方法</a></li><li><a href="#26-%E6%8B%A6%E6%88%AA%E8%BF%94%E5%9B%9E%E7%B1%BB%E5%9E%8B%E4%B8%BA-void-%E7%9A%84%E6%96%B9%E6%B3%95">2.6 拦截返回类型为 void 的方法</a></li><li><a href="#3-%E5%88%87%E7%82%B9%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E5%85%B6%E4%BB%96%E7%94%A8%E6%B3%95">3. 切点表达式的其他用法</a></li><li><a href="#31-%E4%BD%BF%E7%94%A8-withinwithin">3.1 使用 within、@within</a></li><li><a href="#32-%E4%BD%BF%E7%94%A8-this--targettarget">3.2 使用 this 、 target、@target</a></li><li><a href="#33-%E4%BD%BF%E7%94%A8-argsargs">3.3 使用 args、@args</a></li><li><a href="#34-%E4%BD%BF%E7%94%A8-annotation">3.4 使用 @annotation</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="切点表达式" class="article-title-anchor"></span>
 <p>Spring 的 AOP 中的一个核心概念是切点（Pointcut），切点表达式定义通知（Advice）执行的范围。它基于 AspectJ 的切点表达式语言，允许开发者通过方法签名、包名、类名等条件精确地指定目标方法.<br>
 可以使用通配符<br>
 <strong>注意：切点表达式纵使匹配对象不一，但最后匹配的都是方法。</strong></p>
-<h2>1. 切点表达式的基本语法</h2>
+<h2 id="1-切点表达式的基本语法">1. 切点表达式的基本语法</h2>
 <p>切点表达式的通用语法如下：</p>
-<pre><code class="language-java">execution(修饰符 返回类型 包名.类名.方法名(参数类型)
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java">execution(修饰符 返回类型 包名.类名.方法名(参数类型)
+</code></pre></div>
 <ul>
 <li>
 <p><strong>修饰符</strong>：可选，如 <code>public</code>、<code>private</code> 等。</p>
@@ -70,10 +45,10 @@
 <p><strong>参数类型</strong>：方法的参数类型，如 <code>(String, int)</code>。</p>
 </li>
 </ul>
-<h2>2. 常用的切点表达式</h2>
-<h3>2.1 拦截指定包下的所有方法</h3>
-<pre><code class="language-java">execution(* com.example.service.*.*(..))
-</code></pre>
+<h2 id="2-常用的切点表达式">2. 常用的切点表达式</h2>
+<h3 id="21-拦截指定包下的所有方法">2.1 拦截指定包下的所有方法</h3>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java">execution(* com.example.service.*.*(..))
+</code></pre></div>
 <ul>
 <li>
 <p><code>*</code>：匹配任意返回类型。</p>
@@ -88,48 +63,48 @@
 <p><code>(..)</code>：匹配任意参数。</p>
 </li>
 </ul>
-<h3>2.2 拦截指定类下的所有方法</h3>
-<pre><code class="language-java">execution(* com.example.service.UserService.*(..))
-</code></pre>
+<h3 id="22-拦截指定类下的所有方法">2.2 拦截指定类下的所有方法</h3>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java">execution(* com.example.service.UserService.*(..))
+</code></pre></div>
 <ul>
 <li><code>UserService</code>：匹配 <code>UserService</code> 类中的所有方法。</li>
 </ul>
-<h3>2.3 拦截指定方法</h3>
-<pre><code class="language-java">execution(* com.example.service.UserService.getUser(..))
+<h3 id="23-拦截指定方法">2.3 拦截指定方法</h3>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java">execution(* com.example.service.UserService.getUser(..))
 
-</code></pre>
+</code></pre></div>
 <ul>
 <li><code>getUser</code>：匹配 <code>UserService</code> 类中的 <code>getUser</code> 方法。</li>
 </ul>
-<h3>2.4 拦截指定参数类型的方法</h3>
-<pre><code class="language-java">execution(* com.example.service.UserService.getUser(String, int))
+<h3 id="24-拦截指定参数类型的方法">2.4 拦截指定参数类型的方法</h3>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java">execution(* com.example.service.UserService.getUser(String, <span class="hljs-type">int</span>))
 
-</code></pre>
+</code></pre></div>
 <ul>
 <li><code>(String, int)</code>：匹配参数为 <code>String</code> 和 <code>int</code> 类型的 <code>getUser</code> 方法。</li>
 </ul>
-<h3>2.5 拦截公共方法</h3>
-<pre><code class="language-java">execution(public * com.example.service.*.*(..))
-</code></pre>
+<h3 id="25-拦截公共方法">2.5 拦截公共方法</h3>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java">execution(<span class="hljs-keyword">public</span> * com.example.service.*.*(..))
+</code></pre></div>
 <ul>
 <li><code>public</code>：匹配所有公共方法。</li>
 </ul>
-<h3>2.6 拦截返回类型为 <code>void</code> 的方法</h3>
-<pre><code class="language-java">execution(void com.example.service.*.*(..))
-</code></pre>
+<h3 id="26-拦截返回类型为-void-的方法">2.6 拦截返回类型为 <code>void</code> 的方法</h3>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java">execution(<span class="hljs-keyword">void</span> com.example.service.*.*(..))
+</code></pre></div>
 <ul>
 <li><code>void</code>：匹配返回类型为 <code>void</code> 的方法。</li>
 </ul>
 <p>可以使用 <code>&amp;&amp;</code>、<code>||</code>、<code>!</code> 等逻辑运算符组合多个切点表达式。</p>
-<h2>3. 切点表达式的其他用法</h2>
-<h3>3.1 使用 <code>within</code>、<code>@within</code></h3>
+<h2 id="3-切点表达式的其他用法">3. 切点表达式的其他用法</h2>
+<h3 id="31-使用-withinwithin">3.1 使用 <code>within</code>、<code>@within</code></h3>
 <p><code>within</code> 用于匹配指定类或包下的所有方法。</p>
-<pre><code class="language-java">within(com.example.service.*)
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java">within(com.example.service.*)
+</code></pre></div>
 <p><code>@within</code>用于匹配存在指定注解的<strong>类</strong>中的所有方法</p>
-<pre><code class="language-java">@within(MyAnnotation)
-</code></pre>
-<h3>3.2 使用 <code>this</code> 、 <code>target</code>、<code>@target</code></h3>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-meta">@within(MyAnnotation)</span>
+</code></pre></div>
+<h3 id="32-使用-this--targettarget">3.2 使用 <code>this</code> 、 <code>target</code>、<code>@target</code></h3>
 <ul>
 <li>
 <p><code>this</code>：用于匹配调用的目标对象类型。它匹配当前目标对象是指定类型的情况。</p>
@@ -141,26 +116,24 @@
 <p><code>@target</code>：用于匹配指定注解存在的目标对象（类或方法）。它与 <code>@within</code> 类似，但应用于目标对象。</p>
 </li>
 </ul>
-<pre><code class="language-java">//会匹配 `UserService` 类型的对象执行的方法。
-this(com.example.service.UserService)
-//匹配所有 `MyService` 类型的代理对象类型。
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-comment">//会匹配 `UserService` 类型的对象执行的方法。</span>
+<span class="hljs-built_in">this</span>(com.example.service.UserService)
+<span class="hljs-comment">//匹配所有 `MyService` 类型的代理对象类型。</span>
 target(com.example.service.UserService)
-//匹配所有目标对象类或方法上带有 `@UserService` 注解的方法。
-@target(UserService)
-</code></pre>
-<h3>3.3 使用 <code>args、@args</code></h3>
+<span class="hljs-comment">//匹配所有目标对象类或方法上带有 `@UserService` 注解的方法。</span>
+<span class="hljs-meta">@target(UserService)</span>
+</code></pre></div>
+<h3 id="33-使用-argsargs">3.3 使用 <code>args、@args</code></h3>
 <ul>
 <li><code>args</code> 用于匹配方法参数的类型。</li>
 <li><code>@args</code>用于匹配方法参数中具有指定注解的参数。</li>
 </ul>
-<pre><code class="language-java">args(String, int)
-@args(String, int)
-</code></pre>
-<h3>3.4 使用 <code>@annotation</code></h3>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java">args(String, <span class="hljs-type">int</span>)
+<span class="hljs-meta">@args(String, int)</span>
+</code></pre></div>
+<h3 id="34-使用-annotation">3.4 使用 <code>@annotation</code></h3>
 <p>用于匹配带有特定注解的方法，匹配所有</p>
-<pre><code class="language-java">@annotation(cache)
-</code></pre>
-</article>
-    </main>
-  </body>
-</html>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-meta">@annotation(cache)</span>
+</code></pre></div>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

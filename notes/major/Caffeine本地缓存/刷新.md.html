@@ -1,60 +1,33 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="刷新 可以通过LoadingCache.refresh(K)方法，异步为key对应的缓存元素刷新一个新的值。 在刷新的时候如果查询缓存元素，其旧值将仍被返回，直到该元素的刷新完毕后结束后才会返回刷新后">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="刷新 · Seiga">
-    <meta property="og:description" content="刷新 可以通过LoadingCache.refresh(K)方法，异步为key对应的缓存元素刷新一个新的值。 在刷新的时候如果查询缓存元素，其旧值将仍被返回，直到该元素的刷新完毕后结束后才会返回刷新后">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Caffeine%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98/%E5%88%B7%E6%96%B0.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Caffeine%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98/%E5%88%B7%E6%96%B0.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>刷新 · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"刷新","description":"刷新 可以通过LoadingCache.refresh(K)方法，异步为key对应的缓存元素刷新一个新的值。 在刷新的时候如果查询缓存元素，其旧值将仍被返回，直到该元素的刷新完毕后结束后才会返回刷新后","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Caffeine%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98/%E5%88%B7%E6%96%B0.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>刷新</h1>
-        <p class="static-note-meta">Caffeine本地缓存 · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/Caffeine%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98/%E5%88%B7%E6%96%B0.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>刷新</h1>
-<pre><code class="language-java">LoadingCache&lt;Key, Graph&gt; graphs = Caffeine.newBuilder()
-    .maximumSize(10_000)
-    .expireAfterWrite(Duration.ofMinutes(5))
-    .refreshAfterWrite(Duration.ofMinutes(1))
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刷新 · Seiga</title>
+<meta name="description" content="可以通过LoadingCache.refresh(K)方法，异步为key对应的缓存元素刷新一个新的值。 在刷新的时候如果查询缓存元素，其旧值将仍被返回，直到该元素的刷新完毕后结束后才会返回刷新后的新值">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="刷新 · Seiga"><meta property="og:description" content="可以通过LoadingCache.refresh(K)方法，异步为key对应的缓存元素刷新一个新的值。 在刷新的时候如果查询缓存元素，其旧值将仍被返回，直到该元素的刷新完毕后结束后才会返回刷新后的新值">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Caffeine%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98/%E5%88%B7%E6%96%B0.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Caffeine%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98/%E5%88%B7%E6%96%B0.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"刷新","description":"可以通过LoadingCache.refresh(K)方法，异步为key对应的缓存元素刷新一个新的值。 在刷新的时候如果查询缓存元素，其旧值将仍被返回，直到该元素的刷新完毕后结束后才会返回刷新后的新值","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Caffeine%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98/%E5%88%B7%E6%96%B0.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=Caffeine%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98">Caffeine本地缓存</a></nav>
+<h1>刷新</h1><p class="static-note-meta">Caffeine本地缓存 · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/Caffeine%E6%9C%AC%E5%9C%B0%E7%BC%93%E5%AD%98/%E5%88%B7%E6%96%B0.md">在站内打开</a></header>
+
+<article id="article" tabindex="-1" class="prose"><span id="刷新" class="article-title-anchor"></span>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-type">LoadingCache</span>&lt;Key, Graph&gt; <span class="hljs-variable">graphs</span> <span class="hljs-operator">=</span> Caffeine.newBuilder()
+    .maximumSize(<span class="hljs-number">10_000</span>)
+    .expireAfterWrite(Duration.ofMinutes(<span class="hljs-number">5</span>))
+    .refreshAfterWrite(Duration.ofMinutes(<span class="hljs-number">1</span>))
     .build(key -&gt; createExpensiveGraph(key));
-</code></pre>
+</code></pre></div>
 <p>可以通过<code>LoadingCache.refresh(K)</code>方法，异步为key对应的缓存元素刷新一个新的值。<br>
 在刷新的时候如果查询缓存元素，其旧值将仍被返回，直到该元素的刷新完毕后结束后才会返回刷新后的新值。（毕竟是异步的）<br>
 <code>refreshAfterWrite</code> 的作用是在key被访问时才会进行刷新操作。<br>
 将<code>refreshAfterWrite</code>与<code>refreshAfterWrite</code>组合使用则可以避免缓存的无期限存在，且保证频繁访问的key都持有新值。<br>
 可以通过覆盖重写 <code>CacheLoader.reload(K, V)</code> 方法进行增量更新操作。</p>
-</article>
-    </main>
-  </body>
-</html>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

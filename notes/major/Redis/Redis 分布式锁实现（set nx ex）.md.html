@@ -1,59 +1,34 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Redis 实现分布式锁，最经典的方式是用 SET key value NX EX time 命令，这是一种轻量级、高性能的分布式锁实现方式，适用于多数中小规模系统。 --- 🎯 一、基本目标 确保">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Redis 分布式锁实现（set nx ex） · Seiga">
-    <meta property="og:description" content="Redis 实现分布式锁，最经典的方式是用 SET key value NX EX time 命令，这是一种轻量级、高性能的分布式锁实现方式，适用于多数中小规模系统。 --- 🎯 一、基本目标 确保">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Redis/Redis%20%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%EF%BC%88set%20nx%20ex%EF%BC%89.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Redis/Redis%20%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%EF%BC%88set%20nx%20ex%EF%BC%89.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>Redis 分布式锁实现（set nx ex） · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Redis 分布式锁实现（set nx ex）","description":"Redis 实现分布式锁，最经典的方式是用 SET key value NX EX time 命令，这是一种轻量级、高性能的分布式锁实现方式，适用于多数中小规模系统。 --- 🎯 一、基本目标 确保","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Redis/Redis%20%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%EF%BC%88set%20nx%20ex%EF%BC%89.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>Redis 分布式锁实现（set nx ex）</h1>
-        <p class="static-note-meta">Redis · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/Redis/Redis%20%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%EF%BC%88set%20nx%20ex%EF%BC%89.md">在站内打开</a>
-      </header>
-      <article class="prose"><p>Redis 实现分布式锁，最经典的方式是用 <code>SET key value NX EX time</code> 命令，这是一种<strong>轻量级、高性能</strong>的分布式锁实现方式，适用于多数中小规模系统。</p>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redis 分布式锁实现（set nx ex） · Seiga</title>
+<meta name="description" content="Redis 实现分布式锁，最经典的方式是用 SET key value NX EX time 命令，这是一种轻量级、高性能的分布式锁实现方式，适用于多数中小规模系统。 🎯 一、基本目标 确保多个进程">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="Redis 分布式锁实现（set nx ex） · Seiga"><meta property="og:description" content="Redis 实现分布式锁，最经典的方式是用 SET key value NX EX time 命令，这是一种轻量级、高性能的分布式锁实现方式，适用于多数中小规模系统。 🎯 一、基本目标 确保多个进程">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Redis/Redis%20%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%EF%BC%88set%20nx%20ex%EF%BC%89.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Redis/Redis%20%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%EF%BC%88set%20nx%20ex%EF%BC%89.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Redis 分布式锁实现（set nx ex）","description":"Redis 实现分布式锁，最经典的方式是用 SET key value NX EX time 命令，这是一种轻量级、高性能的分布式锁实现方式，适用于多数中小规模系统。 🎯 一、基本目标 确保多个进程","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Redis/Redis%20%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%EF%BC%88set%20nx%20ex%EF%BC%89.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=Redis">Redis</a></nav>
+<h1>Redis 分布式锁实现（set nx ex）</h1><p class="static-note-meta">Redis · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/Redis/Redis%20%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%AE%9E%E7%8E%B0%EF%BC%88set%20nx%20ex%EF%BC%89.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#-%E4%B8%80%E5%9F%BA%E6%9C%AC%E7%9B%AE%E6%A0%87">🎯 一、基本目标</a></li><li><a href="#-%E4%BA%8C%E6%A0%B8%E5%BF%83%E5%91%BD%E4%BB%A4">📌 二、核心命令</a></li><li><a href="#%E5%90%84%E5%8F%82%E6%95%B0%E8%A7%A3%E9%87%8A">各参数解释：</a></li><li><a href="#-%E4%B8%89%E5%8A%A0%E9%94%81%E6%93%8D%E4%BD%9C%E4%BC%AA%E4%BB%A3%E7%A0%81">✅ 三、加锁操作（伪代码）</a></li><li><a href="#-%E7%A4%BA%E4%BE%8B%E4%BB%A5-java-%E4%B8%BA%E4%BE%8Bgopython-%E7%B1%BB%E4%BC%BC">🧱 示例（以 Java 为例，Go/Python 类似）：</a></li><li><a href="#-%E5%9B%9B%E9%87%8A%E6%94%BE%E9%94%81%E6%93%8D%E4%BD%9C%E5%BF%85%E9%A1%BB%E5%88%A4%E6%96%AD%E6%98%AF%E4%B8%8D%E6%98%AF%E8%87%AA%E5%B7%B1%E5%8A%A0%E7%9A%84%E9%94%81">✅ 四、释放锁操作（必须判断是不是自己加的锁）</a></li><li><a href="#%E6%AD%A3%E7%A1%AE%E6%96%B9%E5%BC%8F%E5%85%88%E5%88%A4%E6%96%AD-value-%E6%98%AF%E5%90%A6%E5%8C%B9%E9%85%8D%E5%86%8D%E5%88%A0%E9%99%A4lua-%E5%8E%9F%E5%AD%90%E6%93%8D%E4%BD%9C">正确方式：先判断 value 是否匹配，再删除（Lua 原子操作）</a></li><li><a href="#java-%E8%B0%83%E7%94%A8-lua">Java 调用 Lua：</a></li><li><a href="#-%E4%BA%94%E8%87%AA%E5%8A%A8%E8%BF%87%E6%9C%9F-vs-watchdog%E7%BB%AD%E6%9C%9F">⏳ 五、自动过期 vs Watchdog（续期）</a></li><li><a href="#-%E5%85%AD%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">⚠️ 六、常见问题</a></li><li><a href="#-%E4%B8%83%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B%E5%9B%BE">📌 七、完整流程图</a></li><li><a href="#-%E5%85%AB%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF%E4%B8%8E%E6%89%A9%E5%B1%95">🧠 八、适用场景与扩展</a></li><li><a href="#-%E6%80%BB%E7%BB%93%E4%B8%80%E5%8F%A5%E8%AF%9D">✅ 总结一句话</a></li><li><a href="#%E7%A4%BA%E4%BE%8B">示例</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><p>Redis 实现分布式锁，最经典的方式是用 <code>SET key value NX EX time</code> 命令，这是一种<strong>轻量级、高性能</strong>的分布式锁实现方式，适用于多数中小规模系统。</p>
 <hr>
-<h2>🎯 一、基本目标</h2>
+<h2 id="-一基本目标">🎯 一、基本目标</h2>
 <blockquote>
 <p><strong>确保多个进程/线程之间互斥访问某个共享资源</strong></p>
 </blockquote>
 <hr>
-<h2>📌 二、核心命令</h2>
-<pre><code class="language-redis">SET lock_key unique_value NX EX 10
-</code></pre>
-<h3>各参数解释：</h3>
-<table>
+<h2 id="-二核心命令">📌 二、核心命令</h2>
+<div class="code-block"><div class="code-block-bar"><span>redis</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-redis">SET lock_key unique_value NX EX 10
+</code></pre></div>
+<h3 id="各参数解释">各参数解释：</h3>
+<div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0"><table>
 <thead>
 <tr>
 <th>参数</th>
@@ -78,14 +53,14 @@
 <td>设置自动过期时间（单位秒）防止死锁</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
-<h2>✅ 三、加锁操作（伪代码）</h2>
-<h3>🧱 示例（以 Java 为例，Go/Python 类似）：</h3>
-<pre><code class="language-java">String key = &quot;order_lock:123&quot;;
-String value = UUID.randomUUID().toString(); // 唯一标识
-Boolean locked = jedis.set(key, value, &quot;NX&quot;, &quot;EX&quot;, 10); // 成功返回 &quot;OK&quot;
-</code></pre>
+<h2 id="-三加锁操作伪代码">✅ 三、加锁操作（伪代码）</h2>
+<h3 id="-示例以-java-为例gopython-类似">🧱 示例（以 Java 为例，Go/Python 类似）：</h3>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-type">String</span> <span class="hljs-variable">key</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;order_lock:123&quot;</span>;
+<span class="hljs-type">String</span> <span class="hljs-variable">value</span> <span class="hljs-operator">=</span> UUID.randomUUID().toString(); <span class="hljs-comment">// 唯一标识</span>
+<span class="hljs-type">Boolean</span> <span class="hljs-variable">locked</span> <span class="hljs-operator">=</span> jedis.set(key, value, <span class="hljs-string">&quot;NX&quot;</span>, <span class="hljs-string">&quot;EX&quot;</span>, <span class="hljs-number">10</span>); <span class="hljs-comment">// 成功返回 &quot;OK&quot;</span>
+</code></pre></div>
 <ul>
 <li>
 <p>若返回 <code>OK</code> → 加锁成功</p>
@@ -95,26 +70,26 @@ Boolean locked = jedis.set(key, value, &quot;NX&quot;, &quot;EX&quot;, 10); // �
 </li>
 </ul>
 <hr>
-<h2>✅ 四、释放锁操作（必须判断是不是自己加的锁）</h2>
+<h2 id="-四释放锁操作必须判断是不是自己加的锁">✅ 四、释放锁操作（必须判断是不是自己加的锁）</h2>
 <p>不能简单用：</p>
-<pre><code class="language-redis">DEL key
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>redis</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-redis">DEL key
+</code></pre></div>
 <p>这样可能误删别人的锁！</p>
-<h3>正确方式：先判断 value 是否匹配，再删除（Lua 原子操作）</h3>
-<pre><code class="language-lua">if redis.call(&quot;get&quot;, KEYS[1]) == ARGV[1] then
-    return redis.call(&quot;del&quot;, KEYS[1])
-else
-    return 0
-end
-</code></pre>
-<h3>Java 调用 Lua：</h3>
-<pre><code class="language-java">String lua = &quot;if redis.call('get', KEYS[1]) == ARGV[1] then &quot; +
-             &quot;return redis.call('del', KEYS[1]) else return 0 end&quot;;
+<h3 id="正确方式先判断-value-是否匹配再删除lua-原子操作">正确方式：先判断 value 是否匹配，再删除（Lua 原子操作）</h3>
+<div class="code-block"><div class="code-block-bar"><span>lua</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-lua"><span class="hljs-keyword">if</span> redis.call(<span class="hljs-string">&quot;get&quot;</span>, KEYS[<span class="hljs-number">1</span>]) == ARGV[<span class="hljs-number">1</span>] <span class="hljs-keyword">then</span>
+    <span class="hljs-keyword">return</span> redis.call(<span class="hljs-string">&quot;del&quot;</span>, KEYS[<span class="hljs-number">1</span>])
+<span class="hljs-keyword">else</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>
+<span class="hljs-keyword">end</span>
+</code></pre></div>
+<h3 id="java-调用-lua">Java 调用 Lua：</h3>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-type">String</span> <span class="hljs-variable">lua</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;if redis.call(&#x27;get&#x27;, KEYS[1]) == ARGV[1] then &quot;</span> +
+             <span class="hljs-string">&quot;return redis.call(&#x27;del&#x27;, KEYS[1]) else return 0 end&quot;</span>;
 jedis.eval(lua, Collections.singletonList(key), Collections.singletonList(value));
-</code></pre>
+</code></pre></div>
 <hr>
-<h2>⏳ 五、自动过期 vs Watchdog（续期）</h2>
-<table>
+<h2 id="-五自动过期-vs-watchdog续期">⏳ 五、自动过期 vs Watchdog（续期）</h2>
+<div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0"><table>
 <thead>
 <tr>
 <th>方式</th>
@@ -131,10 +106,10 @@ jedis.eval(lua, Collections.singletonList(key), Collections.singletonList(value)
 <td>像 Redisson 实现，会自动给锁续命，只适用于持锁线程仍存活时</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
-<h2>⚠️ 六、常见问题</h2>
-<table>
+<h2 id="-六常见问题">⚠️ 六、常见问题</h2>
+<div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0"><table>
 <thead>
 <tr>
 <th>问题</th>
@@ -164,10 +139,10 @@ jedis.eval(lua, Collections.singletonList(key), Collections.singletonList(value)
 <td>使用 UUID value 保护锁所有权</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
-<h2>📌 七、完整流程图</h2>
-<pre><code class="language-text">[线程 A] 
+<h2 id="-七完整流程图">📌 七、完整流程图</h2>
+<div class="code-block"><div class="code-block-bar"><span>text</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-text">[线程 A] 
   └─&gt; SET key value NX EX 10
          ├─ 成功 → 进入临界区
          └─ 失败 → 等待/重试
@@ -177,10 +152,10 @@ jedis.eval(lua, Collections.singletonList(key), Collections.singletonList(value)
 
 [线程 B]
   └─&gt; 同样尝试 SET NX，需等待 A 释放锁
-</code></pre>
+</code></pre></div>
 <hr>
-<h2>🧠 八、适用场景与扩展</h2>
-<table>
+<h2 id="-八适用场景与扩展">🧠 八、适用场景与扩展</h2>
+<div class="table-scroll" role="region" aria-label="表格，可横向滚动" tabindex="0"><table>
 <thead>
 <tr>
 <th>场景</th>
@@ -205,64 +180,62 @@ jedis.eval(lua, Collections.singletonList(key), Collections.singletonList(value)
 <td>❌（建议用 Redisson）</td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <hr>
-<h2>✅ 总结一句话</h2>
+<h2 id="-总结一句话">✅ 总结一句话</h2>
 <blockquote>
 <p>使用 Redis 的 <code>SET NX EX</code> 可以快速构建轻量级分布式锁，但<strong>一定要搭配唯一值 + Lua 解锁</strong>，才能避免死锁和误删。</p>
 </blockquote>
 <hr>
-<h1>示例</h1>
-<pre><code class="language-java">import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.script.DefaultRedisScript;
-import org.springframework.stereotype.Component;
+<h2 id="示例">示例</h2>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Autowired;
+<span class="hljs-keyword">import</span> org.springframework.data.redis.core.StringRedisTemplate;
+<span class="hljs-keyword">import</span> org.springframework.data.redis.core.script.DefaultRedisScript;
+<span class="hljs-keyword">import</span> org.springframework.stereotype.Component;
 
-import java.time.Duration;
-import java.util.Collections;
-import java.util.UUID;
+<span class="hljs-keyword">import</span> java.time.Duration;
+<span class="hljs-keyword">import</span> java.util.Collections;
+<span class="hljs-keyword">import</span> java.util.UUID;
 
-@Component
-public class RedisLockService {
+<span class="hljs-meta">@Component</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">RedisLockService</span> {
 
-    @Autowired
-    private StringRedisTemplate redisTemplate;
+    <span class="hljs-meta">@Autowired</span>
+    <span class="hljs-keyword">private</span> StringRedisTemplate redisTemplate;
 
-    // 加锁：成功返回唯一标识，失败返回 null
-    //`ttl` 保证锁不会无限存在，避免死锁
-    public String tryLock(String key, Duration ttl) {
-        String value = UUID.randomUUID().toString(); // 唯一标识，防误删
-        /*
+    <span class="hljs-comment">// 加锁：成功返回唯一标识，失败返回 null</span>
+    <span class="hljs-comment">//`ttl` 保证锁不会无限存在，避免死锁</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">String</span> <span class="hljs-title function_">tryLock</span><span class="hljs-params">(String key, Duration ttl)</span> {
+        <span class="hljs-type">String</span> <span class="hljs-variable">value</span> <span class="hljs-operator">=</span> UUID.randomUUID().toString(); <span class="hljs-comment">// 唯一标识，防误删</span>
+        <span class="hljs-comment">/*
         Spring Data Redis 提供的一个方法，作用是：
         尝试设置键值对 `key=value`，只有当 `key` 不存在时才设置成功（即 NX，即“Only set if Not eXists”）
         `setIfAbsent` 就是 Redis 的 `SET key value NX` 操作
-        */
-        Boolean success = redisTemplate.opsForValue()
+        */</span>
+        <span class="hljs-type">Boolean</span> <span class="hljs-variable">success</span> <span class="hljs-operator">=</span> redisTemplate.opsForValue()
                 .setIfAbsent(key, value, ttl);
-        return Boolean.TRUE.equals(success) ? value : null;
+        <span class="hljs-keyword">return</span> Boolean.TRUE.equals(success) ? value : <span class="hljs-literal">null</span>;
     }
 
-    // 解锁（Lua 脚本保证原子性，防止误删别人的锁）
-    public boolean releaseLock(String key, String value) {
-        String lua =
-                &quot;if redis.call('get', KEYS[1]) == ARGV[1] then &quot; +
-                &quot;  return redis.call('del', KEYS[1]) &quot; +
-                &quot;else return 0 end&quot;;
+    <span class="hljs-comment">// 解锁（Lua 脚本保证原子性，防止误删别人的锁）</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">releaseLock</span><span class="hljs-params">(String key, String value)</span> {
+        <span class="hljs-type">String</span> <span class="hljs-variable">lua</span> <span class="hljs-operator">=</span>
+                <span class="hljs-string">&quot;if redis.call(&#x27;get&#x27;, KEYS[1]) == ARGV[1] then &quot;</span> +
+                <span class="hljs-string">&quot;  return redis.call(&#x27;del&#x27;, KEYS[1]) &quot;</span> +
+                <span class="hljs-string">&quot;else return 0 end&quot;</span>;
 
-        DefaultRedisScript&lt;Long&gt; script = new DefaultRedisScript&lt;&gt;();
+        <span class="hljs-type">DefaultRedisScript</span>&lt;Long&gt; <span class="hljs-variable">script</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">DefaultRedisScript</span>&lt;&gt;();
         script.setScriptText(lua);
         script.setResultType(Long.class);
 
-        Long result = redisTemplate.execute(script,
+        <span class="hljs-type">Long</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> redisTemplate.execute(script,
                 Collections.singletonList(key),
                 value);
 
-        return result != null &amp;&amp; result == 1L;
+        <span class="hljs-keyword">return</span> result != <span class="hljs-literal">null</span> &amp;&amp; result == <span class="hljs-number">1L</span>;
     }
 }
 
-</code></pre>
-</article>
-    </main>
-  </body>
-</html>
+</code></pre></div>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

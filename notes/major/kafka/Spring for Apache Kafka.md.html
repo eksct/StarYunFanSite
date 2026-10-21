@@ -1,148 +1,121 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Spring for Apache Kafka 1️⃣ 引入依赖 在 pom.xml 中加上： --- 2️⃣ 配置 Kafka 在 application.yml 里写： --- 3️⃣ 生产者（发">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Spring for Apache Kafka · Seiga">
-    <meta property="og:description" content="Spring for Apache Kafka 1️⃣ 引入依赖 在 pom.xml 中加上： --- 2️⃣ 配置 Kafka 在 application.yml 里写： --- 3️⃣ 生产者（发">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/kafka/Spring%20for%20Apache%20Kafka.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/kafka/Spring%20for%20Apache%20Kafka.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>Spring for Apache Kafka · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Spring for Apache Kafka","description":"Spring for Apache Kafka 1️⃣ 引入依赖 在 pom.xml 中加上： --- 2️⃣ 配置 Kafka 在 application.yml 里写： --- 3️⃣ 生产者（发","datePublished":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/kafka/Spring%20for%20Apache%20Kafka.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>Spring for Apache Kafka</h1>
-        <p class="static-note-meta">kafka · 2026-09-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/kafka/Spring%20for%20Apache%20Kafka.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>Spring for Apache Kafka</h1>
-<h2>1️⃣ 引入依赖</h2>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spring for Apache Kafka · Seiga</title>
+<meta name="description" content="1️⃣ 引入依赖 在 pom.xml 中加上： 2️⃣ 配置 Kafka 在 application.yml 里写： 3️⃣ 生产者（发送消息） 4️⃣ 消费者（接收消息） 5️⃣ 测试（Contro">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="Spring for Apache Kafka · Seiga"><meta property="og:description" content="1️⃣ 引入依赖 在 pom.xml 中加上： 2️⃣ 配置 Kafka 在 application.yml 里写： 3️⃣ 生产者（发送消息） 4️⃣ 消费者（接收消息） 5️⃣ 测试（Contro">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/kafka/Spring%20for%20Apache%20Kafka.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/kafka/Spring%20for%20Apache%20Kafka.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Spring for Apache Kafka","description":"1️⃣ 引入依赖 在 pom.xml 中加上： 2️⃣ 配置 Kafka 在 application.yml 里写： 3️⃣ 生产者（发送消息） 4️⃣ 消费者（接收消息） 5️⃣ 测试（Contro","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/kafka/Spring%20for%20Apache%20Kafka.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=kafka">kafka</a></nav>
+<h1>Spring for Apache Kafka</h1><p class="static-note-meta">kafka · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/kafka/Spring%20for%20Apache%20Kafka.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#1-%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96">1️⃣ 引入依赖</a></li><li><a href="#2-%E9%85%8D%E7%BD%AE-kafka">2️⃣ 配置 Kafka</a></li><li><a href="#3-%E7%94%9F%E4%BA%A7%E8%80%85%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF">3️⃣ 生产者（发送消息）</a></li><li><a href="#4-%E6%B6%88%E8%B4%B9%E8%80%85%E6%8E%A5%E6%94%B6%E6%B6%88%E6%81%AF">4️⃣ 消费者（接收消息）</a></li><li><a href="#5-%E6%B5%8B%E8%AF%95controller">5️⃣ 测试（Controller）</a></li><li><a href="#6-%E6%B5%8B%E8%AF%95%E6%AD%A5%E9%AA%A4">6️⃣ 测试步骤</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="spring-for-apache-kafka" class="article-title-anchor"></span>
+<h2 id="1-引入依赖">1️⃣ 引入依赖</h2>
 <p>在 <code>pom.xml</code> 中加上：</p>
-<pre><code class="language-xml">&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-    &lt;artifactId&gt;spring-boot-starter-kafka&lt;/artifactId&gt;
-&lt;/dependency&gt;
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>xml</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-kafka<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span>
+</code></pre></div>
 <hr>
-<h2>2️⃣ 配置 Kafka</h2>
+<h2 id="2-配置-kafka">2️⃣ 配置 Kafka</h2>
 <p>在 <code>application.yml</code> 里写：</p>
-<pre><code class="language-yaml">spring:
-  kafka:
-    bootstrap-servers: localhost:9092   # Kafka 地址
-    producer:
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
-    consumer:
-      group-id: demo-group
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      auto-offset-reset: earliest   # 从头开始消费（可选）
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>yaml</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-yaml"><span class="hljs-attr">spring:</span>
+  <span class="hljs-attr">kafka:</span>
+    <span class="hljs-attr">bootstrap-servers:</span> <span class="hljs-string">localhost:9092</span>   <span class="hljs-comment"># Kafka 地址</span>
+    <span class="hljs-attr">producer:</span>
+      <span class="hljs-attr">key-serializer:</span> <span class="hljs-string">org.apache.kafka.common.serialization.StringSerializer</span>
+      <span class="hljs-attr">value-serializer:</span> <span class="hljs-string">org.apache.kafka.common.serialization.StringSerializer</span>
+    <span class="hljs-attr">consumer:</span>
+      <span class="hljs-attr">group-id:</span> <span class="hljs-string">demo-group</span>
+      <span class="hljs-attr">key-deserializer:</span> <span class="hljs-string">org.apache.kafka.common.serialization.StringDeserializer</span>
+      <span class="hljs-attr">value-deserializer:</span> <span class="hljs-string">org.apache.kafka.common.serialization.StringDeserializer</span>
+      <span class="hljs-attr">auto-offset-reset:</span> <span class="hljs-string">earliest</span>   <span class="hljs-comment"># 从头开始消费（可选）</span>
+</code></pre></div>
 <hr>
-<h2>3️⃣ 生产者（发送消息）</h2>
-<pre><code class="language-java">import org.springframework.kafka.core.KafkaTemplate;
-import org.springframework.stereotype.Service;
+<h2 id="3-生产者发送消息">3️⃣ 生产者（发送消息）</h2>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">import</span> org.springframework.kafka.core.KafkaTemplate;
+<span class="hljs-keyword">import</span> org.springframework.stereotype.Service;
 
-@Service
-public class ProducerService {
+<span class="hljs-meta">@Service</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ProducerService</span> {
 
-    private final KafkaTemplate&lt;String, String&gt; kafkaTemplate;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> KafkaTemplate&lt;String, String&gt; kafkaTemplate;
 
-    public ProducerService(KafkaTemplate&lt;String, String&gt; kafkaTemplate) {
-        this.kafkaTemplate = kafkaTemplate;
+    <span class="hljs-type">public</span> <span class="hljs-title function_">ProducerService</span><span class="hljs-params">(KafkaTemplate&lt;String, String&gt; kafkaTemplate)</span> {
+        <span class="hljs-built_in">this</span>.kafkaTemplate = kafkaTemplate;
     }
 
-    public void send(String topic, String message) {
+    <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">send</span><span class="hljs-params">(String topic, String message)</span> {
         kafkaTemplate.send(topic, message);
-        System.out.println(&quot;✅ 发送消息到 &quot; + topic + &quot; ：&quot; + message);
+        System.out.println(<span class="hljs-string">&quot;✅ 发送消息到 &quot;</span> + topic + <span class="hljs-string">&quot; ：&quot;</span> + message);
     }
 }
-</code></pre>
+</code></pre></div>
 <hr>
-<h2>4️⃣ 消费者（接收消息）</h2>
-<pre><code class="language-java">import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Service;
+<h2 id="4-消费者接收消息">4️⃣ 消费者（接收消息）</h2>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">import</span> org.springframework.kafka.annotation.KafkaListener;
+<span class="hljs-keyword">import</span> org.springframework.stereotype.Service;
 
-@Service
-public class ConsumerService {
+<span class="hljs-meta">@Service</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ConsumerService</span> {
 
-    @KafkaListener(topics = &quot;test-topic&quot;, groupId = &quot;demo-group&quot;)
-    public void listen(String message) {
-        System.out.println(&quot;📩 收到消息：&quot; + message);
+    <span class="hljs-meta">@KafkaListener(topics = &quot;test-topic&quot;, groupId = &quot;demo-group&quot;)</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">listen</span><span class="hljs-params">(String message)</span> {
+        System.out.println(<span class="hljs-string">&quot;📩 收到消息：&quot;</span> + message);
     }
 }
-</code></pre>
+</code></pre></div>
 <hr>
-<h2>5️⃣ 测试（Controller）</h2>
-<pre><code class="language-java">import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+<h2 id="5-测试controller">5️⃣ 测试（Controller）</h2>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;
+<span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RequestParam;
+<span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RestController;
 
-@RestController
-public class KafkaController {
+<span class="hljs-meta">@RestController</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">KafkaController</span> {
 
-    private final ProducerService producerService;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> ProducerService producerService;
 
-    public KafkaController(ProducerService producerService) {
-        this.producerService = producerService;
+    <span class="hljs-type">public</span> <span class="hljs-title function_">KafkaController</span><span class="hljs-params">(ProducerService producerService)</span> {
+        <span class="hljs-built_in">this</span>.producerService = producerService;
     }
 
-    @GetMapping(&quot;/send&quot;)
-    public String send(@RequestParam String msg) {
-        producerService.send(&quot;test-topic&quot;, msg);
-        return &quot;消息已发送: &quot; + msg;
+    <span class="hljs-meta">@GetMapping(&quot;/send&quot;)</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">String</span> <span class="hljs-title function_">send</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam</span> String msg)</span> {
+        producerService.send(<span class="hljs-string">&quot;test-topic&quot;</span>, msg);
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;消息已发送: &quot;</span> + msg;
     }
 }
-</code></pre>
+</code></pre></div>
 <hr>
-<h2>6️⃣ 测试步骤</h2>
+<h2 id="6-测试步骤">6️⃣ 测试步骤</h2>
 <ol>
 <li>
 <p>启动 Kafka &amp; Zookeeper</p>
-<pre><code class="language-bash">bin/zookeeper-server-start.sh config/zookeeper.properties
+<div class="code-block"><div class="code-block-bar"><span>bash</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-bash">bin/zookeeper-server-start.sh config/zookeeper.properties
 bin/kafka-server-start.sh config/server.properties
-</code></pre>
+</code></pre></div>
 </li>
 <li>
 <p>启动 Spring Boot 项目</p>
 </li>
 <li>
 <p>浏览器访问：</p>
-<pre><code>http://localhost:8080/send?msg=hello-kafka
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>text</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-text">http://localhost:8080/send?msg=hello-kafka
+</code></pre></div>
 <p>👉 控制台应该会看到消费者打印：</p>
-<pre><code>📩 收到消息：hello-kafka
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>text</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-text">📩 收到消息：hello-kafka
+</code></pre></div>
 </li>
 </ol>
-</article>
-    </main>
-  </body>
-</html>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

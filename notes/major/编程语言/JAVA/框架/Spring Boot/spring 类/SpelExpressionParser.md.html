@@ -1,50 +1,25 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="SpelExpressionParser SpelExpressionParser 是 Spring 框架中的一个类，用于解析和执行 Spring Expression Language (SpEL)">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="SpelExpressionParser · Seiga">
-    <meta property="og:description" content="SpelExpressionParser SpelExpressionParser 是 Spring 框架中的一个类，用于解析和执行 Spring Expression Language (SpEL)">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/SpelExpressionParser.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/SpelExpressionParser.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>SpelExpressionParser · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"SpelExpressionParser","description":"SpelExpressionParser SpelExpressionParser 是 Spring 框架中的一个类，用于解析和执行 Spring Expression Language (SpEL)","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/SpelExpressionParser.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>SpelExpressionParser</h1>
-        <p class="static-note-meta">Spring Boot · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/SpelExpressionParser.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>SpelExpressionParser</h1>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpelExpressionParser · Seiga</title>
+<meta name="description" content="SpelExpressionParser 是 Spring 框架中的一个类，用于解析和执行 Spring Expression Language (SpEL) 表达式。SpEL 是一种强大的表达式语言">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="SpelExpressionParser · Seiga"><meta property="og:description" content="SpelExpressionParser 是 Spring 框架中的一个类，用于解析和执行 Spring Expression Language (SpEL) 表达式。SpEL 是一种强大的表达式语言">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/SpelExpressionParser.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/SpelExpressionParser.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"SpelExpressionParser","description":"SpelExpressionParser 是 Spring 框架中的一个类，用于解析和执行 Spring Expression Language (SpEL) 表达式。SpEL 是一种强大的表达式语言","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/SpelExpressionParser.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
+<h1>SpelExpressionParser</h1><p class="static-note-meta">Spring Boot · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/spring%20%E7%B1%BB/SpelExpressionParser.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#1-spel-%E7%AE%80%E4%BB%8B">1. SpEL 简介</a></li><li><a href="#2spel-%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%A4%BA%E4%BE%8B">2.SpEL 表达式示例</a></li><li><a href="#3%E4%BD%BF%E7%94%A8evaluationcontext%E4%B8%8A%E4%B8%8B%E6%96%87">3.使用EvaluationContext上下文</a></li><li><a href="#4-spel-%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF">4. SpEL 的应用场景</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="spelexpressionparser" class="article-title-anchor"></span>
 <p><code>SpelExpressionParser</code> 是 Spring 框架中的一个类，用于解析和执行 <strong>Spring Expression Language (SpEL)</strong> 表达式。SpEL 是一种强大的表达式语言，支持在运行时查询和操作对象图。可以使用 SpEL 来访问 Java 对象的属性、方法和字段，进行条件判断，甚至进行集合操作。</p>
-<h2>1. SpEL 简介</h2>
+<h2 id="1-spel-简介">1. SpEL 简介</h2>
 <p>Spring Expression Language (SpEL) 是一种类似于 OGNL 或 JSP EL 的表达式语言；将一个字符串格式的 SpEL 表达式解析成一个<strong>抽象语法树（AST）</strong>，然后根据该 AST 来执行表达式。支持以下功能：</p>
 <ul>
 <li>
@@ -66,90 +41,90 @@
 <p>支持条件表达式（三元运算符）。</p>
 </li>
 </ul>
-<h2>2.SpEL 表达式示例</h2>
+<h2 id="2spel-表达式示例">2.SpEL 表达式示例</h2>
 <p><strong>创建：</strong><br>
 <code>SpelExpressionParser</code> 是一个解析器，你需要创建它的实例来解析和执行表达式。</p>
-<pre><code class="language-java">import org.springframework.expression.Expression;
-import org.springframework.expression.ExpressionParser;
-import org.springframework.expression.spel.standard.SpelExpressionParser;
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">import</span> org.springframework.expression.Expression;
+<span class="hljs-keyword">import</span> org.springframework.expression.ExpressionParser;
+<span class="hljs-keyword">import</span> org.springframework.expression.spel.standard.SpelExpressionParser;
 
-public class SpelExample {
-    public static void main(String[] args) {
-        ExpressionParser parser = new SpelExpressionParser();
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">SpelExample</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        <span class="hljs-type">ExpressionParser</span> <span class="hljs-variable">parser</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SpelExpressionParser</span>();
     }
 }
-</code></pre>
+</code></pre></div>
 <p><strong>解析表达式：</strong><br>
 使用<code>parseExpression()</code>方法解析需要的表达式<br>
 调用<code>getValue()</code>方法执行表达式。</p>
-<pre><code class="language-java">Expression expression = parser.parseExpression(&quot;'Hello, World!'&quot;);
-String result = (String) expression.getValue();
-System.out.println(result); // 输出: Hello, World!
-Expression expression = parser.parseExpression(&quot;3 + 5&quot;);
-Integer result = (Integer) expression.getValue();
-System.out.println(result); // 输出: 8
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-type">Expression</span> <span class="hljs-variable">expression</span> <span class="hljs-operator">=</span> parser.parseExpression(<span class="hljs-string">&quot;&#x27;Hello, World!&#x27;&quot;</span>);
+<span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> (String) expression.getValue();
+System.out.println(result); <span class="hljs-comment">// 输出: Hello, World!</span>
+<span class="hljs-type">Expression</span> <span class="hljs-variable">expression</span> <span class="hljs-operator">=</span> parser.parseExpression(<span class="hljs-string">&quot;3 + 5&quot;</span>);
+<span class="hljs-type">Integer</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> (Integer) expression.getValue();
+System.out.println(result); <span class="hljs-comment">// 输出: 8</span>
+</code></pre></div>
 <p><strong>访问对象属性以及方法：</strong></p>
-<pre><code class="language-java">public static void main(String[] args) {  
-    class test{  
-        public String name;  
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {  
+    <span class="hljs-keyword">class</span> <span class="hljs-title class_">test</span>{  
+        <span class="hljs-keyword">public</span> String name;  
   
-        public test(String name) {  
-            this.name = name;  
+        <span class="hljs-type">public</span> <span class="hljs-title function_">test</span><span class="hljs-params">(String name)</span> {  
+            <span class="hljs-built_in">this</span>.name = name;  
         }  
-        public void func(){  
-            System.out.println(&quot;12345&quot;);  
+        <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">func</span><span class="hljs-params">()</span>{  
+            System.out.println(<span class="hljs-string">&quot;12345&quot;</span>);  
         }  
     }  
-    var obj = new test(&quot;atk&quot;);  
-    SpelExpressionParser parser = new SpelExpressionParser();
-    //访问对象方法  
-    Expression expression = parser.parseExpression(&quot;func()&quot;);  
+    <span class="hljs-type">var</span> <span class="hljs-variable">obj</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">test</span>(<span class="hljs-string">&quot;atk&quot;</span>);  
+    <span class="hljs-type">SpelExpressionParser</span> <span class="hljs-variable">parser</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SpelExpressionParser</span>();
+    <span class="hljs-comment">//访问对象方法  </span>
+    <span class="hljs-type">Expression</span> <span class="hljs-variable">expression</span> <span class="hljs-operator">=</span> parser.parseExpression(<span class="hljs-string">&quot;func()&quot;</span>);  
     expression.getValue(obj);  
-    //访问对象属性
-    expression = parser.parseExpression(&quot;name&quot;);  
+    <span class="hljs-comment">//访问对象属性</span>
+    expression = parser.parseExpression(<span class="hljs-string">&quot;name&quot;</span>);  
     System.out.println(expression.getValue(obj));  
-    expression = parser.parseExpression(&quot;'Hello, World!'.toUpperCase()&quot;);
-	String result = (String) expression.getValue();
-	System.out.println(result); // 输出: HELLO, WORLD!
+    expression = parser.parseExpression(<span class="hljs-string">&quot;&#x27;Hello, World!&#x27;.toUpperCase()&quot;</span>);
+	<span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> (String) expression.getValue();
+	System.out.println(result); <span class="hljs-comment">// 输出: HELLO, WORLD!</span>
 }
-</code></pre>
+</code></pre></div>
 <p><strong>集合操作：</strong></p>
-<pre><code class="language-java">List&lt;Integer&gt; numbers = Arrays.asList(1, 2, 3, 4, 5);
-Expression expression = parser.parseExpression(&quot;#root.![#this * 2]&quot;);
-List&lt;Integer&gt; doubledNumbers = (List&lt;Integer&gt;) expression.getValue(numbers);
-System.out.println(doubledNumbers); // 输出: [2, 4, 6, 8, 10]
-</code></pre>
-<h2>3.使用EvaluationContext上下文</h2>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-type">List</span>&lt;Integer&gt; <span class="hljs-variable">numbers</span> <span class="hljs-operator">=</span> Arrays.asList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>);
+<span class="hljs-type">Expression</span> <span class="hljs-variable">expression</span> <span class="hljs-operator">=</span> parser.parseExpression(<span class="hljs-string">&quot;#root.![#this * 2]&quot;</span>);
+<span class="hljs-type">List</span>&lt;Integer&gt; <span class="hljs-variable">doubledNumbers</span> <span class="hljs-operator">=</span> (List&lt;Integer&gt;) expression.getValue(numbers);
+System.out.println(doubledNumbers); <span class="hljs-comment">// 输出: [2, 4, 6, 8, 10]</span>
+</code></pre></div>
+<h2 id="3使用evaluationcontext上下文">3.使用EvaluationContext上下文</h2>
 <p>EvaluationContext是 SpEL 的上下文对象，用于存储变量和根对象。<br>
 可以使用<code>StandardEvaluationContext</code>实例将对象设置为根对象，直接访问其属性与方法。<br>
 <strong>设置根对象</strong></p>
-<pre><code class="language-java">import org.springframework.expression.EvaluationContext;
-import org.springframework.expression.spel.support.StandardEvaluationContext;
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">import</span> org.springframework.expression.EvaluationContext;
+<span class="hljs-keyword">import</span> org.springframework.expression.spel.support.StandardEvaluationContext;
 
-User user = new User(&quot;John&quot;, 30);
-EvaluationContext context = new StandardEvaluationContext(user);
+<span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>(<span class="hljs-string">&quot;John&quot;</span>, <span class="hljs-number">30</span>);
+<span class="hljs-type">EvaluationContext</span> <span class="hljs-variable">context</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StandardEvaluationContext</span>(user);
 
-Expression expression = parser.parseExpression(&quot;name&quot;);
-String name = (String) expression.getValue(context);
-System.out.println(name); // 输出: John
-</code></pre>
+<span class="hljs-type">Expression</span> <span class="hljs-variable">expression</span> <span class="hljs-operator">=</span> parser.parseExpression(<span class="hljs-string">&quot;name&quot;</span>);
+<span class="hljs-type">String</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> (String) expression.getValue(context);
+System.out.println(name); <span class="hljs-comment">// 输出: John</span>
+</code></pre></div>
 <p><strong>使用变量</strong></p>
-<pre><code class="language-java">EvaluationContext context = new StandardEvaluationContext();  
-context.setVariable(&quot;anntoin&quot;,&quot;test&quot;);  
-expression = parser.parseExpression(&quot;#anntoin&quot;);  
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-type">EvaluationContext</span> <span class="hljs-variable">context</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StandardEvaluationContext</span>();  
+context.setVariable(<span class="hljs-string">&quot;anntoin&quot;</span>,<span class="hljs-string">&quot;test&quot;</span>);  
+expression = parser.parseExpression(<span class="hljs-string">&quot;#anntoin&quot;</span>);  
 System.out.println(expression.getValue(context));
-</code></pre>
+</code></pre></div>
 <p><strong>集合操作</strong></p>
-<pre><code class="language-java">List&lt;String&gt; list = Arrays.asList(&quot;apple&quot;, &quot;banana&quot;, &quot;cherry&quot;);
-StandardEvaluationContext context = new StandardEvaluationContext();
-context.setVariable(&quot;list&quot;, list);
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-type">List</span>&lt;String&gt; <span class="hljs-variable">list</span> <span class="hljs-operator">=</span> Arrays.asList(<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;banana&quot;</span>, <span class="hljs-string">&quot;cherry&quot;</span>);
+<span class="hljs-type">StandardEvaluationContext</span> <span class="hljs-variable">context</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StandardEvaluationContext</span>();
+context.setVariable(<span class="hljs-string">&quot;list&quot;</span>, list);
 
-Expression expression = parser.parseExpression(&quot;#list.[#this.length() &gt; 5]&quot;);
-List&lt;String&gt; result = (List&lt;String&gt;) expression.getValue(context);
-System.out.println(result);  // 输出：[banana, cherry]
-</code></pre>
-<h2>4. SpEL 的应用场景</h2>
+<span class="hljs-type">Expression</span> <span class="hljs-variable">expression</span> <span class="hljs-operator">=</span> parser.parseExpression(<span class="hljs-string">&quot;#list.[#this.length() &gt; 5]&quot;</span>);
+<span class="hljs-type">List</span>&lt;String&gt; <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> (List&lt;String&gt;) expression.getValue(context);
+System.out.println(result);  <span class="hljs-comment">// 输出：[banana, cherry]</span>
+</code></pre></div>
+<h2 id="4-spel-的应用场景">4. SpEL 的应用场景</h2>
 <ol>
 <li><strong>配置文件中的动态值</strong>：
 <ul>
@@ -167,7 +142,5 @@ System.out.println(result);  // 输出：[banana, cherry]
 </ul>
 </li>
 </ol>
-</article>
-    </main>
-  </body>
-</html>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

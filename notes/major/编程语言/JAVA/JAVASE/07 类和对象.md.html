@@ -1,67 +1,42 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="07 类和对象 在 Java 中，类和对象是面向对象编程（OOP）的核心概念。类是对象的蓝图或模板，而对象是类的实例。 1. 类（Class） 类是定义对象的属性和行为的模板。它包含成员变量（属性）和">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="07 类和对象 · Seiga">
-    <meta property="og:description" content="07 类和对象 在 Java 中，类和对象是面向对象编程（OOP）的核心概念。类是对象的蓝图或模板，而对象是类的实例。 1. 类（Class） 类是定义对象的属性和行为的模板。它包含成员变量（属性）和">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/07%20%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/07%20%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>07 类和对象 · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"07 类和对象","description":"07 类和对象 在 Java 中，类和对象是面向对象编程（OOP）的核心概念。类是对象的蓝图或模板，而对象是类的实例。 1. 类（Class） 类是定义对象的属性和行为的模板。它包含成员变量（属性）和","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/07%20%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>07 类和对象</h1>
-        <p class="static-note-meta">Java · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/07%20%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>07 类和对象</h1>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>07 类和对象 · Seiga</title>
+<meta name="description" content="在 Java 中，类和对象是面向对象编程（OOP）的核心概念。类是对象的蓝图或模板，而对象是类的实例。 1. 类（Class） 类是定义对象的属性和行为的模板。它包含成员变量（属性）和方法（行为）。 ">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="07 类和对象 · Seiga"><meta property="og:description" content="在 Java 中，类和对象是面向对象编程（OOP）的核心概念。类是对象的蓝图或模板，而对象是类的实例。 1. 类（Class） 类是定义对象的属性和行为的模板。它包含成员变量（属性）和方法（行为）。 ">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/07%20%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/07%20%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"07 类和对象","description":"在 Java 中，类和对象是面向对象编程（OOP）的核心概念。类是对象的蓝图或模板，而对象是类的实例。 1. 类（Class） 类是定义对象的属性和行为的模板。它包含成员变量（属性）和方法（行为）。 ","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/07%20%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
+<h1>07 类和对象</h1><p class="static-note-meta">Java · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/07%20%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#1-%E7%B1%BBclass">1. 类（Class）</a></li><li><a href="#11-%E7%B1%BB%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95">1.1 类的基本语法</a></li><li><a href="#2-%E5%AF%B9%E8%B1%A1object">2. 对象（Object）</a></li><li><a href="#21-%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1">2.1 创建对象</a></li><li><a href="#22-%E8%AE%BF%E9%97%AE%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%E5%92%8C%E6%96%B9%E6%B3%95">2.2 访问成员变量和方法</a></li><li><a href="#3-%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%85%B3%E9%94%AE%E6%A6%82%E5%BF%B5">3. 类和对象的关键概念</a></li><li><a href="#31-%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95">3.1 构造方法</a></li><li><a href="#32-%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6">3.2 访问修饰符</a></li><li><a href="#33-this-%E5%85%B3%E9%94%AE%E5%AD%97">3.3 this 关键字</a></li><li><a href="#34-%E9%9D%99%E6%80%81%E6%88%90%E5%91%98">3.4 静态成员</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="07-类和对象" class="article-title-anchor"></span>
 <p>在 Java 中，<strong>类</strong>和<strong>对象</strong>是面向对象编程（OOP）的核心概念。类是对象的蓝图或模板，而对象是类的实例。</p>
-<h2>1. 类（Class）</h2>
+<h2 id="1-类class">1. 类（Class）</h2>
 <p>类是定义对象的属性和行为的模板。它包含成员变量（属性）和方法（行为）。</p>
-<h3>1.1 类的基本语法</h3>
-<pre><code class="language-java">[访问修饰符] class 类名 {
-    // 成员变量（属性）
+<h3 id="11-类的基本语法">1.1 类的基本语法</h3>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java">[访问修饰符] class 类名 {
+    <span class="hljs-comment">// 成员变量（属性）</span>
     [访问修饰符] 数据类型 变量名;
 
-    // 构造方法
+    <span class="hljs-comment">// 构造方法</span>
     [访问修饰符] 类名(参数列表) {
-        // 初始化代码
+        <span class="hljs-comment">// 初始化代码</span>
     }
 
-    // 成员方法（行为）
+    <span class="hljs-comment">// 成员方法（行为）</span>
     [访问修饰符] 返回类型 方法名(参数列表) {
-        // 方法体
+        <span class="hljs-comment">// 方法体</span>
     }
 }
-</code></pre>
+</code></pre></div>
 <ul>
 <li>
 <p><strong>访问修饰符</strong>：控制类的可见性（如 <code>public</code>、<code>private</code>、<code>protected</code>）。</p>
@@ -79,185 +54,185 @@
 <ol>
 <li><strong>使用常规方式定义类</strong></li>
 </ol>
-<pre><code class="language-java">public class Dog {
-    // 成员变量
-    private String name;
-    private int age;
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Dog</span> {
+    <span class="hljs-comment">// 成员变量</span>
+    <span class="hljs-keyword">private</span> String name;
+    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> age;
 
-    // 构造方法
-    public Dog(String name, int age) {
-        this.name = name;
-        this.age = age;
+    <span class="hljs-comment">// 构造方法</span>
+    <span class="hljs-type">public</span> <span class="hljs-title function_">Dog</span><span class="hljs-params">(String name, <span class="hljs-type">int</span> age)</span> {
+        <span class="hljs-built_in">this</span>.name = name;
+        <span class="hljs-built_in">this</span>.age = age;
     }
 
-    // 成员方法
-    public void bark() {
-        System.out.println(name + &quot; is barking!&quot;);
+    <span class="hljs-comment">// 成员方法</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">bark</span><span class="hljs-params">()</span> {
+        System.out.println(name + <span class="hljs-string">&quot; is barking!&quot;</span>);
     }
 
-    public void displayInfo() {
-        System.out.println(&quot;Name: &quot; + name + &quot;, Age: &quot; + age);
+    <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">displayInfo</span><span class="hljs-params">()</span> {
+        System.out.println(<span class="hljs-string">&quot;Name: &quot;</span> + name + <span class="hljs-string">&quot;, Age: &quot;</span> + age);
     }
 }
-</code></pre>
+</code></pre></div>
 <ol start="2">
 <li><strong>使用匿名类创建类</strong></li>
 </ol>
-<pre><code class="language-java">public class Main {
-    public static void main(String[] args) {
-        // 使用匿名类创建类并实现接口
-        Runnable myRunnable = new Runnable() {
-            @Override
-            public void run() {
-                System.out.println(&quot;This is an anonymous class!&quot;);
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        <span class="hljs-comment">// 使用匿名类创建类并实现接口</span>
+        <span class="hljs-type">Runnable</span> <span class="hljs-variable">myRunnable</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Runnable</span>() {
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">run</span><span class="hljs-params">()</span> {
+                System.out.println(<span class="hljs-string">&quot;This is an anonymous class!&quot;</span>);
             }
         };
 
-        // 执行匿名类中的方法
+        <span class="hljs-comment">// 执行匿名类中的方法</span>
         myRunnable.run();
     }
 }
 
-</code></pre>
+</code></pre></div>
 <ol start="3">
 <li><strong>使用内部类创建类</strong></li>
 </ol>
-<pre><code class="language-java">public class OuterClass {
-    // 外部类的成员
-    String outerField = &quot;Outer field&quot;;
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">OuterClass</span> {
+    <span class="hljs-comment">// 外部类的成员</span>
+    <span class="hljs-type">String</span> <span class="hljs-variable">outerField</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Outer field&quot;</span>;
 
-    // 内部类
-    public class InnerClass {
-        public void display() {
-            System.out.println(&quot;Accessing &quot; + outerField);
+    <span class="hljs-comment">// 内部类</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">InnerClass</span> {
+        <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">display</span><span class="hljs-params">()</span> {
+            System.out.println(<span class="hljs-string">&quot;Accessing &quot;</span> + outerField);
         }
     }
 
-    public static void main(String[] args) {
-        OuterClass outer = new OuterClass();
-        OuterClass.InnerClass inner = outer.new InnerClass();
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        <span class="hljs-type">OuterClass</span> <span class="hljs-variable">outer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OuterClass</span>();
+        OuterClass.<span class="hljs-type">InnerClass</span> <span class="hljs-variable">inner</span> <span class="hljs-operator">=</span> outer.<span class="hljs-keyword">new</span> <span class="hljs-title class_">InnerClass</span>();
         inner.display();
     }
 }
 
-</code></pre>
+</code></pre></div>
 <ol start="4">
 <li><strong>使用静态内部类创建类</strong></li>
 </ol>
-<pre><code class="language-java">public class OuterClass {
-    // 外部类的静态成员
-    static String outerField = &quot;Outer static field&quot;;
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">OuterClass</span> {
+    <span class="hljs-comment">// 外部类的静态成员</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-type">String</span> <span class="hljs-variable">outerField</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Outer static field&quot;</span>;
 
-    // 静态内部类
-    public static class InnerClass {
-        public void display() {
-            System.out.println(&quot;Accessing &quot; + outerField);
+    <span class="hljs-comment">// 静态内部类</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">InnerClass</span> {
+        <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">display</span><span class="hljs-params">()</span> {
+            System.out.println(<span class="hljs-string">&quot;Accessing &quot;</span> + outerField);
         }
     }
 
-    public static void main(String[] args) {
-        OuterClass.InnerClass inner = new OuterClass.InnerClass();
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        OuterClass.<span class="hljs-type">InnerClass</span> <span class="hljs-variable">inner</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">OuterClass</span>.InnerClass();
         inner.display();
     }
 }
 
-</code></pre>
+</code></pre></div>
 <ol start="5">
 <li><strong>使用继承创建子类</strong></li>
 </ol>
-<pre><code class="language-java">public class Vehicle {
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Vehicle</span> {
     String model;
 
-    public Vehicle(String model) {
-        this.model = model;
+    <span class="hljs-type">public</span> <span class="hljs-title function_">Vehicle</span><span class="hljs-params">(String model)</span> {
+        <span class="hljs-built_in">this</span>.model = model;
     }
 
-    public void displayInfo() {
-        System.out.println(&quot;Vehicle model: &quot; + model);
+    <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">displayInfo</span><span class="hljs-params">()</span> {
+        System.out.println(<span class="hljs-string">&quot;Vehicle model: &quot;</span> + model);
     }
 }
 
-public class Car extends Vehicle {
-    int year;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Car</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Vehicle</span> {
+    <span class="hljs-type">int</span> year;
 
-    public Car(String model, int year) {
-        super(model); // 调用父类构造方法
-        this.year = year;
+    <span class="hljs-type">public</span> <span class="hljs-title function_">Car</span><span class="hljs-params">(String model, <span class="hljs-type">int</span> year)</span> {
+        <span class="hljs-built_in">super</span>(model); <span class="hljs-comment">// 调用父类构造方法</span>
+        <span class="hljs-built_in">this</span>.year = year;
     }
 
-    @Override
-    public void displayInfo() {
-        super.displayInfo(); // 调用父类的方法
-        System.out.println(&quot;Car year: &quot; + year);
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">displayInfo</span><span class="hljs-params">()</span> {
+        <span class="hljs-built_in">super</span>.displayInfo(); <span class="hljs-comment">// 调用父类的方法</span>
+        System.out.println(<span class="hljs-string">&quot;Car year: &quot;</span> + year);
     }
 
-    public static void main(String[] args) {
-        Car car = new Car(&quot;BMW&quot;, 2020);
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        <span class="hljs-type">Car</span> <span class="hljs-variable">car</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Car</span>(<span class="hljs-string">&quot;BMW&quot;</span>, <span class="hljs-number">2020</span>);
         car.displayInfo();
     }
 }
 
-</code></pre>
+</code></pre></div>
 <ol start="6">
 <li><strong>使用接口创建类</strong></li>
 </ol>
-<pre><code class="language-java">interface Vehicle {
-    void displayInfo();
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Vehicle</span> {
+    <span class="hljs-type">void</span> <span class="hljs-title function_">displayInfo</span><span class="hljs-params">()</span>;
 }
 
-public class Car implements Vehicle {
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Car</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">Vehicle</span> {
     String model;
 
-    public Car(String model) {
-        this.model = model;
+    <span class="hljs-type">public</span> <span class="hljs-title function_">Car</span><span class="hljs-params">(String model)</span> {
+        <span class="hljs-built_in">this</span>.model = model;
     }
 
-    @Override
-    public void displayInfo() {
-        System.out.println(&quot;Vehicle model: &quot; + model);
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">displayInfo</span><span class="hljs-params">()</span> {
+        System.out.println(<span class="hljs-string">&quot;Vehicle model: &quot;</span> + model);
     }
 
-    public static void main(String[] args) {
-        Car car = new Car(&quot;Tesla&quot;);
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        <span class="hljs-type">Car</span> <span class="hljs-variable">car</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Car</span>(<span class="hljs-string">&quot;Tesla&quot;</span>);
         car.displayInfo();
     }
 }
 
-</code></pre>
+</code></pre></div>
 <ol start="7">
 <li><strong>使用抽象类创建类</strong></li>
 </ol>
-<pre><code class="language-java">abstract class Vehicle {
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">abstract</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Vehicle</span> {
     String model;
 
-    public Vehicle(String model) {
-        this.model = model;
+    <span class="hljs-type">public</span> <span class="hljs-title function_">Vehicle</span><span class="hljs-params">(String model)</span> {
+        <span class="hljs-built_in">this</span>.model = model;
     }
 
-    // 抽象方法，子类必须实现
-    abstract void displayInfo();
+    <span class="hljs-comment">// 抽象方法，子类必须实现</span>
+    <span class="hljs-keyword">abstract</span> <span class="hljs-type">void</span> <span class="hljs-title function_">displayInfo</span><span class="hljs-params">()</span>;
 }
 
-public class Car extends Vehicle {
-    int year;
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Car</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Vehicle</span> {
+    <span class="hljs-type">int</span> year;
 
-    public Car(String model, int year) {
-        super(model);
-        this.year = year;
+    <span class="hljs-type">public</span> <span class="hljs-title function_">Car</span><span class="hljs-params">(String model, <span class="hljs-type">int</span> year)</span> {
+        <span class="hljs-built_in">super</span>(model);
+        <span class="hljs-built_in">this</span>.year = year;
     }
 
-    @Override
-    void displayInfo() {
-        System.out.println(&quot;Vehicle model: &quot; + model + &quot;, Year: &quot; + year);
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-type">void</span> <span class="hljs-title function_">displayInfo</span><span class="hljs-params">()</span> {
+        System.out.println(<span class="hljs-string">&quot;Vehicle model: &quot;</span> + model + <span class="hljs-string">&quot;, Year: &quot;</span> + year);
     }
 
-    public static void main(String[] args) {
-        Car car = new Car(&quot;Toyota&quot;, 2021);
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        <span class="hljs-type">Car</span> <span class="hljs-variable">car</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Car</span>(<span class="hljs-string">&quot;Toyota&quot;</span>, <span class="hljs-number">2021</span>);
         car.displayInfo();
     }
 }
 
-</code></pre>
+</code></pre></div>
 <p>在 Java 中，创建类的方式有多种，包括：</p>
 <ol>
 <li><strong>常规类定义</strong>：直接定义类并提供构造方法和方法。</li>
@@ -267,116 +242,116 @@ public class Car extends Vehicle {
 <li><strong>接口</strong>：通过实现接口来创建类，提供多重继承功能。</li>
 <li><strong>抽象类</strong>：提供部分实现并要求子类完成剩余部分。</li>
 </ol>
-<h2>2. 对象（Object）</h2>
+<h2 id="2-对象object">2. 对象（Object）</h2>
 <p>对象是类的实例。通过类创建对象后，可以访问类的成员变量和方法。</p>
-<h3>2.1 创建对象</h3>
+<h3 id="21-创建对象">2.1 创建对象</h3>
 <p>使用 <code>new</code> 关键字创建对象：</p>
-<pre><code class="language-java">类名 对象名 = new 类名(参数列表);
-Date date = new Date();
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java">类名 对象名 = <span class="hljs-keyword">new</span> 类名(参数列表);
+<span class="hljs-type">Date</span> <span class="hljs-variable">date</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>();
+</code></pre></div>
 <p>使用构造方法创建对象:</p>
-<pre><code class="language-java">public class Car {
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Car</span> {
     String model;
-    int year;
+    <span class="hljs-type">int</span> year;
 
-    // 构造方法
-    public Car(String model, int year) {
-        this.model = model;
-        this.year = year;
+    <span class="hljs-comment">// 构造方法</span>
+    <span class="hljs-type">public</span> <span class="hljs-title function_">Car</span><span class="hljs-params">(String model, <span class="hljs-type">int</span> year)</span> {
+        <span class="hljs-built_in">this</span>.model = model;
+        <span class="hljs-built_in">this</span>.year = year;
     }
 
-    // 方法
-    public void displayInfo() {
-        System.out.println(&quot;Model: &quot; + model);
-        System.out.println(&quot;Year: &quot; + year);
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        // 创建对象
-        Car myCar = new Car(&quot;Tesla Model 3&quot;, 2022);
-        myCar.displayInfo(); // 调用方法
+    <span class="hljs-comment">// 方法</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">displayInfo</span><span class="hljs-params">()</span> {
+        System.out.println(<span class="hljs-string">&quot;Model: &quot;</span> + model);
+        System.out.println(<span class="hljs-string">&quot;Year: &quot;</span> + year);
     }
 }
-</code></pre>
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        <span class="hljs-comment">// 创建对象</span>
+        <span class="hljs-type">Car</span> <span class="hljs-variable">myCar</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Car</span>(<span class="hljs-string">&quot;Tesla Model 3&quot;</span>, <span class="hljs-number">2022</span>);
+        myCar.displayInfo(); <span class="hljs-comment">// 调用方法</span>
+    }
+}
+</code></pre></div>
 <p>使用反射创建对象:</p>
-<pre><code class="language-java">public class Car {
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Car</span> {
     String model;
-    int year;
+    <span class="hljs-type">int</span> year;
 
-    public Car(String model, int year) {
-        this.model = model;
-        this.year = year;
+    <span class="hljs-type">public</span> <span class="hljs-title function_">Car</span><span class="hljs-params">(String model, <span class="hljs-type">int</span> year)</span> {
+        <span class="hljs-built_in">this</span>.model = model;
+        <span class="hljs-built_in">this</span>.year = year;
     }
 
-    public void displayInfo() {
-        System.out.println(&quot;Model: &quot; + model);
-        System.out.println(&quot;Year: &quot; + year);
+    <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">displayInfo</span><span class="hljs-params">()</span> {
+        System.out.println(<span class="hljs-string">&quot;Model: &quot;</span> + model);
+        System.out.println(<span class="hljs-string">&quot;Year: &quot;</span> + year);
     }
 }
 
-public class Main {
-    public static void main(String[] args) throws Exception {
-        // 使用反射创建对象
-        Class&lt;?&gt; carClass = Class.forName(&quot;Car&quot;);
-        Car myCar = (Car) carClass.getDeclaredConstructor(String.class, int.class).newInstance(&quot;Audi&quot;, 2023);
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> <span class="hljs-keyword">throws</span> Exception {
+        <span class="hljs-comment">// 使用反射创建对象</span>
+        <span class="hljs-type">Class</span>&lt;?&gt; <span class="hljs-variable">carClass</span> <span class="hljs-operator">=</span> Class.forName(<span class="hljs-string">&quot;Car&quot;</span>);
+        <span class="hljs-type">Car</span> <span class="hljs-variable">myCar</span> <span class="hljs-operator">=</span> (Car) carClass.getDeclaredConstructor(String.class, <span class="hljs-type">int</span>.class).newInstance(<span class="hljs-string">&quot;Audi&quot;</span>, <span class="hljs-number">2023</span>);
         myCar.displayInfo();
     }
 }
 
-</code></pre>
+</code></pre></div>
 <p>使用工厂方法创建对象:</p>
 <ul>
 <li>工厂方法是一个类的方法，用来创建该类的对象。这种方法通常用于复杂的对象创建逻辑或对象的多样化创建</li>
 </ul>
-<pre><code class="language-java">public class Car {
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Car</span> {
     String model;
-    int year;
+    <span class="hljs-type">int</span> year;
 
-    // 私有构造方法
-    private Car(String model, int year) {
-        this.model = model;
-        this.year = year;
+    <span class="hljs-comment">// 私有构造方法</span>
+    <span class="hljs-type">private</span> <span class="hljs-title function_">Car</span><span class="hljs-params">(String model, <span class="hljs-type">int</span> year)</span> {
+        <span class="hljs-built_in">this</span>.model = model;
+        <span class="hljs-built_in">this</span>.year = year;
     }
 
-    // 工厂方法
-    public static Car createCar(String model, int year) {
-        return new Car(model, year);
+    <span class="hljs-comment">// 工厂方法</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">Car</span> <span class="hljs-title function_">createCar</span><span class="hljs-params">(String model, <span class="hljs-type">int</span> year)</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Car</span>(model, year);
     }
 
-    public void displayInfo() {
-        System.out.println(&quot;Model: &quot; + model);
-        System.out.println(&quot;Year: &quot; + year);
+    <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">displayInfo</span><span class="hljs-params">()</span> {
+        System.out.println(<span class="hljs-string">&quot;Model: &quot;</span> + model);
+        System.out.println(<span class="hljs-string">&quot;Year: &quot;</span> + year);
     }
 }
 
-public class Main {
-    public static void main(String[] args) {
-        // 使用工厂方法创建对象
-        Car myCar = Car.createCar(&quot;Ford&quot;, 2021);
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        <span class="hljs-comment">// 使用工厂方法创建对象</span>
+        <span class="hljs-type">Car</span> <span class="hljs-variable">myCar</span> <span class="hljs-operator">=</span> Car.createCar(<span class="hljs-string">&quot;Ford&quot;</span>, <span class="hljs-number">2021</span>);
         myCar.displayInfo();
     }
 }
 
-</code></pre>
-<h3>2.2 访问成员变量和方法</h3>
+</code></pre></div>
+<h3 id="22-访问成员变量和方法">2.2 访问成员变量和方法</h3>
 <p>使用点号（<code>.</code>）访问对象的成员变量和方法：</p>
-<pre><code class="language-java">对象名.成员变量;
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java">对象名.成员变量;
 对象名.方法名(参数列表);
-public class Main {
-    public static void main(String[] args) {
-        // 创建对象
-        Dog myDog = new Dog(&quot;Buddy&quot;, 3);
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Main</span> {
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> {
+        <span class="hljs-comment">// 创建对象</span>
+        <span class="hljs-type">Dog</span> <span class="hljs-variable">myDog</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Dog</span>(<span class="hljs-string">&quot;Buddy&quot;</span>, <span class="hljs-number">3</span>);
 
-        // 访问成员方法
+        <span class="hljs-comment">// 访问成员方法</span>
         myDog.bark();
         myDog.displayInfo();
     }
 }
-</code></pre>
-<h2>3. 类和对象的关键概念</h2>
-<h3>3.1 构造方法</h3>
+</code></pre></div>
+<h2 id="3-类和对象的关键概念">3. 类和对象的关键概念</h2>
+<h3 id="31-构造方法">3.1 构造方法</h3>
 <ul>
 <li>
 <p>构造方法用于初始化对象。</p>
@@ -388,7 +363,7 @@ public class Main {
 <p>如果没有显式定义构造方法，Java 会提供一个默认的无参构造方法。</p>
 </li>
 </ul>
-<h3>3.2 访问修饰符</h3>
+<h3 id="32-访问修饰符">3.2 访问修饰符</h3>
 <ul>
 <li>
 <p><strong><code>public</code></strong>：类、成员变量和方法可以在任何地方访问。</p>
@@ -403,7 +378,7 @@ public class Main {
 <p><strong>默认（无修饰符）</strong>：成员变量和方法可以在类内部和同一包中访问。</p>
 </li>
 </ul>
-<h3>3.3 <code>this</code> 关键字</h3>
+<h3 id="33-this-关键字">3.3 <code>this</code> 关键字</h3>
 <ul>
 <li>
 <p><code>this</code> 关键字用于引用当前对象的成员变量或方法。</p>
@@ -412,7 +387,7 @@ public class Main {
 <p>常用于区分成员变量和局部变量。</p>
 </li>
 </ul>
-<h3>3.4 静态成员</h3>
+<h3 id="34-静态成员">3.4 静态成员</h3>
 <ul>
 <li>
 <p>使用 <code>static</code> 关键字定义的成员变量和方法属于类，而不是对象。</p>
@@ -428,7 +403,5 @@ public class Main {
 <li><strong>反射</strong>：通过 <code>Class</code> 类动态创建对象。</li>
 <li><strong>工厂方法</strong>：通过静态方法来创建对象。</li>
 </ol>
-</article>
-    </main>
-  </body>
-</html>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

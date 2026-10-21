@@ -1,55 +1,30 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Dockerfile 是用于构建 Docker 镜像的脚本文件，包含了用户可以在命令行中调用的所有命令。Docker 可以通过这个脚本生成镜像，设定环境变量，运行指令等。 通过 docker buil">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="DockerFile · Seiga">
-    <meta property="og:description" content="Dockerfile 是用于构建 Docker 镜像的脚本文件，包含了用户可以在命令行中调用的所有命令。Docker 可以通过这个脚本生成镜像，设定环境变量，运行指令等。 通过 docker buil">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Docker/DockerFile.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Docker/DockerFile.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>DockerFile · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"DockerFile","description":"Dockerfile 是用于构建 Docker 镜像的脚本文件，包含了用户可以在命令行中调用的所有命令。Docker 可以通过这个脚本生成镜像，设定环境变量，运行指令等。 通过 docker buil","datePublished":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Docker/DockerFile.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>DockerFile</h1>
-        <p class="static-note-meta">Docker · 2026-09-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/Docker/DockerFile.md">在站内打开</a>
-      </header>
-      <article class="prose"><p>Dockerfile 是用于构建 Docker 镜像的脚本文件，包含了用户可以在命令行中调用的所有命令。Docker 可以通过这个脚本生成镜像，设定环境变量，运行指令等。</p>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DockerFile · Seiga</title>
+<meta name="description" content="Dockerfile 是用于构建 Docker 镜像的脚本文件，包含了用户可以在命令行中调用的所有命令。Docker 可以通过这个脚本生成镜像，设定环境变量，运行指令等。 通过 docker buil">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="DockerFile · Seiga"><meta property="og:description" content="Dockerfile 是用于构建 Docker 镜像的脚本文件，包含了用户可以在命令行中调用的所有命令。Docker 可以通过这个脚本生成镜像，设定环境变量，运行指令等。 通过 docker buil">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/Docker/DockerFile.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/Docker/DockerFile.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"DockerFile","description":"Dockerfile 是用于构建 Docker 镜像的脚本文件，包含了用户可以在命令行中调用的所有命令。Docker 可以通过这个脚本生成镜像，设定环境变量，运行指令等。 通过 docker buil","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/Docker/DockerFile.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=Docker">Docker</a></nav>
+<h1>DockerFile</h1><p class="static-note-meta">Docker · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/Docker/DockerFile.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#dockerfile-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95">Dockerfile 基本语法</a></li><li><a href="#%E6%9E%84%E5%BB%BA%E5%91%BD%E4%BB%A4">构建命令</a></li><li><a href="#%E5%9F%BA%E6%9C%AC%E8%A7%84%E5%88%99">基本规则</a></li><li><a href="#dockerfile-%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E8%AF%A6%E8%A7%A3">Dockerfile 常用指令详解</a></li><li><a href="#1-from">1. FROM</a></li><li><a href="#2-label">2. LABEL</a></li><li><a href="#3-run">3. RUN</a></li><li><a href="#4-workdir">4. WORKDIR</a></li><li><a href="#5-copy--add">5. COPY &amp; ADD</a></li><li><a href="#6-env">6. ENV</a></li><li><a href="#7-expose">7. EXPOSE</a></li><li><a href="#8-volume">8. VOLUME</a></li><li><a href="#9-entrypoint">9. ENTRYPOINT</a></li><li><a href="#10-cmd">10. CMD</a></li><li><a href="#11-arg">11. ARG</a></li><li><a href="#12-user">12. USER</a></li><li><a href="#13-healthcheck">13. HEALTHCHECK</a></li><li><a href="#%E5%AE%8C%E6%95%B4%E7%A4%BA%E4%BE%8B-dockerfile">完整示例 Dockerfile</a></li><li><a href="#python-flask-%E5%BA%94%E7%94%A8">Python Flask 应用</a></li><li><a href="#nodejs-%E5%BA%94%E7%94%A8">Node.js 应用</a></li><li><a href="#dockerfile-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">Dockerfile 最佳实践</a></li><li><a href="#1-%E9%80%89%E6%8B%A9%E8%BD%BB%E9%87%8F%E7%BA%A7%E5%9F%BA%E7%A1%80%E9%95%9C%E5%83%8F">1. 选择轻量级基础镜像</a></li><li><a href="#2-%E5%90%88%E5%B9%B6-run-%E6%8C%87%E4%BB%A4">2. 合并 RUN 指令</a></li><li><a href="#3-%E4%BD%BF%E7%94%A8-dockerignore">3. 使用 .dockerignore</a></li><li><a href="#4-%E5%9B%BA%E5%AE%9A%E7%89%88%E6%9C%AC">4. 固定版本</a></li><li><a href="#5-%E5%88%86%E9%98%B6%E6%AE%B5%E6%9E%84%E5%BB%BA-multi-stage-builds">5. 分阶段构建 (Multi-stage builds)</a></li><li><a href="#6-%E4%BC%98%E5%8C%96%E5%B1%82%E7%BC%93%E5%AD%98">6. 优化层缓存</a></li><li><a href="#7-%E4%BD%BF%E7%94%A8%E9%9D%9E-root-%E7%94%A8%E6%88%B7">7. 使用非 root 用户</a></li><li><a href="#8-%E8%AE%BE%E7%BD%AE%E5%81%A5%E5%BA%B7%E6%A3%80%E6%9F%A5">8. 设置健康检查</a></li><li><a href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">常见问题</a></li><li><a href="#1-%E5%A6%82%E4%BD%95%E5%87%8F%E5%B0%8F%E9%95%9C%E5%83%8F%E5%A4%A7%E5%B0%8F">1. 如何减小镜像大小？</a></li><li><a href="#2-%E5%A6%82%E4%BD%95%E6%8F%90%E9%AB%98%E6%9E%84%E5%BB%BA%E9%80%9F%E5%BA%A6">2. 如何提高构建速度？</a></li><li><a href="#3-%E5%A6%82%E4%BD%95%E8%B0%83%E8%AF%95-dockerfile">3. 如何调试 Dockerfile？</a></li><li><a href="#%E6%80%BB%E7%BB%93">总结</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><p>Dockerfile 是用于构建 Docker 镜像的脚本文件，包含了用户可以在命令行中调用的所有命令。Docker 可以通过这个脚本生成镜像，设定环境变量，运行指令等。</p>
 <p>通过 <code>docker build</code> 命令读取 <code>Dockerfile</code> 并生成镜像。</p>
 <hr>
-<h2>Dockerfile 基本语法</h2>
-<h3>构建命令</h3>
-<pre><code class="language-bash">docker build -f &lt;dockerfile文件路径&gt; -t &lt;镜像名:TAG&gt; &lt;构建上下文&gt;
-</code></pre>
-<h3>基本规则</h3>
+<h2 id="dockerfile-基本语法">Dockerfile 基本语法</h2>
+<h3 id="构建命令">构建命令</h3>
+<div class="code-block"><div class="code-block-bar"><span>bash</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-bash">docker build -f &lt;dockerfile文件路径&gt; -t &lt;镜像名:TAG&gt; &lt;构建上下文&gt;
+</code></pre></div>
+<h3 id="基本规则">基本规则</h3>
 <ul>
 <li>指令必须大写</li>
 <li>执行从上到下</li>
@@ -57,66 +32,66 @@
 <li>每个指令都会创建一个镜像层（构建镜像时展示的一行行操作）</li>
 </ul>
 <hr>
-<h2>Dockerfile 常用指令详解</h2>
-<h3>1. FROM</h3>
+<h2 id="dockerfile-常用指令详解">Dockerfile 常用指令详解</h2>
+<h3 id="1-from">1. FROM</h3>
 <p>指定基础镜像（必须是 Dockerfile 的第一条指令）。</p>
-<pre><code class="language-dockerfile">FROM ubuntu:20.04
-FROM node:18-alpine
-FROM python:3.10-slim
-</code></pre>
-<h3>2. LABEL</h3>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-keyword">FROM</span> ubuntu:<span class="hljs-number">20.04</span>
+<span class="hljs-keyword">FROM</span> node:<span class="hljs-number">18</span>-alpine
+<span class="hljs-keyword">FROM</span> python:<span class="hljs-number">3.10</span>-slim
+</code></pre></div>
+<h3 id="2-label">2. LABEL</h3>
 <p>为镜像添加元数据（作者、版本、描述等）。</p>
-<pre><code class="language-dockerfile">LABEL maintainer=&quot;yourname@example.com&quot;
-LABEL version=&quot;1.0&quot;
-LABEL description=&quot;这是一个示例镜像&quot;
-</code></pre>
-<h3>3. RUN</h3>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-keyword">LABEL</span><span class="language-bash"> maintainer=<span class="hljs-string">&quot;yourname@example.com&quot;</span></span>
+<span class="hljs-keyword">LABEL</span><span class="language-bash"> version=<span class="hljs-string">&quot;1.0&quot;</span></span>
+<span class="hljs-keyword">LABEL</span><span class="language-bash"> description=<span class="hljs-string">&quot;这是一个示例镜像&quot;</span></span>
+</code></pre></div>
+<h3 id="3-run">3. RUN</h3>
 <p>执行命令并生成新的镜像层（通常用于安装依赖）。</p>
-<pre><code class="language-dockerfile">RUN apt-get update &amp;&amp; apt-get install -y python3 python3-pip
-RUN npm install
-RUN pip install -r requirements.txt
-</code></pre>
-<h3>4. WORKDIR</h3>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-keyword">RUN</span><span class="language-bash"> apt-get update &amp;&amp; apt-get install -y python3 python3-pip</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> npm install</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> pip install -r requirements.txt</span>
+</code></pre></div>
+<h3 id="4-workdir">4. WORKDIR</h3>
 <p>设置容器内的工作目录（相当于 <code>cd</code>）。</p>
-<pre><code class="language-dockerfile">WORKDIR /app
-WORKDIR /usr/src/app
-</code></pre>
-<h3>5. COPY &amp; ADD</h3>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /app</span>
+<span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /usr/src/app</span>
+</code></pre></div>
+<h3 id="5-copy--add">5. COPY &amp; ADD</h3>
 <p>将文件复制到镜像中：</p>
-<pre><code class="language-dockerfile"># COPY - 仅复制文件/目录
-COPY ./src /app/src
-COPY requirements.txt /app/
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-comment"># COPY - 仅复制文件/目录</span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> ./src /app/src</span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> requirements.txt /app/</span>
 
-# ADD - 可解压 tar 包或下载 URL
-ADD ./app.tar.gz /app/
-ADD https://example.com/file.tar.gz /app/
-</code></pre>
+<span class="hljs-comment"># ADD - 可解压 tar 包或下载 URL</span>
+<span class="hljs-keyword">ADD</span><span class="language-bash"> ./app.tar.gz /app/</span>
+<span class="hljs-keyword">ADD</span><span class="language-bash"> https://example.com/file.tar.gz /app/</span>
+</code></pre></div>
 <p><strong>区别</strong>：</p>
 <ul>
 <li><code>COPY</code> 只能复制本地文件</li>
 <li><code>ADD</code> 支持 URL 下载和自动解压</li>
 </ul>
-<h3>6. ENV</h3>
+<h3 id="6-env">6. ENV</h3>
 <p>设置环境变量：</p>
-<pre><code class="language-dockerfile">ENV APP_ENV=production
-ENV PATH=&quot;/usr/local/bin:${PATH}&quot;
-ENV NODE_ENV=production
-</code></pre>
-<h3>7. EXPOSE</h3>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-keyword">ENV</span> APP_ENV=production
+<span class="hljs-keyword">ENV</span> PATH=<span class="hljs-string">&quot;/usr/local/bin:${PATH}&quot;</span>
+<span class="hljs-keyword">ENV</span> NODE_ENV=production
+</code></pre></div>
+<h3 id="7-expose">7. EXPOSE</h3>
 <p>声明容器对外暴露的端口（仅声明，不自动映射）。</p>
-<pre><code class="language-dockerfile">EXPOSE 8080
-EXPOSE 3000 5000
-</code></pre>
-<h3>8. VOLUME</h3>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">8080</span>
+<span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">3000</span> <span class="hljs-number">5000</span>
+</code></pre></div>
+<h3 id="8-volume">8. VOLUME</h3>
 <p>定义挂载点，用于持久化存储。</p>
-<pre><code class="language-dockerfile">VOLUME /var/lib/mysql
-VOLUME [&quot;/app/data&quot;, &quot;/app/logs&quot;]
-</code></pre>
-<h3>9. ENTRYPOINT</h3>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-keyword">VOLUME</span><span class="language-bash"> /var/lib/mysql</span>
+<span class="hljs-keyword">VOLUME</span><span class="language-bash"> [<span class="hljs-string">&quot;/app/data&quot;</span>, <span class="hljs-string">&quot;/app/logs&quot;</span>]</span>
+</code></pre></div>
+<h3 id="9-entrypoint">9. ENTRYPOINT</h3>
 <p>定义容器的入口命令，通常是主进程。</p>
-<pre><code class="language-dockerfile">ENTRYPOINT [&quot;python3&quot;, &quot;app.py&quot;]
-ENTRYPOINT [&quot;java&quot;, &quot;-jar&quot;, &quot;app.jar&quot;]
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="hljs-string">&quot;python3&quot;</span>, <span class="hljs-string">&quot;app.py&quot;</span>]</span>
+<span class="hljs-keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="hljs-string">&quot;java&quot;</span>, <span class="hljs-string">&quot;-jar&quot;</span>, <span class="hljs-string">&quot;app.jar&quot;</span>]</span>
+</code></pre></div>
 <p><strong>为什么需要入口命令？</strong><br>
 容器生命周期管理：容器需要知道启动后要做什么</p>
 <ul>
@@ -124,205 +99,203 @@ ENTRYPOINT [&quot;java&quot;, &quot;-jar&quot;, &quot;app.jar&quot;]
 <li>标准化部署：统一的启动方式</li>
 <li>资源管理：Docker 可以监控主进程的状态</li>
 </ul>
-<h3>10. CMD</h3>
+<h3 id="10-cmd">10. CMD</h3>
 <p>容器启动时默认执行的命令，可以被 <code>docker run</code> 的参数覆盖。</p>
-<pre><code class="language-dockerfile">CMD [&quot;npm&quot;, &quot;start&quot;]
-CMD [&quot;python&quot;, &quot;app.py&quot;]
-CMD [&quot;echo&quot;, &quot;Hello World&quot;]
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;npm&quot;</span>, <span class="hljs-string">&quot;start&quot;</span>]</span>
+<span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;python&quot;</span>, <span class="hljs-string">&quot;app.py&quot;</span>]</span>
+<span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;echo&quot;</span>, <span class="hljs-string">&quot;Hello World&quot;</span>]</span>
+</code></pre></div>
 <p><strong>ENTRYPOINT vs CMD</strong>：</p>
 <ul>
 <li><code>ENTRYPOINT</code> 用于固定入口点（不可轻易被覆盖）</li>
 <li><code>CMD</code> 提供默认参数，可以被覆盖</li>
 <li>可以同时使用：<code>ENTRYPOINT [&quot;python&quot;]</code> + <code>CMD [&quot;app.py&quot;]</code></li>
 </ul>
-<h3>11. ARG</h3>
+<h3 id="11-arg">11. ARG</h3>
 <p>构建时参数（仅在 <code>docker build</code> 阶段生效）。</p>
-<pre><code class="language-dockerfile">ARG APP_VERSION=1.0
-ARG NODE_VERSION=18
-RUN echo &quot;Building version $APP_VERSION&quot;
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-keyword">ARG</span> APP_VERSION=<span class="hljs-number">1.0</span>
+<span class="hljs-keyword">ARG</span> NODE_VERSION=<span class="hljs-number">18</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;Building version <span class="hljs-variable">$APP_VERSION</span>&quot;</span></span>
+</code></pre></div>
 <p>构建时传递：</p>
-<pre><code class="language-bash">docker build --build-arg APP_VERSION=2.0 -t myapp:2.0 .
-</code></pre>
-<h3>12. USER</h3>
+<div class="code-block"><div class="code-block-bar"><span>bash</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-bash">docker build --build-arg APP_VERSION=2.0 -t myapp:2.0 .
+</code></pre></div>
+<h3 id="12-user">12. USER</h3>
 <p>指定运行容器时的用户名或 UID。</p>
-<pre><code class="language-dockerfile">USER node
-USER 1000
-</code></pre>
-<h3>13. HEALTHCHECK</h3>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-keyword">USER</span> node
+<span class="hljs-keyword">USER</span> <span class="hljs-number">1000</span>
+</code></pre></div>
+<h3 id="13-healthcheck">13. HEALTHCHECK</h3>
 <p>定义容器健康检查。</p>
-<pre><code class="language-dockerfile">HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:8080/health || exit 1
-</code></pre>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-keyword">HEALTHCHECK</span><span class="language-bash"> --interval=30s --<span class="hljs-built_in">timeout</span>=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:8080/health || <span class="hljs-built_in">exit</span> 1</span>
+</code></pre></div>
 <hr>
-<h2>完整示例 Dockerfile</h2>
-<h3>Python Flask 应用</h3>
-<pre><code class="language-dockerfile"># 1. 基础镜像
-FROM python:3.10-slim
+<h2 id="完整示例-dockerfile">完整示例 Dockerfile</h2>
+<h3 id="python-flask-应用">Python Flask 应用</h3>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-comment"># 1. 基础镜像</span>
+<span class="hljs-keyword">FROM</span> python:<span class="hljs-number">3.10</span>-slim
 
-# 2. 镜像信息
-LABEL maintainer=&quot;you@example.com&quot;
-LABEL version=&quot;1.0&quot;
+<span class="hljs-comment"># 2. 镜像信息</span>
+<span class="hljs-keyword">LABEL</span><span class="language-bash"> maintainer=<span class="hljs-string">&quot;you@example.com&quot;</span></span>
+<span class="hljs-keyword">LABEL</span><span class="language-bash"> version=<span class="hljs-string">&quot;1.0&quot;</span></span>
 
-# 3. 设置工作目录
-WORKDIR /app
+<span class="hljs-comment"># 3. 设置工作目录</span>
+<span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /app</span>
 
-# 4. 设置环境变量
-ENV FLASK_ENV=production
-ENV PYTHONUNBUFFERED=1
+<span class="hljs-comment"># 4. 设置环境变量</span>
+<span class="hljs-keyword">ENV</span> FLASK_ENV=production
+<span class="hljs-keyword">ENV</span> PYTHONUNBUFFERED=<span class="hljs-number">1</span>
 
-# 5. 安装系统依赖
-RUN apt-get update &amp;&amp; apt-get install -y \
+<span class="hljs-comment"># 5. 安装系统依赖</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> apt-get update &amp;&amp; apt-get install -y \
     gcc \
-    &amp;&amp; rm -rf /var/lib/apt/lists/*
+    &amp;&amp; <span class="hljs-built_in">rm</span> -rf /var/lib/apt/lists/*</span>
 
-# 6. 拷贝依赖并安装
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+<span class="hljs-comment"># 6. 拷贝依赖并安装</span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> requirements.txt .</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> pip install --no-cache-dir -r requirements.txt</span>
 
-# 7. 拷贝应用代码
-COPY . .
+<span class="hljs-comment"># 7. 拷贝应用代码</span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> . .</span>
 
-# 8. 创建非 root 用户
-RUN useradd --create-home --shell /bin/bash app \
-    &amp;&amp; chown -R app:app /app
-USER app
+<span class="hljs-comment"># 8. 创建非 root 用户</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> useradd --create-home --shell /bin/bash app \
+    &amp;&amp; <span class="hljs-built_in">chown</span> -R app:app /app</span>
+<span class="hljs-keyword">USER</span> app
 
-# 9. 声明端口
-EXPOSE 5000
+<span class="hljs-comment"># 9. 声明端口</span>
+<span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">5000</span>
 
-# 10. 定义卷
-VOLUME /app/data
+<span class="hljs-comment"># 10. 定义卷</span>
+<span class="hljs-keyword">VOLUME</span><span class="language-bash"> /app/data</span>
 
-# 11. 健康检查
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:5000/health || exit 1
+<span class="hljs-comment"># 11. 健康检查</span>
+<span class="hljs-keyword">HEALTHCHECK</span><span class="language-bash"> --interval=30s --<span class="hljs-built_in">timeout</span>=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:5000/health || <span class="hljs-built_in">exit</span> 1</span>
 
-# 12. 启动命令
-CMD [&quot;python&quot;, &quot;app.py&quot;]
-</code></pre>
-<h3>Node.js 应用</h3>
-<pre><code class="language-dockerfile"># 多阶段构建
-FROM node:18-alpine AS builder
+<span class="hljs-comment"># 12. 启动命令</span>
+<span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;python&quot;</span>, <span class="hljs-string">&quot;app.py&quot;</span>]</span>
+</code></pre></div>
+<h3 id="nodejs-应用">Node.js 应用</h3>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-comment"># 多阶段构建</span>
+<span class="hljs-keyword">FROM</span> node:<span class="hljs-number">18</span>-alpine AS builder
 
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
+<span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /app</span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> package*.json ./</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> npm ci --only=production</span>
 
-FROM node:18-alpine AS runtime
+<span class="hljs-keyword">FROM</span> node:<span class="hljs-number">18</span>-alpine AS runtime
 
-WORKDIR /app
-COPY --from=builder /app/node_modules ./node_modules
-COPY . .
+<span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /app</span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> --from=builder /app/node_modules ./node_modules</span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> . .</span>
 
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
-USER nextjs
+<span class="hljs-keyword">RUN</span><span class="language-bash"> addgroup -g 1001 -S nodejs</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> adduser -S nextjs -u 1001</span>
+<span class="hljs-keyword">USER</span> nextjs
 
-EXPOSE 3000
-CMD [&quot;npm&quot;, &quot;start&quot;]
-</code></pre>
+<span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">3000</span>
+<span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;npm&quot;</span>, <span class="hljs-string">&quot;start&quot;</span>]</span>
+</code></pre></div>
 <hr>
-<h2>Dockerfile 最佳实践</h2>
-<h3>1. 选择轻量级基础镜像</h3>
-<pre><code class="language-dockerfile"># 推荐
-FROM python:3.10-alpine
-FROM node:18-alpine
+<h2 id="dockerfile-最佳实践">Dockerfile 最佳实践</h2>
+<h3 id="1-选择轻量级基础镜像">1. 选择轻量级基础镜像</h3>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-comment"># 推荐</span>
+<span class="hljs-keyword">FROM</span> python:<span class="hljs-number">3.10</span>-alpine
+<span class="hljs-keyword">FROM</span> node:<span class="hljs-number">18</span>-alpine
 
-# 避免
-FROM ubuntu:20.04
-</code></pre>
-<h3>2. 合并 RUN 指令</h3>
-<pre><code class="language-dockerfile"># 推荐 - 减少层数
-RUN apt-get update &amp;&amp; \
+<span class="hljs-comment"># 避免</span>
+<span class="hljs-keyword">FROM</span> ubuntu:<span class="hljs-number">20.04</span>
+</code></pre></div>
+<h3 id="2-合并-run-指令">2. 合并 RUN 指令</h3>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-comment"># 推荐 - 减少层数</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> apt-get update &amp;&amp; \
     apt-get install -y curl vim &amp;&amp; \
-    rm -rf /var/lib/apt/lists/*
+    <span class="hljs-built_in">rm</span> -rf /var/lib/apt/lists/*</span>
 
-# 避免 - 创建多个层
-RUN apt-get update
-RUN apt-get install -y curl vim
-RUN rm -rf /var/lib/apt/lists/*
-</code></pre>
-<h3>3. 使用 .dockerignore</h3>
+<span class="hljs-comment"># 避免 - 创建多个层</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> apt-get update</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> apt-get install -y curl vim</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> <span class="hljs-built_in">rm</span> -rf /var/lib/apt/lists/*</span>
+</code></pre></div>
+<h3 id="3-使用-dockerignore">3. 使用 .dockerignore</h3>
 <p>排除不必要的文件<br>
 创建 <code>.dockerignore</code> 文件：</p>
-<pre><code class="language-dockerignore">.git
+<div class="code-block"><div class="code-block-bar"><span>dockerignore</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerignore">.git
 node_modules
 *.log
 .env
 .DS_Store
 coverage/
 .nyc_output/
-</code></pre>
-<h3>4. 固定版本</h3>
-<pre><code class="language-dockerfile"># 推荐 - 固定版本
-RUN pip install flask==2.3.0
-FROM node:18.16.0-alpine
+</code></pre></div>
+<h3 id="4-固定版本">4. 固定版本</h3>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-comment"># 推荐 - 固定版本</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> pip install flask==2.3.0</span>
+<span class="hljs-keyword">FROM</span> node:<span class="hljs-number">18.16</span>.<span class="hljs-number">0</span>-alpine
 
-# 避免 - 使用 latest
-FROM node:latest
-RUN pip install flask
-</code></pre>
-<h3>5. 分阶段构建 (Multi-stage builds)</h3>
-<pre><code class="language-dockerfile"># 构建阶段
-FROM golang:1.20 AS builder
-WORKDIR /build
-COPY . .
-RUN go build -o app
+<span class="hljs-comment"># 避免 - 使用 latest</span>
+<span class="hljs-keyword">FROM</span> node:latest
+<span class="hljs-keyword">RUN</span><span class="language-bash"> pip install flask</span>
+</code></pre></div>
+<h3 id="5-分阶段构建-multi-stage-builds">5. 分阶段构建 (Multi-stage builds)</h3>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-comment"># 构建阶段</span>
+<span class="hljs-keyword">FROM</span> golang:<span class="hljs-number">1.20</span> AS builder
+<span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /build</span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> . .</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> go build -o app</span>
 
-# 运行阶段
-FROM alpine:3.18
-RUN apk --no-cache add ca-certificates
-WORKDIR /app
-COPY --from=builder /build/app .
-CMD [&quot;./app&quot;]
-</code></pre>
-<h3>6. 优化层缓存</h3>
-<pre><code class="language-dockerfile"># 推荐 - 依赖文件先复制
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-COPY . .
+<span class="hljs-comment"># 运行阶段</span>
+<span class="hljs-keyword">FROM</span> alpine:<span class="hljs-number">3.18</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> apk --no-cache add ca-certificates</span>
+<span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /app</span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> --from=builder /build/app .</span>
+<span class="hljs-keyword">CMD</span><span class="language-bash"> [<span class="hljs-string">&quot;./app&quot;</span>]</span>
+</code></pre></div>
+<h3 id="6-优化层缓存">6. 优化层缓存</h3>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-comment"># 推荐 - 依赖文件先复制</span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> requirements.txt .</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> pip install -r requirements.txt</span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> . .</span>
 
-# 避免 - 代码变更导致依赖重新安装
-COPY . .
-RUN pip install -r requirements.txt
-</code></pre>
-<h3>7. 使用非 root 用户</h3>
-<pre><code class="language-dockerfile">RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nextjs -u 1001
-USER nextjs
-</code></pre>
-<h3>8. 设置健康检查</h3>
-<pre><code class="language-dockerfile">HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:8080/health || exit 1
-</code></pre>
+<span class="hljs-comment"># 避免 - 代码变更导致依赖重新安装</span>
+<span class="hljs-keyword">COPY</span><span class="language-bash"> . .</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> pip install -r requirements.txt</span>
+</code></pre></div>
+<h3 id="7-使用非-root-用户">7. 使用非 root 用户</h3>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-keyword">RUN</span><span class="language-bash"> addgroup -g 1001 -S nodejs</span>
+<span class="hljs-keyword">RUN</span><span class="language-bash"> adduser -S nextjs -u 1001</span>
+<span class="hljs-keyword">USER</span> nextjs
+</code></pre></div>
+<h3 id="8-设置健康检查">8. 设置健康检查</h3>
+<div class="code-block"><div class="code-block-bar"><span>dockerfile</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-dockerfile"><span class="hljs-keyword">HEALTHCHECK</span><span class="language-bash"> --interval=30s --<span class="hljs-built_in">timeout</span>=3s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:8080/health || <span class="hljs-built_in">exit</span> 1</span>
+</code></pre></div>
 <hr>
-<h2>常见问题</h2>
-<h3>1. 如何减小镜像大小？</h3>
+<h2 id="常见问题">常见问题</h2>
+<h3 id="1-如何减小镜像大小">1. 如何减小镜像大小？</h3>
 <ul>
 <li>使用 Alpine 基础镜像</li>
 <li>多阶段构建</li>
 <li>清理缓存和临时文件</li>
 <li>使用 .dockerignore</li>
 </ul>
-<h3>2. 如何提高构建速度？</h3>
+<h3 id="2-如何提高构建速度">2. 如何提高构建速度？</h3>
 <ul>
 <li>合理利用层缓存</li>
 <li>并行安装依赖</li>
 <li>使用构建缓存</li>
 </ul>
-<h3>3. 如何调试 Dockerfile？</h3>
-<pre><code class="language-bash"># 构建时查看详细输出
+<h3 id="3-如何调试-dockerfile">3. 如何调试 Dockerfile？</h3>
+<div class="code-block"><div class="code-block-bar"><span>bash</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-bash"><span class="hljs-comment"># 构建时查看详细输出</span>
 docker build --no-cache -t myapp .
 
-# 进入容器调试
+<span class="hljs-comment"># 进入容器调试</span>
 docker run -it myapp /bin/bash
-</code></pre>
+</code></pre></div>
 <hr>
-<h2>总结</h2>
+<h2 id="总结">总结</h2>
 <p>Dockerfile 是容器化应用的核心配置文件，掌握其语法和最佳实践对于构建高效、安全的 Docker 镜像至关重要。通过合理使用各种指令和遵循最佳实践，可以创建出高质量的生产级镜像。</p>
-</article>
-    </main>
-  </body>
-</html>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>

@@ -1,251 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Seiga 的笔记</title>
-    <link>https://eksct.github.io/StarYunFanSite/</link>
-    <atom:link href="https://eksct.github.io/StarYunFanSite/feed.xml" rel="self" type="application/rss+xml" />
-    <description>StarYunFan 个人站的笔记归档：Java、Spring Boot、Redis、Docker 等</description>
-    <language>zh-CN</language>
-    <lastBuildDate>Tue, 20 Oct 2026 12:00:00 GMT</lastBuildDate>
-    <item>
-      <title>（后续扩写）计算机网络的基本概念</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E5%85%B6%E4%BB%96/%EF%BC%88%E5%90%8E%E7%BB%AD%E6%89%A9%E5%86%99%EF%BC%89%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/其他/（后续扩写）计算机网络的基本概念.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>（后续扩写）计算机网络的基本概念 计算机网络是指通过通信设备和传输介质将分布在不同地理位置的计算机系统连接起来，实现资源共享和信息交换的系统。 1. 计算机网络的基本概念 1.1 网络拓扑 - 星型拓</description>
-    </item>
-    <item>
-      <title>@Around</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Aop/%E6%B3%A8%E8%A7%A3/%40Around.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/框架/Spring Boot/Spring Aop/注解/@Around.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Spring Boot</category>
-      <description>@Around @Around是spring AOP 中的一个注解，用来定义环绕通知(环绕切面方法)，环绕通知是在方法执行之前与执行之后执行操作的一种通知类型。 主要功能 - 在目标方法执行前后执行：</description>
-    </item>
-    <item>
-      <title>@Aspect</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Aop/%E6%B3%A8%E8%A7%A3/%40Aspect.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/框架/Spring Boot/Spring Aop/注解/@Aspect.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Spring Boot</category>
-      <description>@Aspect 由Spring Aop提供，用于定义切面(Aspect)。切面是切面编程(AOP)的核心概念，用于将横切关注点（如日志、事务管理）模块化，从而将这些关注点与业务逻辑分离。 1. @As</description>
-    </item>
-    <item>
-      <title>@ConditionalOnMissingBean</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnMissingBean.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/框架/Spring Boot/Spring Boot注解/@ConditionalOnMissingBean.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Spring Boot</category>
-      <description>@ConditionalOnMissingBean 是 Spring Boot 提供的一个 条件化配置注解，用于在容器中 不存在指定 Bean 时 才注册当前 Bean。 核心属性 属性名 类型 说明</description>
-    </item>
-    <item>
-      <title>@ConditionalOnProperty</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnProperty.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/框架/Spring Boot/Spring Boot注解/@ConditionalOnProperty.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Spring Boot</category>
-      <description>@ConditionalOnProperty @ConditionalOnProperty 是 Spring Boot 提供的一个 条件化配置注解，用于根据 配置文件中的属性值 决定是否加载某个 Be</description>
-    </item>
-    <item>
-      <title>@Data</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40Data.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/依赖/Lombok/注解/@Data.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>@Data 由lombok提供的一个为类中字段生成getters、setters、toString、hashCode、equals、constructor方法的注解 - 为类中所有字段自动生成get方</description>
-    </item>
-    <item>
-      <title>@Getter and @Setter</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40Getter%20and%20%40Setter.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/依赖/Lombok/注解/@Getter and @Setter.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>@Getter and @Setter</description>
-    </item>
-    <item>
-      <title>@NonNull</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40NonNull.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/依赖/Lombok/注解/@NonNull.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>@NonNull 由lombok提供的一个检查字段、方法、参数是否为空的注解 1.@NonNull作用 1. 在方法参数前使用则标注该参数不能为空，否则抛出带有参数名的NullPointerExcep</description>
-    </item>
-    <item>
-      <title>@RequiredArgsConstructor</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40RequiredArgsConstructor.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/依赖/Lombok/注解/@RequiredArgsConstructor.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>@RequiredArgsConstructor Lombok 提供的注解，用于自动生成一个包含 final 字段或 @NonNull 字段的构造函数。通过此注解可以省略手动编写构造方法，简化代码。 </description>
-    </item>
-    <item>
-      <title>@Slf4j</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40Slf4j.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/依赖/Lombok/注解/@Slf4j.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>@Slf4j 由Lombok提供的一个日志注解，用于自动生成一个基于SLF4J的Logger实例。 是一个类注解 1. @Slf4j 的作用 1. 自动生成一个基于SLF4J的Logger实例,实例名</description>
-    </item>
-    <item>
-      <title>@UtilityClass</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40UtilityClass.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/依赖/Lombok/注解/@UtilityClass.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>@UtilityClass @UtilityClass是lombok提供的一个注解，用于简化工具类的创建。 工具类通常用于组织相关的静态方法和常量，并且不应该被实例化。 1. @UtilityClas</description>
-    </item>
-    <item>
-      <title>@Val And @Var</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40Val%20And%20%40Var.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/依赖/Lombok/注解/@Val And @Var.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>@val 由Lombok提供，类似于c++中的auto关键字，自动推断字段类型，不过只能在局部变量使用 示例： 注意：由于val在Lombok中是一个实际的类，所以要导入才可使用。 使用了val的局部</description>
-    </item>
-    <item>
-      <title>00关键字</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/00%E5%85%B3%E9%94%AE%E5%AD%97.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/JAVASE/00关键字.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>00关键字 public static void final class interface abstract package import default transient</description>
-    </item>
-    <item>
-      <title>01 数据类型</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/01%20%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/JAVASE/01 数据类型.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>01 数据类型 在 Java 中，数据类型用于定义变量可以存储的数据的类型。Java 的数据类型分为两大类：基本数据类型（Primitive Data Types）和引用数据类型（Reference </description>
-    </item>
-    <item>
-      <title>02 变量</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/02%20%E5%8F%98%E9%87%8F.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/JAVASE/02 变量.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>02 变量 在 Java 中，变量是存储数据的基本单元。每个变量都有一个数据类型、名称和值。变量可以分为不同的类型，具体取决于其作用域、生命周期和用途。 1. 变量的组成 - 数据类型：定义变量可以存</description>
-    </item>
-    <item>
-      <title>02 方法</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/02%20%E6%96%B9%E6%B3%95.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/JAVASE/02 方法.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>02 方法 在 Java 中，方法是执行特定任务的代码块。方法可以接受输入参数并返回结果。 1.定义方法 定义: 方法声明的两个组成部分包括 方法签名 -方法的名称和参数类型。 下面是一个典型方法声明</description>
-    </item>
-    <item>
-      <title>03 常量</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/03%20%E5%B8%B8%E9%87%8F.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/JAVASE/03 常量.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>03 常量 在 Java 中，常量是指在程序运行期间其值不能被修改的变量。常量通常用于存储固定不变的值，如数学常数、配置参数等。 1. 常量的定义方式 (1) 使用 final 关键字 - final</description>
-    </item>
-    <item>
-      <title>04 数组</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/04%20%E6%95%B0%E7%BB%84.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/JAVASE/04 数组.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>04 数组 在 Java 中，数组是一种用于存储固定大小的相同类型元素的数据结构。数组在 Java 中是对象，具有固定的长度，创建后无法动态调整大小。 1. 数组的创建 (1) 声明数组 - 语法： </description>
-    </item>
-    <item>
-      <title>05 选择结构</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/05%20%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/JAVASE/05 选择结构.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>05 选择结构 Java 中的选择结构用于根据条件执行不同的代码块。常见的选择结构包括 if、if-else、if-else if-else 和 switch 语句。选择结构是控制程序流程的重要工具，</description>
-    </item>
-    <item>
-      <title>06 循环结构</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/06%20%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/JAVASE/06 循环结构.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>06 循环结构 Java 中的循环结构用于重复执行某段代码，直到满足特定条件。Java 提供了多种循环结构，包括 for 循环、while 循环、do-while 循环以及增强的 for-each 循</description>
-    </item>
-    <item>
-      <title>07 类和对象</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/07%20%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/JAVASE/07 类和对象.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>07 类和对象 在 Java 中，类和对象是面向对象编程（OOP）的核心概念。类是对象的蓝图或模板，而对象是类的实例。 1. 类（Class） 类是定义对象的属性和行为的模板。它包含成员变量（属性）和</description>
-    </item>
-    <item>
-      <title>08 面向对象</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/08%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/JAVASE/08 面向对象.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>08 面向对象 面向对象编程（Object-Oriented Programming，OOP）是一种编程范式，它以对象为核心，通过类和对象来组织代码。Java 是一种典型的面向对象编程语言。 1. 面</description>
-    </item>
-    <item>
-      <title>09 位运算</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/09%20%E4%BD%8D%E8%BF%90%E7%AE%97.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/JAVASE/09 位运算.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>09 位运算 位运算是直接对整数的二进制位进行操作的运算。位运算在底层编程、性能优化和某些特定算法中非常有用。 1. 位运算符 Java 提供了以下位运算符： 运算符 名称 描述 :---- :---</description>
-    </item>
-    <item>
-      <title>10 反射</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/10%20%E5%8F%8D%E5%B0%84.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/JAVASE/10 反射.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>10 反射 Java 反射（Reflection）是 Java 提供的一种强大机制，允许程序在运行时动态地获取类的信息并操作类的属性和方法。通过反射，可以在运行时检查类、接口、字段和方法，甚至可以调用</description>
-    </item>
-    <item>
-      <title>11 网络编程</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/11%20%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B.md.html</link>
-      <guid isPermaLink="false">major/编程语言/JAVA/JAVASE/11 网络编程.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Java</category>
-      <description>11 网络编程 网络编程与以往的javaweb编程不同，javaweb是网页开发，网络编程是与TCP、UDP等网络协议打交道。 规则：网络通信协议 TCP/IP参考模型 2. 网络编程基础 2.1 T</description>
-    </item>
-    <item>
-      <title>安装&amp;连接</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/Redis/%E5%AE%89%E8%A3%85%26%E8%BF%9E%E6%8E%A5.md.html</link>
-      <guid isPermaLink="false">major/Redis/安装&amp;连接.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Redis</category>
-      <description>当然可以，以下是优化后的 Redis 安装指南（Markdown 格式），适合用作学习笔记或文档使用： --- bash 打开 cmd 或 PowerShell 输入： wsl 然后在 WSL 中执行</description>
-    </item>
-    <item>
-      <title>布隆过滤器</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/Redis/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8.md.html</link>
-      <guid isPermaLink="false">major/Redis/布隆过滤器.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>Redis</category>
-      <description>读取缓存前先判断key可能存在或一定不存在。可以设置误判率。 可以先把存在的key存入过滤器也可以即时缓存(过滤器判断可能存在，但是缓存中没有。)查询数据库后将查询到的加入缓存和过滤器。 缓存穿透 =</description>
-    </item>
-    <item>
-      <title>充电桩与平台交互逻辑</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E8%BD%A6%E5%85%85%E5%B9%B3%E5%8F%B0/%E5%85%85%E7%94%B5%E6%A1%A9%E4%B8%8E%E5%B9%B3%E5%8F%B0%E4%BA%A4%E4%BA%92%E9%80%BB%E8%BE%91.md.html</link>
-      <guid isPermaLink="false">major/车充平台/充电桩与平台交互逻辑.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>车充平台</category>
-      <description>充电桩与平台交互逻辑 固件--[mqtt发布up/订阅down]---emqx&lt;---[mqtt订阅up/发布down]--服务端---kafka 通过MQTTConfiguration设置生产者消费</description>
-    </item>
-    <item>
-      <title>初步的项目文档</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/go%E5%8D%95%E6%9C%BA%E7%9B%91%E6%8E%A7%E9%A1%B9%E7%9B%AE/%E5%88%9D%E6%AD%A5%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%96%87%E6%A1%A3.md.html</link>
-      <guid isPermaLink="false">major/go单机监控项目/初步的项目文档.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>go单机监控项目</category>
-      <description>📑 单机监控系统（Web 端）项目文档 一、项目目标 开发一个轻量级 单机服务器监控系统，用户可通过浏览器实时查看本机状态（CPU、内存、磁盘、网络等），并支持用户认证、历史数据存储、告警与可视化展</description>
-    </item>
-    <item>
-      <title>初步的学习清单</title>
-      <link>https://eksct.github.io/StarYunFanSite/notes/major/%E5%88%9D%E6%AD%A5%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%B8%85%E5%8D%95.md.html</link>
-      <guid isPermaLink="false">major/初步的学习清单.md</guid>
-      <pubDate>Tue, 20 Oct 2026 12:00:00 GMT</pubDate>
-      <category>初步的学习清单.md</category>
-      <description>🧭 Java 后端进阶中间件 &amp; 类库学习计划（Markdown 学习清单） 🎯 目标：强化中间件实战能力，整合进中型项目，迈向后端架构师之路 📅 总时长：约 36 个月，按模块分阶段进行 --</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Seiga 的笔记</title><link>https://eksct.github.io/StarYunFanSite/</link><description>Seiga 的个人站：笔记归档、学习时间线与项目记录。</description><language>zh-CN</language><atom:link href="https://eksct.github.io/StarYunFanSite/feed.xml" rel="self" type="application/rss+xml"/><item><title>设计模式</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/设计模式.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>目录 七大原则 * 单一职责原则 * 开闭原则 * 里氏替换原则 * 依赖倒置原则 * 接口隔离原则 * 合成复用原则 * 迪米特法则 创建型设计模式 * 工厂方法 * 抽象工厂 * 建造者 * 单例</description></item>
+<item><title>充电桩与平台交互逻辑</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E8%BD%A6%E5%85%85%E5%B9%B3%E5%8F%B0/%E5%85%85%E7%94%B5%E6%A1%A9%E4%B8%8E%E5%B9%B3%E5%8F%B0%E4%BA%A4%E4%BA%92%E9%80%BB%E8%BE%91.md.html</link><guid isPermaLink="false">major/车充平台/充电桩与平台交互逻辑.md</guid><pubDate>Mon, 19 Oct 2026 12:00:00 GMT</pubDate><category>车充平台</category><description>固件--[mqtt发布up/订阅down]---&gt;emqx&lt;---[mqtt订阅up/发布down]--服务端---&gt;kafka 通过MQTTConfiguration设置生产者消费者订阅全部的top</description></item>
+<item><title>随笔</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E8%BD%A6%E5%85%85%E5%B9%B3%E5%8F%B0/%E9%9A%8F%E7%AC%94.md.html</link><guid isPermaLink="false">major/车充平台/随笔.md</guid><pubDate>Mon, 19 Oct 2026 12:00:00 GMT</pubDate><category>车充平台</category><description>spring boot + kafka + mqtt +emqx +sa-token+redis+mysql+clickhouse+hutool+gradle+mybatis-plus+? 微信小程序</description></item>
+<item><title>支付</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E8%BD%A6%E5%85%85%E5%B9%B3%E5%8F%B0/%E6%94%AF%E4%BB%98.md.html</link><guid isPermaLink="false">major/车充平台/支付.md</guid><pubDate>Mon, 19 Oct 2026 12:00:00 GMT</pubDate><category>车充平台</category><description>支付方面的话前端调用后端的发起支付接口，后端判断一下是微信还是其他什么什么的支付方式，塞入神必的apikey，以及指定神必service，最后指定一个32位长度的？神必随机字符串，然后构建请求对象，对</description></item>
+<item><title>（后续扩写）计算机网络的基本概念</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E5%85%B6%E4%BB%96/%EF%BC%88%E5%90%8E%E7%BB%AD%E6%89%A9%E5%86%99%EF%BC%89%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/其他/（后续扩写）计算机网络的基本概念.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>计算机网络是指通过通信设备和传输介质将分布在不同地理位置的计算机系统连接起来，实现资源共享和信息交换的系统。 1. 计算机网络的基本概念 1.1 网络拓扑 星型拓扑：所有设备连接到一个中心节点。 总线</description></item>
+<item><title>@Around</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Aop/%E6%B3%A8%E8%A7%A3/%40Around.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/框架/Spring Boot/Spring Aop/注解/@Around.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Spring Boot</category><description>@Around是spring AOP 中的一个注解，用来定义环绕通知(环绕切面方法)，环绕通知是在方法执行之前与执行之后执行操作的一种通知类型。 主要功能 在目标方法执行前后执行：你可以在目标方法执行</description></item>
+<item><title>@Aspect</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Aop/%E6%B3%A8%E8%A7%A3/%40Aspect.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/框架/Spring Boot/Spring Aop/注解/@Aspect.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Spring Boot</category><description>由Spring Aop提供，用于定义切面(Aspect)。切面是切面编程(AOP)的核心概念，用于将横切关注点（如日志、事务管理）模块化，从而将这些关注点与业务逻辑分离。 1. @Aspect 的作用</description></item>
+<item><title>@ConditionalOnMissingBean</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnMissingBean.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/框架/Spring Boot/Spring Boot注解/@ConditionalOnMissingBean.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Spring Boot</category><description>是 Spring Boot 提供的一个 条件化配置注解，用于在容器中 不存在指定 Bean 时 才注册当前 Bean。 核心属性 属性名 类型 说明 value Class&lt;?&gt;[] 要检查的 Bea</description></item>
+<item><title>@ConditionalOnProperty</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20Boot%E6%B3%A8%E8%A7%A3/%40ConditionalOnProperty.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/框架/Spring Boot/Spring Boot注解/@ConditionalOnProperty.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Spring Boot</category><description>@ConditionalOnProperty 是 Spring Boot 提供的一个 条件化配置注解，用于根据 配置文件中的属性值 决定是否加载某个 Bean 或配置类。它常用于实现功能模块的动态启用</description></item>
+<item><title>@Data</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40Data.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/依赖/Lombok/注解/@Data.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>由lombok提供的一个为类中字段生成getters、setters、toString、hashCode、equals、constructor方法的注解 为类中所有字段自动生成get方法 为类中非fi</description></item>
+<item><title>@Getter and @Setter</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40Getter%20and%20%40Setter.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/依赖/Lombok/注解/@Getter and @Setter.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description></description></item>
+<item><title>@NonNull</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40NonNull.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/依赖/Lombok/注解/@NonNull.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>由lombok提供的一个检查字段、方法、参数是否为空的注解 1.@NonNull作用 在方法参数前使用则标注该参数不能为空，否则抛出带有参数名的NullPointerException异常 若在字段上</description></item>
+<item><title>@RequiredArgsConstructor</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40RequiredArgsConstructor.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/依赖/Lombok/注解/@RequiredArgsConstructor.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>Lombok 提供的注解，用于自动生成一个包含 final 字段或 @NonNull 字段的构造函数。通过此注解可以省略手动编写构造方法，简化代码。 1. @RequiredArgsConstruct</description></item>
+<item><title>@Slf4j</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40Slf4j.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/依赖/Lombok/注解/@Slf4j.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>由Lombok提供的一个日志注解，用于自动生成一个基于SLF4J的Logger实例。 是一个类注解 1. @Slf4j 的作用 自动生成一个基于SLF4J的Logger实例,实例名称为log 支持多种</description></item>
+<item><title>@UtilityClass</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40UtilityClass.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/依赖/Lombok/注解/@UtilityClass.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>@UtilityClass是lombok提供的一个注解，用于简化工具类的创建。 工具类通常用于组织相关的静态方法和常量，并且不应该被实例化。 1. @UtilityClass 的作用 若一个类上有该注</description></item>
+<item><title>@Val And @Var</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E4%BE%9D%E8%B5%96/Lombok/%E6%B3%A8%E8%A7%A3/%40Val%20And%20%40Var.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/依赖/Lombok/注解/@Val And @Var.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>由Lombok提供，类似于c++中的auto关键字，自动推断字段类型，不过只能在局部变量使用 示例： 注意：由于val在Lombok中是一个实际的类，所以要导入才可使用。 使用了val的局部变量，会自</description></item>
+<item><title>00关键字</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/00%E5%85%B3%E9%94%AE%E5%AD%97.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/JAVASE/00关键字.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>public static void final class interface abstract package import default transient</description></item>
+<item><title>01 数据类型</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/01%20%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/JAVASE/01 数据类型.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>在 Java 中，数据类型用于定义变量可以存储的数据的类型。Java 的数据类型分为两大类：**基本数据类型（Primitive Data Types）和引用数据类型（Reference Data T</description></item>
+<item><title>02 变量</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/02%20%E5%8F%98%E9%87%8F.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/JAVASE/02 变量.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>在 Java 中，变量是存储数据的基本单元。每个变量都有一个数据类型、名称和值。变量可以分为不同的类型，具体取决于其作用域、生命周期和用途。 1. 变量的组成 数据类型：定义变量可以存储的数据类型（如</description></item>
+<item><title>02 方法</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/02%20%E6%96%B9%E6%B3%95.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/JAVASE/02 方法.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>在 Java 中，方法是执行特定任务的代码块。方法可以接受输入参数并返回结果。 1.定义方法 定义: 方法声明的两个组成部分包括 方法签名 -方法的名称和参数类型。 下面是一个典型方法声明的例子: 方</description></item>
+<item><title>03 常量</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/03%20%E5%B8%B8%E9%87%8F.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/JAVASE/03 常量.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>在 Java 中，常量是指在程序运行期间其值不能被修改的变量。常量通常用于存储固定不变的值，如数学常数、配置参数等。 1. 常量的定义方式 (1) 使用 final 关键字 final 关键字用于修饰</description></item>
+<item><title>04 数组</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/04%20%E6%95%B0%E7%BB%84.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/JAVASE/04 数组.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>在 Java 中，数组是一种用于存储固定大小的相同类型元素的数据结构。数组在 Java 中是对象，具有固定的长度，创建后无法动态调整大小。 1. 数组的创建 (1) 声明数组 语法： 示例： (2) </description></item>
+<item><title>05 选择结构</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/05%20%E9%80%89%E6%8B%A9%E7%BB%93%E6%9E%84.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/JAVASE/05 选择结构.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>Java 中的选择结构用于根据条件执行不同的代码块。常见的选择结构包括 if、if-else、if-else if-else 和 switch 语句。选择结构是控制程序流程的重要工具，合理使用可以提高</description></item>
+<item><title>06 循环结构</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/06%20%E5%BE%AA%E7%8E%AF%E7%BB%93%E6%9E%84.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/JAVASE/06 循环结构.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>Java 中的循环结构用于重复执行某段代码，直到满足特定条件。Java 提供了多种循环结构，包括 for 循环、while 循环、do-while 循环以及增强的 for-each 循环。 1. 循环</description></item>
+<item><title>07 类和对象</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/07%20%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/JAVASE/07 类和对象.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>在 Java 中，类和对象是面向对象编程（OOP）的核心概念。类是对象的蓝图或模板，而对象是类的实例。 1. 类（Class） 类是定义对象的属性和行为的模板。它包含成员变量（属性）和方法（行为）。 </description></item>
+<item><title>08 面向对象</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/08%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/JAVASE/08 面向对象.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>面向对象编程（Object-Oriented Programming，OOP）是一种编程范式，它以对象为核心，通过类和对象来组织代码。Java 是一种典型的面向对象编程语言。 1. 面向对象的四大特性</description></item>
+<item><title>09 位运算</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/09%20%E4%BD%8D%E8%BF%90%E7%AE%97.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/JAVASE/09 位运算.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>位运算是直接对整数的二进制位进行操作的运算。位运算在底层编程、性能优化和某些特定算法中非常有用。 1. 位运算符 Java 提供了以下位运算符： 运算符 名称 描述 &amp; 按位与（AND） 两个操作数的</description></item>
+<item><title>10 反射</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/10%20%E5%8F%8D%E5%B0%84.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/JAVASE/10 反射.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>Java 反射（Reflection）是 Java 提供的一种强大机制，允许程序在运行时动态地获取类的信息并操作类的属性和方法。通过反射，可以在运行时检查类、接口、字段和方法，甚至可以调用方法或修改字</description></item>
+<item><title>11 网络编程</title><link>https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/JAVASE/11%20%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B.md.html</link><guid isPermaLink="false">major/编程语言/JAVA/JAVASE/11 网络编程.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Java</category><description>网络编程与以往的javaweb编程不同，javaweb是网页开发，网络编程是与TCP、UDP等网络协议打交道。 规则：网络通信协议 TCP/IP参考模型 2. 网络编程基础 2.1 TCP/IP 协议</description></item>
+<item><title>安装&amp;连接</title><link>https://eksct.github.io/StarYunFanSite/notes/major/Redis/%E5%AE%89%E8%A3%85%26%E8%BF%9E%E6%8E%A5.md.html</link><guid isPermaLink="false">major/Redis/安装&amp;连接.md</guid><pubDate>Sat, 27 Sep 2025 12:00:00 GMT</pubDate><category>Redis</category><description>当然可以，以下是优化后的 Redis 安装指南（Markdown 格式），适合用作学习笔记或文档使用： ✅ 方法二：直接安装 Windows 版 Redis 虽然 Redis 官方不支持 Window</description></item></channel></rss>

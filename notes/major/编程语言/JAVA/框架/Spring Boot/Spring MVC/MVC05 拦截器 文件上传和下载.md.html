@@ -1,49 +1,24 @@
 <!DOCTYPE html>
-<html lang="zh-CN" data-theme="light">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="MVC05 拦截器 文件上传和下载 概述 SpringMVC的处理器拦截器类似于Servlet开发中的过滤器Filter,用于对处理器进行预处理和后处理。开发者可以自己定义一些拦截器来实现特定的功能。">
-    <meta property="og:site_name" content="Seiga 的个人站">
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="MVC05 拦截器 文件上传和下载 · Seiga">
-    <meta property="og:description" content="MVC05 拦截器 文件上传和下载 概述 SpringMVC的处理器拦截器类似于Servlet开发中的过滤器Filter,用于对处理器进行预处理和后处理。开发者可以自己定义一些拦截器来实现特定的功能。">
-    <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC05%20%E6%8B%A6%E6%88%AA%E5%99%A8%20%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%92%8C%E4%B8%8B%E8%BD%BD.md.html">
-    <meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC05%20%E6%8B%A6%E6%88%AA%E5%99%A8%20%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%92%8C%E4%B8%8B%E8%BD%BD.md.html">
-    <link rel="stylesheet" href="/StarYunFanSite/assets/index-BnnmRRsm.css">
-    <title>MVC05 拦截器 文件上传和下载 · Seiga</title>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"MVC05 拦截器 文件上传和下载","description":"MVC05 拦截器 文件上传和下载 概述 SpringMVC的处理器拦截器类似于Servlet开发中的过滤器Filter,用于对处理器进行预处理和后处理。开发者可以自己定义一些拦截器来实现特定的功能。","datePublished":"2026-10-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC05%20%E6%8B%A6%E6%88%AA%E5%99%A8%20%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%92%8C%E4%B8%8B%E8%BD%BD.md.html"}</script>
-    <script>
-      try {
-        var stored = localStorage.getItem('site.theme');
-        var dark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (error) {
-        document.documentElement.dataset.theme = 'light';
-      }
-    </script>
-    <style>
-      body { min-height: 100vh; margin: 0; padding: 2rem 1rem; color: var(--c-text); background: var(--c-bg); font: 15px/1.7 system-ui, sans-serif; }
-      .static-note { max-width: 760px; margin: 0 auto; }
-      .static-note a { color: var(--c-accent); }
-      .static-note-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--c-border); }
-      .static-note-header h1 { color: var(--c-text); line-height: 1.35; }
-      .static-note-meta { color: var(--c-text-3); font-size: 13px; }
-      .static-note .prose { max-width: none; }
-    </style>
-  </head>
-  <body>
-    <main class="static-note">
-      <header class="static-note-header">
-        <a href="/StarYunFanSite/">Seiga</a>
-        <h1>MVC05 拦截器 文件上传和下载</h1>
-        <p class="static-note-meta">Spring Boot · 2026-10-20</p>
-        <a href="https://eksct.github.io/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC05%20%E6%8B%A6%E6%88%AA%E5%99%A8%20%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%92%8C%E4%B8%8B%E8%BD%BD.md">在站内打开</a>
-      </header>
-      <article class="prose"><h1>MVC05 拦截器 文件上传和下载</h1>
-<h3>概述</h3>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MVC05 拦截器 文件上传和下载 · Seiga</title>
+<meta name="description" content="概述 SpringMVC的处理器拦截器类似于Servlet开发中的过滤器Filter,用于对处理器进行预处理和后处理。开发者可以自己定义一些拦截器来实现特定的功能。 **过滤器与拦截器的区别：**拦截">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="MVC05 拦截器 文件上传和下载 · Seiga"><meta property="og:description" content="概述 SpringMVC的处理器拦截器类似于Servlet开发中的过滤器Filter,用于对处理器进行预处理和后处理。开发者可以自己定义一些拦截器来实现特定的功能。 **过滤器与拦截器的区别：**拦截">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC05%20%E6%8B%A6%E6%88%AA%E5%99%A8%20%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%92%8C%E4%B8%8B%E8%BD%BD.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC05%20%E6%8B%A6%E6%88%AA%E5%99%A8%20%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%92%8C%E4%B8%8B%E8%BD%BD.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-DUXwPh4Y.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"MVC05 拦截器 文件上传和下载","description":"概述 SpringMVC的处理器拦截器类似于Servlet开发中的过滤器Filter,用于对处理器进行预处理和后处理。开发者可以自己定义一些拦截器来实现特定的功能。 **过滤器与拦截器的区别：**拦截","datePublished":"2025-09-27","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC05%20%E6%8B%A6%E6%88%AA%E5%99%A8%20%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%92%8C%E4%B8%8B%E8%BD%BD.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<style>body{margin:0;padding:2rem 1rem;background:var(--c-bg);color:var(--c-text);font:16px/1.75 system-ui,sans-serif}.static-note{max-width:760px;margin:auto;min-width:0}.static-note-header{margin-bottom:2rem;border-bottom:1px solid var(--c-border);padding-bottom:1rem}.static-note-header h1{font-size:2rem;line-height:1.4;overflow-wrap:anywhere}.static-note-meta{font-size:14px;color:var(--c-text-3)}.static-note .prose{max-width:none}details{margin:1rem 0}summary{cursor:pointer}</style>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body>
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a></nav>
+<h1>MVC05 拦截器 文件上传和下载</h1><p class="static-note-meta">Spring Boot · 发布 2025-09-27 · 更新 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/JAVA/%E6%A1%86%E6%9E%B6/Spring%20Boot/Spring%20MVC/MVC05%20%E6%8B%A6%E6%88%AA%E5%99%A8%20%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%92%8C%E4%B8%8B%E8%BD%BD.md">在站内打开</a></header>
+<details><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li><a href="#%E6%A6%82%E8%BF%B0">概述</a></li><li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8B%A6%E6%88%AA%E5%99%A8">自定义拦截器</a></li><li><a href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%92%8C%E4%B8%8B%E8%BD%BD">文件上传和下载</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><span id="mvc05-拦截器-文件上传和下载" class="article-title-anchor"></span>
+<h3 id="概述">概述</h3>
 <p>SpringMVC的处理器拦截器类似于Servlet开发中的过滤器Filter,用于对处理器进行预处理和后处理。开发者可以自己定义一些拦截器来实现特定的功能。</p>
 <p>**过滤器与拦截器的区别：**拦截器是AOP思想的具体应用。</p>
 <p><strong>过滤器</strong></p>
@@ -64,238 +39,236 @@
 <p>拦截器只会拦截访问的控制器方法， 如果访问的是jsp/html/css/image/js是不会进行拦截的</p>
 </li>
 </ul>
-<h3>自定义拦截器</h3>
+<h3 id="自定义拦截器">自定义拦截器</h3>
 <p>那如何实现拦截器呢？</p>
 <p>想要自定义拦截器，必须实现 HandlerInterceptor 接口。</p>
 <p>1、新建一个Moudule ， springmvc-07-Interceptor  ， 添加web支持</p>
 <p>2、配置web.xml 和 springmvc-servlet.xml 文件</p>
 <p>3、编写一个拦截器</p>
-<pre><code class="language-java">package com.kuang.interceptor;  
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">package</span> com.kuang.interceptor;  
   
-import org.springframework.web.servlet.HandlerInterceptor;  
-import org.springframework.web.servlet.ModelAndView;  
+<span class="hljs-keyword">import</span> org.springframework.web.servlet.HandlerInterceptor;  
+<span class="hljs-keyword">import</span> org.springframework.web.servlet.ModelAndView;  
   
-import javax.servlet.http.HttpServletRequest;  
-import javax.servlet.http.HttpServletResponse;  
+<span class="hljs-keyword">import</span> javax.servlet.http.HttpServletRequest;  
+<span class="hljs-keyword">import</span> javax.servlet.http.HttpServletResponse;  
   
-public class MyInterceptor implements HandlerInterceptor {  
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyInterceptor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">HandlerInterceptor</span> {  
   
-   //在请求处理的方法之前执行  
-   //如果返回true执行下一个拦截器  
-   //如果返回false就不执行下一个拦截器  
-   public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {  
-       System.out.println(&quot;------------处理前------------&quot;);  
-       return true;  
+   <span class="hljs-comment">//在请求处理的方法之前执行  </span>
+   <span class="hljs-comment">//如果返回true执行下一个拦截器  </span>
+   <span class="hljs-comment">//如果返回false就不执行下一个拦截器  </span>
+   <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">preHandle</span><span class="hljs-params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o)</span> <span class="hljs-keyword">throws</span> Exception {  
+       System.out.println(<span class="hljs-string">&quot;------------处理前------------&quot;</span>);  
+       <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;  
   }  
   
-   //在请求处理方法执行之后执行  
-   public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {  
-       System.out.println(&quot;------------处理后------------&quot;);  
+   <span class="hljs-comment">//在请求处理方法执行之后执行  </span>
+   <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">postHandle</span><span class="hljs-params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView)</span> <span class="hljs-keyword">throws</span> Exception {  
+       System.out.println(<span class="hljs-string">&quot;------------处理后------------&quot;</span>);  
   }  
   
-   //在dispatcherServlet处理后执行,做清理工作.  
-   public void afterCompletion(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e) throws Exception {  
-       System.out.println(&quot;------------清理------------&quot;);  
+   <span class="hljs-comment">//在dispatcherServlet处理后执行,做清理工作.  </span>
+   <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">afterCompletion</span><span class="hljs-params">(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, Exception e)</span> <span class="hljs-keyword">throws</span> Exception {  
+       System.out.println(<span class="hljs-string">&quot;------------清理------------&quot;</span>);  
   }
-</code></pre>
+</code></pre></div>
 <p>在mvc中注册拦截器</p>
-<pre><code class="language-java">@Configuration
-public class WebConfig implements WebMvcConfigurer {
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-meta">@Configuration</span>
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">WebConfig</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">WebMvcConfigurer</span> {
 
-    @Bean
-    public AuthInterceptor authInterceptor() {
-        return new AuthInterceptor();
+    <span class="hljs-meta">@Bean</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">AuthInterceptor</span> <span class="hljs-title function_">authInterceptor</span><span class="hljs-params">()</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">AuthInterceptor</span>();
     }
 
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">addInterceptors</span><span class="hljs-params">(InterceptorRegistry registry)</span> {
         registry.addInterceptor(authInterceptor())
-                .addPathPatterns(&quot;/admin/**&quot;) // 拦截 /admin 路径下的请求
-                .excludePathPatterns(&quot;/admin/login&quot;); // 排除 /admin/login 路径
+                .addPathPatterns(<span class="hljs-string">&quot;/admin/**&quot;</span>) <span class="hljs-comment">// 拦截 /admin 路径下的请求</span>
+                .excludePathPatterns(<span class="hljs-string">&quot;/admin/login&quot;</span>); <span class="hljs-comment">// 排除 /admin/login 路径</span>
     }
 }
-</code></pre>
-<h3>文件上传和下载</h3>
-<pre><code class="language-java">package com.xy.base.controller.admin.file;  
-import com.xy.base.service.IFileService;  
-import com.xy.common.core.response.Restful;  
-import io.swagger.v3.oas.annotations.Operation;  
-import io.swagger.v3.oas.annotations.Parameter;  
-import io.swagger.v3.oas.annotations.tags.Tag;  
-import lombok.NonNull;  
-import lombok.RequiredArgsConstructor;  
-import org.springframework.web.bind.annotation.*;  
-import org.springframework.web.multipart.MultipartFile;  
-import java.io.IOException;  
+</code></pre></div>
+<h3 id="文件上传和下载">文件上传和下载</h3>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">package</span> com.xy.base.controller.admin.file;  
+<span class="hljs-keyword">import</span> com.xy.base.service.IFileService;  
+<span class="hljs-keyword">import</span> com.xy.common.core.response.Restful;  
+<span class="hljs-keyword">import</span> io.swagger.v3.oas.annotations.Operation;  
+<span class="hljs-keyword">import</span> io.swagger.v3.oas.annotations.Parameter;  
+<span class="hljs-keyword">import</span> io.swagger.v3.oas.annotations.tags.Tag;  
+<span class="hljs-keyword">import</span> lombok.NonNull;  
+<span class="hljs-keyword">import</span> lombok.RequiredArgsConstructor;  
+<span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.*;  
+<span class="hljs-keyword">import</span> org.springframework.web.multipart.MultipartFile;  
+<span class="hljs-keyword">import</span> java.io.IOException;  
   
-/**  
- * @author Lin */@Tag(name = &quot;后台管理 - 文件管理&quot;)  
-@RestController  
-@RequestMapping(&quot;/file&quot;)  
-@RequiredArgsConstructor  
-public class FileController {  
+<span class="hljs-comment">/**  
+ * <span class="hljs-doctag">@author</span> Lin */</span><span class="hljs-meta">@Tag(name = &quot;后台管理 - 文件管理&quot;)</span>  
+<span class="hljs-meta">@RestController</span>  
+<span class="hljs-meta">@RequestMapping(&quot;/file&quot;)</span>  
+<span class="hljs-meta">@RequiredArgsConstructor</span>  
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FileController</span> {  
   
-    @NonNull  
-    private IFileService fileService;  
+    <span class="hljs-meta">@NonNull</span>  
+    <span class="hljs-keyword">private</span> IFileService fileService;  
   
-    /**  
+    <span class="hljs-comment">/**  
      * 单文件上传  
      *  
-     * @param file     * @return     * @throws Exception     */    @Operation(summary = &quot;上传文件&quot;)  
-    @Parameter(name = &quot;file&quot;, description = &quot;文件&quot;)  
-    @RequestMapping(value = &quot;/upload&quot;, method = RequestMethod.POST)  
-    public Restful&lt;String&gt; upload(@RequestParam(&quot;file&quot;) MultipartFile file) throws IOException {  
-        return Restful.ok(fileService.upload(file));  
+     * <span class="hljs-doctag">@param</span> file     * <span class="hljs-doctag">@return</span>     * <span class="hljs-doctag">@throws</span> Exception     */</span>    <span class="hljs-meta">@Operation(summary = &quot;上传文件&quot;)</span>  
+    <span class="hljs-meta">@Parameter(name = &quot;file&quot;, description = &quot;文件&quot;)</span>  
+    <span class="hljs-meta">@RequestMapping(value = &quot;/upload&quot;, method = RequestMethod.POST)</span>  
+    <span class="hljs-keyword">public</span> <span class="hljs-type">Restful</span>&lt;String&gt; <span class="hljs-title function_">upload</span><span class="hljs-params">(<span class="hljs-meta">@RequestParam(&quot;file&quot;)</span> MultipartFile file)</span> <span class="hljs-keyword">throws</span> IOException {  
+        <span class="hljs-keyword">return</span> Restful.ok(fileService.upload(file));  
     }  
   
-    /**  
+    <span class="hljs-comment">/**  
      * 文件预览  
      *  
-     * @param sid     */    @Operation(summary = &quot;文件预览&quot;)  
-    @Parameter(name = &quot;sid&quot;, description = &quot;文件ID&quot;)  
-    @RequestMapping(value = &quot;/{sid}/preview&quot;, method = RequestMethod.GET)  
-    public void preview(@PathVariable(value = &quot;sid&quot;) String sid) {  
+     * <span class="hljs-doctag">@param</span> sid     */</span>    <span class="hljs-meta">@Operation(summary = &quot;文件预览&quot;)</span>  
+    <span class="hljs-meta">@Parameter(name = &quot;sid&quot;, description = &quot;文件ID&quot;)</span>  
+    <span class="hljs-meta">@RequestMapping(value = &quot;/{sid}/preview&quot;, method = RequestMethod.GET)</span>  
+    <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">preview</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable(value = &quot;sid&quot;)</span> String sid)</span> {  
         fileService.preview(sid);  
     }  
 }
-</code></pre>
-<pre><code class="language-java">package com.xy.base.service.impl;  
+</code></pre></div>
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">package</span> com.xy.base.service.impl;  
   
-import cn.hutool.core.io.IoUtil;  
-import com.xy.base.service.IFileService;  
-import com.xy.common.core.exception.BusinessException;  
-import com.xy.common.core.response.BaseTip;  
-import com.xy.common.util.ServletUtil;  
-import com.xy.storage.FileMeta;  
-import com.xy.storage.IStorageManager;  
-import jakarta.annotation.Resource;  
-import jakarta.servlet.http.HttpServletResponse;  
-import lombok.extern.slf4j.Slf4j;  
-import org.springframework.stereotype.Service;  
-import org.springframework.web.multipart.MultipartFile;  
+<span class="hljs-keyword">import</span> cn.hutool.core.io.IoUtil;  
+<span class="hljs-keyword">import</span> com.xy.base.service.IFileService;  
+<span class="hljs-keyword">import</span> com.xy.common.core.exception.BusinessException;  
+<span class="hljs-keyword">import</span> com.xy.common.core.response.BaseTip;  
+<span class="hljs-keyword">import</span> com.xy.common.util.ServletUtil;  
+<span class="hljs-keyword">import</span> com.xy.storage.FileMeta;  
+<span class="hljs-keyword">import</span> com.xy.storage.IStorageManager;  
+<span class="hljs-keyword">import</span> jakarta.annotation.Resource;  
+<span class="hljs-keyword">import</span> jakarta.servlet.http.HttpServletResponse;  
+<span class="hljs-keyword">import</span> lombok.extern.slf4j.Slf4j;  
+<span class="hljs-keyword">import</span> org.springframework.stereotype.Service;  
+<span class="hljs-keyword">import</span> org.springframework.web.multipart.MultipartFile;  
   
-import java.io.IOException;  
-import java.io.InputStream;  
+<span class="hljs-keyword">import</span> java.io.IOException;  
+<span class="hljs-keyword">import</span> java.io.InputStream;  
   
-/**  
- * @author Lin */@Service  
-@Slf4j  
-public class FileServiceImpl implements IFileService {  
+<span class="hljs-comment">/**  
+ * <span class="hljs-doctag">@author</span> Lin */</span><span class="hljs-meta">@Service</span>  
+<span class="hljs-meta">@Slf4j</span>  
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">FileServiceImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">IFileService</span> {  
   
-    @Resource  
-    private IStorageManager storageManager;  
+    <span class="hljs-meta">@Resource</span>  
+    <span class="hljs-keyword">private</span> IStorageManager storageManager;  
   
-    /**  
+    <span class="hljs-comment">/**  
      * 上传文件  
      *  
-     * @param file     * @return     */    @Override  
-    public String upload(MultipartFile file) throws IOException {  
-        FileMeta fileMeta = storageManager.store(file.getInputStream());  
-        return fileMeta.getSid();  
+     * <span class="hljs-doctag">@param</span> file     * <span class="hljs-doctag">@return</span>     */</span>    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-keyword">public</span> <span class="hljs-type">String</span> <span class="hljs-title function_">upload</span><span class="hljs-params">(MultipartFile file)</span> <span class="hljs-keyword">throws</span> IOException {  
+        <span class="hljs-type">FileMeta</span> <span class="hljs-variable">fileMeta</span> <span class="hljs-operator">=</span> storageManager.store(file.getInputStream());  
+        <span class="hljs-keyword">return</span> fileMeta.getSid();  
     }  
   
-    /**  
+    <span class="hljs-comment">/**  
      * 图片预览  
      *  
-     * @param sid     */    @Override  
-    public void preview(String sid) {  
-        HttpServletResponse response = ServletUtil.getResponse();  
-        response.setContentType(&quot;image/jpeg&quot;);  
-        try (InputStream inputStream = storageManager.getResource(sid).getInputStream()) {  
+     * <span class="hljs-doctag">@param</span> sid     */</span>    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">preview</span><span class="hljs-params">(String sid)</span> {  
+        <span class="hljs-type">HttpServletResponse</span> <span class="hljs-variable">response</span> <span class="hljs-operator">=</span> ServletUtil.getResponse();  
+        response.setContentType(<span class="hljs-string">&quot;image/jpeg&quot;</span>);  
+        <span class="hljs-keyword">try</span> (<span class="hljs-type">InputStream</span> <span class="hljs-variable">inputStream</span> <span class="hljs-operator">=</span> storageManager.getResource(sid).getInputStream()) {  
             IoUtil.copy(inputStream, response.getOutputStream());  
-        } catch (IOException e) {  
-            log.info(&quot;预览文件丢失:&quot;, e);  
-            throw new BusinessException(BaseTip.FILE_MISS);  
+        } <span class="hljs-keyword">catch</span> (IOException e) {  
+            log.info(<span class="hljs-string">&quot;预览文件丢失:&quot;</span>, e);  
+            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessException</span>(BaseTip.FILE_MISS);  
         }  
   
     }  
 }
-</code></pre>
+</code></pre></div>
 <p>具体上传下载实现</p>
-<pre><code class="language-java">package com.xy.storage.local;  
+<div class="code-block"><div class="code-block-bar"><span>java</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-java"><span class="hljs-keyword">package</span> com.xy.storage.local;  
   
-import cn.hutool.core.io.IoUtil;  
-import cn.hutool.core.io.file.PathUtil;  
-import cn.hutool.core.lang.UUID;  
-import cn.hutool.crypto.digest.MD5;  
-import com.xy.common.core.exception.BusinessException;  
-import com.xy.storage.AbstractStorageProcessor;  
-import com.xy.storage.FileMeta;  
-import lombok.SneakyThrows;  
-import lombok.extern.slf4j.Slf4j;  
-import org.springframework.beans.factory.annotation.Value;  
-import org.springframework.boot.context.event.ApplicationReadyEvent;  
-import org.springframework.context.ApplicationListener;  
-import org.springframework.core.io.FileSystemResource;  
-import org.springframework.core.io.Resource;  
+<span class="hljs-keyword">import</span> cn.hutool.core.io.IoUtil;  
+<span class="hljs-keyword">import</span> cn.hutool.core.io.file.PathUtil;  
+<span class="hljs-keyword">import</span> cn.hutool.core.lang.UUID;  
+<span class="hljs-keyword">import</span> cn.hutool.crypto.digest.MD5;  
+<span class="hljs-keyword">import</span> com.xy.common.core.exception.BusinessException;  
+<span class="hljs-keyword">import</span> com.xy.storage.AbstractStorageProcessor;  
+<span class="hljs-keyword">import</span> com.xy.storage.FileMeta;  
+<span class="hljs-keyword">import</span> lombok.SneakyThrows;  
+<span class="hljs-keyword">import</span> lombok.extern.slf4j.Slf4j;  
+<span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Value;  
+<span class="hljs-keyword">import</span> org.springframework.boot.context.event.ApplicationReadyEvent;  
+<span class="hljs-keyword">import</span> org.springframework.context.ApplicationListener;  
+<span class="hljs-keyword">import</span> org.springframework.core.io.FileSystemResource;  
+<span class="hljs-keyword">import</span> org.springframework.core.io.Resource;  
   
-import java.io.IOException;  
-import java.io.InputStream;  
-import java.io.OutputStream;  
-import java.nio.file.Files;  
-import java.nio.file.Path;  
-import java.nio.file.Paths;  
+<span class="hljs-keyword">import</span> java.io.IOException;  
+<span class="hljs-keyword">import</span> java.io.InputStream;  
+<span class="hljs-keyword">import</span> java.io.OutputStream;  
+<span class="hljs-keyword">import</span> java.nio.file.Files;  
+<span class="hljs-keyword">import</span> java.nio.file.Path;  
+<span class="hljs-keyword">import</span> java.nio.file.Paths;  
   
-/**  
- * @author Lin */@Slf4j  
-public class LocalStorageProcessor extends AbstractStorageProcessor implements ApplicationListener&lt;ApplicationReadyEvent&gt; {  
+<span class="hljs-comment">/**  
+ * <span class="hljs-doctag">@author</span> Lin */</span><span class="hljs-meta">@Slf4j</span>  
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LocalStorageProcessor</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AbstractStorageProcessor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ApplicationListener</span>&lt;ApplicationReadyEvent&gt; {  
   
-    @Value(&quot;${storage.processor.rootDir:/data/xy}&quot;)  
-    private String rootDir;  
+    <span class="hljs-meta">@Value(&quot;${storage.processor.rootDir:/data/xy}&quot;)</span>  
+    <span class="hljs-keyword">private</span> String rootDir;  
   
   
-    @Override  
-    public void onApplicationEvent(ApplicationReadyEvent event) {  
+    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">onApplicationEvent</span><span class="hljs-params">(ApplicationReadyEvent event)</span> {  
         PathUtil.mkdir(Paths.get(rootDir));  
-        log.info(&quot;--&gt;&gt;&gt;Local文件存储服务启动成功！&lt;&lt;&lt;---&quot;);  
-        log.info(&quot;--&gt;&gt;&gt;Local文件存储目录:{} &lt;&lt;&lt;---&quot;, rootDir);  
+        log.info(<span class="hljs-string">&quot;--&gt;&gt;&gt;Local文件存储服务启动成功！&lt;&lt;&lt;---&quot;</span>);  
+        log.info(<span class="hljs-string">&quot;--&gt;&gt;&gt;Local文件存储目录:{} &lt;&lt;&lt;---&quot;</span>, rootDir);  
     }  
   
-    /**  
+    <span class="hljs-comment">/**  
      * 文件存储  
      *  
-     * @param inputStream     * @return     * @throws IOException     */    @Override  
-    @SneakyThrows    public FileMeta store(InputStream inputStream) {  
-        String sid = UUID.fastUUID().toString();  
-        Path path = Paths.get(rootDir, sid);  
-        try (OutputStream outputStream = PathUtil.getOutputStream(path)) {  
+     * <span class="hljs-doctag">@param</span> inputStream     * <span class="hljs-doctag">@return</span>     * <span class="hljs-doctag">@throws</span> IOException     */</span>    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-meta">@SneakyThrows</span>    <span class="hljs-keyword">public</span> <span class="hljs-type">FileMeta</span> <span class="hljs-title function_">store</span><span class="hljs-params">(InputStream inputStream)</span> {  
+        <span class="hljs-type">String</span> <span class="hljs-variable">sid</span> <span class="hljs-operator">=</span> UUID.fastUUID().toString();  
+        <span class="hljs-type">Path</span> <span class="hljs-variable">path</span> <span class="hljs-operator">=</span> Paths.get(rootDir, sid);  
+        <span class="hljs-keyword">try</span> (<span class="hljs-type">OutputStream</span> <span class="hljs-variable">outputStream</span> <span class="hljs-operator">=</span> PathUtil.getOutputStream(path)) {  
             IoUtil.copy(inputStream, outputStream);  
         }  
-        Long size = Files.size(path);  
-        String contentType = getContentType(path);  
-        String md5 = null;  
-        try (InputStream is = PathUtil.getInputStream(path)) {  
+        <span class="hljs-type">Long</span> <span class="hljs-variable">size</span> <span class="hljs-operator">=</span> Files.size(path);  
+        <span class="hljs-type">String</span> <span class="hljs-variable">contentType</span> <span class="hljs-operator">=</span> getContentType(path);  
+        <span class="hljs-type">String</span> <span class="hljs-variable">md5</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;  
+        <span class="hljs-keyword">try</span> (<span class="hljs-type">InputStream</span> <span class="hljs-variable">is</span> <span class="hljs-operator">=</span> PathUtil.getInputStream(path)) {  
             md5 = MD5.create().digestHex(is);  
         }  
-        return FileMeta.builder().sid(sid).size(size).contentType(contentType).md5(md5).build();  
+        <span class="hljs-keyword">return</span> FileMeta.builder().sid(sid).size(size).contentType(contentType).md5(md5).build();  
     }  
   
-    /**  
+    <span class="hljs-comment">/**  
      * 获取资源  
      *  
-     * @param sid     * @return     */    @Override  
-    public Resource getResource(String sid) {  
-        return new FileSystemResource(Paths.get(rootDir, sid));  
+     * <span class="hljs-doctag">@param</span> sid     * <span class="hljs-doctag">@return</span>     */</span>    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-keyword">public</span> <span class="hljs-type">Resource</span> <span class="hljs-title function_">getResource</span><span class="hljs-params">(String sid)</span> {  
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileSystemResource</span>(Paths.get(rootDir, sid));  
     }  
   
-    /**  
+    <span class="hljs-comment">/**  
      * 删除文件  
      *  
-     * @param sid     */    @Override  
-    public void delete(String key, String uploadId, String sid) {  
+     * <span class="hljs-doctag">@param</span> sid     */</span>    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-keyword">public</span> <span class="hljs-type">void</span> <span class="hljs-title function_">delete</span><span class="hljs-params">(String key, String uploadId, String sid)</span> {  
         PathUtil.del(Paths.get(rootDir, sid));  
     }  
   
-    /**  
+    <span class="hljs-comment">/**  
      * 分享文件  
      *  
-     * @param sid     * @return     */    @Override  
-    public String share(String sid) {  
-        throw new BusinessException(&quot;不支持文件分享&quot;);  
+     * <span class="hljs-doctag">@param</span> sid     * <span class="hljs-doctag">@return</span>     */</span>    <span class="hljs-meta">@Override</span>  
+    <span class="hljs-keyword">public</span> <span class="hljs-type">String</span> <span class="hljs-title function_">share</span><span class="hljs-params">(String sid)</span> {  
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">BusinessException</span>(<span class="hljs-string">&quot;不支持文件分享&quot;</span>);  
     }  
 }
-</code></pre>
-</article>
-    </main>
-  </body>
-</html>
+</code></pre></div>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+</main></body></html>
