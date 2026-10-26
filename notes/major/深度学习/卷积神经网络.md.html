@@ -1,95 +1,99 @@
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="light"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>卷积神经网络 · Seiga</title>
+<title>06 卷积神经网络 · Seiga</title>
 <meta name="description" content="参考：https://zh-v2.d2l.ai/chapter_convolutional-neural-networks/why-conv.html 当然是这一整章: 为什么处理图像时不直接用全连接">
 <meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
-<meta property="og:title" content="卷积神经网络 · Seiga"><meta property="og:description" content="参考：https://zh-v2.d2l.ai/chapter_convolutional-neural-networks/why-conv.html 当然是这一整章: 为什么处理图像时不直接用全连接">
+<meta property="og:title" content="06 卷积神经网络 · Seiga"><meta property="og:description" content="参考：https://zh-v2.d2l.ai/chapter_convolutional-neural-networks/why-conv.html 当然是这一整章: 为什么处理图像时不直接用全连接">
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html">
-<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-BhwjMbvo.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"卷积神经网络","description":"参考：https://zh-v2.d2l.ai/chapter_convolutional-neural-networks/why-conv.html 当然是这一整章: 为什么处理图像时不直接用全连接","datePublished":"2026-09-24","dateModified":"2026-09-28","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html"}</script>
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-CFGnIcKu.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"06 卷积神经网络","description":"参考：https://zh-v2.d2l.ai/chapter_convolutional-neural-networks/why-conv.html 当然是这一整章: 为什么处理图像时不直接用全连接","datePublished":"2026-09-24","dateModified":"2026-09-28","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
 <script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
 <a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></nav>
-<h1>卷积神经网络</h1><p class="static-note-meta">深度学习 · 发布 2026-09-24 · 更新 2026-09-28</p>
+<h1>06 卷积神经网络</h1><p class="static-note-meta">深度学习 · 发布 2026-09-24 · 更新 2026-09-28</p>
 <a href="/StarYunFanSite/#/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
+<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%A4%84%E7%90%86%E5%9B%BE%E5%83%8F%E6%97%B6%E4%B8%8D%E7%9B%B4%E6%8E%A5%E7%94%A8%E5%85%A8%E8%BF%9E%E6%8E%A5%E5%B1%82%E8%80%8C%E4%BD%BF%E7%94%A8%E5%8D%B7%E7%A7%AF">为什么处理图像时不直接用全连接层而使用卷积？</a></li><li style="padding-inline-start:0.7rem"><a href="#%E7%89%B9%E6%80%A7%E4%B8%80%E5%B9%B3%E7%A7%BB%E4%B8%8D%E5%8F%98%E6%80%A7">特性一：平移不变性</a></li><li style="padding-inline-start:0.7rem"><a href="#%E7%89%B9%E6%80%A7%E4%BA%8C%E5%B1%80%E9%83%A8%E6%80%A7">特性二：局部性</a></li><li style="padding-inline-start:0rem"><a href="#%E5%8D%B7%E7%A7%AF%E5%B1%82%E6%8A%8A%E4%BA%92%E7%9B%B8%E5%85%B3%E5%8C%85%E8%A3%85%E6%88%90%E4%B8%80%E4%B8%AA%E5%B1%82">卷积层：把互相关包装成一个“层”</a></li><li style="padding-inline-start:0rem"><a href="#%E9%A2%98%E5%A4%96">题外：</a></li><li style="padding-inline-start:0rem"><a href="#%E5%A1%AB%E5%85%85%E5%92%8C%E6%AD%A5%E5%B9%85">填充和步幅:</a></li><li style="padding-inline-start:0rem"><a href="#%E5%A4%9A%E8%BE%93%E5%85%A5%E5%A4%9A%E8%BE%93%E5%87%BA%E9%80%9A%E9%81%93">多输入多输出通道：</a></li><li style="padding-inline-start:0.7rem"><a href="#%E5%8D%B7%E7%A7%AF%E6%A0%B8%E7%9A%84%E6%95%B0%E9%87%8F">卷积核的数量：</a></li><li style="padding-inline-start:0rem"><a href="#%E6%B1%87%E8%81%9A%E5%B1%82%E6%B1%A0%E5%8C%96%E5%B1%82">汇聚层(池化层):</a></li><li style="padding-inline-start:0rem"><a href="#gelu-%E6%98%AF%E4%BB%80%E4%B9%88%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0">GELU 是什么激活函数：</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><p>参考：<a href="https://zh-v2.d2l.ai/chapter_convolutional-neural-networks/why-conv.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_convolutional-neural-networks/why-conv.html</a></p>
+<p>当然是这一整章:</p>
+<h2 id="为什么处理图像时不直接用全连接层而使用卷积">为什么处理图像时不直接用全连接层而使用卷积？</h2>
+<p>全连接层会把一张图片拍成一维，导致参数量很大且没有利用到图像的性质。</p>
+<p>图像的两个天然特性：</p>
+<h3 id="特性一平移不变性">特性一：平移不变性</h3>
+<p>一个图像中的某个物体平移后组成它的还是那些像素</p>
+<p>全连接层没法理由这个特性，平移后会导致一维的输入变化——也就是说需要大量的数据去训练模型，让它学习这种关系。</p>
+<h3 id="特性二局部性">特性二：局部性</h3>
+<p>识别图像物体，通常只需要看局部区域。</p>
+<p>比如要识别杯子，只需要看杯子和周围像素的关系，不需要看整张图。</p>
+<p>也就是说，对于同一张图片，卷积神经网络CNN可以做到复用图片参数(参数共享)，且权重数量不变（毕竟卷积核大小就是权重大小）。</p>
+<p>卷积核不断在原图上进行扫描，计算每一层的特征图，并作为下一层的输入。</p>
+<p>卷积层：用一个小窗口（比如 3×3），在图像上滑动，每次取一小块局部区域，和权重V做加权求和。这个权重V就是卷积核，也叫滤波器.</p>
+<p>卷积：提取特征图；池化：缩小特征图；</p>
+<p>最常见的是 最大池化（Max Pooling）。</p>
+<p>建立一个池化窗口，然后根据步长去移动，取在窗口内的最大值作为特征。——池化不进行与卷积类似的算术运算——我不那么关心这个特征具体在这个小区域的哪个位置，我更关心这个区域有没有这个特征。</p>
+<p>池化压缩特征，比如说看见轮子可能就可以判断跟轮子相连的会是车，因为轮子是车的特征。大概这么一个好像不是很恰当的例子。</p>
+<p>Global Average Pooling（全局平均池化）：把特征图全部相加然后除以特征数量——(1+2+3+4+5+6+7+8+9) / 9 ——即保留整体响应</p>
+<p>结果好像也就最大池化跟平均池化？好像也是。</p>
+<p>池化窗口的步幅通常是自己的宽高，反正不会大于自身。</p>
+<h2 id="卷积层把互相关包装成一个层">卷积层：把互相关包装成一个“层”</h2>
+<p>卷积层有两个需要训练的参数：卷积核权重+ 偏置</p>
+<div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Conv2D</span>(nn.Module):
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, kernel_size</span>):
+        <span class="hljs-built_in">super</span>().__init__()
+        <span class="hljs-variable language_">self</span>.weight = nn.Parameter(torch.rand(kernel_size))  <span class="hljs-comment"># 随机初始化卷积核</span>
+        <span class="hljs-variable language_">self</span>.bias = nn.Parameter(torch.zeros(<span class="hljs-number">1</span>))             <span class="hljs-comment"># 偏置初始化为0</span>
 
-<article id="article" tabindex="-1" class="prose"><p>参考：<a href="https://zh-v2.d2l.ai/chapter_convolutional-neural-networks/why-conv.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_convolutional-neural-networks/why-conv.html</a><br>
-当然是这一整章:<br>
-为什么处理图像时不直接用全连接层而使用卷积？<br>
-全连接层会把一张图片拍成一维，导致参数量很大且没有利用到图像的性质。<br>
-图像的两个天然特性：<br>
-特性一：平移不变性<br>
-一个图像中的某个物体平移后组成它的还是那些像素<br>
-全连接层没法理由这个特性，平移后会导致一维的输入变化——也就是说需要大量的数据去训练模型，让它学习这种关系。<br>
-特性二：局部性<br>
-识别图像物体，通常只需要看局部区域。<br>
-比如要识别杯子，只需要看杯子和周围像素的关系，不需要看整张图。</p>
-<p>也就是说，对于同一张图片，卷积神经网络CNN可以做到复用图片参数(参数共享)，且权重数量不变（毕竟卷积核大小就是权重大小）。<br>
-卷积核不断在原图上进行扫描，计算每一层的特征图，并作为下一层的输入。<br>
-卷积层：用一个小窗口（比如 3×3），在图像上滑动，每次取一小块局部区域，和权重V做加权求和。这个权重V就是卷积核，也叫滤波器.<br>
-卷积：提取特征图；池化：缩小特征图；<br>
-最常见的是 最大池化（Max Pooling）。<br>
-建立一个池化窗口，然后根据步长去移动，取在窗口内的最大值作为特征。——池化不进行与卷积类似的算术运算——我不那么关心这个特征具体在这个小区域的哪个位置，我更关心这个区域有没有这个特征。<br>
-池化压缩特征，比如说看见轮子可能就可以判断跟轮子相连的会是车，因为轮子是车的特征。大概这么一个好像不是很恰当的例子。<br>
-Global Average Pooling（全局平均池化）：把特征图全部相加然后除以特征数量——(1+2+3+4+5+6+7+8+9) / 9 ——即保留整体响应<br>
-结果好像也就最大池化跟平均池化？好像也是。<br>
-池化窗口的步幅通常是自己的宽高，反正不会大于自身。</p>
-<p>卷积层：把互相关包装成一个“层”<br>
-卷积层有两个需要训练的参数：卷积核权重+ 偏置<br>
-class Conv2D(nn.Module):<br>
-def <strong>init</strong>(self, kernel_size):<br>
-super().<strong>init</strong>()<br>
-self.weight = nn.Parameter(torch.rand(kernel_size))  # 随机初始化卷积核<br>
-self.bias = nn.Parameter(torch.zeros(1))             # 偏置初始化为0</p>
-<pre><code>def forward(self, x):
-    return corr2d(x, self.weight) + self.bias            # 互相关 + 偏置
-</code></pre>
-<p>对于图像这种高维空间数据，卷积层通常比直接用全连接层高效得多。<br>
-卷积是针对具有空间结构的数据设计的一种特殊连接方式；全连接则是一种非常通用的连接方式。</p>
-<p>题外：<br>
-现代CNN不再普遍使用池化，而是将池化层替换成卷积层，修改步长对特征图进行卷积。——现代 CNN 并不是完全不用池化，而是越来越多架构使用步幅卷积（stride &gt; 1）等方式进行下采样，因此池化不再是唯一、甚至也不总是首选的下采样方法。<br>
-池化方案下，池化层并没有起到训练的作用，步幅卷积可以通过训练学习。<br>
-nn.Conv2d是PyTorch 内置并做 互相关 + 偏置 + 多通道 + 步幅 + 填充等功能</p>
-<p>填充和步幅:<br>
-由于卷积运算会导致特征图逐渐变小，填充跟步幅就是为了调节变小的速度。<br>
-如果没有填充，那么随着神经网络的深入，最终会得到一个1x1的特征图，就没法再往下了。丢失了边缘像素。<br>
-通常在外围加上一圈0作为填充，比如说8x8，加一圈是10x10 3x3卷积后还是8x8，尺寸保持不变。<br>
-如果是3x3卷积核，通常只需要填充1——3×3 + padding=1 + stride=1 → 空间尺寸不变</p>
-<p>输出宽高公式：n - k + p + 1<br>
-其中：<br>
-n = 输入尺寸<br>
-k = 卷积核尺寸<br>
-p = padding 总量<br>
-nkp分别带入对应边，宽高分开算。<br>
-nn.Conv2d(<br>
-64,//输入<br>
-128,//输出通道128，表示输出128张特征图<br>
-kernel_size=3,//3x3卷积核<br>
-stride=1,//步长<br>
-padding=1//填充<br>
-)<br>
-stride 和 padding 没有“必须同步增加”的关系</p>
-<p>多输入多输出通道：<br>
-需要让网络能够处理多通道数据。<br>
-比如说RGB图片，<br>
-实际上是R,G,B三个通道，大小相同然后互相叠加。如果在之前的情况下，直接丢一张图片进去，网络对它是没办法的，因为处理的是单个二维矩阵，图片是三个二维矩阵叠加。<br>
-那么对应这样的输入，卷积核不可能只有一个。也就是说这三个通道上都要有一个卷积核。所以卷积核的形状是 通道x卷积宽x卷积高。在图片中，卷积核就是 3 x 3 x 3<br>
-最终它们分开运算，然后把结果值叠加输出一张二维输出特征图<br>
-卷积核的数量：<br>
-输入 x 输出 x 卷积核大小<br>
-1x1卷积核只看当前像素不混入空间参数所以相对于其他卷积核来说参数量会大幅下降，但是它也能够混合当前的通道。并且1x1卷积核相当于对当前位置的通道进行全连接。且空间尺寸不变。<br>
-主要是用来调整通道数量，融合通道。</p>
-<p>汇聚层(池化层):<br>
-卷积负责“提取特征”，汇聚负责“压缩空间尺寸，同时让特征对位置的小变化不那么敏感”。<br>
-动机一：逐渐降低空间分辨率，聚集信息。<br>
-动机二：降低对位置的敏感性。<br>
-最常用的配置：池化窗口 2×2，步幅 2。这样输出尺寸正好是输入的一半。比如 8×8 的输入，池化后变成 4×4。<br>
-GELU 是什么激活函数：<br>
-Gaussian Error Linear Unit（高斯误差线性单元）<br>
-根据输入值的大小，对它进行“软过滤”。平滑地压制负数。</p>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x</span>):
+        <span class="hljs-keyword">return</span> corr2d(x, <span class="hljs-variable language_">self</span>.weight) + <span class="hljs-variable language_">self</span>.bias            <span class="hljs-comment"># 互相关 + 偏置</span>
+</code></pre></div>
+<p>对于图像这种高维空间数据，卷积层通常比直接用全连接层高效得多。</p>
+<p>卷积是针对具有空间结构的数据设计的一种特殊连接方式；全连接则是一种非常通用的连接方式。</p>
+<h2 id="题外">题外：</h2>
+<p>现代CNN不再普遍使用池化，而是将池化层替换成卷积层，修改步长对特征图进行卷积。——现代 CNN 并不是完全不用池化，而是越来越多架构使用步幅卷积（stride &gt; 1）等方式进行下采样，因此池化不再是唯一、甚至也不总是首选的下采样方法。</p>
+<p>池化方案下，池化层并没有起到训练的作用，步幅卷积可以通过训练学习。</p>
+<p>nn.Conv2d是PyTorch 内置并做 互相关 + 偏置 + 多通道 + 步幅 + 填充等功能</p>
+<h2 id="填充和步幅">填充和步幅:</h2>
+<p>由于卷积运算会导致特征图逐渐变小，填充跟步幅就是为了调节变小的速度。</p>
+<p>如果没有填充，那么随着神经网络的深入，最终会得到一个1x1的特征图，就没法再往下了。丢失了边缘像素。</p>
+<p>通常在外围加上一圈0作为填充，比如说8x8，加一圈是10x10 3x3卷积后还是8x8，尺寸保持不变。</p>
+<p>如果是3x3卷积核，通常只需要填充1——3×3 + padding=1 + stride=1 → 空间尺寸不变</p>
+<p>输出宽高公式：n - k + p + 1</p>
+<p>其中：</p>
+<ul>
+<li>n = 输入尺寸</li>
+<li>k = 卷积核尺寸</li>
+<li>p = padding 总量</li>
+</ul>
+<p>nkp分别带入对应边，宽高分开算。</p>
+<div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python">nn.Conv2d(
+    <span class="hljs-number">64</span>,//输入
+    <span class="hljs-number">128</span>,//输出通道<span class="hljs-number">128</span>，表示输出<span class="hljs-number">128</span>张特征图
+    kernel_size=<span class="hljs-number">3</span>,//3x3卷积核
+    stride=<span class="hljs-number">1</span>,//步长
+    padding=<span class="hljs-number">1</span>//填充
+)
+</code></pre></div>
+<p>stride 和 padding 没有“必须同步增加”的关系</p>
+<h2 id="多输入多输出通道">多输入多输出通道：</h2>
+<p>需要让网络能够处理多通道数据。</p>
+<p>比如说RGB图片，</p>
+<p>实际上是R,G,B三个通道，大小相同然后互相叠加。如果在之前的情况下，直接丢一张图片进去，网络对它是没办法的，因为处理的是单个二维矩阵，图片是三个二维矩阵叠加。</p>
+<p>那么对应这样的输入，卷积核不可能只有一个。也就是说这三个通道上都要有一个卷积核。所以卷积核的形状是 通道x卷积宽x卷积高。在图片中，卷积核就是 3 x 3 x 3</p>
+<p>最终它们分开运算，然后把结果值叠加输出一张二维输出特征图</p>
+<h3 id="卷积核的数量">卷积核的数量：</h3>
+<p>输入 x 输出 x 卷积核大小</p>
+<p>1x1卷积核只看当前像素不混入空间参数所以相对于其他卷积核来说参数量会大幅下降，但是它也能够混合当前的通道。并且1x1卷积核相当于对当前位置的通道进行全连接。且空间尺寸不变。</p>
+<p>主要是用来调整通道数量，融合通道。</p>
+<h2 id="汇聚层池化层">汇聚层(池化层):</h2>
+<p>卷积负责“提取特征”，汇聚负责“压缩空间尺寸，同时让特征对位置的小变化不那么敏感”。</p>
+<p>动机一：逐渐降低空间分辨率，聚集信息。</p>
+<p>动机二：降低对位置的敏感性。</p>
+<p>最常用的配置：池化窗口 2×2，步幅 2。这样输出尺寸正好是输入的一半。比如 8×8 的输入，池化后变成 4×4。</p>
+<h2 id="gelu-是什么激活函数">GELU 是什么激活函数：</h2>
+<p>Gaussian Error Linear Unit（高斯误差线性单元）</p>
+<p>根据输入值的大小，对它进行“软过滤”。平滑地压制负数。</p>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
-<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%AF%E5%A2%83%E5%92%8C%E5%88%86%E5%B8%83%E5%81%8F%E7%A7%BB.md.html"><span class="dim">上一篇</span><span>环境和分布偏移</span></a><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9%E3%80%81%E6%AC%A0%E6%8B%9F%E5%90%88%E5%92%8C%E8%BF%87%E6%8B%9F%E5%90%88.md.html"><span class="dim">下一篇</span><span>模型选择、欠拟合和过拟合</span></a></nav>
+<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97.md.html"><span class="dim">上一篇</span><span>05 深度学习计算</span></a><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html"><span class="dim">下一篇</span><span>07 现代卷积神经网络</span></a></nav>
 </main></body></html>

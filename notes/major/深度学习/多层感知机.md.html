@@ -1,51 +1,44 @@
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="light"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>多层感知机 · Seiga</title>
+<title>04.01 多层感知机 · Seiga</title>
 <meta name="description" content="参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp.html 多层感知机通过“隐藏层”和“激活函数”解决更复杂问题 线性模型有一个很强">
 <meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
-<meta property="og:title" content="多层感知机 · Seiga"><meta property="og:description" content="参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp.html 多层感知机通过“隐藏层”和“激活函数”解决更复杂问题 线性模型有一个很强">
+<meta property="og:title" content="04.01 多层感知机 · Seiga"><meta property="og:description" content="参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp.html 多层感知机通过“隐藏层”和“激活函数”解决更复杂问题 线性模型有一个很强">
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA.md.html">
-<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-BhwjMbvo.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"多层感知机","description":"参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp.html 多层感知机通过“隐藏层”和“激活函数”解决更复杂问题 线性模型有一个很强","datePublished":"2026-09-20","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA.md.html"}</script>
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-CFGnIcKu.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"04.01 多层感知机","description":"参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp.html 多层感知机通过“隐藏层”和“激活函数”解决更复杂问题 线性模型有一个很强","datePublished":"2026-09-20","dateModified":"2026-10-26","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
 <script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
 <a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></nav>
-<h1>多层感知机</h1><p class="static-note-meta">深度学习 · 发布 2026-09-20</p>
+<h1>04.01 多层感知机</h1><p class="static-note-meta">深度学习 · 发布 2026-09-20 · 更新 2026-10-26</p>
 <a href="/StarYunFanSite/#/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
-
-<article id="article" tabindex="-1" class="prose"><p>参考：<a href="https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp.html</a><br>
-多层感知机通过“隐藏层”和“激活函数”解决更复杂问题</p>
-<p>线性模型有一个很强的假设：它认为输入和输出之间是“单调”的关系,也就是说，一个特征变大，输出一定会跟着变大（或变小），而且变化的速度是恒定的。没法处理复杂多变的预测。<br>
-比如说：<br>
-用体温预测死亡率：体温高于37度时，温度越高越危险；但体温低于37度时，温度越高反而越安全。这直接违反了“单调”假设</p>
-<p>解决方案：加入“隐藏层”<br>
-在文章中提到，在输入与输出之间加入隐藏层（中间层）对输入进行再加工，最终使用中间层输入做最终的预测。<br>
-但是中间层如果也是线性变换的话那也是毫无意义的——因为“线性变换的线性变换，本身还是线性变换”——多个线性层叠在一起，最终等价于一个线性层。也就是说，不加处理地堆叠层数，模型的能力并不会变强。<br>
-为了让多层结构真正发挥作用，必须在每一层的线性变换之后，加一个非线性函数，这就是激活函数。加了激活函数之后，隐藏层就不再是简单的线性变换了，整个网络就具备了表达复杂关系的能力<br>
-如果没有激活函数，无论你堆多少层，整个网络在数学上仍然等价于一个“单层线性模型”。只有加入了非线性的激活函数，隐藏层才真正不再是简单的线性变换，网络才具备表达复杂关系的能力。<br>
-激活函数必须是非线性的<br>
-关键要素：激活函数<br>
-为了让多层结构真正发挥作用，必须在每一层的线性变换之后，加一个非线性函数，这就是激活函数。加了激活函数之后，隐藏层就不再是简单的线性变换了，整个网络就具备了表达复杂关系的能力。</p>
-<p>书里介绍了三种常见的激活函数：</p>
-<ol>
-<li>ReLU 函数（最常用）<br>
-它的规则极其简单：输入是正数就原样保留，输入是负数就变成0。</li>
-</ol>
-<p>你可以把它理解成一个“筛选器”：只让“有信号”的部分通过，把“没信号”的部分直接关掉。ReLU 之所以受欢迎，是因为它在训练时表现很好，不容易出现“梯度消失”的问题。</p>
-<ol start="2">
-<li>
-<p>Sigmoid 函数<br>
-它把任意输入压缩到 0到1之间。输入很大时输出接近1，输入很小时输出接近0。在早期的神经网络中很常用，但现在在隐藏层中已经比较少用了，因为训练效果不如 ReLU。</p>
-</li>
-<li>
-<p>Tanh 函数（双曲正切）<br>
-和 Sigmoid 类似，但输出范围是 -1到1，而且关于原点对称。</p>
-</li>
-</ol>
+<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E5%8A%A0%E5%85%A5%E9%9A%90%E8%97%8F%E5%B1%82">解决方案：加入“隐藏层”</a></li><li style="padding-inline-start:0rem"><a href="#%E5%85%B3%E9%94%AE%E8%A6%81%E7%B4%A0%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0">关键要素：激活函数</a></li><li style="padding-inline-start:0rem"><a href="#%E4%B9%A6%E9%87%8C%E4%BB%8B%E7%BB%8D%E4%BA%86%E4%B8%89%E7%A7%8D%E5%B8%B8%E8%A7%81%E7%9A%84%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0">书里介绍了三种常见的激活函数：</a></li><li style="padding-inline-start:0.7rem"><a href="#1-relu-%E5%87%BD%E6%95%B0%E6%9C%80%E5%B8%B8%E7%94%A8">1. ReLU 函数（最常用）</a></li><li style="padding-inline-start:0.7rem"><a href="#2-sigmoid-%E5%87%BD%E6%95%B0">2. Sigmoid 函数</a></li><li style="padding-inline-start:0.7rem"><a href="#3-tanh-%E5%87%BD%E6%95%B0%E5%8F%8C%E6%9B%B2%E6%AD%A3%E5%88%87">3. Tanh 函数（双曲正切）</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><p>参考：<a href="https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp.html</a></p>
+<p>多层感知机通过“隐藏层”和“激活函数”解决更复杂问题</p>
+<p>线性模型有一个很强的假设：它认为输入和输出之间是“单调”的关系,也就是说，一个特征变大，输出一定会跟着变大（或变小），而且变化的速度是恒定的。没法处理复杂多变的预测。</p>
+<p>比如说：</p>
+<p>用体温预测死亡率：体温高于37度时，温度越高越危险；但体温低于37度时，温度越高反而越安全。这直接违反了“单调”假设</p>
+<h2 id="解决方案加入隐藏层">解决方案：加入“隐藏层”</h2>
+<p>在文章中提到，在输入与输出之间加入隐藏层（中间层）对输入进行再加工，最终使用中间层输入做最终的预测。</p>
+<p>但是中间层如果也是线性变换的话那也是毫无意义的——因为“线性变换的线性变换，本身还是线性变换”——多个线性层叠在一起，最终等价于一个线性层。也就是说，不加处理地堆叠层数，模型的能力并不会变强。</p>
+<p>如果没有激活函数，无论你堆多少层，整个网络在数学上仍然等价于一个“单层线性模型”。只有加入了非线性的激活函数，隐藏层才真正不再是简单的线性变换，网络才具备表达复杂关系的能力。</p>
+<p>激活函数必须是非线性的</p>
+<h2 id="关键要素激活函数">关键要素：激活函数</h2>
+<p>为了让多层结构真正发挥作用，我们需要对每个隐藏单元的线性变换之后，加一个非线性函数，这就是激活函数。加了激活函数之后，隐藏层就不再是简单的线性变换了，整个网络就具备了表达复杂关系的能力。</p>
+<p>输出层是否使用激活函数，则取决于具体任务。</p>
+<h2 id="书里介绍了三种常见的激活函数">书里介绍了三种常见的激活函数：</h2>
+<h3 id="1-relu-函数最常用">1. ReLU 函数（最常用）</h3>
+<p>ReLU 的规则很简单：输入为正数时原样保留，否则输出 0。</p>
+<p>它在正数区域的导数为 1，相比 Sigmoid 等容易饱和的激活函数，有助于缓解梯度消失，但不能保证整个网络的梯度始终稳定。</p>
+<p>不过，ReLU 在负数区域的导数为 0。如果某个神经元对训练样本的输入长期都落在负数区域，它就会一直输出 0，难以通过梯度更新恢复激活，这称为“神经元死亡”（dying ReLU）。</p>
+<h3 id="2-sigmoid-函数">2. Sigmoid 函数</h3>
+<p>它把任意输入压缩到 0到1之间。输入很大时输出接近1，输入很小时输出接近0。在早期的神经网络中很常用，但现在在隐藏层中已经比较少用了，因为训练效果不如 ReLU。</p>
+<h3 id="3-tanh-函数双曲正切">3. Tanh 函数（双曲正切）</h3>
+<p>和 Sigmoid 类似，但输出范围是 -1到1，而且关于原点对称。</p>
 <p>这些激活函数的存在，是神经网络能够“学习复杂模式”的根本原因。</p>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
-<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E8%B6%85%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98.md.html"><span class="dim">上一篇</span><span>超参数调优</span></a><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0.md.html"><span class="dim">下一篇</span><span>多层感知机的从零开始实现</span></a></nav>
+<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/softmax%E5%9B%9E%E5%BD%92.md.html"><span class="dim">上一篇</span><span>03.04 softmax回归</span></a><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0.md.html"><span class="dim">下一篇</span><span>04.02 多层感知机的从零开始实现</span></a></nav>
 </main></body></html>

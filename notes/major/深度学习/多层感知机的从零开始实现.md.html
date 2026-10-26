@@ -1,58 +1,75 @@
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="light"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>多层感知机的从零开始实现 · Seiga</title>
-<meta name="description" content="参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-scratch.html from d2l import torch as d2l">
+<title>04.02 多层感知机的从零开始实现 · Seiga</title>
+<meta name="description" content="参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-scratch.html 以下代码对照教材的 PyTorch 版本整理，各代码块在">
 <meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
-<meta property="og:title" content="多层感知机的从零开始实现 · Seiga"><meta property="og:description" content="参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-scratch.html from d2l import torch as d2l">
+<meta property="og:title" content="04.02 多层感知机的从零开始实现 · Seiga"><meta property="og:description" content="参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-scratch.html 以下代码对照教材的 PyTorch 版本整理，各代码块在">
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0.md.html">
-<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-BhwjMbvo.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"多层感知机的从零开始实现","description":"参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-scratch.html from d2l import torch as d2l","datePublished":"2026-09-20","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0.md.html"}</script>
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-CFGnIcKu.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"04.02 多层感知机的从零开始实现","description":"参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-scratch.html 以下代码对照教材的 PyTorch 版本整理，各代码块在","datePublished":"2026-09-20","dateModified":"2026-10-26","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
 <script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
 <a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></nav>
-<h1>多层感知机的从零开始实现</h1><p class="static-note-meta">深度学习 · 发布 2026-09-20</p>
+<h1>04.02 多层感知机的从零开始实现</h1><p class="static-note-meta">深度学习 · 发布 2026-09-20 · 更新 2026-10-26</p>
 <a href="/StarYunFanSite/#/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
-
+<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE">加载数据</a></li><li style="padding-inline-start:0rem"><a href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%A8%A1%E5%9E%8B%E5%8F%82%E6%95%B0">初始化模型参数</a></li><li style="padding-inline-start:0rem"><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89-relu-%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0">自定义 ReLU 激活函数</a></li><li style="padding-inline-start:0rem"><a href="#%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9E%8B">定义模型</a></li><li style="padding-inline-start:0rem"><a href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0">损失函数</a></li><li style="padding-inline-start:0rem"><a href="#%E8%AE%AD%E7%BB%83">训练</a></li></ul></nav></details>
 <article id="article" tabindex="-1" class="prose"><p>参考：<a href="https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-scratch.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-scratch.html</a></p>
-<p>from d2l import torch as d2l<br>
-import torch<br>
-from torch import nn //神经网络模块<br>
-&lt;!--加载数据--&gt;<br>
-batch_size = 256<br>
-train_iter, test_iter = d2l.load_data_fashion_mnist(batch_size)<br>
-&lt;!--初始化模型参数--&gt;<br>
-&lt;!--每张图片展开后的像素数量。10 是类别数。256 是隐藏层的大小，也就是隐藏层有 256 个神经元。--&gt;<br>
-num_inputs, num_outputs, num_hiddens = 784, 10, 256<br>
-&lt;!--第一层的权重矩阵。形状是 (784, 256)，意思是把 784 维的输入映射到 256 维的隐藏层。torch.randn 生成随机数，乘以 0.01 让初始值很小，避免一开始就产生过大的输出。--&gt;<br>
-&lt;!--requires_grad=True 告诉 PyTorch：“这个参数需要计算梯度”，训练时才会更新它。--&gt;<br>
-W1 = nn.Parameter(torch.randn(num_inputs, num_hiddens, requires_grad=True) * 0.01)<br>
-&lt;!--1层的偏置量0填充--&gt;<br>
-b1 = nn.Parameter(torch.zeros(num_hiddens, requires_grad=True))<br>
-&lt;!--第二层的权重举证，形状是 (256, 10)，把 256 维的隐藏层映射到 10 维的输出（对应 10 个类别）。--&gt;<br>
-W2 = nn.Parameter(torch.randn(num_hiddens, num_outputs, requires_grad=True) * 0.01)<br>
-&lt;!--2层的偏置量10填充--&gt;<br>
-b2 = nn.Parameter(torch.zeros(num_outputs, requires_grad=True))</p>
-<p>params = [W1, b1, W2, b2]<br>
-&lt;!--自定义relu激活函数--&gt;<br>
-&lt;!--relu：输入是正数就原样保留，输入是负数就变成0。--&gt;<br>
-def relu(X):<br>
-return torch.max(input=X, other=torch.tensor(0.0))<br>
-&lt;!--定义模型--&gt;<br>
-def net(X):<br>
-&lt;!--把每张图片从 28×28 的二维矩阵“拉平”成长度 784 的一维向量。-1 表示“这个维度的大小让 PyTorch 自己算”，实际上就是批量大小。比如一批 256 张图片，变换后 X 的形状就是 (256, 784)。--&gt;<br>
-X = X.view((-1, num_inputs))<br>
-&lt;!--这是第一层的计算。torch.matmul(X, W1) 做矩阵乘法，把 (256, 784) 的 X 和 (784, 256) 的 W1 相乘，得到 (256, 256) 的结果；再加上偏置 b1；最后经过 ReLU 激活函数。得到的 H 就是隐藏层的输出，形状是 (256, 256)。--&gt;<br>
-H = relu(torch.matmul(X, W1) + b1)<br>
-&lt;!--这是第二层的计算。把隐藏层输出 H 和 W2 相乘，得到 (256, 10) 的结果，再加上 b2。最终输出是一个 (256, 10) 的张量，每一行代表一张图片属于 10 个类别的“得分”。--&gt;<br>
-return torch.matmul(H, W2) + b2<br>
-&lt;!--nn.CrossEntropyLoss() 是 PyTorch 提供的交叉熵损失函数。它内部会自动做 softmax（把输出变成概率分布），然后计算交叉熵损失。--&gt;<br>
-loss = nn.CrossEntropyLoss()</p>
-<p>num_epochs, lr = 10，0.1<br>
-d2l.train_ch3(net, train_iter, test_iter, loss, num_epochs,<br>
-torch.optim.SGD, lr, params)</p>
+<p>以下代码对照教材的 PyTorch 版本整理，各代码块在安装了 PyTorch、torchvision 和 d2l 的 Notebook 环境中按顺序执行。</p>
+<div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python"><span class="hljs-keyword">import</span> torch
+<span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn  <span class="hljs-comment"># 神经网络模块</span>
+<span class="hljs-keyword">from</span> d2l <span class="hljs-keyword">import</span> torch <span class="hljs-keyword">as</span> d2l
+</code></pre></div>
+<h2 id="加载数据">加载数据</h2>
+<div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python">batch_size = <span class="hljs-number">256</span>
+train_iter, test_iter = d2l.load_data_fashion_mnist(batch_size)
+</code></pre></div>
+<h2 id="初始化模型参数">初始化模型参数</h2>
+<p>每张 Fashion-MNIST 图片有 28×28 个像素，展开后有 784 个输入特征。10 是类别数，256 是隐藏层的神经元数量。</p>
+<p>第一层权重矩阵 W1 的形状是 (784, 256)，将 784 维输入映射到 256 维隐藏表示；第二层权重矩阵 W2 的形状是 (256, 10)，将隐藏表示映射到 10 个类别得分。<code>torch.randn</code> 生成随机数，乘以 0.01 使初始权重较小。</p>
+<p><code>requires_grad=True</code> 表示需要计算梯度，<code>nn.Parameter</code> 将这些张量作为模型参数使用。下面的优化器会根据梯度更新 <code>params</code> 中的参数。</p>
+<div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python">num_inputs, num_outputs, num_hiddens = <span class="hljs-number">784</span>, <span class="hljs-number">10</span>, <span class="hljs-number">256</span>
+
+W1 = nn.Parameter(
+    torch.randn(num_inputs, num_hiddens, requires_grad=<span class="hljs-literal">True</span>) * <span class="hljs-number">0.01</span>
+)
+b1 = nn.Parameter(torch.zeros(num_hiddens, requires_grad=<span class="hljs-literal">True</span>))
+
+W2 = nn.Parameter(
+    torch.randn(num_hiddens, num_outputs, requires_grad=<span class="hljs-literal">True</span>) * <span class="hljs-number">0.01</span>
+)
+b2 = nn.Parameter(torch.zeros(num_outputs, requires_grad=<span class="hljs-literal">True</span>))
+
+params = [W1, b1, W2, b2]
+</code></pre></div>
+<p>两层偏置都用 0 初始化：b1 有 256 个零，b2 有 10 个零。这里的 10 是元素数量，不是填充值。</p>
+<h2 id="自定义-relu-激活函数">自定义 ReLU 激活函数</h2>
+<p>ReLU 将正数原样保留，非正数变成 0。按照教材写法，先用 <code>torch.zeros_like(X)</code> 创建与输入形状、数据类型和设备相同的全零张量，再逐元素取较大值。</p>
+<div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">relu</span>(<span class="hljs-params">X</span>):
+    a = torch.zeros_like(X)
+    <span class="hljs-keyword">return</span> torch.<span class="hljs-built_in">max</span>(X, a)
+</code></pre></div>
+<h2 id="定义模型">定义模型</h2>
+<p>把每张图片展开为长度 784 的向量。<code>reshape((-1, num_inputs))</code> 中的 -1 表示自动推算批量大小；例如一批 256 张图片，展开后的形状为 (256, 784)。</p>
+<p><code>@</code> 表示矩阵乘法，与这里原先使用的 <code>torch.matmul</code> 含义相同。第一层得到形状为 (256, 256) 的隐藏表示，经过 ReLU 后，第二层输出形状为 (256, 10) 的类别得分。这里的 256 是这个例子的批量大小，最后一个批次的样本数可能更少。</p>
+<div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">net</span>(<span class="hljs-params">X</span>):
+    X = X.reshape((-<span class="hljs-number">1</span>, num_inputs))
+    H = relu(X @ W1 + b1)
+    <span class="hljs-keyword">return</span> H @ W2 + b2
+</code></pre></div>
+<h2 id="损失函数">损失函数</h2>
+<p><code>nn.CrossEntropyLoss</code> 直接接收模型输出的未归一化类别得分，不需要先手动调用 Softmax。</p>
+<p>按照本节 D2L 训练辅助函数的约定，设置 <code>reduction='none'</code>，保留每个样本的损失，由训练函数负责求平均、反向传播和统计。</p>
+<div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python">loss = nn.CrossEntropyLoss(reduction=<span class="hljs-string">&#x27;none&#x27;</span>)
+</code></pre></div>
+<h2 id="训练">训练</h2>
+<p>训练 10 轮，学习率设为 0.1。先创建与 <code>params</code> 关联的 SGD 优化器实例，再把它传给 <code>d2l.train_ch3</code>。</p>
+<div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python">num_epochs, lr = <span class="hljs-number">10</span>, <span class="hljs-number">0.1</span>
+updater = torch.optim.SGD(params, lr=lr)
+d2l.train_ch3(net, train_iter, test_iter, loss, num_epochs, updater)
+</code></pre></div>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
-<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA.md.html"><span class="dim">上一篇</span><span>多层感知机</span></a><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E7%AE%80%E6%B4%81%E5%AE%9E%E7%8E%B0.md.html"><span class="dim">下一篇</span><span>多层感知机的简洁实现</span></a></nav>
+<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA.md.html"><span class="dim">上一篇</span><span>04.01 多层感知机</span></a><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E7%AE%80%E6%B4%81%E5%AE%9E%E7%8E%B0.md.html"><span class="dim">下一篇</span><span>04.03 多层感知机的简洁实现</span></a></nav>
 </main></body></html>

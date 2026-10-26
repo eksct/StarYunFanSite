@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="light"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>超参数调优 · Seiga</title>
+<title>补充03 超参数调优 · Seiga</title>
 <meta name="description" content="Ultralytics YOLO 中一些常用的调优超参数： 学习率 lr0：决定了在损失函数中向最小值移动时每一步的步长。 批次大小 batch：在前向传播中同时处理的图像数量。 轮次数 epochs">
 <meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
-<meta property="og:title" content="超参数调优 · Seiga"><meta property="og:description" content="Ultralytics YOLO 中一些常用的调优超参数： 学习率 lr0：决定了在损失函数中向最小值移动时每一步的步长。 批次大小 batch：在前向传播中同时处理的图像数量。 轮次数 epochs">
+<meta property="og:title" content="补充03 超参数调优 · Seiga"><meta property="og:description" content="Ultralytics YOLO 中一些常用的调优超参数： 学习率 lr0：决定了在损失函数中向最小值移动时每一步的步长。 批次大小 batch：在前向传播中同时处理的图像数量。 轮次数 epochs">
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E8%B6%85%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E8%B6%85%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98.md.html">
-<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-BhwjMbvo.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"超参数调优","description":"Ultralytics YOLO 中一些常用的调优超参数： 学习率 lr0：决定了在损失函数中向最小值移动时每一步的步长。 批次大小 batch：在前向传播中同时处理的图像数量。 轮次数 epochs","datePublished":"2026-08-26","dateModified":"2026-09-03","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E8%B6%85%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98.md.html"}</script>
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-CFGnIcKu.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"补充03 超参数调优","description":"Ultralytics YOLO 中一些常用的调优超参数： 学习率 lr0：决定了在损失函数中向最小值移动时每一步的步长。 批次大小 batch：在前向传播中同时处理的图像数量。 轮次数 epochs","datePublished":"2026-08-26","dateModified":"2026-09-03","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E8%B6%85%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
 <script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
 <a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></nav>
-<h1>超参数调优</h1><p class="static-note-meta">深度学习 · 发布 2026-08-26 · 更新 2026-09-03</p>
+<h1>补充03 超参数调优</h1><p class="static-note-meta">深度学习 · 发布 2026-08-26 · 更新 2026-09-03</p>
 <a href="/StarYunFanSite/#/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E8%B6%85%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
-
-<article id="article" tabindex="-1" class="prose"><p>Ultralytics YOLO 中一些常用的调优超参数：<br>
-学习率 lr0：决定了在损失函数中向最小值移动时每一步的步长。<br>
-批次大小 batch：在前向传播中同时处理的图像数量。<br>
-轮次数 epochs：一个轮次是对所有训练样本进行一次完整的前向和反向传播。<br>
-架构细节：例如通道数、层数、激活函数类型等。这些内容存在于模型 YAML 配置文件中，而不是训练参数中。<br>
-(<a href="https://docs.ultralytics.com/zh/guides/hyperparameter-tuning" rel="noopener noreferrer">https://docs.ultralytics.com/zh/guides/hyperparameter-tuning</a> 什么是超参数)<br>
-Ultralytics YOLO 使用遗传算法来优化超参数。</p>
+<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#ultralytics-yolo-%E4%B8%AD%E4%B8%80%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84%E8%B0%83%E4%BC%98%E8%B6%85%E5%8F%82%E6%95%B0">Ultralytics YOLO 中一些常用的调优超参数：</a></li><li style="padding-inline-start:0rem"><a href="#%E9%80%89%E6%8B%A9%E5%90%88%E9%80%82%E7%9A%84%E6%8C%87%E6%A0%87">选择合适的指标#</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><h2 id="ultralytics-yolo-中一些常用的调优超参数">Ultralytics YOLO 中一些常用的调优超参数：</h2>
+<ul>
+<li>学习率 lr0：决定了在损失函数中向最小值移动时每一步的步长。</li>
+<li>批次大小 batch：在前向传播中同时处理的图像数量。</li>
+<li>轮次数 epochs：一个轮次是对所有训练样本进行一次完整的前向和反向传播。</li>
+<li>架构细节：例如通道数、层数、激活函数类型等。这些内容存在于模型 YAML 配置文件中，而不是训练参数中。</li>
+</ul>
+<p>(<a href="https://docs.ultralytics.com/zh/guides/hyperparameter-tuning" rel="noopener noreferrer">https://docs.ultralytics.com/zh/guides/hyperparameter-tuning</a> 什么是超参数)</p>
+<p>Ultralytics YOLO 使用遗传算法来优化超参数。</p>
 <p>===</p>
-<p>选择合适的指标#<br>
-选择合适的评估指标通常取决于具体应用。<br>
-mAP： 适用于对模型性能进行广泛评估。<br>
-IoU： 当精确的目标定位至关重要时，它是必不可少的。<br>
-查准率： 当优先考虑最小化错误检测时非常重要。<br>
-查全率： 当需要检测到每一个实例时至关重要。<br>
-F1 分数： 当需要在查准率和查全率之间取得平衡时非常有用。<br>
-对于实时应用，FPS (每秒帧数) 和延迟等速度指标对于确保及时得到结果至关重要。</p>
+<h2 id="选择合适的指标">选择合适的指标#</h2>
+<p>选择合适的评估指标通常取决于具体应用。</p>
+<ul>
+<li>mAP： 适用于对模型性能进行广泛评估。</li>
+<li>IoU： 当精确的目标定位至关重要时，它是必不可少的。</li>
+<li>查准率： 当优先考虑最小化错误检测时非常重要。</li>
+<li>查全率： 当需要检测到每一个实例时至关重要。</li>
+<li>F1 分数： 当需要在查准率和查全率之间取得平衡时非常有用。</li>
+<li>对于实时应用，FPS (每秒帧数) 和延迟等速度指标对于确保及时得到结果至关重要。</li>
+</ul>
 <p>===</p>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
-<nav class="static-siblings" aria-label="同目录文章"><span></span><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA.md.html"><span class="dim">下一篇</span><span>多层感知机</span></a></nav>
+<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/How%20Does%20Batch%20Normalization%20Help%20Optimization.md.html"><span class="dim">上一篇</span><span>补充02 How Does Batch Normalization Help Optimization</span></a><span></span></nav>
 </main></body></html>

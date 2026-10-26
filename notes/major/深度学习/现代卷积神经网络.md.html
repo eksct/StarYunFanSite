@@ -1,154 +1,168 @@
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="light"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>现代卷积神经网络 · Seiga</title>
+<title>07 现代卷积神经网络 · Seiga</title>
 <meta name="description" content="参考https://zh-v2.d2l.ai/chapter_convolutional-modern/alexnet.html 当然是整章： AlexNet深度卷积神经网络： 在 AlexNet 出">
 <meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
-<meta property="og:title" content="现代卷积神经网络 · Seiga"><meta property="og:description" content="参考https://zh-v2.d2l.ai/chapter_convolutional-modern/alexnet.html 当然是整章： AlexNet深度卷积神经网络： 在 AlexNet 出">
+<meta property="og:title" content="07 现代卷积神经网络 · Seiga"><meta property="og:description" content="参考https://zh-v2.d2l.ai/chapter_convolutional-modern/alexnet.html 当然是整章： AlexNet深度卷积神经网络： 在 AlexNet 出">
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html">
-<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-BhwjMbvo.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"现代卷积神经网络","description":"参考https://zh-v2.d2l.ai/chapter_convolutional-modern/alexnet.html 当然是整章： AlexNet深度卷积神经网络： 在 AlexNet 出","datePublished":"2026-09-28","dateModified":"2026-09-30","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html"}</script>
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-CFGnIcKu.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"07 现代卷积神经网络","description":"参考https://zh-v2.d2l.ai/chapter_convolutional-modern/alexnet.html 当然是整章： AlexNet深度卷积神经网络： 在 AlexNet 出","datePublished":"2026-09-28","dateModified":"2026-09-30","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
 <script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
 <a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></nav>
-<h1>现代卷积神经网络</h1><p class="static-note-meta">深度学习 · 发布 2026-09-28 · 更新 2026-09-30</p>
+<h1>07 现代卷积神经网络</h1><p class="static-note-meta">深度学习 · 发布 2026-09-28 · 更新 2026-09-30</p>
 <a href="/StarYunFanSite/#/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
-
-<article id="article" tabindex="-1" class="prose"><p>参考<a href="https://zh-v2.d2l.ai/chapter_convolutional-modern/alexnet.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_convolutional-modern/alexnet.html</a><br>
-当然是整章：<br>
-AlexNet深度卷积神经网络：<br>
-在 AlexNet 出现之前，虽然 LeNet 在小数据集（如手写数字）上表现不错，但在更大、更真实的数据集上，卷积神经网络并没有展现出优势。<br>
-当时的主流做法是手工设计特征。研究者们发明了 SIFT、SURF、HOG 等算法来提取图像特征，然后把特征送入 SVM 等分类器进行训练。<br>
-AlexNet 的一个重要意义就是：不要人工规定特征是什么，让网络自己通过训练学习特征。<br>
-AlexNet 和 LeNet 的设计理念非常相似，都是“卷积 + 池化 + 全连接”的堆叠。但两者在规模和复杂度上有巨大的差异。更大、更深、更多、更大。AlexNet 的参数总量大约有 6000 万，远超 LeNet 的几万参数。<br>
-AlexNet 的四大核心创新<br>
-AlexNet 之所以能成功，不仅仅是因为它更大，更因为它引入了一系列关键的技术创新，这些创新至今仍是深度学习的基石。<br>
-🔥 创新一：ReLU 激活函数<br>
-LeNet 用的是 Sigmoid 激活函数。Sigmoid 有一个致命缺陷：当输入很大或很小时，它的导数趋近于零，导致梯度消失，深层网络根本无法训练。<br>
-AlexNet 改用 ReLU（修正线性单元）：正数保留，负数归零。它的导数在正区间恒为 1，不会衰减信号。这一改变极大地缓解了梯度消失问题，让训练速度大幅提升。<br>
-💧 创新二：Dropout 正则化<br>
-AlexNet 有 6000 万参数，而训练数据只有约 120 万张图片。参数远多于数据，过拟合风险极高。<br>
-AlexNet 在前两个全连接层中使用了 Dropout，随机“关掉”一部分神经元，迫使网络不过度依赖任何单个神经元，学习更鲁棒的特征。原文指出，Dropout 是 AlexNet 控制全连接层模型复杂度的关键手段。<br>
-🖼️ 创新三：数据增强<br>
-为了进一步对抗过拟合，AlexNet 在训练时对图像做了大量数据增强：随机裁剪、水平翻转、颜色变换等。这些操作在不改变图像标签的前提下，人工制造了更多训练样本，让模型见到更多变化，从而提升泛化能力。<br>
-原文提到，AlexNet 对每张图像随机提取 227×227 的裁剪区域，并加上水平镜像版本，极大地扩充了训练集的多样性。<br>
-🖥️ 创新四：双 GPU 并行训练<br>
-AlexNet 的 6000 万参数在当时单块 GPU 上放不下。作者把网络拆分到两块 GPU 上并行训练，这是工程上的创举，也是 AlexNet 能够训练成功的前提。<br>
-AlexNet提出了创新的ReLu激活函数，以及使用暂退法(Dropout)对神经元进行退行，并对输入图像进行更多复杂处理，提升了模型的学习能力。</p>
+<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#alexnet%E6%B7%B1%E5%BA%A6%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C">AlexNet深度卷积神经网络：</a></li><li style="padding-inline-start:0.7rem"><a href="#alexnet-%E7%9A%84%E5%9B%9B%E5%A4%A7%E6%A0%B8%E5%BF%83%E5%88%9B%E6%96%B0">AlexNet 的四大核心创新</a></li><li style="padding-inline-start:1.4rem"><a href="#-%E5%88%9B%E6%96%B0%E4%B8%80relu-%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0">🔥 创新一：ReLU 激活函数</a></li><li style="padding-inline-start:1.4rem"><a href="#-%E5%88%9B%E6%96%B0%E4%BA%8Cdropout-%E6%AD%A3%E5%88%99%E5%8C%96">💧 创新二：Dropout 正则化</a></li><li style="padding-inline-start:1.4rem"><a href="#-%E5%88%9B%E6%96%B0%E4%B8%89%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA">🖼️ 创新三：数据增强</a></li><li style="padding-inline-start:1.4rem"><a href="#-%E5%88%9B%E6%96%B0%E5%9B%9B%E5%8F%8C-gpu-%E5%B9%B6%E8%A1%8C%E8%AE%AD%E7%BB%83">🖥️ 创新四：双 GPU 并行训练</a></li><li style="padding-inline-start:0.7rem"><a href="#alexnet%E6%A8%A1%E5%9E%8B%E8%AE%BE%E8%AE%A1">AlexNet模型设计：</a></li><li style="padding-inline-start:0rem"><a href="#vgg%E5%9D%97">VGG块：</a></li><li style="padding-inline-start:0.7rem"><a href="#%E6%A8%A1%E6%9D%BF%E7%BB%93%E6%9E%84">模板结构：</a></li><li style="padding-inline-start:0rem"><a href="#ninnetwork-in-network%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E7%BD%91%E7%BB%9C">NiN（Network in Network，网络中的网络）：</a></li><li style="padding-inline-start:0.7rem"><a href="#%E4%B8%80%E4%B8%AAnin%E5%9D%97%E7%9A%84%E7%BB%93%E6%9E%84%E5%B0%B1%E6%98%AF">一个NiN块的结构就是：</a></li><li style="padding-inline-start:0rem"><a href="#googlenet%E5%90%AB%E5%B9%B6%E8%A1%8C%E8%BF%9E%E7%BB%93%E7%9A%84%E7%BD%91%E7%BB%9C">GoogLeNet(含并行连结的网络):</a></li><li style="padding-inline-start:0.7rem"><a href="#inception-%E5%9D%97">Inception 块:</a></li><li style="padding-inline-start:0.7rem"><a href="#googlenet-%E4%B8%80%E5%85%B1%E4%BD%BF%E7%94%A8%E4%BA%86-9-%E4%B8%AA-inception-%E5%9D%97%E5%8A%A0%E4%B8%8A%E4%B8%80%E4%BA%9B%E8%BE%85%E5%8A%A9%E5%B1%82%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84%E5%8F%AF%E4%BB%A5%E5%88%86%E6%88%90%E4%BA%94%E4%B8%AA%E6%A8%A1%E5%9D%97">GoogLeNet 一共使用了 9 个 Inception 块，加上一些辅助层，整体结构可以分成五个“模块”：</a></li><li style="padding-inline-start:0rem"><a href="#%E6%89%B9%E9%87%8F%E8%A7%84%E8%8C%83%E5%8C%96">批量规范化：</a></li><li style="padding-inline-start:0.7rem"><a href="#%E6%B7%B1%E5%B1%82%E7%BD%91%E7%BB%9C%E7%9A%84%E4%B8%89%E5%A4%A7%E9%BA%BB%E7%83%A6">深层网络的三大麻烦</a></li><li style="padding-inline-start:0.7rem"><a href="#bn%E7%9A%84%E6%B5%81%E7%A8%8B%E9%80%81%E5%85%A5%E6%89%B9%E6%AC%A1%E6%95%B0%E9%87%8F">BN的流程：（送入批次数量）</a></li><li style="padding-inline-start:0.7rem"><a href="#bn%E7%9A%84%E8%AE%AD%E7%BB%83%E8%B7%9F%E9%A2%84%E6%B5%8B%E6%98%AF%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84">BN的训练跟预测是不一样的。</a></li><li style="padding-inline-start:1.4rem"><a href="#%E9%A2%84%E6%B5%8B%E6%97%B6">预测时：</a></li><li style="padding-inline-start:0.7rem"><a href="#batchnorm1d">BatchNorm1d：</a></li><li style="padding-inline-start:0.7rem"><a href="#batchnorm2d">BatchNorm2d：</a></li><li style="padding-inline-start:0.7rem"><a href="#%E5%A5%BD%E5%A4%84">好处：</a></li><li style="padding-inline-start:0rem"><a href="#%E6%AE%8B%E5%B7%AE%E7%BD%91%E7%BB%9Cresnet">残差网络（ResNet）：</a></li><li style="padding-inline-start:0rem"><a href="#densenet%E7%A8%A0%E5%AF%86%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%BB%9C">DenseNet（稠密连接网络）：</a></li><li style="padding-inline-start:0.7rem"><a href="#%E7%A8%A0%E5%AF%86%E5%9D%97%E5%AF%86%E9%9B%86%E8%BF%9E%E6%8E%A5%E5%8F%91%E7%94%9F%E7%9A%84%E5%9C%B0%E6%96%B9">稠密块：密集连接发生的地方</a></li><li style="padding-inline-start:0.7rem"><a href="#%E8%BF%87%E6%B8%A1%E5%B1%82">过渡层：</a></li><li style="padding-inline-start:0.7rem"><a href="#densenet%E7%9A%84%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84">DenseNet的整体架构</a></li><li style="padding-inline-start:0.7rem"><a href="#densenet%E7%9A%84%E4%BC%98%E7%82%B9">DenseNet的优点</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><p>参考<a href="https://zh-v2.d2l.ai/chapter_convolutional-modern/alexnet.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_convolutional-modern/alexnet.html</a></p>
+<p>当然是整章：</p>
+<h2 id="alexnet深度卷积神经网络">AlexNet深度卷积神经网络：</h2>
+<p>在 AlexNet 出现之前，虽然 LeNet 在小数据集（如手写数字）上表现不错，但在更大、更真实的数据集上，卷积神经网络并没有展现出优势。</p>
+<p>当时的主流做法是手工设计特征。研究者们发明了 SIFT、SURF、HOG 等算法来提取图像特征，然后把特征送入 SVM 等分类器进行训练。</p>
+<p>AlexNet 的一个重要意义就是：不要人工规定特征是什么，让网络自己通过训练学习特征。</p>
+<p>AlexNet 和 LeNet 的设计理念非常相似，都是“卷积 + 池化 + 全连接”的堆叠。但两者在规模和复杂度上有巨大的差异。更大、更深、更多、更大。AlexNet 的参数总量大约有 6000 万，远超 LeNet 的几万参数。</p>
+<h3 id="alexnet-的四大核心创新">AlexNet 的四大核心创新</h3>
+<p>AlexNet 之所以能成功，不仅仅是因为它更大，更因为它引入了一系列关键的技术创新，这些创新至今仍是深度学习的基石。</p>
+<h4 id="-创新一relu-激活函数">🔥 创新一：ReLU 激活函数</h4>
+<p>LeNet 用的是 Sigmoid 激活函数。Sigmoid 有一个致命缺陷：当输入很大或很小时，它的导数趋近于零，导致梯度消失，深层网络根本无法训练。</p>
+<p>AlexNet 改用 ReLU（修正线性单元）：正数保留，负数归零。它的导数在正区间恒为 1，不会衰减信号。这一改变极大地缓解了梯度消失问题，让训练速度大幅提升。</p>
+<h4 id="-创新二dropout-正则化">💧 创新二：Dropout 正则化</h4>
+<p>AlexNet 有 6000 万参数，而训练数据只有约 120 万张图片。参数远多于数据，过拟合风险极高。</p>
+<p>AlexNet 在前两个全连接层中使用了 Dropout，随机“关掉”一部分神经元，迫使网络不过度依赖任何单个神经元，学习更鲁棒的特征。原文指出，Dropout 是 AlexNet 控制全连接层模型复杂度的关键手段。</p>
+<h4 id="-创新三数据增强">🖼️ 创新三：数据增强</h4>
+<p>为了进一步对抗过拟合，AlexNet 在训练时对图像做了大量数据增强：随机裁剪、水平翻转、颜色变换等。这些操作在不改变图像标签的前提下，人工制造了更多训练样本，让模型见到更多变化，从而提升泛化能力。</p>
+<p>原文提到，AlexNet 对每张图像随机提取 227×227 的裁剪区域，并加上水平镜像版本，极大地扩充了训练集的多样性。</p>
+<h4 id="-创新四双-gpu-并行训练">🖥️ 创新四：双 GPU 并行训练</h4>
+<p>AlexNet 的 6000 万参数在当时单块 GPU 上放不下。作者把网络拆分到两块 GPU 上并行训练，这是工程上的创举，也是 AlexNet 能够训练成功的前提。</p>
+<p>AlexNet提出了创新的ReLu激活函数，以及使用暂退法(Dropout)对神经元进行退行，并对输入图像进行更多复杂处理，提升了模型的学习能力。</p>
 <p>当时是人告诉机器应该看什么，手工特征。而AlexNet则是机器自己学习应该看什么。</p>
-<p>AlexNet模型设计：<br>
-在AlexNet的第一层，卷积窗口的形状是11×11。由于ImageNet中大多数图像的宽和高比MNIST图像的多10倍以上，因此，需要一个更大的卷积窗口来捕获目标。第二层中的卷积窗口形状被缩减为5×5，然后是3×3。此外，在第一层、第二层和第五层卷积层之后，加入窗口形状为3×3、步幅为2的最大汇聚层。而且，AlexNet的卷积通道数目是LeNet的10倍。</p>
+<h3 id="alexnet模型设计">AlexNet模型设计：</h3>
+<p>在AlexNet的第一层，卷积窗口的形状是11×11。由于ImageNet中大多数图像的宽和高比MNIST图像的多10倍以上，因此，需要一个更大的卷积窗口来捕获目标。第二层中的卷积窗口形状被缩减为5×5，然后是3×3。此外，在第一层、第二层和第五层卷积层之后，加入窗口形状为3×3、步幅为2的最大汇聚层。而且，AlexNet的卷积通道数目是LeNet的10倍。</p>
 <p>在最后一个卷积层后有两个全连接层，分别有4096个输出。这两个巨大的全连接层拥有将近1GB的模型参数。由于早期GPU显存有限，原版的AlexNet采用了双数据流设计，使得每个GPU只负责存储和计算模型的一半参数。——幸运的是，现在GPU显存相对充裕，所以现在很少需要跨GPU分解模型（因此，本书的AlexNet模型在这方面与原始论文稍有不同）。</p>
-<p>VGG块：<br>
-其实就是一个层模板。毕竟对块的定义我们也知道，多个层叠加在一起都可以被称之为块，那么VGG块实际上就是一个模板，内置了一些层以及运算组件。<br>
-模板结构：<br>
-1、若干个 3×3 卷积层：每个后面都跟一个 ReLU 激活函数。<br>
-2、一个 2×2 最大池化层：步幅为 2，负责把特征图的高和宽减半。<br>
-VGG网络就是堆叠VGG块，然后再配上三个全连接层进行分类。<br>
-通道数翻倍：每个块通过池化层将特征图尺寸减半后，下一个块的输出通道数就翻一倍（如 64 → 128 → 256 → 512）</p>
-<p>NiN（Network in Network，网络中的网络）：<br>
-核心思想是对传统卷积网络进行了一次“微创手术”，解决了之前网络（如AlexNet、VGG）参数过多、容易过拟合的问题。<br>
-它的核心贡献有两个：用“1×1卷积”增强了卷积层的非线性表达能力，以及用“全局平均池化”彻底取代了笨重的全连接层。<br>
-由于1×1卷积等价于在每个像素位置上应用一个全连接层，这三个卷积层（普通卷积 + 两个1×1卷积）就组成了一个微型多层感知机（MLP），可以提取更抽象、更复杂的特征。<br>
-一个NiN块的结构就是：<br>
-1、一个普通卷积层（如11×11, 5×5, 3×3），负责提取空间特征。<br>
-2、两个连续的 1×1 卷积层，作为微型MLP，负责对提取的特征进行非线性变换和通道融合。</p>
-<p>最终让模型输出一个分类数量的通道数，然后使用GAP全局平均池化采样出每个分类的分数：<br>
-让最后一个NiN块的输出通道数 = 类别数（例如，10分类任务就输出10个通道）。<br>
-对每个通道的特征图做全局平均池化。也就是说，对每个通道的所有像素值求平均，得到一个数字。<br>
-接着送入Softmax进行分类。</p>
-<p>GoogLeNet(含并行连结的网络):<br>
-靠堆深度，而是靠“拓宽”和“并行”来变强。而不是堆深度。——它的目标是——在相同的计算量下，提取到更丰富的特征，从而提升训练效果<br>
-Inception 块:<br>
-nception 块由 四条并行的路径 组成，输入数据同时送给这四条路径处理，最后把结果拼接在一起：<br>
-路径一：单个 1×1 卷积层。 这是最“轻量”的路径，用 1×1 的卷积核提取最基础的特征。<br>
-路径二：1×1 卷积 → 3×3 卷积。 先用 1×1 卷积把通道数“压小”，再用 3×3 卷积提取中等范围的特征。<br>
-路径三：1×1 卷积 → 5×5 卷积。 同样先用 1×1 卷积降维，再用 5×5 卷积提取更大范围的特征。<br>
-路径四：3×3 最大汇聚 → 1×1 卷积。 先做池化操作，再用 1×1 卷积调整通道数。<br>
-四条路径的输出在通道维度上拼接（concatenate），一起送给下一层。</p>
-<p>GoogLeNet 一共使用了 9 个 Inception 块，加上一些辅助层，整体结构可以分成五个“模块”：<br>
-模块一： 一个 7×7 卷积 + 最大池化，类似 AlexNet 的开头，负责快速降低图像尺寸。<br>
-模块二： 1×1 卷积 → 3×3 卷积 → 最大池化，进一步提取特征并缩小尺寸。<br>
-模块三： 两个 Inception 块 + 最大池化。<br>
-模块四： 五个 Inception 块 + 最大池化，这是网络中 Inception 块最集中的部分。<br>
-模块五： 两个 Inception 块 + 全局平均池化层 + 全连接输出层。<br>
-每个 Inception 块内部的四条路径都使用了合适的填充，使得输入和输出的高、宽保持一致，这样多个 Inception 块可以方便地串联。<br>
-最终cat，需要特征图的宽高一致。</p>
-<p>批量规范化：<br>
-BatchNorm 的核心作用，是把神经网络中某些层输出的数据调整到相对稳定的数值分布，再允许模型自己学习是否需要进一步调整。<br>
-深层网络的三大麻烦<br>
-麻烦 1：输入要标准化，中间层却没人管。做机器学习大家都知道，拿到真实数据第一步是把输入特征处理成“均值为 0、方差为 1”（比如房价预测里把面积、价格拉到同一量级）。这招对优化器非常友好。但问题是：这只管了“进门”，数据在网络里穿过一层又一层之后，中间层的数值又开始乱跑了。<br>
-麻烦 2：中间层数值分布“漂移”，学习率没法配。如果某一层的输出动不动是另一层的 100 倍，那对这一层合适的学习率对另一层可能就是灾难——想用一个学习率把全网络都伺候好，难。<br>
-输入参数在运行过程中会经过大量运算最终输出给下一层的时候数值偏移，分散大。虽然数值变大不代表神经网络一定训练不好，但是不同层的数值尺度和分布可能让优化过程变得不稳定或低效。<br>
-麻烦 3：网络越深越容易过拟合，正则化手段变得更重要。<br>
-批量规范化则是在训练过程中将每层的输出重新拉回标准输入，不再越来越大，且还会存在一点噪音，能够防止过拟合。<br>
-BN的流程：（送入批次数量）<br>
-BN(x) = γ · (x − μ) / σ + β<br>
-对这批数据进行求平均，接着本批数据减去平均值，再除以本批数据的标准差得到一组平均值为 0、标准差约为 1 的数据。接着乘以γ，再加上 β<br>
-也就是对数据先进行标准化操作，接着乘以γ，再加上 β。<br>
-减均值是做中心化处理，消除位置偏移。<br>
-减标准差是尺度调整，<br>
-之所以需要乘以γ，再加上 β，是因为BN 如果强制所有数据永远保持这个分布，就可能限制模型的表达能力。所以要加入一点模型可学习参数，模型自行调控增加灵活性。<br>
-（均值为 0、标准差为 1，并不一定是神经网络每一层都最适合的分布）</p>
-<p>全连接层对层输出进行批量规范化后，再送入激活函数。在全连接层中，BN 通常是沿着批次维度，对每个输出特征分别计算统计量<br>
-卷积层也是同理，然后是对每个输出通道分别计算均值和方差。——它的处理逻辑是把当前批次图片的x通道全部混合起来计算均值跟标准差，对数值进行归一化处理。<br>
-比如说32批次，26x26特征图，64的输出通道。那么对每个通道 32x26x26 = 21632 都会进行归一化，并计算64次。<br>
-BN的训练跟预测是不一样的。<br>
-预测时：<br>
-BN 通常会在训练过程中维护运行均值（running mean）和运行方差（running variance）。<br>
-预测时使用这些统计量，而不是根据当前待预测的 Batch 重新计算统计量。</p>
-<p>BatchNorm1d：<br>
-常用于全连接层的二维输入，例如 (batch_size, num_features)。对每个特征分别统计。<br>
-BatchNorm1d 并不只用于二维输入，它也能处理形如 (N, C, L) 的三维输入。这时会针对每个通道，综合批次和序列位置上的数值计算统计量。<br>
-BatchNorm2d：<br>
-常用于 CNN 的四维输入 (N, C, H, W)。对每个通道分别统计，同时利用批次维度和空间维度上的数值。<br>
-BatchNorm2d(64) 中的 2d 不是说输入数据只有两个维度，而是指它常用于二维空间特征图。实际输入张量通常是四维的。</p>
-<p>好处：<br>
-让深层网络的训练更稳定；可能带来一定的正则化效果；让优化过程更容易进行</p>
-<p>残差网络（ResNet）：<br>
-ResNet 的核心出发点：与其要求新增的层重新学习全部需要的内容，不如让它们只学习“需要改变的那一部分”。<br>
-残差块使训练1000层网络成为可能，简直就是一个里程碑。<br>
-解决退化问题（网络加深以后，连训练数据上的表现都可能变差，训练误差反而更高），并引入跳跃。<br>
-残差块的输出是  输出 = F(x) + x<br>
-残差块里，因为有一条 + x 的跳跃连接，梯度可以直接从后面传回前面，不需要经过中间那些层。这就像给梯度开了一条高速公路，极大缓解了梯度消失问题。<br>
-在普通网络里，让多层学成恒等映射 F(x) = x 很难。但在残差块里，只需要让 F(x) = 0 就行——把权重压到零，比学一个恒等映射容易得多。<br>
-ResNet则从根本上改变了网络的连接方式，让训练上百层甚至上千层的网络成为可能。<br>
-不让网络直接学目标映射H(x)，而是让它学“残差”。<br>
-如果理想映射就是恒等映射（什么都不做），那么网络只需要把 F(x) 的权重学成0即可。让几个卷积层的输出趋近于0，比让它们精确地学出“输出等于输入”，要容易得多。<br>
-关键要求：两条路径的输出形状必须一致，才能相加。如果残差路径改变了通道数或空间尺寸，就需要在跳跃连接上用一个1×1卷积来调整输入的维度，使其与残差路径的输出匹配<br>
-残差网络能够使得梯度在反向传播的时候顺着跳跃连接快速传回之前的层。<br>
-ResNet 不是在代码中显式地计算“目标减输入”，而是先设计 H(X)=X+F(X) 这种结构，再通过正常的反向传播训练，让主路径学到适合整个任务的残差变换。后续会不断训练，让 F(X)达到相近的期望差值。</p>
-<p>DenseNet（稠密连接网络）：<br>
-有一个共享文件夹，不断把原始输出添加到里面。<br>
-能够让模型中的所有层看到前面的原始输出。<br>
-每一层的输出都被保留下来，直接送给后面所有层，而不是像ResNet那样被“加掉”。<br>
-沿着通道维度拼接起来，增加通道数量。</p>
-<p>稠密块：密集连接发生的地方<br>
-稠密块是DenseNet的基本单元。在一个稠密块内部，每一层都接收前面所有层的输出作为输入，然后把自己的输出也“贡献”给后面所有层<br>
-稠密块内部的每一层通常由 批量规范化 → ReLU激活 → 3×3卷积 组成，这和ResNet改良版的架构一致<br>
-增长率，它决定了每一层新增多少个特征图（通道数）<br>
-不断增加、保留特征</p>
-<p>过渡层：<br>
-由于不断的连接会导致特征图的通道数会不断膨胀。一个稠密块结束后，通道数可能已经非常大了。<br>
-过渡层通常由一个 1×1卷积 + 平均池化 组成。1×1卷积用来压缩通道数（比如把通道数减少一半），平均池化用来降低空间尺寸（让特征图变小）<br>
-压缩特征，控制通道数量和空间尺寸<br>
-减少通道数量跟计算规模</p>
-<p>DenseNet的整体架构<br>
-以经典的DenseNet为例，整体流程是：<br>
-开头：一个卷积层 + 最大池化，快速降低图像尺寸。<br>
-主体：4个稠密块，中间用过渡层隔开。每个稠密块内部的层数逐渐增加（例如6层、12层、24层、16层），通道数也在增长。<br>
-结尾：全局平均池化 + 全连接层输出分类结果。<br>
-不同版本的DenseNet（DenseNet-121、DenseNet-169、DenseNet-201等）的区别主要在于稠密块里有多少层。数字越大，网络越深，性能通常也越好。<br>
-DenseNet的优点<br>
-特征复用，参数高效：每一层产生的特征图会被后面所有层共享使用，网络不需要重复学习已经存在的特征，因此可以用更少的参数达到同等甚至更好的效果。<br>
-缓解梯度消失：每一层都和前面所有层直接相连，梯度回传的路径非常短，可以有效地传到最前面的层。<br>
-鼓励特征传播：由于每一层都能看到所有前层的输出，信息在网络中的流动非常顺畅，不容易丢失。<br>
-隐式正则化效果：特征的高度复用降低了网络对冗余特征的依赖，在一定程度上可以减轻过拟合。<br>
-内存消耗大：这是DenseNet最明显的缺点。由于每一层都要保存前面所有层的输出（为了拼接），中间激活值占用的内存非常高，对硬件要求比较苛刻。<br>
-通道数膨胀：随着层数增加，拼接后的通道数会不断增长，即使有过渡层压缩，整体计算复杂度仍然比普通网络高。<br>
-调参仍然困难：和ResNet一样，DenseNet也有不少超参数需要仔细调整（增长率、压缩率、瓶颈层宽度等），训练起来并不轻松。</p>
+<h2 id="vgg块">VGG块：</h2>
+<p>其实就是一个层模板。毕竟对块的定义我们也知道，多个层叠加在一起都可以被称之为块，那么VGG块实际上就是一个模板，内置了一些层以及运算组件。</p>
+<h3 id="模板结构">模板结构：</h3>
+<ul>
+<li>1、若干个 3×3 卷积层：每个后面都跟一个 ReLU 激活函数。</li>
+<li>2、一个 2×2 最大池化层：步幅为 2，负责把特征图的高和宽减半。</li>
+</ul>
+<p>VGG网络就是堆叠VGG块，然后再配上三个全连接层进行分类。</p>
+<p>通道数翻倍：每个块通过池化层将特征图尺寸减半后，下一个块的输出通道数就翻一倍（如 64 → 128 → 256 → 512）</p>
+<h2 id="ninnetwork-in-network网络中的网络">NiN（Network in Network，网络中的网络）：</h2>
+<p>核心思想是对传统卷积网络进行了一次“微创手术”，解决了之前网络（如AlexNet、VGG）参数过多、容易过拟合的问题。</p>
+<p>它的核心贡献有两个：用“1×1卷积”增强了卷积层的非线性表达能力，以及用“全局平均池化”彻底取代了笨重的全连接层。</p>
+<p>由于1×1卷积等价于在每个像素位置上应用一个全连接层，这三个卷积层（普通卷积 + 两个1×1卷积）就组成了一个微型多层感知机（MLP），可以提取更抽象、更复杂的特征。</p>
+<h3 id="一个nin块的结构就是">一个NiN块的结构就是：</h3>
+<ul>
+<li>1、一个普通卷积层（如11×11, 5×5, 3×3），负责提取空间特征。</li>
+<li>2、两个连续的 1×1 卷积层，作为微型MLP，负责对提取的特征进行非线性变换和通道融合。</li>
+</ul>
+<p>最终让模型输出一个分类数量的通道数，然后使用GAP全局平均池化采样出每个分类的分数：</p>
+<p>让最后一个NiN块的输出通道数 = 类别数（例如，10分类任务就输出10个通道）。</p>
+<p>对每个通道的特征图做全局平均池化。也就是说，对每个通道的所有像素值求平均，得到一个数字。</p>
+<p>接着送入Softmax进行分类。</p>
+<h2 id="googlenet含并行连结的网络">GoogLeNet(含并行连结的网络):</h2>
+<p>靠堆深度，而是靠“拓宽”和“并行”来变强。而不是堆深度。——它的目标是——在相同的计算量下，提取到更丰富的特征，从而提升训练效果</p>
+<h3 id="inception-块">Inception 块:</h3>
+<p>nception 块由 四条并行的路径 组成，输入数据同时送给这四条路径处理，最后把结果拼接在一起：</p>
+<ul>
+<li>路径一：单个 1×1 卷积层。 这是最“轻量”的路径，用 1×1 的卷积核提取最基础的特征。</li>
+<li>路径二：1×1 卷积 → 3×3 卷积。 先用 1×1 卷积把通道数“压小”，再用 3×3 卷积提取中等范围的特征。</li>
+<li>路径三：1×1 卷积 → 5×5 卷积。 同样先用 1×1 卷积降维，再用 5×5 卷积提取更大范围的特征。</li>
+<li>路径四：3×3 最大汇聚 → 1×1 卷积。 先做池化操作，再用 1×1 卷积调整通道数。</li>
+</ul>
+<p>四条路径的输出在通道维度上拼接（concatenate），一起送给下一层。</p>
+<h3 id="googlenet-一共使用了-9-个-inception-块加上一些辅助层整体结构可以分成五个模块">GoogLeNet 一共使用了 9 个 Inception 块，加上一些辅助层，整体结构可以分成五个“模块”：</h3>
+<ul>
+<li>模块一： 一个 7×7 卷积 + 最大池化，类似 AlexNet 的开头，负责快速降低图像尺寸。</li>
+<li>模块二： 1×1 卷积 → 3×3 卷积 → 最大池化，进一步提取特征并缩小尺寸。</li>
+<li>模块三： 两个 Inception 块 + 最大池化。</li>
+<li>模块四： 五个 Inception 块 + 最大池化，这是网络中 Inception 块最集中的部分。</li>
+<li>模块五： 两个 Inception 块 + 全局平均池化层 + 全连接输出层。</li>
+</ul>
+<p>每个 Inception 块内部的四条路径都使用了合适的填充，使得输入和输出的高、宽保持一致，这样多个 Inception 块可以方便地串联。</p>
+<p>最终cat，需要特征图的宽高一致。</p>
+<h2 id="批量规范化">批量规范化：</h2>
+<p>BatchNorm 的核心作用，是把神经网络中某些层输出的数据调整到相对稳定的数值分布，再允许模型自己学习是否需要进一步调整。</p>
+<h3 id="深层网络的三大麻烦">深层网络的三大麻烦</h3>
+<p>麻烦 1：输入要标准化，中间层却没人管。做机器学习大家都知道，拿到真实数据第一步是把输入特征处理成“均值为 0、方差为 1”（比如房价预测里把面积、价格拉到同一量级）。这招对优化器非常友好。但问题是：这只管了“进门”，数据在网络里穿过一层又一层之后，中间层的数值又开始乱跑了。</p>
+<p>麻烦 2：中间层数值分布“漂移”，学习率没法配。如果某一层的输出动不动是另一层的 100 倍，那对这一层合适的学习率对另一层可能就是灾难——想用一个学习率把全网络都伺候好，难。</p>
+<p>输入参数在运行过程中会经过大量运算最终输出给下一层的时候数值偏移，分散大。虽然数值变大不代表神经网络一定训练不好，但是不同层的数值尺度和分布可能让优化过程变得不稳定或低效。</p>
+<p>麻烦 3：网络越深越容易过拟合，正则化手段变得更重要。</p>
+<p>批量规范化则是在训练过程中将每层的输出重新拉回标准输入，不再越来越大，且还会存在一点噪音，能够防止过拟合。</p>
+<h3 id="bn的流程送入批次数量">BN的流程：（送入批次数量）</h3>
+<div class="code-block"><div class="code-block-bar"><span>text</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-text">BN(x) = γ · (x − μ) / σ + β
+</code></pre></div>
+<p>对这批数据进行求平均，接着本批数据减去平均值，再除以本批数据的标准差得到一组平均值为 0、标准差约为 1 的数据。接着乘以γ，再加上 β</p>
+<p>也就是对数据先进行标准化操作，接着乘以γ，再加上 β。</p>
+<p>减均值是做中心化处理，消除位置偏移。</p>
+<p>减标准差是尺度调整，</p>
+<p>之所以需要乘以γ，再加上 β，是因为BN 如果强制所有数据永远保持这个分布，就可能限制模型的表达能力。所以要加入一点模型可学习参数，模型自行调控增加灵活性。</p>
+<p>（均值为 0、标准差为 1，并不一定是神经网络每一层都最适合的分布）</p>
+<p>全连接层对层输出进行批量规范化后，再送入激活函数。在全连接层中，BN 通常是沿着批次维度，对每个输出特征分别计算统计量</p>
+<p>卷积层也是同理，然后是对每个输出通道分别计算均值和方差。——它的处理逻辑是把当前批次图片的x通道全部混合起来计算均值跟标准差，对数值进行归一化处理。</p>
+<p>比如说32批次，26x26特征图，64的输出通道。那么对每个通道 32x26x26 = 21632 都会进行归一化，并计算64次。</p>
+<h3 id="bn的训练跟预测是不一样的">BN的训练跟预测是不一样的。</h3>
+<h4 id="预测时">预测时：</h4>
+<p>BN 通常会在训练过程中维护运行均值（running mean）和运行方差（running variance）。</p>
+<p>预测时使用这些统计量，而不是根据当前待预测的 Batch 重新计算统计量。</p>
+<h3 id="batchnorm1d">BatchNorm1d：</h3>
+<p>常用于全连接层的二维输入，例如 (batch_size, num_features)。对每个特征分别统计。</p>
+<p>BatchNorm1d 并不只用于二维输入，它也能处理形如 (N, C, L) 的三维输入。这时会针对每个通道，综合批次和序列位置上的数值计算统计量。</p>
+<h3 id="batchnorm2d">BatchNorm2d：</h3>
+<p>常用于 CNN 的四维输入 (N, C, H, W)。对每个通道分别统计，同时利用批次维度和空间维度上的数值。</p>
+<p>BatchNorm2d(64) 中的 2d 不是说输入数据只有两个维度，而是指它常用于二维空间特征图。实际输入张量通常是四维的。</p>
+<h3 id="好处">好处：</h3>
+<p>让深层网络的训练更稳定；可能带来一定的正则化效果；让优化过程更容易进行</p>
+<h2 id="残差网络resnet">残差网络（ResNet）：</h2>
+<p>ResNet 的核心出发点：与其要求新增的层重新学习全部需要的内容，不如让它们只学习“需要改变的那一部分”。</p>
+<p>残差块使训练1000层网络成为可能，简直就是一个里程碑。</p>
+<p>解决退化问题（网络加深以后，连训练数据上的表现都可能变差，训练误差反而更高），并引入跳跃。</p>
+<div class="code-block"><div class="code-block-bar"><span>text</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-text">残差块的输出是  输出 = F(x) + x
+</code></pre></div>
+<p>残差块里，因为有一条 + x 的跳跃连接，梯度可以直接从后面传回前面，不需要经过中间那些层。这就像给梯度开了一条高速公路，极大缓解了梯度消失问题。</p>
+<p>在普通网络里，让多层学成恒等映射 F(x) = x 很难。但在残差块里，只需要让 F(x) = 0 就行——把权重压到零，比学一个恒等映射容易得多。</p>
+<p>ResNet则从根本上改变了网络的连接方式，让训练上百层甚至上千层的网络成为可能。</p>
+<p>不让网络直接学目标映射H(x)，而是让它学“残差”。</p>
+<p>如果理想映射就是恒等映射（什么都不做），那么网络只需要把 F(x) 的权重学成0即可。让几个卷积层的输出趋近于0，比让它们精确地学出“输出等于输入”，要容易得多。</p>
+<p>关键要求：两条路径的输出形状必须一致，才能相加。如果残差路径改变了通道数或空间尺寸，就需要在跳跃连接上用一个1×1卷积来调整输入的维度，使其与残差路径的输出匹配</p>
+<p>残差网络能够使得梯度在反向传播的时候顺着跳跃连接快速传回之前的层。</p>
+<p>ResNet 不是在代码中显式地计算“目标减输入”，而是先设计 H(X)=X+F(X) 这种结构，再通过正常的反向传播训练，让主路径学到适合整个任务的残差变换。后续会不断训练，让 F(X)达到相近的期望差值。</p>
+<h2 id="densenet稠密连接网络">DenseNet（稠密连接网络）：</h2>
+<p>有一个共享文件夹，不断把原始输出添加到里面。</p>
+<p>能够让模型中的所有层看到前面的原始输出。</p>
+<p>每一层的输出都被保留下来，直接送给后面所有层，而不是像ResNet那样被“加掉”。</p>
+<p>沿着通道维度拼接起来，增加通道数量。</p>
+<h3 id="稠密块密集连接发生的地方">稠密块：密集连接发生的地方</h3>
+<p>稠密块是DenseNet的基本单元。在一个稠密块内部，每一层都接收前面所有层的输出作为输入，然后把自己的输出也“贡献”给后面所有层</p>
+<p>稠密块内部的每一层通常由 批量规范化 → ReLU激活 → 3×3卷积 组成，这和ResNet改良版的架构一致</p>
+<p>增长率，它决定了每一层新增多少个特征图（通道数）</p>
+<p>不断增加、保留特征</p>
+<h3 id="过渡层">过渡层：</h3>
+<p>由于不断的连接会导致特征图的通道数会不断膨胀。一个稠密块结束后，通道数可能已经非常大了。</p>
+<p>过渡层通常由一个 1×1卷积 + 平均池化 组成。1×1卷积用来压缩通道数（比如把通道数减少一半），平均池化用来降低空间尺寸（让特征图变小）</p>
+<p>压缩特征，控制通道数量和空间尺寸</p>
+<p>减少通道数量跟计算规模</p>
+<h3 id="densenet的整体架构">DenseNet的整体架构</h3>
+<p>以经典的DenseNet为例，整体流程是：</p>
+<ul>
+<li>开头：一个卷积层 + 最大池化，快速降低图像尺寸。</li>
+<li>主体：4个稠密块，中间用过渡层隔开。每个稠密块内部的层数逐渐增加（例如6层、12层、24层、16层），通道数也在增长。</li>
+<li>结尾：全局平均池化 + 全连接层输出分类结果。</li>
+</ul>
+<p>不同版本的DenseNet（DenseNet-121、DenseNet-169、DenseNet-201等）的区别主要在于稠密块里有多少层。数字越大，网络越深，性能通常也越好。</p>
+<h3 id="densenet的优点">DenseNet的优点</h3>
+<ul>
+<li>特征复用，参数高效：每一层产生的特征图会被后面所有层共享使用，网络不需要重复学习已经存在的特征，因此可以用更少的参数达到同等甚至更好的效果。</li>
+<li>缓解梯度消失：每一层都和前面所有层直接相连，梯度回传的路径非常短，可以有效地传到最前面的层。</li>
+<li>鼓励特征传播：由于每一层都能看到所有前层的输出，信息在网络中的流动非常顺畅，不容易丢失。</li>
+<li>隐式正则化效果：特征的高度复用降低了网络对冗余特征的依赖，在一定程度上可以减轻过拟合。</li>
+<li>内存消耗大：这是DenseNet最明显的缺点。由于每一层都要保存前面所有层的输出（为了拼接），中间激活值占用的内存非常高，对硬件要求比较苛刻。</li>
+<li>通道数膨胀：随着层数增加，拼接后的通道数会不断增长，即使有过渡层压缩，整体计算复杂度仍然比普通网络高。</li>
+<li>调参仍然困难：和ResNet一样，DenseNet也有不少超参数需要仔细调整（增长率、压缩率、瓶颈层宽度等），训练起来并不轻松。</li>
+</ul>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
-<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%95%B0%E5%80%BC%E7%A8%B3%E5%AE%9A%E6%80%A7%E5%92%8C%E6%A8%A1%E5%9E%8B%E5%88%9D%E5%A7%8B%E5%8C%96.md.html"><span class="dim">上一篇</span><span>数值稳定性和模型初始化</span></a><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html"><span class="dim">下一篇</span><span>现代循环神经网络</span></a></nav>
+<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html"><span class="dim">上一篇</span><span>06 卷积神经网络</span></a><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html"><span class="dim">下一篇</span><span>08 循环神经网络</span></a></nav>
 </main></body></html>

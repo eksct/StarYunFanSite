@@ -1,54 +1,74 @@
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="light"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>softmax回归 · Seiga</title>
+<title>03.04 softmax回归 · Seiga</title>
 <meta name="description" content="来源于《动手学深度学习》：：https://zh-v2.d2l.ai/chapter_linear-networks/softmax-regression.html softmax回归，它是线性回归在">
 <meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
-<meta property="og:title" content="softmax回归 · Seiga"><meta property="og:description" content="来源于《动手学深度学习》：：https://zh-v2.d2l.ai/chapter_linear-networks/softmax-regression.html softmax回归，它是线性回归在">
+<meta property="og:title" content="03.04 softmax回归 · Seiga"><meta property="og:description" content="来源于《动手学深度学习》：：https://zh-v2.d2l.ai/chapter_linear-networks/softmax-regression.html softmax回归，它是线性回归在">
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/softmax%E5%9B%9E%E5%BD%92.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/softmax%E5%9B%9E%E5%BD%92.md.html">
-<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-BhwjMbvo.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"softmax回归","description":"来源于《动手学深度学习》：：https://zh-v2.d2l.ai/chapter_linear-networks/softmax-regression.html softmax回归，它是线性回归在","datePublished":"2026-09-08","dateModified":"2026-09-09","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/softmax%E5%9B%9E%E5%BD%92.md.html"}</script>
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-CFGnIcKu.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"03.04 softmax回归","description":"来源于《动手学深度学习》：：https://zh-v2.d2l.ai/chapter_linear-networks/softmax-regression.html softmax回归，它是线性回归在","datePublished":"2026-09-08","dateModified":"2026-10-26","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/softmax%E5%9B%9E%E5%BD%92.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
 <script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
 <a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></nav>
-<h1>softmax回归</h1><p class="static-note-meta">深度学习 · 发布 2026-09-08 · 更新 2026-09-09</p>
+<h1>03.04 softmax回归</h1><p class="static-note-meta">深度学习 · 发布 2026-09-08 · 更新 2026-10-26</p>
 <a href="/StarYunFanSite/#/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/softmax%E5%9B%9E%E5%BD%92.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
-
-<article id="article" tabindex="-1" class="prose"><p>来源于《动手学深度学习》：：<a href="https://zh-v2.d2l.ai/chapter_linear-networks/softmax-regression.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_linear-networks/softmax-regression.html</a><br>
-softmax回归，它是线性回归在分类问题上的推广，虽然名字里带“回归”，但它实际上是一个分类模型。而它的作用就是对模型的每个输出进行取指数，并将每个指数结果除以所有指数结果的总和，使得所有输出概率之和为1（归一化）。且这个变换可导，便于进行梯度下降优化。<br>
-损失函数：交叉熵损失:<br>
-核心思想：交叉熵衡量的是两个概率分布之间的差异。对于分类问题，它衡量的是模型预测的概率分布与真实标签（独热编码）的概率分布之间的差异<br>
-它只关注真实类别对应的那个预测概率。预测越准，这个概率越接近1，-log 的值就越小，损失就越低。<br>
-与最大似然的关系：最小化交叉熵损失，等价于最大化训练数据的似然估计<br>
-softmax回归:<br>
-O =Wx + b 此时因为对于每个分类，都有各自的权重，比如说三个类别，那么就会有三列权重，对于每个特征都是一个独立的权重.即权重矩阵W = 类别数 × 特征数<br>
-softmax运算：<br>
-要将输出视为概率，我们必须保证在任何数据上的输出都是非负的且总和为1。 此外，我们需要一个训练的目标函数，来激励模型精准地估计概率。<br>
-softmax函数能够将未规范化的预测变换为非负数并且总和为1，同时让模型保持 可导的性质。<br>
-小批量样本的矢量化：<br>
-O = XW + b<br>
-独热编码:<br>
-独热编码是一个向量，它的分量和类别一样多。 类别对应的分量设置为1，其他所有分量设置为0。</p>
-<p>源于数字电路中的术语<br>
-“热”（Hot）：在电路中，通常用高电平（1）代表“开”，低电平（0）代表“关”。“热”指的就是那个激活的、亮起来的状态。<br>
-“独”（One-hot）：意思是只有一个位置是“热的”（为1），其余所有位置都是“冷的”（为0）。<br>
-举个例子：假设有3个类别（猫、狗、鸡），用独热编码表示“狗”：<br>
-猫：(1, 0, 0) —— 第1个位置“热”<br>
-狗：(0, 1, 0) —— 第2个位置“热”（唯一的那个1）<br>
-鸡：(0, 0, 1) —— 第3个位置“热”<br>
-为什么要这样设计，而不是直接用 1、2、3 数字？<br>
-因为类别之间没有天然的数值大小关系。如果用数字，模型可能会误以为“3（鸡） &gt; 2（狗）”，从而引入错误的归纳偏置。而独热编码将类别映射到高维空间的正交轴上（相互垂直），强迫模型认为所有类别是平等且互斥的——这在数学上与分类任务的“互斥概率分布”完美契合。</p>
-<p>信息论:<br>
-它核心回答了一个根本问题：“信息到底是什么？如何量化它？”<br>
-信息量（自信息）：一个事件发生的概率越低，它发生时带给我们的“惊异”程度就越大，信息量就越大。<br>
-熵：衡量一个随机变量平均的不确定性（即平均信息量）。熵越高，系统越混乱，越难以预测。<br>
-比如：抛公平硬币，正反概率各50%，熵很高；抛一枚永远正面的硬币，熵为0。<br>
-交叉熵：<br>
-交叉熵的大小表示猜测值在错误情况下需要支付的费用（比特），越大则与真实值（熵）越远。<br>
-KL散度 = 交叉熵 − 真实分布的熵<br>
-KL散度则是因为错误，你需多消耗的比特位数</p>
+<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E4%BA%A4%E5%8F%89%E7%86%B5%E6%8D%9F%E5%A4%B1">损失函数：交叉熵损失:</a></li><li style="padding-inline-start:0rem"><a href="#softmax%E5%9B%9E%E5%BD%92">softmax回归:</a></li><li style="padding-inline-start:0.7rem"><a href="#softmax%E8%BF%90%E7%AE%97">softmax运算：</a></li><li style="padding-inline-start:0.7rem"><a href="#%E5%B0%8F%E6%89%B9%E9%87%8F%E6%A0%B7%E6%9C%AC%E7%9A%84%E7%9F%A2%E9%87%8F%E5%8C%96">小批量样本的矢量化：</a></li><li style="padding-inline-start:0rem"><a href="#%E7%8B%AC%E7%83%AD%E7%BC%96%E7%A0%81">独热编码:</a></li><li style="padding-inline-start:0.7rem"><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%BF%99%E6%A0%B7%E8%AE%BE%E8%AE%A1%E8%80%8C%E4%B8%8D%E6%98%AF%E7%9B%B4%E6%8E%A5%E7%94%A8-123-%E6%95%B0%E5%AD%97">为什么要这样设计，而不是直接用 1、2、3 数字？</a></li><li style="padding-inline-start:0rem"><a href="#%E4%BF%A1%E6%81%AF%E8%AE%BA">信息论:</a></li><li style="padding-inline-start:0.7rem"><a href="#%E4%BA%A4%E5%8F%89%E7%86%B5">交叉熵：</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><p>来源于《动手学深度学习》：：<a href="https://zh-v2.d2l.ai/chapter_linear-networks/softmax-regression.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_linear-networks/softmax-regression.html</a></p>
+<p>softmax回归，它是线性回归在分类问题上的推广，虽然名字里带“回归”，但它实际上是一个分类模型。而它的作用就是对模型的每个输出进行取指数，并将每个指数结果除以所有指数结果的总和，使得所有输出概率之和为1（归一化）。且这个变换可导，便于进行梯度下降优化。</p>
+<h2 id="损失函数交叉熵损失">损失函数：交叉熵损失:</h2>
+<p>核心思想：交叉熵衡量的是两个概率分布之间的差异。对于分类问题，它衡量的是模型预测的概率分布与真实标签（独热编码）的概率分布之间的差异</p>
+<p>它只关注真实类别对应的那个预测概率。预测越准，这个概率越接近1，-log 的值就越小，损失就越低。</p>
+<p>使用独热标签时，交叉熵损失只取真实类别预测概率的负对数。</p>
+<p>与最大似然的关系：最小化交叉熵损失，等价于最大化训练数据的似然估计</p>
+<h2 id="softmax回归">softmax回归:</h2>
+<p>O =Wx + b 此时因为对于每个分类，都有各自的权重，比如说三个类别，那么就会有三列权重，对于每个特征都是一个独立的权重.即权重矩阵W = 类别数 × 特征数</p>
+<h3 id="softmax运算">softmax运算：</h3>
+<p>要将输出视为概率，我们必须保证在任何数据上的输出都是非负的且总和为1。 此外，我们需要一个训练的目标函数，来激励模型精准地估计概率。</p>
+<p>softmax函数能够将未规范化的预测变换为非负数并且总和为1，同时让模型保持 可导的性质。</p>
+<h3 id="小批量样本的矢量化">小批量样本的矢量化：</h3>
+<p>（这里改用 W = 特征数 × 类别数的排列方式，与前面单样本公式中的 W 互为转置。批量输入 X 的形状为样本数 × 特征数）</p>
+<div class="code-block"><div class="code-block-bar"><span>text</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-text">O = XW + b
+</code></pre></div>
+<h2 id="独热编码">独热编码:</h2>
+<p>独热编码是一个向量，它的分量和类别一样多。 类别对应的分量设置为1，其他所有分量设置为0。</p>
+<p>源于数字电路中的术语</p>
+<ul>
+<li>
+<p>“热”（Hot）：在电路中，通常用高电平（1）代表“开”，低电平（0）代表“关”。“热”指的就是那个激活的、亮起来的状态。</p>
+</li>
+<li>
+<p>“独”（One-hot）：意思是只有一个位置是“热的”（为1），其余所有位置都是“冷的”（为0）。</p>
+</li>
+</ul>
+<p>举个例子：假设有3个类别（猫、狗、鸡），用独热编码表示“狗”：</p>
+<ul>
+<li>
+<p>猫：(1, 0, 0) —— 第1个位置“热”</p>
+</li>
+<li>
+<p>狗：(0, 1, 0) —— 第2个位置“热”（唯一的那个1）</p>
+</li>
+<li>
+<p>鸡：(0, 0, 1) —— 第3个位置“热”</p>
+</li>
+</ul>
+<h3 id="为什么要这样设计而不是直接用-123-数字">为什么要这样设计，而不是直接用 1、2、3 数字？</h3>
+<p>因为类别之间没有天然的数值大小关系。如果把 1、2、3 当作连续数值，用回归的方式处理，就可能引入不合理的大小和距离关系，模型可能会误以为“3（鸡） &gt; 2（狗）”，从而引入错误的归纳偏置。独热编码通过不同位置上的 1 来标记类别，避免这种数值顺序。强迫模型认为所有类别是平等且互斥的——这在数学上与分类任务的“互斥概率分布”完美契合。</p>
+<p>独热编码通过不同位置上的 1 来标记类别，避免引入数值大小和距离关系。在每个样本只属于一个类别的单标签分类任务中，唯一的那个 1 表示样本所属的类别。但这不代表所有类别出现的概率相等。</p>
+<p>此外，使用支持类别索引的分类损失函数时，也可以直接提供类别编号，无需手动转换成独热编码。</p>
+<h2 id="信息论">信息论:</h2>
+<p>它核心回答了一个根本问题：“信息到底是什么？如何量化它？”</p>
+<p>信息量（自信息）：一个事件发生的概率越低，它发生时带给我们的“惊异”程度就越大，信息量就越大。</p>
+<p>熵：衡量一个随机变量平均的不确定性（即平均信息量）。熵越高，系统越混乱，越难以预测。</p>
+<p>比如：抛公平硬币，正反概率各50%，熵很高；抛一枚永远正面的硬币，熵为0。</p>
+<h3 id="交叉熵">交叉熵：</h3>
+<p>使用预测分布来描述真实数据时，所需的平均总费用。真实分布固定时，交叉熵越大，说明预测分布与真实分布的差异越大。</p>
+<p>KL 散度 = 交叉熵 − 真实分布的熵</p>
+<p>KL 散度： 由于预测分布与真实分布不一致，相比理想情况额外付出的平均费用。</p>
+<p>上述“费用”是编码长度的比喻；使用以 2 为底的对数时，单位是比特。</p>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
-<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/How%20Does%20Batch%20Normalization%20Help%20Optimization.md.html"><span class="dim">上一篇</span><span>How Does Batch Normalization Help Optimization</span></a><span></span></nav>
+<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92.md.html"><span class="dim">上一篇</span><span>03.01 线性回归</span></a><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA.md.html"><span class="dim">下一篇</span><span>04.01 多层感知机</span></a></nav>
 </main></body></html>

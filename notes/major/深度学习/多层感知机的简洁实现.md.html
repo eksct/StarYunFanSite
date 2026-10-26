@@ -1,42 +1,58 @@
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="light"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>多层感知机的简洁实现 · Seiga</title>
-<meta name="description" content="参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-concise.html 与softmax回归的简洁实现（ 3.7节）相比， 唯一">
+<title>04.03 多层感知机的简洁实现 · Seiga</title>
+<meta name="description" content="参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-concise.html 与 Softmax 回归的简洁实现（3.7 节）相比，这">
 <meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
-<meta property="og:title" content="多层感知机的简洁实现 · Seiga"><meta property="og:description" content="参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-concise.html 与softmax回归的简洁实现（ 3.7节）相比， 唯一">
+<meta property="og:title" content="04.03 多层感知机的简洁实现 · Seiga"><meta property="og:description" content="参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-concise.html 与 Softmax 回归的简洁实现（3.7 节）相比，这">
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E7%AE%80%E6%B4%81%E5%AE%9E%E7%8E%B0.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E7%AE%80%E6%B4%81%E5%AE%9E%E7%8E%B0.md.html">
-<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-BhwjMbvo.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"多层感知机的简洁实现","description":"参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-concise.html 与softmax回归的简洁实现（ 3.7节）相比， 唯一","datePublished":"2026-09-20","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E7%AE%80%E6%B4%81%E5%AE%9E%E7%8E%B0.md.html"}</script>
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-CFGnIcKu.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"04.03 多层感知机的简洁实现","description":"参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-concise.html 与 Softmax 回归的简洁实现（3.7 节）相比，这","datePublished":"2026-09-20","dateModified":"2026-10-26","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E7%AE%80%E6%B4%81%E5%AE%9E%E7%8E%B0.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
 <script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
 <a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></nav>
-<h1>多层感知机的简洁实现</h1><p class="static-note-meta">深度学习 · 发布 2026-09-20</p>
+<h1>04.03 多层感知机的简洁实现</h1><p class="static-note-meta">深度学习 · 发布 2026-09-20 · 更新 2026-10-26</p>
 <a href="/StarYunFanSite/#/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E7%AE%80%E6%B4%81%E5%AE%9E%E7%8E%B0.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
+<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#%E5%AF%BC%E5%85%A5%E6%A8%A1%E5%9D%97">导入模块</a></li><li style="padding-inline-start:0rem"><a href="#%E6%A8%A1%E5%9E%8B%E5%AE%9A%E4%B9%89pytorch-%E7%89%88">模型定义（PyTorch 版）</a></li><li style="padding-inline-start:0rem"><a href="#%E6%9D%83%E9%87%8D%E5%88%9D%E5%A7%8B%E5%8C%96">权重初始化</a></li><li style="padding-inline-start:0rem"><a href="#%E5%8A%A0%E8%BD%BD%E6%95%B0%E6%8D%AE%E5%B9%B6%E8%AE%AD%E7%BB%83">加载数据并训练</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><p>参考：<a href="https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-concise.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-concise.html</a></p>
+<p>与 Softmax 回归的简洁实现（3.7 节）相比，这里的模型总共有两个全连接层：第一层是包含 256 个隐藏单元的隐藏层，随后使用 ReLU 激活；第二层是输出 10 个类别得分的输出层。相比之前只有一个输出层的模型，这里增加了一个带激活函数的隐藏层。</p>
+<p>以下代码对照教材的 PyTorch 版本整理，各代码块在安装了 PyTorch、torchvision 和 d2l 的 Notebook 环境中按顺序执行。</p>
+<h2 id="导入模块">导入模块</h2>
+<div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python"><span class="hljs-keyword">import</span> torch
+<span class="hljs-keyword">from</span> torch <span class="hljs-keyword">import</span> nn
+<span class="hljs-keyword">from</span> d2l <span class="hljs-keyword">import</span> torch <span class="hljs-keyword">as</span> d2l
+</code></pre></div>
+<h2 id="模型定义pytorch-版">模型定义（PyTorch 版）</h2>
+<div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python">net = nn.Sequential(
+    nn.Flatten(),         <span class="hljs-comment"># 把每张 28×28 图片展开为 784 维向量</span>
+    nn.Linear(<span class="hljs-number">784</span>, <span class="hljs-number">256</span>),   <span class="hljs-comment"># 隐藏层：784 维输入映射到 256 维</span>
+    nn.ReLU(),            <span class="hljs-comment"># 非线性激活：正数保留，否则输出 0</span>
+    nn.Linear(<span class="hljs-number">256</span>, <span class="hljs-number">10</span>),    <span class="hljs-comment"># 输出层：得到 10 个类别得分</span>
+)
+</code></pre></div>
+<p>输出层后不额外添加 Softmax，后面的交叉熵损失函数直接接收类别得分。</p>
+<h2 id="权重初始化">权重初始化</h2>
+<p><code>init_weights</code> 检查传入的模块：如果是 <code>nn.Linear</code>，就把它的权重初始化为均值 0、标准差 0.01 的正态随机数。这里按教材只重新初始化权重，偏置保留 <code>nn.Linear</code> 创建时的默认初始化。</p>
+<div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">init_weights</span>(<span class="hljs-params">m</span>):
+    <span class="hljs-keyword">if</span> <span class="hljs-built_in">type</span>(m) == nn.Linear:
+        nn.init.normal_(m.weight, std=<span class="hljs-number">0.01</span>)
 
-<article id="article" tabindex="-1" class="prose"><p>参考：<a href="https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-concise.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-concise.html</a><br>
-与softmax回归的简洁实现（ 3.7节）相比， 唯一的区别是我们添加了2个全连接层（之前我们只添加了1个全连接层）。 第一层是隐藏层，它包含256个隐藏单元，并使用了ReLU激活函数。 第二层是输出层。</p>
-<p>模型定义（PyTorch 版）<br>
-net = nn.Sequential(<br>
-&lt;!--把 28×28 的图片拉平成 784 维向量。--&gt;<br>
-nn.Flatten(),<br>
-&lt;!--第一层全连接层，把 784 维输入映射到 256 维隐藏空间。--&gt;<br>
-nn.Linear(784, 256),<br>
-&lt;!--激活函数，正数保留，负数归零。--&gt;<br>
-nn.ReLU(),<br>
-&lt;!--第二层全连接层，把 256 维隐藏表示映射到 10 个类别得分。--&gt;<br>
-nn.Linear(256, 10))</p>
-<p>&lt;!--权重初始化--&gt;<br>
-&lt;!--init_weights 是一个函数：如果某一层是 nn.Linear，就把它的权重用均值为0、标准差为0.01的正态分布来初始化。--&gt;<br>
-def init_weights(m):<br>
-if type(m) == nn.Linear:<br>
-nn.init.normal_(m.weight, std=0.01)<br>
-&lt;!--把 init_weights 这个函数应用到 net 里的每一层。所以所有全连接层的权重都会被初始化。--&gt;<br>
-net.apply(init_weights)</p>
-<p>train_iter, test_iter = d2l.load_data_fashion_mnist(batch_size)<br>
-d2l.train_ch3(net, train_iter, test_iter, loss, num_epochs, trainer)</p>
+
+net.apply(init_weights)
+</code></pre></div>
+<p><code>net.apply(init_weights)</code> 会遍历模型及其子模块，两个全连接层的权重都会按上面的规则初始化。</p>
+<h2 id="加载数据并训练">加载数据并训练</h2>
+<p>批次大小为 256，学习率为 0.1，训练 10 轮。与从零实现一样，使用 <code>reduction='none'</code> 保留各样本损失，交给 <code>d2l.train_ch3</code> 处理。</p>
+<p>这篇重新创建自己的 <code>trainer</code>，并传入当前模型的 <code>net.parameters()</code>，让优化器更新这个模型的参数。</p>
+<div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python">batch_size, lr, num_epochs = <span class="hljs-number">256</span>, <span class="hljs-number">0.1</span>, <span class="hljs-number">10</span>
+loss = nn.CrossEntropyLoss(reduction=<span class="hljs-string">&#x27;none&#x27;</span>)
+trainer = torch.optim.SGD(net.parameters(), lr=lr)
+
+train_iter, test_iter = d2l.load_data_fashion_mnist(batch_size)
+d2l.train_ch3(net, train_iter, test_iter, loss, num_epochs, trainer)
+</code></pre></div>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
-<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0.md.html"><span class="dim">上一篇</span><span>多层感知机的从零开始实现</span></a><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E9%99%84%E5%8A%A0%E8%8A%9D%E5%A3%AB.md.html"><span class="dim">下一篇</span><span>附加芝士</span></a></nav>
+<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0.md.html"><span class="dim">上一篇</span><span>04.02 多层感知机的从零开始实现</span></a><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9%E3%80%81%E6%AC%A0%E6%8B%9F%E5%90%88%E5%92%8C%E8%BF%87%E6%8B%9F%E5%90%88.md.html"><span class="dim">下一篇</span><span>04.04 模型选择、欠拟合和过拟合</span></a></nav>
 </main></body></html>

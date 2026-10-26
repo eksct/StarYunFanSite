@@ -1,50 +1,50 @@
 <!DOCTYPE html>
 <html lang="zh-CN" data-theme="light"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>环境和分布偏移 · Seiga</title>
+<title>04.09 环境和分布偏移 · Seiga</title>
 <meta name="description" content="参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/environment.html 这是一个讲分布偏移的篇章。 三种偏移： 协变量偏移： 输">
 <meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
-<meta property="og:title" content="环境和分布偏移 · Seiga"><meta property="og:description" content="参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/environment.html 这是一个讲分布偏移的篇章。 三种偏移： 协变量偏移： 输">
+<meta property="og:title" content="04.09 环境和分布偏移 · Seiga"><meta property="og:description" content="参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/environment.html 这是一个讲分布偏移的篇章。 三种偏移： 协变量偏移： 输">
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%AF%E5%A2%83%E5%92%8C%E5%88%86%E5%B8%83%E5%81%8F%E7%A7%BB.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%AF%E5%A2%83%E5%92%8C%E5%88%86%E5%B8%83%E5%81%8F%E7%A7%BB.md.html">
-<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-BhwjMbvo.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"环境和分布偏移","description":"参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/environment.html 这是一个讲分布偏移的篇章。 三种偏移： 协变量偏移： 输","datePublished":"2026-09-23","dateModified":"2026-09-23","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%AF%E5%A2%83%E5%92%8C%E5%88%86%E5%B8%83%E5%81%8F%E7%A7%BB.md.html"}</script>
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-CFGnIcKu.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"04.09 环境和分布偏移","description":"参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/environment.html 这是一个讲分布偏移的篇章。 三种偏移： 协变量偏移： 输","datePublished":"2026-09-23","dateModified":"2026-09-23","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%AF%E5%A2%83%E5%92%8C%E5%88%86%E5%B8%83%E5%81%8F%E7%A7%BB.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
 <script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
 <a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></nav>
-<h1>环境和分布偏移</h1><p class="static-note-meta">深度学习 · 发布 2026-09-23</p>
+<h1>04.09 环境和分布偏移</h1><p class="static-note-meta">深度学习 · 发布 2026-09-23</p>
 <a href="/StarYunFanSite/#/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%AF%E5%A2%83%E5%92%8C%E5%88%86%E5%B8%83%E5%81%8F%E7%A7%BB.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
-
-<article id="article" tabindex="-1" class="prose"><p>参考：<a href="https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/environment.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/environment.html</a><br>
-这是一个讲分布偏移的篇章。<br>
-三种偏移：<br>
-协变量偏移：<br>
-输入变化了，比如说训练是真实世界的猫狗，预测的素材是卡通猫狗。<br>
-标签偏移：<br>
-每个标签出现的频率变了，但“某种标签长什么样”的规律没变。<br>
-比如训练时猫和狗各占一半，部署后猫变得特别多。模型如果只是简单地倾向于预测“狗”，就会出问题。<br>
-概念偏移：<br>
-同一个词，含义变了。<br>
-怎么纠正分布偏移？<br>
-协变量偏移的纠正：给样本“重新称重”<br>
-核心思想是：如果一个样本在训练分布中很常见，但在目标分布中很罕见，那就降低它的权重；反之则提高权重。<br>
-标签偏移的纠正：调整预测结果<br>
-如果标签的比例变了，可以用混淆矩阵来估计目标分布中每个标签的真实比例，然后调整模型的预测。<br>
-概念偏移：最难，通常只能重新训练<br>
-书里明确说：概念偏移很难用原则性的方式解决。 如果问题从“区分猫和狗”突然变成了“区分白色和黑色动物”，除了重新收集数据、重新训练，没有别的办法。<br>
-学习问题的分类：<br>
-书里还从“模型和环境如何互动”的角度，给学习问题分了几类：</p>
+<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#%E4%B8%89%E7%A7%8D%E5%81%8F%E7%A7%BB">三种偏移：</a></li><li style="padding-inline-start:0.7rem"><a href="#%E5%8D%8F%E5%8F%98%E9%87%8F%E5%81%8F%E7%A7%BB">协变量偏移：</a></li><li style="padding-inline-start:0.7rem"><a href="#%E6%A0%87%E7%AD%BE%E5%81%8F%E7%A7%BB">标签偏移：</a></li><li style="padding-inline-start:0.7rem"><a href="#%E6%A6%82%E5%BF%B5%E5%81%8F%E7%A7%BB">概念偏移：</a></li><li style="padding-inline-start:0rem"><a href="#%E6%80%8E%E4%B9%88%E7%BA%A0%E6%AD%A3%E5%88%86%E5%B8%83%E5%81%8F%E7%A7%BB">怎么纠正分布偏移？</a></li><li style="padding-inline-start:0.7rem"><a href="#%E5%8D%8F%E5%8F%98%E9%87%8F%E5%81%8F%E7%A7%BB%E7%9A%84%E7%BA%A0%E6%AD%A3%E7%BB%99%E6%A0%B7%E6%9C%AC%E9%87%8D%E6%96%B0%E7%A7%B0%E9%87%8D">协变量偏移的纠正：给样本“重新称重”</a></li><li style="padding-inline-start:0.7rem"><a href="#%E6%A0%87%E7%AD%BE%E5%81%8F%E7%A7%BB%E7%9A%84%E7%BA%A0%E6%AD%A3%E8%B0%83%E6%95%B4%E9%A2%84%E6%B5%8B%E7%BB%93%E6%9E%9C">标签偏移的纠正：调整预测结果</a></li><li style="padding-inline-start:0.7rem"><a href="#%E6%A6%82%E5%BF%B5%E5%81%8F%E7%A7%BB%E6%9C%80%E9%9A%BE%E9%80%9A%E5%B8%B8%E5%8F%AA%E8%83%BD%E9%87%8D%E6%96%B0%E8%AE%AD%E7%BB%83">概念偏移：最难，通常只能重新训练</a></li><li style="padding-inline-start:0rem"><a href="#%E5%AD%A6%E4%B9%A0%E9%97%AE%E9%A2%98%E7%9A%84%E5%88%86%E7%B1%BB">学习问题的分类：</a></li><li style="padding-inline-start:0rem"><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5%E6%9D%A5%E4%BC%B0%E8%AE%A1%E7%9B%AE%E6%A0%87%E5%88%86%E5%B8%83%E4%B8%AD%E6%AF%8F%E4%B8%AA%E6%A0%87%E7%AD%BE%E7%9A%84%E7%9C%9F%E5%AE%9E%E6%AF%94%E4%BE%8B">什么是混淆矩阵来估计目标分布中每个标签的真实比例：</a></li></ul></nav></details>
+<article id="article" tabindex="-1" class="prose"><p>参考：<a href="https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/environment.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/environment.html</a></p>
+<p>这是一个讲分布偏移的篇章。</p>
+<h2 id="三种偏移">三种偏移：</h2>
+<h3 id="协变量偏移">协变量偏移：</h3>
+<p>输入变化了，比如说训练是真实世界的猫狗，预测的素材是卡通猫狗。</p>
+<h3 id="标签偏移">标签偏移：</h3>
+<p>每个标签出现的频率变了，但“某种标签长什么样”的规律没变。</p>
+<p>比如训练时猫和狗各占一半，部署后猫变得特别多。模型如果只是简单地倾向于预测“狗”，就会出问题。</p>
+<h3 id="概念偏移">概念偏移：</h3>
+<p>同一个词，含义变了。</p>
+<h2 id="怎么纠正分布偏移">怎么纠正分布偏移？</h2>
+<h3 id="协变量偏移的纠正给样本重新称重">协变量偏移的纠正：给样本“重新称重”</h3>
+<p>核心思想是：如果一个样本在训练分布中很常见，但在目标分布中很罕见，那就降低它的权重；反之则提高权重。</p>
+<h3 id="标签偏移的纠正调整预测结果">标签偏移的纠正：调整预测结果</h3>
+<p>如果标签的比例变了，可以用混淆矩阵来估计目标分布中每个标签的真实比例，然后调整模型的预测。</p>
+<h3 id="概念偏移最难通常只能重新训练">概念偏移：最难，通常只能重新训练</h3>
+<p>书里明确说：概念偏移很难用原则性的方式解决。 如果问题从“区分猫和狗”突然变成了“区分白色和黑色动物”，除了重新收集数据、重新训练，没有别的办法。</p>
+<h2 id="学习问题的分类">学习问题的分类：</h2>
+<p>书里还从“模型和环境如何互动”的角度，给学习问题分了几类：</p>
 <p>批量学习：训练数据和测试数据都是固定的，我们只关心一次性的预测。</p>
 <p>在线学习：数据一个个来，模型不断更新。</p>
 <p>老虎机：在探索和利用之间权衡。</p>
 <p>控制：环境会记住你的行为，并据此做出反应。</p>
 <p>强化学习：通过行动来最大化长期回报。</p>
 <p>关键区别在于：环境是静止的，还是会变化的？ 一个在静止环境中有效的策略，在环境变化时可能完全失效。</p>
-<p>什么是混淆矩阵来估计目标分布中每个标签的真实比例：<br>
-问题是什么？——预测结果的比例 ≠ 真实标签的比例。<br>
-什么是混淆矩阵？——混淆矩阵是一张表，记录的是：当真实标签是某个类别时，模型预测成各个类别的概率分别是多少。<br>
-混淆矩阵本身是在训练集上算出来的，它是一个估计值，不是绝对精确的。</p>
+<h2 id="什么是混淆矩阵来估计目标分布中每个标签的真实比例">什么是混淆矩阵来估计目标分布中每个标签的真实比例：</h2>
+<p>问题是什么？——预测结果的比例 ≠ 真实标签的比例。</p>
+<p>什么是混淆矩阵？——混淆矩阵是一张表，记录的是：当真实标签是某个类别时，模型预测成各个类别的概率分别是多少。</p>
+<p>混淆矩阵本身是在训练集上算出来的，它是一个估计值，不是绝对精确的。</p>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
-<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E9%99%84%E5%8A%A0%E8%8A%9D%E5%A3%AB.md.html"><span class="dim">上一篇</span><span>附加芝士</span></a><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html"><span class="dim">下一篇</span><span>卷积神经网络</span></a></nav>
+<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%95%B0%E5%80%BC%E7%A8%B3%E5%AE%9A%E6%80%A7%E5%92%8C%E6%A8%A1%E5%9E%8B%E5%88%9D%E5%A7%8B%E5%8C%96.md.html"><span class="dim">上一篇</span><span>04.08 数值稳定性和模型初始化</span></a><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97.md.html"><span class="dim">下一篇</span><span>05 深度学习计算</span></a></nav>
 </main></body></html>
