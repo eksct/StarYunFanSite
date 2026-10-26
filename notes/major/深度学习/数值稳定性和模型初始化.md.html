@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数值稳定性和模型初始化 · Seiga</title>
+<meta name="description" content="参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/backprop.html （废止） https://zh-v2.d2l.ai/chapt">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="数值稳定性和模型初始化 · Seiga"><meta property="og:description" content="参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/backprop.html （废止） https://zh-v2.d2l.ai/chapt">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%95%B0%E5%80%BC%E7%A8%B3%E5%AE%9A%E6%80%A7%E5%92%8C%E6%A8%A1%E5%9E%8B%E5%88%9D%E5%A7%8B%E5%8C%96.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%95%B0%E5%80%BC%E7%A8%B3%E5%AE%9A%E6%80%A7%E5%92%8C%E6%A8%A1%E5%9E%8B%E5%88%9D%E5%A7%8B%E5%8C%96.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-BhwjMbvo.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"数值稳定性和模型初始化","description":"参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/backprop.html （废止） https://zh-v2.d2l.ai/chapt","datePublished":"2026-09-21","dateModified":"2026-09-22","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%95%B0%E5%80%BC%E7%A8%B3%E5%AE%9A%E6%80%A7%E5%92%8C%E6%A8%A1%E5%9E%8B%E5%88%9D%E5%A7%8B%E5%8C%96.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></nav>
+<h1>数值稳定性和模型初始化</h1><p class="static-note-meta">深度学习 · 发布 2026-09-21 · 更新 2026-09-22</p>
+<a href="/StarYunFanSite/#/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%95%B0%E5%80%BC%E7%A8%B3%E5%AE%9A%E6%80%A7%E5%92%8C%E6%A8%A1%E5%9E%8B%E5%88%9D%E5%A7%8B%E5%8C%96.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
+
+<article id="article" tabindex="-1" class="prose"><p>参考：<a href="https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/backprop.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/backprop.html</a> （废止）<br>
+<a href="https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/numerical-stability-and-init.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/numerical-stability-and-init.html</a></p>
+<p>初始化方案的选择在神经网络学习中起着举足轻重的作用， 它对保持数值稳定性至关重要。</p>
+<p>梯度是&quot;一长串矩阵连乘&quot;的结果。而矩阵的连乘由它的特征值决定：有些特征值很小、有些很大，乘积就会指数级地趋近 0 或冲上天。这比&quot;很多概率相乘导致下溢&quot;更难办——概率乘起来一定是变小的，而矩阵乘积两个方向都可能失控。</p>
+<p>梯度消失：<br>
+参数每次更新只挪动一丁点，损失曲线长期不动，看起来像&quot;学不动&quot;。<br>
+sigmoid函数是导致梯度消失问题的一个常见的原因。<br>
+Sigmoid函数会把输入“压扁”到0到1之间。当输入很大或很小时，它的曲线会变得非常平坦，梯度（导数）几乎为零。在反向传播时，每经过一个Sigmoid层，梯度就被乘以一个接近0的数，多层叠加后，梯度就消失了。<br>
+ReLU函数如何缓解这个问题？<br>
+ReLU在输入为正数时，梯度恒为1，不会“衰减”信号。因此，它能让梯度在反向传播时保持稳定，有效缓解了梯度消失问题，成为现代网络的默认选择。</p>
+<p>梯度爆炸:<br>
+参数更新幅度巨大，损失剧烈震荡甚至变成 NaN，优化器彻底失去收敛的可能。<br>
+书里做了一个实验：创建一个随机矩阵，然后反复乘以100个随机矩阵。结果，这个矩阵中的数值会变得极其巨大（如10的26次方），直接导致数值溢出。这形象地说明了，如果权重矩阵的数值稍大，经过多层连乘后，梯度就会爆炸。</p>
+<p>打破对称性：不能让所有神经元“复制粘贴”：<br>
+如果网络里所有隐藏单元的初始权重都设成完全一样的值，那它们就像是同一个人的“复制粘贴”，无论怎么训练，它们永远都学一样的东西，网络就失去了多样性。必须用随机值来初始化权重，打破这种对称性，让每个神经元从不同的起点开始学习。</p>
+<p>如何正确初始化？Xavier初始化：<br>
+Xavier初始化要解决的问题是：既然随机初始化很重要，那应该用什么分布、多大的范围来随机呢？<br>
+它的核心思想：让每层的“信号强度”保持一致<br>
+Xavier初始化的目标是：让每一层输出的方差，和它输入的方差大致相等(核心原因是为了让信号在网络中稳定地流动，避免训练时出现“梯度消失”或“梯度爆炸”)。<br>
+这样，无论网络有多深，信号在前向传播时不会逐层放大或缩小，反向传播时梯度也能保持稳定<br>
+怎么做？根据层的“大小”来缩放<br>
+它根据一个层的输入神经元数量（nin）和输出神经元数量（nout），来决定权重的随机范围。公式是：</p>
+<p>权重方差 = 2 / (nin + nout)</p>
+<p>这意味着：如果一个层的输入或输出神经元特别多，就用更小的随机值来初始化。这样，当信号经过这个“大”层时，就不会因为元素太多而累加出过大的方差。<br>
+注意：ReLU需要专用初始化<br>
+Xavier初始化假设激活函数是线性的（或对称的）。但ReLU会把一半的输入“砍掉”（置为0），这会导致输出方差减半。因此，对于ReLU网络，有专门的Kaiming初始化，它在Xavier的基础上把方差再乘以2，来补偿被ReLU“砍掉”的部分。<br>
+为什么根据输入（nin）和输出（nout）神经元数量，来决定权重的随机范围——因为方差的稳定性是由权重的方差和神经元数量共同决定的</p>
+<p>一个神经元的输出，是它所有输入加权求和的结果。如果输入神经元的数量（nin）很多，每个输入乘以一个不大不小的权重，加起来后，输出的方差就会因为累加而变得很大。为了抵消这种“累加效应”，就需要让每个权重的值（也就是方差）变小一些。权重方差需要和输入神经元数量成反比。</p>
+<p>同理，反向传播时，梯度是从输出端往输入端传的，所以梯度的稳定性又和输出神经元的数量（nout）有关。</p>
+<p>Xavier 初始化就是同时考虑了这两个方向，取了一个折中：让权重的方差与 (nin + nout) 成反比，并乘以 2。这样，信号在前向和反向传播时，都能保持相对的稳定。<br>
+Kaiming 初始化是什么？<br>
+Kaiming 初始化（也叫 He 初始化）是专门为 ReLU 激活函数设计的权重初始化方法<br>
+为什么 Xavier 不适合 ReLU？</p>
+<p>Kaiming 初始化是怎么修正的？</p>
+<p>Kaiming 初始化的做法非常直接：既然 ReLU 会把方差减半，那我就把初始权重的方差再乘以 2，来补偿这个损失。</p>
+<p>所以，Kaiming 初始化的方差公式是：<br>
+方差 = 2 / nin</p>
+<p>而 Xavier 的折中公式是：<br>
+方差 = 2 / (nin + nout)</p>
+<p>可以看到，Kaiming 初始化只考虑了输入神经元的数量（nin），并且把分子从“2”保留了下来。这个“2”就是为了补偿 ReLU 砍掉一半信号带来的方差损失。</p>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97.md.html"><span class="dim">上一篇</span><span>深度学习计算</span></a><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%B0%E4%BB%A3%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html"><span class="dim">下一篇</span><span>现代卷积神经网络</span></a></nav>
+</main></body></html>

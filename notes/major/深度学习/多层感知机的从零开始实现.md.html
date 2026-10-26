@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>多层感知机的从零开始实现 · Seiga</title>
+<meta name="description" content="参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-scratch.html from d2l import torch as d2l">
+<meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
+<meta property="og:title" content="多层感知机的从零开始实现 · Seiga"><meta property="og:description" content="参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-scratch.html from d2l import torch as d2l">
+<meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0.md.html">
+<link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-BhwjMbvo.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"多层感知机的从零开始实现","description":"参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-scratch.html from d2l import torch as d2l","datePublished":"2026-09-20","dateModified":"2026-09-20","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0.md.html"}</script>
+<script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
+<script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
+<a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
+<header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></nav>
+<h1>多层感知机的从零开始实现</h1><p class="static-note-meta">深度学习 · 发布 2026-09-20</p>
+<a href="/StarYunFanSite/#/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E5%AE%9E%E7%8E%B0.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
+
+<article id="article" tabindex="-1" class="prose"><p>参考：<a href="https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-scratch.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/mlp-scratch.html</a></p>
+<p>from d2l import torch as d2l<br>
+import torch<br>
+from torch import nn //神经网络模块<br>
+&lt;!--加载数据--&gt;<br>
+batch_size = 256<br>
+train_iter, test_iter = d2l.load_data_fashion_mnist(batch_size)<br>
+&lt;!--初始化模型参数--&gt;<br>
+&lt;!--每张图片展开后的像素数量。10 是类别数。256 是隐藏层的大小，也就是隐藏层有 256 个神经元。--&gt;<br>
+num_inputs, num_outputs, num_hiddens = 784, 10, 256<br>
+&lt;!--第一层的权重矩阵。形状是 (784, 256)，意思是把 784 维的输入映射到 256 维的隐藏层。torch.randn 生成随机数，乘以 0.01 让初始值很小，避免一开始就产生过大的输出。--&gt;<br>
+&lt;!--requires_grad=True 告诉 PyTorch：“这个参数需要计算梯度”，训练时才会更新它。--&gt;<br>
+W1 = nn.Parameter(torch.randn(num_inputs, num_hiddens, requires_grad=True) * 0.01)<br>
+&lt;!--1层的偏置量0填充--&gt;<br>
+b1 = nn.Parameter(torch.zeros(num_hiddens, requires_grad=True))<br>
+&lt;!--第二层的权重举证，形状是 (256, 10)，把 256 维的隐藏层映射到 10 维的输出（对应 10 个类别）。--&gt;<br>
+W2 = nn.Parameter(torch.randn(num_hiddens, num_outputs, requires_grad=True) * 0.01)<br>
+&lt;!--2层的偏置量10填充--&gt;<br>
+b2 = nn.Parameter(torch.zeros(num_outputs, requires_grad=True))</p>
+<p>params = [W1, b1, W2, b2]<br>
+&lt;!--自定义relu激活函数--&gt;<br>
+&lt;!--relu：输入是正数就原样保留，输入是负数就变成0。--&gt;<br>
+def relu(X):<br>
+return torch.max(input=X, other=torch.tensor(0.0))<br>
+&lt;!--定义模型--&gt;<br>
+def net(X):<br>
+&lt;!--把每张图片从 28×28 的二维矩阵“拉平”成长度 784 的一维向量。-1 表示“这个维度的大小让 PyTorch 自己算”，实际上就是批量大小。比如一批 256 张图片，变换后 X 的形状就是 (256, 784)。--&gt;<br>
+X = X.view((-1, num_inputs))<br>
+&lt;!--这是第一层的计算。torch.matmul(X, W1) 做矩阵乘法，把 (256, 784) 的 X 和 (784, 256) 的 W1 相乘，得到 (256, 256) 的结果；再加上偏置 b1；最后经过 ReLU 激活函数。得到的 H 就是隐藏层的输出，形状是 (256, 256)。--&gt;<br>
+H = relu(torch.matmul(X, W1) + b1)<br>
+&lt;!--这是第二层的计算。把隐藏层输出 H 和 W2 相乘，得到 (256, 10) 的结果，再加上 b2。最终输出是一个 (256, 10) 的张量，每一行代表一张图片属于 10 个类别的“得分”。--&gt;<br>
+return torch.matmul(H, W2) + b2<br>
+&lt;!--nn.CrossEntropyLoss() 是 PyTorch 提供的交叉熵损失函数。它内部会自动做 softmax（把输出变成概率分布），然后计算交叉熵损失。--&gt;<br>
+loss = nn.CrossEntropyLoss()</p>
+<p>num_epochs, lr = 10，0.1<br>
+d2l.train_ch3(net, train_iter, test_iter, loss, num_epochs,<br>
+torch.optim.SGD, lr, params)</p>
+</article><p id="interaction-status" role="status" aria-live="polite"></p>
+<nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA.md.html"><span class="dim">上一篇</span><span>多层感知机</span></a><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%A4%9A%E5%B1%82%E6%84%9F%E7%9F%A5%E6%9C%BA%E7%9A%84%E7%AE%80%E6%B4%81%E5%AE%9E%E7%8E%B0.md.html"><span class="dim">下一篇</span><span>多层感知机的简洁实现</span></a></nav>
+</main></body></html>
