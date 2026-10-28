@@ -2,124 +2,28 @@
 <html lang="zh-CN" data-theme="light"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>补充01 附加芝士 · Seiga</title>
-<meta name="description" content="SVM（支持向量机） SVM 是 Support Vector Machine 的缩写，中文叫“支持向量机”。先把它理解成一种根据已经标好类别的例子，学习如何分类的方法。它不是神经网络；除了分类，也有">
+<meta name="description" content="SVM（支持向量机） SVM（Support Vector Machine）是一种常见的机器学习方法，先把它理解成一个分类器。比如根据水果的重量、甜度判断它是苹果还是橘子：每个水果对应图上的一个点，S">
 <meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
-<meta property="og:title" content="补充01 附加芝士 · Seiga"><meta property="og:description" content="SVM（支持向量机） SVM 是 Support Vector Machine 的缩写，中文叫“支持向量机”。先把它理解成一种根据已经标好类别的例子，学习如何分类的方法。它不是神经网络；除了分类，也有">
+<meta property="og:title" content="补充01 附加芝士 · Seiga"><meta property="og:description" content="SVM（支持向量机） SVM（Support Vector Machine）是一种常见的机器学习方法，先把它理解成一个分类器。比如根据水果的重量、甜度判断它是苹果还是橘子：每个水果对应图上的一个点，S">
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E9%99%84%E5%8A%A0%E8%8A%9D%E5%A3%AB.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E9%99%84%E5%8A%A0%E8%8A%9D%E5%A3%AB.md.html">
 <link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-CFGnIcKu.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"补充01 附加芝士","description":"SVM（支持向量机） SVM 是 Support Vector Machine 的缩写，中文叫“支持向量机”。先把它理解成一种根据已经标好类别的例子，学习如何分类的方法。它不是神经网络；除了分类，也有","datePublished":"2026-09-28","dateModified":"2026-10-28","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E9%99%84%E5%8A%A0%E8%8A%9D%E5%A3%AB.md.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"补充01 附加芝士","description":"SVM（支持向量机） SVM（Support Vector Machine）是一种常见的机器学习方法，先把它理解成一个分类器。比如根据水果的重量、甜度判断它是苹果还是橘子：每个水果对应图上的一个点，S","datePublished":"2026-09-28","dateModified":"2026-10-28","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E9%99%84%E5%8A%A0%E8%8A%9D%E5%A3%AB.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
 <script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
 <a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></nav>
 <h1>补充01 附加芝士</h1><p class="static-note-meta">深度学习 · 发布 2026-09-28 · 更新 2026-10-28</p>
 <a href="/StarYunFanSite/#/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E9%99%84%E5%8A%A0%E8%8A%9D%E5%A3%AB.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
-<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#svm%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA">SVM（支持向量机）</a></li><li style="padding-inline-start:0.7rem"><a href="#1-%E5%85%88%E7%90%86%E8%A7%A3%E6%A8%A1%E5%9E%8B%E5%9C%A8%E6%89%BE%E4%B8%80%E6%9D%A1%E5%88%86%E7%B1%BB%E8%BE%B9%E7%95%8C">1. 先理解：模型在找一条分类边界</a></li><li style="padding-inline-start:0.7rem"><a href="#2-svm-%E7%9A%84%E7%89%B9%E7%82%B9%E4%B8%8D%E5%8F%AA%E5%88%86%E5%BC%80%E8%BF%98%E5%B8%8C%E6%9C%9B%E7%95%99%E5%87%BA%E5%AE%BD%E4%B8%80%E7%82%B9%E7%9A%84%E9%97%B4%E9%9A%94">2. SVM 的特点：不只分开，还希望留出宽一点的间隔</a></li><li style="padding-inline-start:0.7rem"><a href="#3-%E7%94%A8%E5%85%AC%E5%BC%8F%E8%A1%A8%E7%A4%BA%E5%85%88%E7%AE%97%E5%88%86%E6%95%B0%E5%86%8D%E7%9C%8B%E6%AD%A3%E8%B4%9F">3. 用公式表示：先算分数，再看正负</a></li><li style="padding-inline-start:0.7rem"><a href="#4-%E7%8E%B0%E5%AE%9E%E6%95%B0%E6%8D%AE%E5%88%86%E4%B8%8D%E5%BC%80%E6%80%8E%E4%B9%88%E5%8A%9E%E8%BD%AF%E9%97%B4%E9%9A%94%E4%B8%8E-c">4. 现实数据分不开怎么办：软间隔与 C</a></li><li style="padding-inline-start:0.7rem"><a href="#5-%E7%9B%B4%E7%BA%BF%E5%88%86%E4%B8%8D%E5%BC%80%E6%80%8E%E4%B9%88%E5%8A%9E%E7%89%B9%E5%BE%81%E5%8F%98%E6%8D%A2%E4%B8%8E%E6%A0%B8%E5%87%BD%E6%95%B0">5. 直线分不开怎么办：特征变换与核函数</a></li><li style="padding-inline-start:0.7rem"><a href="#6-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%9A%E5%B8%B8%E8%A6%81%E5%85%88%E6%A0%87%E5%87%86%E5%8C%96">6. 为什么通常要先标准化？</a></li><li style="padding-inline-start:0.7rem"><a href="#7-%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E8%BF%90%E8%A1%8C%E7%9A%84%E5%B0%8F%E4%BE%8B%E5%AD%90">7. 一个可以直接运行的小例子</a></li><li style="padding-inline-start:0.7rem"><a href="#8-%E5%92%8C%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E6%98%AF%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB">8. 和神经网络是什么关系？</a></li><li style="padding-inline-start:0rem"><a href="#layernorm%E5%B1%82%E5%BD%92%E4%B8%80%E5%8C%96">LayerNorm（层归一化）：</a></li><li style="padding-inline-start:0rem"><a href="#rmsnorm-">RMSNorm ：</a></li><li style="padding-inline-start:0rem"><a href="#llama">LLaMA：</a></li><li style="padding-inline-start:0rem"><a href="#%E5%9D%87%E5%80%BC">均值：</a></li><li style="padding-inline-start:0rem"><a href="#%E6%96%B9%E5%B7%AE">方差:</a></li><li style="padding-inline-start:0rem"><a href="#%E6%A0%87%E5%87%86%E5%B7%AE">标准差：</a></li><li style="padding-inline-start:0rem"><a href="#%E6%A0%87%E5%87%86%E5%8C%96">标准化：</a></li><li style="padding-inline-start:0rem"><a href="#%E5%88%A9%E6%99%AE%E5%B8%8C%E8%8C%A8%E8%BF%9E%E7%BB%AD">利普希茨连续：</a></li><li style="padding-inline-start:0rem"><a href="#%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5">雅可比矩阵:</a></li></ul></nav></details>
+<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#svm%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA">SVM（支持向量机）</a></li><li style="padding-inline-start:0rem"><a href="#layernorm%E5%B1%82%E5%BD%92%E4%B8%80%E5%8C%96">LayerNorm（层归一化）：</a></li><li style="padding-inline-start:0rem"><a href="#rmsnorm-">RMSNorm ：</a></li><li style="padding-inline-start:0rem"><a href="#llama">LLaMA：</a></li><li style="padding-inline-start:0rem"><a href="#%E5%9D%87%E5%80%BC">均值：</a></li><li style="padding-inline-start:0rem"><a href="#%E6%96%B9%E5%B7%AE">方差:</a></li><li style="padding-inline-start:0rem"><a href="#%E6%A0%87%E5%87%86%E5%B7%AE">标准差：</a></li><li style="padding-inline-start:0rem"><a href="#%E6%A0%87%E5%87%86%E5%8C%96">标准化：</a></li><li style="padding-inline-start:0rem"><a href="#%E5%88%A9%E6%99%AE%E5%B8%8C%E8%8C%A8%E8%BF%9E%E7%BB%AD">利普希茨连续：</a></li><li style="padding-inline-start:0rem"><a href="#%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5">雅可比矩阵:</a></li></ul></nav></details>
 <article id="article" tabindex="-1" class="prose"><h2 id="svm支持向量机">SVM（支持向量机）</h2>
-<p>SVM 是 Support Vector Machine 的缩写，中文叫“支持向量机”。先把它理解成一种<strong>根据已经标好类别的例子，学习如何分类的方法</strong>。它不是神经网络；除了分类，也有用于回归的变体 SVR，这里先学二分类。</p>
-<h3 id="1-先理解模型在找一条分类边界">1. 先理解：模型在找一条分类边界</h3>
-<p>假设我们要根据水果的“重量”和“甜度”区分苹果与橘子。每个水果可以用两个数字表示，比如 <code>[重量, 甜度]</code>，这些数字叫<strong>特征</strong>；“苹果还是橘子”叫<strong>标签</strong>。</p>
-<p>把重量画在横轴、甜度画在纵轴，每个水果就变成图上的一个点。如果两类点能被一条直线分开，模型就可以学这条线：线的一边判断为苹果，另一边判断为橘子。</p>
-<p>两个特征时，边界是一条线；三个特征时，可以是一个平面。特征更多时，数学上统称为<strong>超平面</strong>，暂时把它当作“高维空间里的分界线”即可。</p>
-<h3 id="2-svm-的特点不只分开还希望留出宽一点的间隔">2. SVM 的特点：不只分开，还希望留出宽一点的间隔</h3>
-<p>能够分开两类点的线可能有很多条。有的线紧贴某一类，稍有一点测量误差，就容易把附近的新样本分错。</p>
-<p>SVM 的基本想法是：在能正确分开的前提下，尽量让边界离两边最近的训练样本都远一些。可以想象在两类点之间修一条走廊，<strong>边界是走廊中线，走廊越宽，间隔越大</strong>。</p>
-<p>最简单的一维例子：</p>
-<div class="code-block"><div class="code-block-bar"><span>text</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-text">A 类：−3、−2、−1       B 类：1、2、3
-
-−3   −2   −1      0      1    2    3
- A    A    A    分界点    B    B    B
-           ↑             ↑
-       最近的 A       最近的 B
-</code></pre></div>
-<p>选 0 作为分界点时，离最近的两类样本 −1 和 1 都有 1 个单位距离，两侧间隔边界之间的宽度是 2。如果把分界点移到 0.8，虽然训练样本仍然分对了，但它离 B 类的 1 太近，最小距离只有 0.2。</p>
-<p>这里的 −1 和 1 就是<strong>支持向量</strong>：它们是决定这条边界的关键训练样本。“向量”指一个样本的特征数组，不是模型的权重。在软间隔 SVM 中，支持向量还可能位于间隔内部，甚至被分错，不能一概理解为“恰好站在走廊两边的点”。</p>
-<p>最大间隔是一种学习偏好，有助于泛化，但不保证任何数据上都最好。</p>
-<h3 id="3-用公式表示先算分数再看正负">3. 用公式表示：先算分数，再看正负</h3>
-<p>线性 SVM 对输入 x 计算一个分数：</p>
-<div class="code-block"><div class="code-block-bar"><span>text</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-text">f(x) = wᵀx + b
-     = w₁x₁ + w₂x₂ + … + b
-
-f(x) &gt; 0：预测为 +1 类
-f(x) &lt; 0：预测为 −1 类
-f(x) = 0：正好在分类边界上
-</code></pre></div>
-<ul>
-<li><code>x</code>：样本的特征，比如重量和甜度。</li>
-<li><code>w</code>：需要学习的权重，控制边界的方向。</li>
-<li><code>b</code>：需要学习的偏置，控制边界的位置。</li>
-<li><code>+1</code>、<code>−1</code>：两个类别的代号，没有“哪个类别数值更大”的含义。</li>
-</ul>
-<p>形式上它和线性回归很像，但任务不同：线性回归用这个数预测具体数值；线性 SVM 用分数的正负分类，并用自己的目标函数学习最大间隔。<strong>分数也不直接等于属于某类的概率。</strong></p>
-<h3 id="4-现实数据分不开怎么办软间隔与-c">4. 现实数据分不开怎么办：软间隔与 C</h3>
-<p>如果苹果和橘子的特征有重叠，或者某个样本标错了，强行要求所有样本都分对，可能根本做不到。即使能做到，边界也可能被少数异常点拖偏。</p>
-<p>因此要区分两种设定：</p>
-<ul>
-<li><strong>硬间隔</strong>：不允许训练样本进入间隔或被分错，要求数据能被线性完全分开。</li>
-<li><strong>软间隔</strong>：允许部分样本进入间隔，甚至分错，同时惩罚这些违反间隔的情况，在“大间隔”和“少违反”之间做折中。</li>
-</ul>
-<p>可以把常见的线性软间隔目标理解为：</p>
-<div class="code-block"><div class="code-block-bar"><span>text</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-text">总目标 = ½ × 权重的平方和
-       + C × 所有样本的间隔违反损失之和
-
-单个样本的损失 = max(0, 1 − y × f(x))
-</code></pre></div>
-<p>这个单个样本的损失叫<strong>合页损失（hinge loss）</strong>。这里 y 是 +1 或 −1，所以 <code>y × f(x)</code> 可以理解成“朝正确方向走了多远”。达到 1 时，不仅分对，还到达了规定的间隔边界；不足 1 时就会受罚。因此，有些样本虽然分对了，但离边界太近，仍然有损失。</p>
-<p>第一项为什么有用？在这个公式的尺度约定下，两侧间隔边界为 <code>wᵀx+b = ±1</code>，它们之间的宽度是 <code>2 / ‖w‖</code>。因此，限制权重的长度，就是在鼓励更宽的间隔。</p>
-<p><strong>C 是训练前选择的超参数：</strong></p>
-<ul>
-<li>C 较大：更重视减少违反间隔的情况，可能更努力地贴合训练数据，也可能更受异常点影响。</li>
-<li>C 较小：相对更重视限制权重，容许更多违反间隔的情况；过小也可能欠拟合。</li>
-</ul>
-<p>C 大不代表一定更好，要通过验证集选择。和前面权重衰减的 λ 对比：这里 C 越大，是相对减弱正则化；λ 越大，则是加强正则化。先看系数乘在哪一项，不要只背大小。</p>
-<h3 id="5-直线分不开怎么办特征变换与核函数">5. 直线分不开怎么办：特征变换与核函数</h3>
-<p>假设 A 类都在图中央，B 类围成一圈在外面。一条直线很难分开它们，但一个圆形边界就可能分开。</p>
-<p>一种思路是增加特征。比如原来有 x₁、x₂，再引入 <code>r² = x₁² + x₂²</code>，表示离中心的距离平方。原来不好区分的“里面”和“外面”，在新特征上可能只需比较一个阈值。</p>
-<p><strong>核函数</strong>让 SVM 能使用某些特征变换后的内积，而不必把变换后的全部特征显式列出来。先把“内积”理解成一种衡量特征匹配程度的计算；核函数不是凭空创造数据，也不是把无限多维数组真的存进内存。</p>
-<p>常见选择包括线性核、多项式核、RBF 核。RBF（径向基）核可以直观理解成“越相近的样本，核值越大”，由此得到弯曲的分类边界。</p>
-<p>使用 RBF 核时，还常要选择 <strong>gamma（γ）</strong>：</p>
-<ul>
-<li>gamma 较大：相似性随距离下降得快，单个样本的影响更局部，边界可能更细碎。</li>
-<li>gamma 较小：影响范围更广，边界往往更平缓。</li>
-</ul>
-<p>它要和 C 一起调，不能简单记为“越大越准”或“越小越好”。</p>
-<h3 id="6-为什么通常要先标准化">6. 为什么通常要先标准化？</h3>
-<p>如果一个特征用“克”表示，数值可能是几百；另一个特征只有 0～1。对依赖距离、内积和权重惩罚的 SVM 来说，这种尺度差异会影响学习结果。</p>
-<p>因此，常先把各个特征标准化，再训练 SVM。这里通常是<strong>每一列特征分别处理</strong>，例如单独标准化所有水果的重量，再单独标准化甜度，不是把一个水果的所有数字混在一起算。</p>
-<p>均值和标准差只用训练集计算，然后把同一套变换用于验证集、测试集和新样本。不能先用全部数据标准化，再切分数据，否则会泄露验证、测试数据的信息。</p>
-<h3 id="7-一个可以直接运行的小例子">7. 一个可以直接运行的小例子</h3>
-<p>下面用 scikit-learn 自带的鸢尾花数据：根据花的测量数据预测品种。这是三分类任务；<code>SVC</code> 会在内部组合多个二分类器，我们不需要手动拆分。</p>
-<p>安装依赖：<code>pip install scikit-learn</code>。</p>
-<div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python"><span class="hljs-keyword">from</span> sklearn.datasets <span class="hljs-keyword">import</span> load_iris
-<span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
-<span class="hljs-keyword">from</span> sklearn.pipeline <span class="hljs-keyword">import</span> make_pipeline
-<span class="hljs-keyword">from</span> sklearn.preprocessing <span class="hljs-keyword">import</span> StandardScaler
-<span class="hljs-keyword">from</span> sklearn.svm <span class="hljs-keyword">import</span> SVC
-
-X, y = load_iris(return_X_y=<span class="hljs-literal">True</span>)
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=<span class="hljs-number">0.2</span>, random_state=<span class="hljs-number">42</span>, stratify=y
-)
-
-<span class="hljs-comment"># 流水线先学训练集的标准化规则，再训练 SVM。</span>
-model = make_pipeline(
-    StandardScaler(),
-    SVC(kernel=<span class="hljs-string">&quot;rbf&quot;</span>, C=<span class="hljs-number">1.0</span>, gamma=<span class="hljs-string">&quot;scale&quot;</span>),
-)
-model.fit(X_train, y_train)
-
-<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;测试集准确率：&quot;</span>, model.score(X_test, y_test))
-<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;前 5 个预测类别：&quot;</span>, model.predict(X_test[:<span class="hljs-number">5</span>]))
-<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;对应的真实类别：&quot;</span>, y_test[:<span class="hljs-number">5</span>])
-</code></pre></div>
-<p><code>fit</code> 是学习，<code>predict</code> 是预测，<code>score</code> 在这里是分类准确率。<code>gamma=&quot;scale&quot;</code> 是库提供的一种自动取值规则，不是“已经自动找到了最优参数”。</p>
-<p>这个例子只演示训练与测试流程。如果要比较不同的 C、gamma，应在训练部分再划分验证集，或使用交叉验证；最后才用保留的测试集评估。</p>
-<h3 id="8-和神经网络是什么关系">8. 和神经网络是什么关系？</h3>
-<p>SVM 是传统机器学习中的重要方法。样本不特别多、特征已经整理好的分类任务，可以把它作为候选基线。早期图像识别经常先人工提取特征，再用 SVM 分类；深度网络则常把特征学习与分类一起训练。</p>
-<p>带非线性核的 SVM 在样本很多时，训练时间和内存开销可能很大；线性 SVM 通常更适合大规模稀疏特征。选择哪一种，要看数据、计算资源和验证表现。</p>
-<p>先记住这条主线：<strong>找分类边界 → 尽量留大间隔 → 容许部分违反 → 用核处理非线性关系。</strong></p>
-<p>参考：<a href="https://scikit-learn.org/stable/modules/svm.html" rel="noopener noreferrer">scikit-learn 的 SVM 用户指南</a>、<a href="https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html" rel="noopener noreferrer">SVC 参数说明</a>。本节是补充知识，不是 D2L 某一节的逐段摘录。</p>
+<p>SVM（Support Vector Machine）是一种常见的机器学习方法，先把它理解成一个<strong>分类器</strong>。比如根据水果的重量、甜度判断它是苹果还是橘子：每个水果对应图上的一个点，SVM 要在两类点之间找到一条分界线，新水果落在哪一边，就判断为哪一类。特征更多时，这条“分界线”就叫超平面。</p>
+<p><strong>最大间隔：</strong> 能把两类分开的线可能很多，SVM 不只希望分对，还希望分界线离两边最近的样本尽量远。就像在两类点之间留一条尽可能宽的走廊，让边界不至于紧贴某些样本。</p>
+<p><strong>支持向量：</strong> 决定边界的关键训练样本。最简单的情况是离边界最近的那些点，它们像是在两边“撑住”这条走廊，因此叫支持向量。这里的“向量”就是一个样本的特征数组，不是模型的权重。</p>
+<p><strong>软间隔与 C：</strong> 现实数据可能重叠或有异常点，不能总要求全部分对。软间隔允许部分样本进入走廊，甚至分错，同时给予惩罚。C 控制惩罚力度：C 大，更重视减少这些违反；C 小，相对更容忍这些违反、更重视大间隔。不是越大越好，要用验证集选择。</p>
+<p><strong>核函数：</strong> 如果两类点一类在中间、一类围在外面，直线就不好分。核函数让 SVM 能利用特征变换后的计算，形成非线性的分类边界，而不必把变换后的全部特征显式列出来。常见的有线性核、多项式核和 RBF 核。</p>
+<p>使用时通常先把不同特征的尺度统一，也就是标准化；标准化规则只用训练集计算。SVM 常用于特征已经整理好的分类任务。早期图像识别经常是“人工提取特征 → SVM 分类”，而深度网络常把特征学习与分类一起训练。</p>
+<p>参考：<a href="https://scikit-learn.org/stable/modules/svm.html" rel="noopener noreferrer">scikit-learn 的 SVM 用户指南</a>。</p>
 <h2 id="layernorm层归一化">LayerNorm（层归一化）：</h2>
 <p>对一个样本内部、跨越它的所有特征/通道算均值和方差，把这个样本自己归一化到 0 中心、1 尺度。它不碰“批次”那个维度——每个样本各算各的。（当前行）</p>
 <p>BN 的效果依赖一批里的其他样本。但有些场景“批次”不可靠：比如 RNN / 变长序列，一个 batch 里每句话长短不一，跨时间步共享统计没意义；再比如分布式训练时每张卡上只剩小批碎片。BN 在这些地方会翻车。</p>
