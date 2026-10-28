@@ -8,18 +8,18 @@
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97.md.html">
 <link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-CFGnIcKu.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"05 深度学习计算","description":"参考：https://zh-v2.d2l.ai/chapter_deep-learning-computation/model-construction.html 当然是这一整章 层和块: 层(Lay","datePublished":"2026-09-23","dateModified":"2026-09-24","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97.md.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"05 深度学习计算","description":"参考：https://zh-v2.d2l.ai/chapter_deep-learning-computation/model-construction.html 当然是这一整章 层和块: 层(Lay","datePublished":"2026-09-23","dateModified":"2026-10-28","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
 <script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
 <a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></nav>
-<h1>05 深度学习计算</h1><p class="static-note-meta">深度学习 · 发布 2026-09-23 · 更新 2026-09-24</p>
+<h1>05 深度学习计算</h1><p class="static-note-meta">深度学习 · 发布 2026-09-23 · 更新 2026-10-28</p>
 <a href="/StarYunFanSite/#/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E8%AE%A1%E7%AE%97.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
-<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#%E5%B1%82%E5%92%8C%E5%9D%97">层和块:</a></li><li style="padding-inline-start:0rem"><a href="#%E8%B7%B3%E8%B7%83%E8%BF%9E%E6%8E%A5">跳跃连接：</a></li><li style="padding-inline-start:0rem"><a href="#nnmodule-%E6%98%AF%E4%BB%80%E4%B9%88">nn.Module 是什么？</a></li><li style="padding-inline-start:0rem"><a href="#%E7%81%B5%E6%B4%BB%E5%AE%9A%E5%88%B6%E7%BB%A7%E6%89%BFnnmodule">灵活定制：继承nn.Module</a></li><li style="padding-inline-start:0.7rem"><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9D%97%E7%9A%84%E6%A0%B8%E5%BF%83%E6%AD%A5%E9%AA%A4">自定义块的核心步骤：</a></li><li style="padding-inline-start:0rem"><a href="#resnetresidual-network%E6%AE%8B%E5%B7%AE%E7%BD%91%E7%BB%9C">ResNet（Residual Network，残差网络）：</a></li><li style="padding-inline-start:0.7rem"><a href="#resnet-%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%E6%AE%8B%E5%B7%AE%E5%9D%97">ResNet 的核心思想：残差块</a></li><li style="padding-inline-start:0.7rem"><a href="#resnet-%E7%9A%84%E5%8E%86%E5%8F%B2%E5%9C%B0%E4%BD%8D">ResNet 的历史地位</a></li><li style="padding-inline-start:0rem"><a href="#52-%E5%8F%82%E6%95%B0%E7%AE%A1%E7%90%86">5.2. 参数管理</a></li><li style="padding-inline-start:0.7rem"><a href="#%E8%AE%BF%E9%97%AE%E5%8F%82%E6%95%B0%E7%9A%84%E5%80%BC%E5%92%8C%E6%A2%AF%E5%BA%A6">访问参数的值和梯度：</a></li><li style="padding-inline-start:0rem"><a href="#%E5%BB%B6%E5%90%8E%E5%88%9D%E5%A7%8B%E5%8C%96">延后初始化：</a></li><li style="padding-inline-start:0rem"><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%82-">自定义层 ：</a></li><li style="padding-inline-start:0.7rem"><a href="#%E6%B2%A1%E6%9C%89%E4%BB%BB%E4%BD%95%E5%AD%A6%E4%B9%A0%E5%8F%82%E6%95%B0%E7%9A%84%E5%B1%82">没有任何学习参数的层：</a></li><li style="padding-inline-start:0.7rem"><a href="#%E5%B8%A6%E5%8F%AF%E5%AD%A6%E4%B9%A0%E5%8F%82%E6%95%B0%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%82">带可学习参数的自定义层：</a></li><li style="padding-inline-start:0.7rem"><a href="#register_buffer%E4%B8%93%E9%97%A8%E4%B8%BA%E4%B8%8D%E8%AE%AD%E7%BB%83%E4%BD%86%E9%9C%80%E8%A6%81%E7%AE%A1%E7%90%86%E7%9A%84%E5%BC%A0%E9%87%8F%E8%AE%BE%E8%AE%A1">register_buffer：专门为“不训练但需要管理”的张量设计</a></li><li style="padding-inline-start:0rem"><a href="#%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6">读写文件：</a></li><li style="padding-inline-start:0rem"><a href="#%E9%82%A3-cuda-%E6%98%AF%E5%B9%B2%E4%BB%80%E4%B9%88%E7%9A%84">那 .cuda() 是干什么的？</a></li></ul></nav></details>
+<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#%E5%B1%82%E5%92%8C%E5%9D%97">层和块:</a></li><li style="padding-inline-start:0rem"><a href="#%E8%B7%B3%E8%B7%83%E8%BF%9E%E6%8E%A5">跳跃连接：</a></li><li style="padding-inline-start:0rem"><a href="#nnmodule-%E6%98%AF%E4%BB%80%E4%B9%88">nn.Module 是什么？</a></li><li style="padding-inline-start:0rem"><a href="#%E7%81%B5%E6%B4%BB%E5%AE%9A%E5%88%B6%E7%BB%A7%E6%89%BFnnmodule">灵活定制：继承nn.Module</a></li><li style="padding-inline-start:0.7rem"><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9D%97%E7%9A%84%E6%A0%B8%E5%BF%83%E6%AD%A5%E9%AA%A4">自定义块的核心步骤：</a></li><li style="padding-inline-start:0rem"><a href="#resnetresidual-network%E6%AE%8B%E5%B7%AE%E7%BD%91%E7%BB%9C">ResNet（Residual Network，残差网络）：</a></li><li style="padding-inline-start:0.7rem"><a href="#resnet-%E7%9A%84%E6%A0%B8%E5%BF%83%E6%80%9D%E6%83%B3%E6%AE%8B%E5%B7%AE%E5%9D%97">ResNet 的核心思想：残差块</a></li><li style="padding-inline-start:0.7rem"><a href="#resnet-%E7%9A%84%E5%8E%86%E5%8F%B2%E5%9C%B0%E4%BD%8D">ResNet 的历史地位</a></li><li style="padding-inline-start:0rem"><a href="#52-%E5%8F%82%E6%95%B0%E7%AE%A1%E7%90%86">5.2. 参数管理</a></li><li style="padding-inline-start:0.7rem"><a href="#%E8%AE%BF%E9%97%AE%E5%8F%82%E6%95%B0%E7%9A%84%E5%80%BC%E5%92%8C%E6%A2%AF%E5%BA%A6">访问参数的值和梯度：</a></li><li style="padding-inline-start:0rem"><a href="#%E5%BB%B6%E5%90%8E%E5%88%9D%E5%A7%8B%E5%8C%96">延后初始化：</a></li><li style="padding-inline-start:0rem"><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%82-">自定义层 ：</a></li><li style="padding-inline-start:0.7rem"><a href="#%E6%B2%A1%E6%9C%89%E4%BB%BB%E4%BD%95%E5%AD%A6%E4%B9%A0%E5%8F%82%E6%95%B0%E7%9A%84%E5%B1%82">没有任何学习参数的层：</a></li><li style="padding-inline-start:0.7rem"><a href="#%E5%B8%A6%E5%8F%AF%E5%AD%A6%E4%B9%A0%E5%8F%82%E6%95%B0%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%82">带可学习参数的自定义层：</a></li><li style="padding-inline-start:0.7rem"><a href="#register_buffer%E4%B8%93%E9%97%A8%E4%B8%BA%E4%B8%8D%E8%AE%AD%E7%BB%83%E4%BD%86%E9%9C%80%E8%A6%81%E7%AE%A1%E7%90%86%E7%9A%84%E5%BC%A0%E9%87%8F%E8%AE%BE%E8%AE%A1">register_buffer：专门为“不训练但需要管理”的张量设计</a></li><li style="padding-inline-start:0rem"><a href="#%E8%AF%BB%E5%86%99%E6%96%87%E4%BB%B6">读写文件：</a></li><li style="padding-inline-start:0rem"><a href="#%E9%82%A3-cuda-%E6%98%AF%E5%B9%B2%E4%BB%80%E4%B9%88%E7%9A%84">那 .cuda() 是干什么的？</a></li><li style="padding-inline-start:0rem"><a href="#%E8%A1%A5%E5%85%85%E6%95%99%E6%9D%90-mylinear-%E7%A4%BA%E4%BE%8B%E4%B8%AD%E7%9A%84-data">补充：教材 MyLinear 示例中的 .data</a></li></ul></nav></details>
 <article id="article" tabindex="-1" class="prose"><p>参考：<a href="https://zh-v2.d2l.ai/chapter_deep-learning-computation/model-construction.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_deep-learning-computation/model-construction.html</a></p>
 <p>当然是这一整章</p>
 <h2 id="层和块">层和块:</h2>
-<p>层(Layer)：是神经网络的基本计算单元，它接收输入，产生输出，并拥有一组可调整的参数。比如一个全连接层。</p>
+<p>层(Layer)：是神经网络的基本计算单元，它接收输入，产生输出，并拥有一组可调整的参数。比如一个全连接层。注意，有些块不需要任何参数。</p>
 <p>想加多少层就加多少层。甚至可以用循环:</p>
 <div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python"><span class="hljs-keyword">class</span> <span class="hljs-title class_">BigNet</span>(nn.Module):
     <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, num_layers</span>):
@@ -54,7 +54,7 @@ block = nn.Sequential(
     nn.ReLU(),
     nn.Linear(<span class="hljs-number">256</span>, <span class="hljs-number">256</span>),
     nn.ReLU()
-)这也是块
+)  <span class="hljs-comment"># 这也是块</span>
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyModel</span>(nn.Module):
     <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):
         <span class="hljs-built_in">super</span>().__init__()
@@ -68,16 +68,18 @@ block = nn.Sequential(
 <h2 id="跳跃连接">跳跃连接：</h2>
 <p>跳跃连接（也叫残差连接）是：把某一层的输入，直接“跳”过中间几层，加到后面某一层的输出上。</p>
 <p>用代码表示就是：</p>
-<div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python">python
-<span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, X</span>):
+<div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, X</span>):
     <span class="hljs-keyword">return</span> X + <span class="hljs-variable language_">self</span>.layer2(<span class="hljs-variable language_">self</span>.layer1(X))
 </code></pre></div>
 <p>这里的 X 没有经过 layer1 和 layer2，直接加到了它们的输出上。</p>
 <p>为什么有用？ 因为它让梯度在反向传播时，有一条“高速公路”可以直接从后面传回前面，不用经过中间那些层。这极大地缓解了深层网络中的梯度消失问题。ResNet 就是靠这个，才能训练到上百层甚至上千层。</p>
 <p>而 nn.Sequential 做不了跳跃连接，因为它只支持“一层接一层”的顺序执行。所以你才需要继承 nn.Module，在 forward 里手动写 X + ... 这样的操作。</p>
+<p>nn.Sequential 负责按顺序连接模块，不能仅靠依次列出普通层就直接表达跳跃连接。</p>
 <h2 id="nnmodule-是什么">nn.Module 是什么？</h2>
 <p>nn.Module 是 PyTorch 里所有神经网络模块的基类。</p>
 <p>你可以把它理解成一个“神经网络模块的模板”。它规定了一个模块应该具备哪些能力：</p>
+<p>由于自动微分提供了一些后端实现，我们只需要考虑前向传播函数和必需的参数。</p>
+<p>nn.Module 用于组织层、参数和前向计算；反向传播通常由 PyTorch 的自动求导机制完成，不需要我们手写。</p>
 <ul>
 <li>
 <p>能存储参数（权重、偏置）；</p>
@@ -120,7 +122,7 @@ block = nn.Sequential(
 <p>是深度学习历史上一个里程碑式的网络架构，由何恺明等人在 2015 年提出。它最著名的成就是：首次成功训练了超过 100 层的深度网络，并在当年的 ImageNet 竞赛中拿下冠军。</p>
 <p>在 ResNet 出现之前，人们发现一个奇怪的现象：网络越深，训练误差反而越大。</p>
 <p>按常理说，网络越深，表达能力越强，应该表现更好才对。但实际情况是，20 层的网络比 56 层的网络训练误差更低。这不是过拟合——过拟合是训练误差低、测试误差高；而这里是训练误差本身就高。</p>
-<p>这个问题被称为退化问题（degradation problem）。它的根源在于：深层网络很难训练，梯度在反向传播时逐层衰减，传到前面几层时已经小到几乎为零，导致前面的层学不动。</p>
+<p>这个问题被称为退化问题（degradation problem）。深层网络可能遇到梯度消失，使前面的层难以学习。但即使缓解了梯度消失，加深网络仍可能使训练误差升高，这就是退化问题。残差连接通过让网络更容易保留输入、学习必要的调整，帮助缓解这种优化困难。</p>
 <h3 id="resnet-的核心思想残差块">ResNet 的核心思想：残差块</h3>
 <p>ResNet 的解决方案非常简洁：不要让每一层直接学“目标输出”，而是让它学“目标输出与输入之间的差值（残差）”。</p>
 <p>一个普通的网络层是：输出 = F(x)</p>
@@ -130,10 +132,10 @@ block = nn.Sequential(
 </code></pre></div>
 <p>残差块里，因为有一条 + x 的跳跃连接，梯度可以直接从后面传回前面，不需要经过中间那些层。这就像给梯度开了一条高速公路，极大缓解了梯度消失问题。</p>
 <p>在普通网络里，让多层学成恒等映射 F(x) = x 很难。但在残差块里，只需要让 F(x) = 0 就行——把权重压到零，比学一个恒等映射容易得多。</p>
-<p>所以，多加几层残差块，最坏情况也就是“什么也没学到”，不会让网络变差。这给了深层网络一个“保底”能力。</p>
+<p>所以，多加几层残差块，最坏情况也就是“什么也没学到”，这给了深层网络一个“保底”能力。(增加的层即使没学到有用的东西，至少可以原样传递输入。)但不保证实际训练后一定不会变差。但实际训练不一定找到这样的参数，因此不能保证加深后一定不会变差。</p>
 <h3 id="resnet-的历史地位">ResNet 的历史地位</h3>
 <p>它证明了“深度”本身是有价值的：在 ResNet 之前，人们不敢把网络做得太深，因为训练不动。ResNet 之后，上百层甚至上千层的网络成为可能。</p>
-<p>它影响了几乎所有后续架构：无论是 DenseNet、Inception、还是后来的 Transformer，都或多或少借鉴了残差连接的思想。</p>
+<p>ResNet 对后来的深层网络设计产生了深远影响。例如，DenseNet 进一步发展了跨层连接的思路，后来的 Inception-ResNet 和 Transformer 也采用了残差连接。</p>
 <p>它让“跳跃连接”成为标准组件：现在几乎所有的深层网络都会在某个地方用到跳跃连接。</p>
 <p>退化问题是指：随着网络层数加深，训练误差反而变大，而且这不是过拟合造成的。</p>
 <p>根源在于：现有的优化方法（如SGD）很难让多层非线性层学会“恒等映射”。让一堆层学成“输入等于输出”，对普通网络来说非常困难。</p>
@@ -144,14 +146,21 @@ block = nn.Sequential(
 <h2 id="52-参数管理">5.2. 参数管理</h2>
 <p>训练完模型后，我们通常需要：</p>
 <ul>
-<li>查看参数：调试、诊断、可视化，看看模型到底学到了什么。</li>
-<li>初始化参数：好的初始化能让训练更快、更稳定。</li>
-<li>共享参数：让不同层使用同一组参数，减少参数量，还能让模型学到“通用”的特征。</li>
+<li>
+<p>查看参数：调试、诊断、可视化，看看模型到底学到了什么。</p>
+</li>
+<li>
+<p>初始化参数：好的初始化能让训练更快、更稳定。</p>
+</li>
+<li>
+<p>共享参数：让不同层使用同一组参数，减少参数量，还能让模型学到“通用”的特征。</p>
+</li>
 </ul>
 <p>nn.Sequential 像列表一样，可以用索引访问任意一层</p>
 <div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python"><span class="hljs-built_in">print</span>(net[<span class="hljs-number">2</span>].state_dict())
 </code></pre></div>
 <p>state_dict() 返回一个字典，键是参数名，值是参数张量。每个参数都存储为 float32</p>
+<p>注意：state_dict() 可以查看模型的参数等状态。在这个示例中，全连接层的权重和偏置都是 float32 类型；其他模型的实际类型取决于其设置。</p>
 <h3 id="访问参数的值和梯度">访问参数的值和梯度：</h3>
 <p>参数是 Parameter 类的实例，它包含值、梯度和额外信息。要拿到具体数值，需要用 .data</p>
 <div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python"><span class="hljs-built_in">print</span>(<span class="hljs-built_in">type</span>(net[<span class="hljs-number">2</span>].bias))        <span class="hljs-comment"># &lt;class &#x27;torch.nn.parameter.Parameter&#x27;&gt;</span>
@@ -241,6 +250,20 @@ block = nn.Sequential(
 </code></pre></div>
 <h2 id="那-cuda-是干什么的">那 .cuda() 是干什么的？</h2>
 <p>就是把 Tensor 复制到 GPU。</p>
+<h2 id="补充教材-mylinear-示例中的-data">补充：教材 MyLinear 示例中的 .data</h2>
+<p>“自定义层”中的 PyTorch 示例使用了：</p>
+<div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, X</span>):
+    linear = torch.matmul(X, <span class="hljs-variable language_">self</span>.weight.data) + <span class="hljs-variable language_">self</span>.bias.data
+    <span class="hljs-keyword">return</span> F.relu(linear)
+</code></pre></div>
+<p>这段代码可以完成前向计算，但通过 .data 参与计算的权重和偏置，无法从这条路径获得训练所需的梯度。教材后面的演示只做了参数查看和前向计算，没有验证反向传播，所以没有暴露这个问题。</p>
+<p>用于训练时，应改成：</p>
+<div class="code-block"><div class="code-block-bar"><span>python</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, X</span>):
+    linear = torch.matmul(X, <span class="hljs-variable language_">self</span>.weight) + <span class="hljs-variable language_">self</span>.bias
+    <span class="hljs-keyword">return</span> F.relu(linear)
+</code></pre></div>
+<p>这与上一条“查看参数时使用 .data”有区别：这里是在构造损失所依赖的前向计算，必须保留参数的梯度路径。查看数值可以使用 detach()。</p>
+<p>因此，这条技术纠正成立，但审阅应注明：“沿用了 D2L 原文中的问题代码，并非笔记抄写错误。”</p>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
 <nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%AF%E5%A2%83%E5%92%8C%E5%88%86%E5%B8%83%E5%81%8F%E7%A7%BB.md.html"><span class="dim">上一篇</span><span>04.09 环境和分布偏移</span></a><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html"><span class="dim">下一篇</span><span>06 卷积神经网络</span></a></nav>
 </main></body></html>

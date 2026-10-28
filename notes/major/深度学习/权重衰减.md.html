@@ -8,30 +8,38 @@
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%9D%83%E9%87%8D%E8%A1%B0%E5%87%8F.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%9D%83%E9%87%8D%E8%A1%B0%E5%87%8F.md.html">
 <link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-CFGnIcKu.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"04.05 权重衰减","description":"参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/weight-decay.html 决过拟合最直接的办法是收集更多训练数据。但原文指出，这","datePublished":"2026-09-21","dateModified":"2026-10-26","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%9D%83%E9%87%8D%E8%A1%B0%E5%87%8F.md.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"04.05 权重衰减","description":"参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/weight-decay.html 决过拟合最直接的办法是收集更多训练数据。但原文指出，这","datePublished":"2026-09-21","dateModified":"2026-10-28","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%9D%83%E9%87%8D%E8%A1%B0%E5%87%8F.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
 <script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
 <a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></nav>
-<h1>04.05 权重衰减</h1><p class="static-note-meta">深度学习 · 发布 2026-09-21 · 更新 2026-10-26</p>
+<h1>04.05 权重衰减</h1><p class="static-note-meta">深度学习 · 发布 2026-09-21 · 更新 2026-10-28</p>
 <a href="/StarYunFanSite/#/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%9D%83%E9%87%8D%E8%A1%B0%E5%87%8F.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
 <details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#%E5%8E%9F%E6%9D%A5%E7%9A%84%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E5%8F%AA%E5%85%B3%E5%BF%83%E9%A2%84%E6%B5%8B%E5%87%86%E4%B8%8D%E5%87%86%E7%8E%B0%E5%9C%A8%E5%8A%A0%E4%B8%8A%E6%83%A9%E7%BD%9A%E9%A1%B9%E5%90%8E%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0%E5%8F%98%E6%88%90">原来的损失函数只关心“预测准不准”。现在加上惩罚项后，损失函数变成：</a></li></ul></nav></details>
 <article id="article" tabindex="-1" class="prose"><p>参考：<a href="https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/weight-decay.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/weight-decay.html</a></p>
 <p>决过拟合最直接的办法是收集更多训练数据。但原文指出，这“可能成本很高，耗时颇多，或者完全超出我们的控制”。所以，我们得找其他办法。</p>
 <p>限制特征的数量是缓解过拟合的一种常用技术。 然而，简单地丢弃特征对这项工作来说可能过于生硬。——限制模型阶数，阶数越高模型越复杂越容易过拟合。</p>
 <p>权重衰减（weight decay）是最广泛使用的正则化的技术之一， 它通常也被称为l2正则化。这项技术通过函数与零的距离来衡量函数的复杂度。——核心思想就是让模型的权重参数不能太大。</p>
-<p>原文给出了一个基本直觉：“在所有函数f中，函数f=0（所有输入都得到值 0）在某种意义上是最简单的”。我们可以通过函数与零的距离来衡量函数的复杂度。换句话说，一个模型的权重越小，它就越“简单”。权重衰减就是在训练过程中，不断地把权重往零的方向拉，防止它们变得过大。</p>
+<p>原文给出了一个基本直觉：“在所有函数f中，函数f=0（所有输入都得到值 0）在某种意义上是最简单的”。我们可以通过函数与零的距离来衡量函数的复杂度。换句话说，一个模型的权重越小，它就越“简单”。</p>
+<p>权重衰减通过惩罚过大的权重，限制模型的复杂度，帮助缓解过拟合。直观上，可以理解为不让模型过度依赖很大的权重。</p>
+<p>权重衰减就是在训练过程中，不断地把权重往零的方向拉，防止它们变得过大。</p>
 <p>它的做法是在训练过程中增加惩罚项</p>
 <h2 id="原来的损失函数只关心预测准不准现在加上惩罚项后损失函数变成">原来的损失函数只关心“预测准不准”。现在加上惩罚项后，损失函数变成：</h2>
 <div class="code-block"><div class="code-block-bar"><span>text</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-text">总损失 = 原来的预测损失 + λ × 权重的平方和
 </code></pre></div>
 <ul>
-<li>原来的预测损失：衡量模型预测有多准。</li>
-<li>权重的平方和：衡量权重有多大。权重越大，这一项就越大。</li>
-<li>λ（lambda）：一个超参数，控制惩罚的力度。λ 越大，惩罚越狠，权重被压得越小。</li>
+<li>
+<p>原来的预测损失：衡量模型预测有多准。</p>
+</li>
+<li>
+<p>权重的平方和：衡量权重有多大。权重越大，这一项就越大。</p>
+</li>
+<li>
+<p>λ（lambda）：一个超参数，控制惩罚的力度。λ 越大，惩罚越狠，权重被压得越小。</p>
+</li>
 </ul>
 <p>λ 的选择很重要：太小没用，太大会让模型“学不动”。</p>
-<p>权重衰减通常也被称为 L2 正则化</p>
+<p>权重衰减（weight decay）是最广泛使用的正则化的技术之一，它通常也被称为 L₂ 正则化。</p>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
 <nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%A8%A1%E5%9E%8B%E9%80%89%E6%8B%A9%E3%80%81%E6%AC%A0%E6%8B%9F%E5%90%88%E5%92%8C%E8%BF%87%E6%8B%9F%E5%90%88.md.html"><span class="dim">上一篇</span><span>04.04 模型选择、欠拟合和过拟合</span></a><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%9A%82%E9%80%80%E6%B3%95%EF%BC%88Dropout%EF%BC%89.md.html"><span class="dim">下一篇</span><span>04.06 暂退法（Dropout）</span></a></nav>
 </main></body></html>

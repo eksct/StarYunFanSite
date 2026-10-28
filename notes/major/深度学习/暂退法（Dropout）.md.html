@@ -8,12 +8,12 @@
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%9A%82%E9%80%80%E6%B3%95%EF%BC%88Dropout%EF%BC%89.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%9A%82%E9%80%80%E6%B3%95%EF%BC%88Dropout%EF%BC%89.md.html">
 <link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-CFGnIcKu.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"04.06 暂退法（Dropout）","description":"参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/dropout.html 暂退法： 训练神经网络时，随机“关掉”一部分神经元，迫使模型不要","datePublished":"2026-09-21","dateModified":"2026-09-21","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%9A%82%E9%80%80%E6%B3%95%EF%BC%88Dropout%EF%BC%89.md.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"04.06 暂退法（Dropout）","description":"参考：https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/dropout.html 暂退法： 训练神经网络时，随机“关掉”一部分神经元，迫使模型不要","datePublished":"2026-09-21","dateModified":"2026-10-28","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%9A%82%E9%80%80%E6%B3%95%EF%BC%88Dropout%EF%BC%89.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
 <script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
 <a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></nav>
-<h1>04.06 暂退法（Dropout）</h1><p class="static-note-meta">深度学习 · 发布 2026-09-21</p>
+<h1>04.06 暂退法（Dropout）</h1><p class="static-note-meta">深度学习 · 发布 2026-09-21 · 更新 2026-10-28</p>
 <a href="/StarYunFanSite/#/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%9A%82%E9%80%80%E6%B3%95%EF%BC%88Dropout%EF%BC%89.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
 <details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#%E6%9A%82%E9%80%80%E6%B3%95">暂退法：</a></li><li style="padding-inline-start:0rem"><a href="#dropout-%E5%88%B0%E5%BA%95%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88">Dropout 到底做了什么？</a></li><li style="padding-inline-start:0rem"><a href="#p-%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3">p 应该怎么理解？</a></li><li style="padding-inline-start:0rem"><a href="#dropout-%E7%9A%84%E4%BC%98%E7%82%B9%E4%B8%8E%E5%B1%80%E9%99%90">Dropout 的优点与局限</a></li><li style="padding-inline-start:0.7rem"><a href="#%E4%BC%98%E7%82%B9">优点</a></li><li style="padding-inline-start:0.7rem"><a href="#%E5%B1%80%E9%99%90">局限</a></li><li style="padding-inline-start:0rem"><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%99%A4-1-p">为什么除 1-p：</a></li></ul></nav></details>
 <article id="article" tabindex="-1" class="prose"><p>参考：<a href="https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/dropout.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_multilayer-perceptrons/dropout.html</a></p>
@@ -21,9 +21,15 @@
 <p>训练神经网络时，随机“关掉”一部分神经元，迫使模型不要过度依赖某几个特征，从而减少过拟合、提升泛化能力。</p>
 <p>神经网络的表达能力很强，即使面对随机标签，也可能把训练集“背下来”，导致：</p>
 <ul>
-<li>训练集准确率很高；</li>
-<li>测试集表现很差；</li>
-<li>模型过度依赖某些特征或神经元之间的固定配合。</li>
+<li>
+<p>训练集准确率很高；</p>
+</li>
+<li>
+<p>测试集表现很差；</p>
+</li>
+<li>
+<p>模型过度依赖某些特征或神经元之间的固定配合。</p>
+</li>
 </ul>
 <p>例如，模型可能过度依赖“某个词 + 某种格式”来判断垃圾邮件，而不是学习更可靠的整体规律。这种神经元之间的过度依赖，可以理解为“共适应”。</p>
 <p>Dropout 的目标，就是打破这种依赖，让模型学得更分散、更稳健。</p>
@@ -36,38 +42,67 @@
 </code></pre></div>
 <p>也就是说，每次训练迭代都可能使用一个略有不同的“子网络”。被置为 0 的神经元：</p>
 <ul>
-<li>不参与本次前向计算；</li>
-<li>对后续输出没有贡献；</li>
-<li>本次反向传播时也不会得到梯度更新。</li>
+<li>
+<p>不参与本次前向计算；</p>
+</li>
+<li>
+<p>对后续输出没有贡献；</p>
+</li>
+<li>
+<p>本次反向传播时也不会得到梯度更新。</p>
+</li>
 </ul>
 <p>因此，模型不能总是依赖某一个固定神经元。</p>
-<p>每次训练，暂退法会根据暂退概率对神经元随机置0，不参与训练，也不参与参数更新。</p>
+<p>每次训练，暂退法会根据暂退概率对神经元随机置0，训练时随机把部分隐藏单元的输出置零。对于当前样本，输出不再依赖这些被丢弃的单元，反向传播时经过这些单元的梯度也为零。</p>
 <p>靠近输入层的地方通常使用较小的丢弃概率，因为底层特征往往更基础、更重要。</p>
 <h2 id="p-应该怎么理解">p 应该怎么理解？</h2>
 <p>p 是“丢弃概率”，不是保留概率。</p>
 <ul>
-<li>p = 0：一个都不丢，等于没有 Dropout；</li>
-<li>p = 0.5：平均丢弃一半；</li>
-<li>p = 1：全部丢弃，输出全为 0，通常没有实际意义。</li>
+<li>
+<p>p = 0：一个都不丢，等于没有 Dropout；</p>
+</li>
+<li>
+<p>p = 0.5：平均丢弃一半；</p>
+</li>
+<li>
+<p>p = 1：全部丢弃，输出全为 0，通常没有实际意义。</p>
+</li>
 </ul>
 <h2 id="dropout-的优点与局限">Dropout 的优点与局限</h2>
 <h3 id="优点">优点</h3>
 <ul>
-<li>简单易用；</li>
-<li>能有效缓解过拟合；</li>
-<li>不需要改变训练数据；</li>
-<li>对全连接网络尤其常见。</li>
+<li>
+<p>简单易用；</p>
+</li>
+<li>
+<p>能有效缓解过拟合；</p>
+</li>
+<li>
+<p>不需要改变训练数据；</p>
+</li>
+<li>
+<p>对全连接网络尤其常见。</p>
+</li>
 </ul>
 <h3 id="局限">局限</h3>
 <ul>
-<li>丢弃概率太小，正则化效果可能不明显；</li>
-<li>丢弃概率太大，可能导致欠拟合；</li>
-<li>会使训练过程更“吵”，收敛可能变慢；</li>
-<li>训练和测试模式必须正确切换。</li>
+<li>
+<p>丢弃概率太小，正则化效果可能不明显；</p>
+</li>
+<li>
+<p>丢弃概率太大，可能导致欠拟合；</p>
+</li>
+<li>
+<p>会使训练过程更“吵”，收敛可能变慢；</p>
+</li>
+<li>
+<p>训练和测试模式必须正确切换。</p>
+</li>
 </ul>
 <h2 id="为什么除-1-p">为什么除 1-p：</h2>
-<p>型在训练和测试时看到的信号大小不同，容易导致预测偏差。</p>
-<p>所以我们在训练时，希望还是等于预测时的输出。</p>
+<p>模型在训练和测试时看到的信号大小不同，容易导致预测偏差。</p>
+<p>所以我们在训练时，希望每层的输出即为预测时的输出</p>
+<p>（训练时，Dropout 会随机将部分激活值置零，并将保留值除以保留概率，使经过 Dropout 后的激活值在平均意义上保持不变。预测时关闭 Dropout，直接使用原来的激活值。）</p>
 <p>假设原输出为h，保留概率为1-p</p>
 <p>则训练平均值为（1-p）* 保留后的值</p>
 <p>让 （1-p）*保留后的值 = h</p>
