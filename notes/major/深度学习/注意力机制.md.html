@@ -2,21 +2,22 @@
 <html lang="zh-CN" data-theme="light"><head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>10 注意力机制 · Seiga</title>
-<meta name="description" content="参考：https://zh-v2.d2l.ai/chapter_attention-mechanisms/attention-cues.html 注意力提示：让模型按当前需要挑信息 注意力机制允许解码">
+<meta name="description" content="参考：https://zh-v2.d2l.ai/chapter_attention-mechanisms/attention-cues.html 注意力是一种计算机制，通常不是一个完整的神经网络。 注">
 <meta property="og:site_name" content="Seiga"><meta property="og:type" content="article">
-<meta property="og:title" content="10 注意力机制 · Seiga"><meta property="og:description" content="参考：https://zh-v2.d2l.ai/chapter_attention-mechanisms/attention-cues.html 注意力提示：让模型按当前需要挑信息 注意力机制允许解码">
+<meta property="og:title" content="10 注意力机制 · Seiga"><meta property="og:description" content="参考：https://zh-v2.d2l.ai/chapter_attention-mechanisms/attention-cues.html 注意力是一种计算机制，通常不是一个完整的神经网络。 注">
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6.md.html">
 <link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-CFGnIcKu.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"10 注意力机制","description":"参考：https://zh-v2.d2l.ai/chapter_attention-mechanisms/attention-cues.html 注意力提示：让模型按当前需要挑信息 注意力机制允许解码","datePublished":"2026-10-30","dateModified":"2026-10-30","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6.md.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"10 注意力机制","description":"参考：https://zh-v2.d2l.ai/chapter_attention-mechanisms/attention-cues.html 注意力是一种计算机制，通常不是一个完整的神经网络。 注","datePublished":"2026-10-30","dateModified":"2026-11-02","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
 <script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
 <a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></nav>
-<h1>10 注意力机制</h1><p class="static-note-meta">深度学习 · 发布 2026-10-30</p>
+<h1>10 注意力机制</h1><p class="static-note-meta">深度学习 · 发布 2026-10-30 · 更新 2026-11-02</p>
 <a href="/StarYunFanSite/#/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
-<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%8F%90%E7%A4%BA%E8%AE%A9%E6%A8%A1%E5%9E%8B%E6%8C%89%E5%BD%93%E5%89%8D%E9%9C%80%E8%A6%81%E6%8C%91%E4%BF%A1%E6%81%AF">注意力提示：让模型按当前需要挑信息</a></li><li style="padding-inline-start:0rem"><a href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%B1%87%E8%81%9A%E7%94%A8%E7%9B%B8%E4%BC%BC%E7%9A%84%E4%BE%8B%E5%AD%90%E9%A2%84%E6%B5%8B%E7%BB%93%E6%9E%9C">注意力汇聚：用“相似的例子”预测结果</a></li><li style="padding-inline-start:0rem"><a href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E8%AF%84%E5%88%86%E5%87%BD%E6%95%B0%E6%9F%A5%E8%AF%A2%E5%92%8C%E9%94%AE%E5%A6%82%E4%BD%95%E6%89%93%E5%88%86">注意力评分函数：查询和键如何打分？</a></li><li style="padding-inline-start:0rem"><a href="#bahdanau-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%AF%8F%E4%B8%80%E6%AD%A5%E9%87%8D%E6%96%B0%E6%9F%A5%E7%9C%8B%E6%BA%90%E5%8F%A5">Bahdanau 注意力：每一步重新查看源句</a></li><li style="padding-inline-start:0rem"><a href="#%E5%A4%9A%E5%A4%B4%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B9%B6%E8%A1%8C%E5%AD%A6%E4%B9%A0%E5%A4%9A%E7%A7%8D%E5%85%B3%E6%B3%A8%E6%96%B9%E5%BC%8F">多头注意力：并行学习多种关注方式</a></li><li style="padding-inline-start:0rem"><a href="#%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%92%8C%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81">自注意力和位置编码</a></li></ul></nav></details>
+<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%8F%90%E7%A4%BA%E8%AE%A9%E6%A8%A1%E5%9E%8B%E6%8C%89%E5%BD%93%E5%89%8D%E9%9C%80%E8%A6%81%E6%8C%91%E4%BF%A1%E6%81%AF">注意力提示：让模型按当前需要挑信息</a></li><li style="padding-inline-start:0rem"><a href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%B1%87%E8%81%9A%E7%94%A8%E7%9B%B8%E4%BC%BC%E7%9A%84%E4%BE%8B%E5%AD%90%E9%A2%84%E6%B5%8B%E7%BB%93%E6%9E%9C">注意力汇聚：用“相似的例子”预测结果</a></li><li style="padding-inline-start:0rem"><a href="#%E6%B3%A8%E6%84%8F%E5%8A%9B%E8%AF%84%E5%88%86%E5%87%BD%E6%95%B0%E6%9F%A5%E8%AF%A2%E5%92%8C%E9%94%AE%E5%A6%82%E4%BD%95%E6%89%93%E5%88%86">注意力评分函数：查询和键如何打分？</a></li><li style="padding-inline-start:0rem"><a href="#bahdanau-%E6%B3%A8%E6%84%8F%E5%8A%9B%E4%BA%A4%E5%8F%89%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%AF%8F%E4%B8%80%E6%AD%A5%E9%87%8D%E6%96%B0%E6%9F%A5%E7%9C%8B%E6%BA%90%E5%8F%A5">Bahdanau 注意力（交叉注意力）：每一步重新查看源句</a></li><li style="padding-inline-start:0rem"><a href="#%E5%A4%9A%E5%A4%B4%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%B9%B6%E8%A1%8C%E5%AD%A6%E4%B9%A0%E5%A4%9A%E7%A7%8D%E5%85%B3%E6%B3%A8%E6%96%B9%E5%BC%8F">多头注意力：并行学习多种关注方式</a></li><li style="padding-inline-start:0rem"><a href="#%E8%87%AA%E6%B3%A8%E6%84%8F%E5%8A%9B%E5%92%8C%E4%BD%8D%E7%BD%AE%E7%BC%96%E7%A0%81">自注意力和位置编码</a></li><li style="padding-inline-start:0rem"><a href="#transformer%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84">Transformer：整体结构</a></li></ul></nav></details>
 <article id="article" tabindex="-1" class="prose"><p>参考：<a href="https://zh-v2.d2l.ai/chapter_attention-mechanisms/attention-cues.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_attention-mechanisms/attention-cues.html</a></p>
+<p>注意力是一种计算机制，通常不是一个完整的神经网络。</p>
 <h2 id="注意力提示让模型按当前需要挑信息">注意力提示：让模型按当前需要挑信息</h2>
 <p>注意力机制允许解码器在生成目标词时，重新查看原句中的不同部分，并更新权重到更加相关的部分上。<br>
 RNN编码器会对每个位置产生一个隐藏状态；普通Seq2Seq可以使用最后的隐藏状态概括整句；注意力机制会保留各个位置的隐藏状态，供解码器在每一步查看。<br>
@@ -83,7 +84,7 @@ K_w(x-x_i)=<br>
 <li>对这些分数做softmax运算，归一化，得到权重Ai</li>
 <li>用权重汇总对应的值<br>
 在上面也有提到，就是说评分函数负责判断查询与每个键有多匹配，本身的话还不是最终的一个权重。<br>
-屏蔽诸如&lt;pad&gt;这类无效位置的分数，使得这些位置的权重最终为0<br>
+屏蔽诸如&lt;pad&gt;这类无效位置的分数，使得这些位置的权重最终为0——在进行softmax之前，对这些无效位置设置为负无穷或者足够大的负数，使softmax后，对于这些位置的注意力权重为0或近似0。而不是单纯设置为0。设置为0计算权重的时候不能保证权重一定为0。<br>
 两种注意力方式：<br>
 加性注意力：<br>
 适合查询和键长度不同的情况。使用可学习的变换将二者映射到共同维度，再组合计算分数。<br>
@@ -93,10 +94,12 @@ K_w(x-x_i)=<br>
 为什么要除以根号d？<br>
 因为点积是d个分量相乘再相加，最终的数值会很大，若分数很大，softmax 会变得特别尖锐。最高分拿最多的权重，其他位置近乎于0。</li>
 </ol>
-<h2 id="bahdanau-注意力每一步重新查看源句">Bahdanau 注意力：每一步重新查看源句</h2>
-<p>Bahdanau 注意力是解码器每一步都根据当前状态重新计算上下文。<br>
+<h2 id="bahdanau-注意力交叉注意力每一步重新查看源句">Bahdanau 注意力（交叉注意力）：每一步重新查看源句</h2>
+<p>注意：Bahdanau 注意力只是一种注意力计算方法，在教材中获取的输入来自RNN编码器，所以下文会提到“隐藏状态”<br>
+Bahdanau 注意力是解码器每一步都根据当前状态重新计算上下文。<br>
 教材的Seq2Seq是编码器将源句编码成一个固定的上下文，解码器在生成每个译词时都使用它。并且还用编码器最后的隐藏状态初始化解码器</p>
-<p>因为模型是逐词生成的，所以对于译词，所参考的源句部分也可能不同。注意力权重让模型有选择地利用源句的意思，不要求每个译词严格对应一个源词。</p>
+<p>因为模型是逐词生成的，所以对于译词，所参考的源句部分也可能不同。注意力权重让模型有选择地利用源句的意思，不要求每个译词严格对应一个源词。<br>
+不是单纯挑选某一位置，而是按照权重综合多个位置的信息。</p>
 <p>Bahdanau在T`个解码步骤时：<br>
 查询是解码器上一步的隐藏状态，反映目前生成的上下文<br>
 键值是编码器在各个位置的隐藏状态<br>
@@ -122,6 +125,61 @@ K_w(x-x_i)=<br>
 不同表示空间指对输入进行不同的线性组合。<br>
 多头注意力层里有多个注意力计算分支，它们接收同一组输入，使用不同的学习权重矩阵，去计算分数，权重，加权求和，最终拼接输出，线性变换，得到最终的多头输出结果。</p>
 <h2 id="自注意力和位置编码">自注意力和位置编码</h2>
+<p>自注意力会把词元作为输入，并让每个位置去比较所有位置，取回相关信息，再为自己算出一个新向量。<br>
+比如说“我 吃 苹果” 会把“我，吃，苹果”这三个词元向量+对应位置编码作为输入表示，分别去查看“我，吃，苹果”，取回信息，得到新的向量表示。<br>
+自注意力本身不携带位置信息，只是让位置之间交换信息。位置编码可以通过学习得到，也可以通过正弦、余弦函数固定计算。<br>
+查询，键，值通常分别经过各自的可学习矩阵变换。</p>
+<p>Bahdanau中，由解码器当前状态对编码器原句发起查询，根据分数加权求和汇总多个位置的value，然后根据当前隐藏状态去生成译文。而自注意力是序列中的每个词元并行发起查询，汇总同一序列各个位置上的信息并形成新表示——也就是说自注意力在编码器中发起查询的都是当前序列输入，并且还是对当前序列进行查询。在解码器中则是译文前缀序列，当前译文位置对已生成的译文发起查询。<br>
+自注意力也是根据分数对多个位置的 value 加权汇总。<br>
+在编码器中每个词元的词向量加上位置信息送入自注意力。原句各位置互相读取信息，得到一组带有词义，位置，和上下文信息的新表示。<br>
+位置编码告诉模型“它在第几个位置”<br>
+CNN跟自注意力都能并行处理，自注意力能够直接链接两个任意位置，但序列很长时，计算量会按照长度的平方增长。<br>
+教材中位置编码的计算公式是：<br>
+[<br>
+p_{i,2j}=\sin\left(\frac{i}{10000^{2j/d}}\right),\qquad<br>
+p_{i,2j+1}=\cos\left(\frac{i}{10000^{2j/d}}\right)<br>
+]<br>
+一个位置使用sin跟cos计算得出的数值作为位置标记<br>
+模型的输入表示 = 词向量 + 位置编码<br>
+位置编码通常选择偶数维度，比如说d = 4,那么位置编码则是(0,1,0,1) 表示i = 0 时的一个位置编码向量，其中 奇数位为sin，偶数位为cos。可以相互替换顺序，关键还是训练和使用时保持一致。<br>
+但偶数不是注意力机制本身的硬性要求。若维度是奇数，最后一个维度可以单独处理；不过教材介绍的这种成对公式用偶数维度最直接。位置编码的总维度还要和词向量维度相同，才能相加。</p>
+<h2 id="transformer整体结构">Transformer：整体结构</h2>
+<p>transformer完全基于注意力机制，不使用卷积层CNN，循环层RNN来处理序列，但是它仍旧包含其他神经网络。<br>
+transformer是编码器——解码器架构的一种，使用注意力处理序列。<br>
+transformer整体流程：</p>
+<div class="code-block"><div class="code-block-bar"><span>text</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-text">原句词元 + 位置编码
+        ↓
+Transformer 编码器
+        ↓
+原句各位置的编码表示 ───────────┐
+                                ↓
+已生成的译文 → Transformer 解码器 → 下一个译词
+
+</code></pre></div>
+<p>编码器和解码器都由多层相同结构的模块堆叠而成。<br>
+教材中说，编码器层包含两个子层：<br>
+1、多头注意力层 应当是使用自注意力让原句的各个位置互相交换信息，形成上下文表示的吧。<br>
+2、基于位置的前馈神经网络 分别处理每个位置的表示，进一步变换特征。每个位置都进过同一套MLP，但是一个位置的信息不会在这一步混入另一个位置。<br>
+在这两个子层外都配有残差链接跟层规范化。<br>
+编码器处理完后，通常输出的是每个原句位置的表示，即各个位置向量，而不是输出一个固定向量。</p>
+<p>解码器包含三个子层：<br>
+1、掩蔽自注意力 只读取已生成的译文前缀，不看未来译词<br>
+2、编码器——解码器注意力(交叉注意力)：从原句的编码表示中取当前生成译词需要的信息<br>
+3、基于位置的前馈网络，逐位置变换特征。<br>
+在这三个子层外都配有残差链接跟层规范化。<br>
+“前馈”说的是信息在网络里的流向：从输入一层层往前计算到输出，没有 RNN 那种把前一步状态传回网络、再影响后续计算的循环连接。<br>
+子层外部的流程是：输入x——&gt;计算f(x)——&gt;残差链接f(x) + x ——&gt; 层规范化 ——&gt; 输出<br>
+假设编码器已经把原句变成各位置的表示 (H=(h_1,\ldots,h_n))。解码器每层处理译文前缀时，会经过:</p>
+<div class="code-block"><div class="code-block-bar"><span>text</span><button type="button" class="code-copy" data-action="copy">复制</button></div><pre tabindex="0"><code class="hljs language-text">译文前缀的词向量(已生成译文) + 位置编码
+        ↓
+掩蔽自注意力：读取当前可用的译文前缀(获取已生成译文)
+        ↓
+编码器—解码器注意力：从 H 中读取原句信息
+        ↓
+前馈网络：变换每个位置的特征
+</code></pre></div>
+<p>解码器掩蔽自注意力中，查询Q，键K，值V都来源于译文前缀表示。<br>
+编码器—解码器注意力：Q 来自解码器当前表示；K、V 来自编码器保留的原句各位置表示 (H)。</p>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
 <nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html"><span class="dim">上一篇</span><span>09 现代循环神经网络</span></a><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E9%99%84%E5%8A%A0%E8%8A%9D%E5%A3%AB.md.html"><span class="dim">下一篇</span><span>补充01 附加芝士</span></a></nav>
 </main></body></html>

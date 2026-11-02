@@ -8,12 +8,12 @@
 <meta property="og:url" content="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html"><meta property="og:image" content="https://eksct.github.io/StarYunFanSite/og-image.jpg">
 <meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html">
 <link rel="icon" href="/StarYunFanSite/favicon.ico"><link rel="stylesheet" href="/StarYunFanSite/assets/index-CFGnIcKu.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"09 现代循环神经网络","description":"参考：https://zh-v2.d2l.ai/chapter_recurrent-modern/gru.html 门控循环单元（GRU）： GRU（Gated Recurrent Unit，门控循环","datePublished":"2026-10-10","dateModified":"2026-10-30","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"09 现代循环神经网络","description":"参考：https://zh-v2.d2l.ai/chapter_recurrent-modern/gru.html 门控循环单元（GRU）： GRU（Gated Recurrent Unit，门控循环","datePublished":"2026-10-10","dateModified":"2026-11-02","author":{"@type":"Person","name":"Seiga"},"mainEntityOfPage":"https://eksct.github.io/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md.html"}</script>
 <script>try{var t=localStorage.getItem('site.theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'</script>
 <script defer src="/StarYunFanSite/note-interactions.js"></script></head><body class="standalone">
 <a class="skip-link" href="#article">跳到正文</a><main class="static-note reading-surface">
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></nav>
-<h1>09 现代循环神经网络</h1><p class="static-note-meta">深度学习 · 发布 2026-10-10 · 更新 2026-10-30</p>
+<h1>09 现代循环神经网络</h1><p class="static-note-meta">深度学习 · 发布 2026-10-10 · 更新 2026-11-02</p>
 <a href="/StarYunFanSite/#/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E7%8E%B0%E4%BB%A3%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
 <details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#%E9%97%A8%E6%8E%A7%E5%BE%AA%E7%8E%AF%E5%8D%95%E5%85%83gru">门控循环单元（GRU）：</a></li><li style="padding-inline-start:0rem"><a href="#%E9%95%BF%E7%9F%AD%E6%9C%9F%E8%AE%B0%E5%BF%86%E7%BD%91%E7%BB%9Clstm">长短期记忆网络（LSTM）：</a></li><li style="padding-inline-start:0.7rem"><a href="#%E9%81%97%E5%BF%98%E9%97%A8">遗忘门：</a></li><li style="padding-inline-start:0.7rem"><a href="#%E8%BE%93%E5%85%A5%E9%97%A8">输入门：</a></li><li style="padding-inline-start:0.7rem"><a href="#%E8%BE%93%E5%87%BA%E9%97%A8">输出门：</a></li><li style="padding-inline-start:0.7rem"><a href="#%E5%80%99%E9%80%89%E7%BB%86%E8%83%9E%E8%AE%B0%E5%BF%86">候选细胞记忆：</a></li><li style="padding-inline-start:0.7rem"><a href="#lstm%E7%9A%84%E6%A0%B8%E5%BF%83%E5%85%AC%E5%BC%8F">LSTM的核心公式：</a></li><li style="padding-inline-start:0rem"><a href="#%E6%B7%B1%E5%BA%A6%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C">深度循环神经网络：</a></li><li style="padding-inline-start:0rem"><a href="#%E5%8F%8C%E5%90%91%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C">双向循环神经网络：</a></li><li style="padding-inline-start:0rem"><a href="#%E6%9C%BA%E5%99%A8%E7%BF%BB%E8%AF%91%E4%B8%8E%E6%95%B0%E6%8D%AE%E9%9B%86">机器翻译与数据集</a></li><li style="padding-inline-start:0rem"><a href="#%E7%BC%96%E7%A0%81%E5%99%A8%E8%A7%A3%E7%A0%81%E5%99%A8%E6%9E%B6%E6%9E%84">编码器—解码器架构</a></li><li style="padding-inline-start:0rem"><a href="#%E5%BA%8F%E5%88%97%E5%88%B0%E5%BA%8F%E5%88%97seq2seq">序列到序列(Seq2Seq)</a></li><li style="padding-inline-start:0rem"><a href="#%E6%9D%9F%E6%90%9C%E7%B4%A2%E5%87%8F%E5%B0%91%E5%8F%AA%E7%9C%8B%E7%9C%BC%E5%89%8D%E7%9A%84%E9%97%AE%E9%A2%98">束搜索：减少“只看眼前”的问题</a></li></ul></nav></details>
 <article id="article" tabindex="-1" class="prose"><p>参考：<a href="https://zh-v2.d2l.ai/chapter_recurrent-modern/gru.html" rel="noopener noreferrer">https://zh-v2.d2l.ai/chapter_recurrent-modern/gru.html</a></p>
@@ -26,8 +26,8 @@
 <p>重置门（Reset Gate）：</p>
 <p>决定计算新信息时，应该参考多少旧状态。</p>
 <p>重置门 Rt 是&quot;候选里要不要参考旧状态&quot;的滑块：约等于1时退化成普通RNN，重置门接近 0 时，计算候选隐状态会基本忽略旧状态，相当于只根据当前输入生成候选；但最终保留多少旧状态，还要由更新门决定。</p>
-<p>当Zt约等于1时，当前记忆跟旧记忆的比值约等于单位矩阵(全1矩阵)——单位矩阵的特征值全是 1 —— 连乘一万次还是 1，既不衰减也不爆炸。</p>
-<p>这就是&quot;记忆高速路&quot;：更新门为梯度开了一条近似无损的直通车道。​ 书里那句话正是这个意思——&quot;如果整个子序列所有时间步的更新门都接近 1，那么无论序列多长，序列起始的旧隐状态都能轻易保留并传递到结束&quot;。门要做的，就是保护某几个方向不被指数缩放——GRU 的做法是给这些方向造一条系数恒为 1 的通道。</p>
+<p>当Zt约等于1时，当前记忆跟旧记忆的比值约等于单位矩阵时，旧状态就比较容易沿着这条路径保留，有助于减轻梯度衰减。但更新门不会始终等于1，梯度还会受到门控跟候选状态的计算影响，不能保证梯度经过任意个时间步后还保持不变。</p>
+<p>这就是&quot;记忆高速路&quot;：更新门为梯度开了一条近似无损的直通车道。​ 书里那句话正是这个意思——&quot;如果整个子序列所有时间步的更新门都接近 1，那么无论序列多长，序列起始的旧隐状态都能轻易保留并传递到结束&quot;。门要做的，就是保护某几个方向不被指数缩放——GRU 的做法是给这些方向造一条系数近乎为 1 的通道。</p>
 <p>GRU如何产生新的隐藏状态？——根据当前输入和旧状态计算候选隐藏状态，接着把候选隐藏跟旧隐藏状态组合成为新的隐藏状态。</p>
 <p>GRU 是缓解梯度消失，不是保证梯度永远不会消失。 其他计算路径仍然可能产生梯度消失或梯度爆炸。</p>
 <p>重置门有助于捕获短期依赖关系；更新门有助于捕获长期依赖关系</p>
@@ -88,15 +88,16 @@ h_t = O_t ⊙ tanh(C_t)
 &lt;pad&gt; 用来补齐长度；过长的序列则截断。</p>
 <h2 id="编码器解码器架构">编码器—解码器架构</h2>
 <p>编码器：<br>
-将长度可变的输入序列编码成固定的状态编码。编码器会把原句中的每个位置变为一个向量表达，可以用作“注意力机制”中的键和值。<br>
+将长度可变的输入序列编码成固定的状态编码。<br>
+在后续，编码器会把原句中的每个位置变为一个向量表达，可以用作“注意力机制”中的键和值。<br>
 解码器：<br>
 将固定的状态编码解码成长度可变的输出序列<br>
 解码器根据编码状态以及当前步的输入去生成直到译文结束<br>
-解码器跟编码器需要使用的神经网络不一定一样，因为是不同的工作内容。</p>
+解码器跟编码器需要使用的神经网络不一定一样，因为是不同的工作内容。<br>
+<strong>编码器—解码器是一种通用架构：</strong>：编码器把输入序列变成解码器可使用的编码状态，解码器结合该状态和当前步输入，逐步产生输出序列。</p>
 <h2 id="序列到序列seq2seq">序列到序列(Seq2Seq)</h2>
 <p>用两个RNN翻译序列<br>
-编码器逐词读入原句，更新隐藏状态，读完原句后，整句的上下文都被编码到编码器的隐藏状态中<br>
-解码器根据上下文和已经输出的译文预测下一个词。<br>
+<strong>本章介绍的 RNN Seq2Seq：</strong>：编码器逐词读入原句，更新隐藏状态，读完原句后，整句的上下文都被编码到编码器的隐藏状态中，解码器根据上下文和已经输出的译文预测下一个词。<br>
 [<br>
 P(y_{t'} \mid y_1,\ldots,y_{t'-1},c)<br>
 ]<br>
@@ -105,8 +106,9 @@ P(y_{t'} \mid y_1,\ldots,y_{t'-1},c)<br>
 不过教材中的这种具体实现需要要求两者层数与隐藏单元数相同。<br>
 训练时，解码器的输入会右移一格。训练时，会把每一步正确的前一个词喂给解码器，进行强制教学。<br>
 生成译文时，解码器收到&lt;bos&gt;,之后把自己当前步的预测词作为下一步的输入，生成&lt;eos&gt;时为止。<br>
-为什么训练时要屏蔽 &lt;pad&gt;？一个批次里译文长度可能不同，<s>所以短句后面会补充&lt;pad&gt;进行对齐。</s> &lt;pda&gt;并不表示译文词和原文词之间的对应关系。它只是补充长度方便一起计算。<br>
-因为&lt;pad&gt;标签只起到占位作用，不是拿来预测的，所以训练中不应该作为输入一并训练，会导致模型学习这些占位，影响训练目标。</p>
+为什么训练时要屏蔽 &lt;pad&gt;？一个批次里译文长度可能不同，<s>所以短句后面会补充&lt;pad&gt;进行对齐。</s> &lt;pad&gt;并不表示译文词和原文词之间的对应关系。它只是补充长度方便一起计算。<br>
+&lt;pad&gt;标签只起到占位作用，不是拿来预测的。<br>
+训练时，解码器的输入是右移后的目标序列，因此填充部分可能也会包含 &lt;pad&gt;。计算损失时，应屏蔽目标序列中 &lt;pad&gt; 对应的位置，使这些位置不参与损失计算。如果这些位置参与损失计算，会导致模型学习这些占位，影响训练目标。</p>
 <h2 id="束搜索减少只看眼前的问题">束搜索：减少“只看眼前”的问题</h2>
 <p>教材中提到三种搜索方法，分别是：<br>
 贪心搜索：<br>

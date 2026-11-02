@@ -15,7 +15,7 @@
 <header class="static-note-header"><nav aria-label="面包屑"><a href="/StarYunFanSite/">Seiga</a> / <a href="/StarYunFanSite/#/notes?c=%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0">深度学习</a></nav>
 <h1>补充01 附加芝士</h1><p class="static-note-meta">深度学习 · 发布 2026-09-28 · 更新 2026-10-28</p>
 <a href="/StarYunFanSite/#/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E9%99%84%E5%8A%A0%E8%8A%9D%E5%A3%AB.md">在站内打开</a><div class="static-tools"><label>外观 <select data-theme-select aria-label="外观主题"><option value="system">自动</option><option value="light">浅色</option><option value="dark">深色</option></select></label><button type="button" class="btn" data-action="print">打印 / 保存 PDF</button></div></header>
-<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#svm%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA">SVM（支持向量机）</a></li><li style="padding-inline-start:0rem"><a href="#layernorm%E5%B1%82%E5%BD%92%E4%B8%80%E5%8C%96">LayerNorm（层归一化）：</a></li><li style="padding-inline-start:0rem"><a href="#rmsnorm-">RMSNorm ：</a></li><li style="padding-inline-start:0rem"><a href="#llama">LLaMA：</a></li><li style="padding-inline-start:0rem"><a href="#%E5%9D%87%E5%80%BC">均值：</a></li><li style="padding-inline-start:0rem"><a href="#%E6%96%B9%E5%B7%AE">方差:</a></li><li style="padding-inline-start:0rem"><a href="#%E6%A0%87%E5%87%86%E5%B7%AE">标准差：</a></li><li style="padding-inline-start:0rem"><a href="#%E6%A0%87%E5%87%86%E5%8C%96">标准化：</a></li><li style="padding-inline-start:0rem"><a href="#%E5%88%A9%E6%99%AE%E5%B8%8C%E8%8C%A8%E8%BF%9E%E7%BB%AD">利普希茨连续：</a></li><li style="padding-inline-start:0rem"><a href="#%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5">雅可比矩阵:</a></li></ul></nav></details>
+<details class="static-toc"><summary>文章大纲</summary><nav aria-label="文章大纲"><ul><li style="padding-inline-start:0rem"><a href="#svm%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA">SVM（支持向量机）</a></li><li style="padding-inline-start:0rem"><a href="#layernorm%E5%B1%82%E5%BD%92%E4%B8%80%E5%8C%96">LayerNorm（层归一化）：</a></li><li style="padding-inline-start:0rem"><a href="#rmsnorm-">RMSNorm ：</a></li><li style="padding-inline-start:0rem"><a href="#llama">LLaMA：</a></li><li style="padding-inline-start:0rem"><a href="#%E5%9D%87%E5%80%BC">均值：</a></li><li style="padding-inline-start:0rem"><a href="#%E6%96%B9%E5%B7%AE">方差:</a></li><li style="padding-inline-start:0rem"><a href="#%E6%A0%87%E5%87%86%E5%B7%AE">标准差：</a></li><li style="padding-inline-start:0rem"><a href="#%E6%A0%87%E5%87%86%E5%8C%96">标准化：</a></li><li style="padding-inline-start:0rem"><a href="#%E5%88%A9%E6%99%AE%E5%B8%8C%E8%8C%A8%E8%BF%9E%E7%BB%AD">利普希茨连续：</a></li><li style="padding-inline-start:0rem"><a href="#%E9%9B%85%E5%8F%AF%E6%AF%94%E7%9F%A9%E9%98%B5">雅可比矩阵:</a></li><li style="padding-inline-start:0rem"><a href="#%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%A8%A1%E5%9E%8Bhmm">隐马尔可夫模型（HMM)：</a></li></ul></nav></details>
 <article id="article" tabindex="-1" class="prose"><h2 id="svm支持向量机">SVM（支持向量机）</h2>
 <p>SVM（Support Vector Machine）是一种常见的机器学习方法，先把它理解成一个<strong>分类器</strong>。比如根据水果的重量、甜度判断它是苹果还是橘子：每个水果对应图上的一个点，SVM 要在两类点之间找到一条分界线，新水果落在哪一边，就判断为哪一类。特征更多时，这条“分界线”就叫超平面。</p>
 <p><strong>最大间隔：</strong> 能把两类分开的线可能很多，SVM 不只希望分对，还希望分界线离两边最近的样本尽量远。就像在两类点之间留一条尽可能宽的走廊，让边界不至于紧贴某些样本。</p>
@@ -78,6 +78,20 @@
 <h2 id="雅可比矩阵">雅可比矩阵:</h2>
 <p>导数&quot;的高维版本</p>
 <p>一维函数求导得到一个数（斜率）；多输入多输出的函数求导得到一个矩阵——这个矩阵就叫雅可比矩阵。</p>
+<h2 id="隐马尔可夫模型hmm">隐马尔可夫模型（HMM)：</h2>
+<p>HMM是一种序列模型，只能看到输出，看不到内部状态。<br>
+模型假设两件事：（我们规定这个概率模型怎么描述序列）<br>
+当前隐藏状态会影响当前观测到什么：(P(x_t \mid h_t))——。例如，若当前状态是“名词”，下一个状态是“动词”的概率可能比较高。<br>
+当前隐藏状态会影响下一个隐藏状态：(P(h_{t+1} \mid h_t))——例如，若隐藏状态是“名词”，观测到某些词的概率可能比较高。<br>
+两个说的是不同的时间点，一个是当前隐藏状态产生当前观测的概率，即当前状态“名词”，则可能预测“小狗”,“苹果”等名词<br>
+一个是当前隐藏状态转到下个隐藏状态的概率，即当前状态“名词”，可能下一位置转到“动词”。<br>
+“马尔可夫”指状态转移用当前状态来描述下一个状态；隐则是指不能直接观察到，而是从序列推断出来。<br>
+在 HMM 中，前向递归计算的不是随便一种向量，而是一个具体的概率量。比如：<br>
+[<br>
+\alpha_t(h_t)=P(x_1,\ldots,x_t,\ h_t)<br>
+]<br>
+“到位置T为止，已经观察到的词，并且当前位置的隐状态是ht的概率”<br>
+在HMM中，前向递归计算是一个具体概率量，并且计算它时，需要考虑所有可能性的前一个状态，并按照概率加总。也就是该公式里面的值，都是可被解释的概率，里面的乘法和求和来自概率规则。</p>
 </article><p id="interaction-status" role="status" aria-live="polite"></p>
 <nav class="static-siblings" aria-label="同目录文章"><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6.md.html"><span class="dim">上一篇</span><span>10 注意力机制</span></a><a href="/StarYunFanSite/notes/major/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/How%20Does%20Batch%20Normalization%20Help%20Optimization.md.html"><span class="dim">下一篇</span><span>补充02 How Does Batch Normalization Help Optimization</span></a></nav>
 </main></body></html>
